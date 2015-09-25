@@ -1,0 +1,107 @@
+/*--------------------------Custom CSS-------------------------*/
+h1,
+h2 {
+  font-family: [[setting:headingfont]] !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+
+p,
+input[type="text"],
+input[type="url"],
+textarea,
+input[type="submit"],
+input.srch-fld,
+select, input[type="file"],
+html{
+    font-family:  [[setting:bodyfont]] !important;
+    font-style: normal;
+    font-weight: 400;
+}
+body {
+    min-height: 700px;
+    max-width: 2600px;
+    margin: 0 auto !important;
+    /*font-weight: normal;*/
+    font-family:  [[setting:bodyfont]] !important;
+    font-style: normal;
+    font-weight: 400;
+}
+
+/* Custom CSS Settings
+-------------------------*/
+[[setting:customcss]]
+[[setting:fontfilesheading]]
+[[setting:fontfilesbody]]
+
+div.logo {
+    background: url([[setting:logo]]) no-repeat 0 0;
+    display: block;
+    float: left;
+    height: 75px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.dir-rtl div.logo {
+    background: url([[setting:logo]]) no-repeat 100% 0;
+    display: block;
+    float: right;
+}
+.alert-info {
+	background-color: #f5f5dc !important;
+}
+
+/* Custom CSS Settings
+-------------------------*/
+/* [[setting:customcss]] */
+
+.adminsearchform input[type="submit"], input[type="submit"], input#id_submitbutton, #searchform_button, .adminsearchform input[type="submit"], .btn-2, .login-information,.usermenu .menubar a, .stay-connected i, .categories-item-cont, .av-course-item-cont, .bx-wrapper .bx-pager.bx-default-pager a.active, .btn-1, .header3.main-menu{
+    background: [[setting:maincolor]] !important;
+}
+
+.block .header h2:after, .btn-1 {
+    border: solid 1px [[setting:maincolor]] !important;
+}
+
+#region-main a,
+.footer a,
+.block_news_items a,
+.searchform a,
+.breadcrumb a,
+.logininfo a,
+.block .content h3 a,
+.purgecaches a,
+.comment-area a,
+.inline-list a,
+.myprofileitem.email a,
+.block_section_links a,
+.minicalendar.calendartable a,
+.block_private_files a,
+.block_admin_bookmarks a,
+.block_messages a,
+.block_calendar_upcoming .footer a,
+.block_news_items a,
+.searchform a,
+.breadcrumb a,
+.logininfo a,
+.block .content h3 a, .loginbox a, .h-large span, .av-courses h2, .coursebox>.info>.coursename a, .block .header h2, #region-main h2, .ftoggler {
+    color: [[setting:maincolor]] !important;
+}
+div#page-navbar {
+    border-bottom: 13px solid [[setting:maincolor]] !important;
+}
+#block-region-side-pre {
+    border-right: 1px solid [[setting:maincolor]] !important;
+}
+#block-region-side-post {
+    border-left: 1px solid [[setting:maincolor]] !important;
+}
+#searchform_button {
+    border-color: [[setting:maincolor]] !important;
+}

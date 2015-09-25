@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<libraries>
+    <library>
+        <location>js/bootstrap.min.js</location>
+        <name>bootstrap min</name>
+        <license>GPL</license>
+        <licenseversion>2.0</licenseversion>
+    </library>
+    <library>
+        <location>js/jquery-1.11.1.min.js</location>
+        <name>jQuery v1.11.1</name>
+        <version>v1.11.1</version>
+        <license>MIT</license>
+        <licenseversion>2.0</licenseversion>
+    </library>
+    <library>
+        <location>js/jquery.bxslider.min.js</location>
+        <name>BxSlider</name>
+        <version>v4.1.2</version>
+        <license>MIT</license>
+        <licenseversion>2.0</licenseversion>
+    </library>
+    <library>
+        <location>js/jquery.scroll.js</location>
+        <name>scroll</name>
+        <version></version>
+        <license>MIT</license>
+        <licenseversion>2.0</licenseversion>
+    </library>
+    <library>
+        <location>js/engine.js</location>
+        <name>Script for Customized sliders.</name>
+        <version>2015092100</version>
+        <license>GPL</license>
+        <licenseversion>3.0</licenseversion>
+    </library>
+    <library>
+        <location>js/backtop.js</location>
+        <name>Script for scroll home page.</name>
+        <version>2015092100</version>
+        <license>GPL</license>
+        <licenseversion>3.0</licenseversion>
+    </library>
+    <library>
+        <location>css/styles.css</location>
+        <name>style sheet for custom styling.</name>
+        <version>2015092100</version>
+        <license>GPL</license>
+        <licenseversion>3.0</licenseversion>
+    </library>
+</libraries>
