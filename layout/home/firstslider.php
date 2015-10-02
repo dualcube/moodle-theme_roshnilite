@@ -67,7 +67,7 @@ if (!empty($PAGE->theme->setting_file_url('slideimage6', 'slideimage6'))) {
 ?>
 	<li class="content-wrap">
 		<img src="<?php echo $sliderimage1;?>" alt="">
-		<div class="top-slide-content">
+		<div class="top-slide-content"><div class="customslider">
 			<?php echo $html->slidertext1;?>
 <?php
         if (!empty($html->sliderbuttontext1)) {
@@ -76,7 +76,7 @@ if (!empty($PAGE->theme->setting_file_url('slideimage6', 'slideimage6'))) {
 <?php
         }
 ?>
-		</div>
+		</div></div>
 	</li>
 <?php
     }
@@ -84,7 +84,7 @@ if (!empty($PAGE->theme->setting_file_url('slideimage6', 'slideimage6'))) {
 ?>
 	<li class="content-wrap">
 		<img src="<?php echo $sliderimage2;?>" alt="">
-		<div class="top-slide-content">
+		<div class="top-slide-content"><div class="customslider">
 			<?php echo $html->slidertext2;?>
 <?php
         if (!empty($html->sliderbuttontext2)) {
@@ -93,7 +93,7 @@ if (!empty($PAGE->theme->setting_file_url('slideimage6', 'slideimage6'))) {
 <?php
         }
 ?>
-		</div>
+		</div></div>
 	</li>
 <?php
     }

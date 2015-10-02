@@ -1472,6 +1472,40 @@ div#page-navbar {
 	padding: 41px 0 0;
 }
 
+/*doc view*/
+
+.content-only #region-main-box, .content-only #region-main {
+    margin: 0;
+    padding: 0;
+    width: 100%!important;
+}
+
+.content-only #region-main-box .courseimage, .content-only #region-main .courseimage {
+    margin: 0;
+}
+
+.empty-region-side-post #region-main-box.span9,
+.empty-region-side-pre #region-main.span9 {
+    width: 100%; 
+	margin:0;
+	padding:0;
+}
+
+.empty-region-side-post #region-main-box.span9 .courseimage,
+.empty-region-side-pre #region-main.span9 .courseimage {
+	margin: 0;
+}
+
+.empty-region-side-pre #region-main.span9 .course_category_tree {
+	padding-left:0;
+}
+
+body.has_dock #page {
+    padding-left: 0;
+}
+
+/*doc view*/
+
 #block-region-side-pre {
 	margin: 0;
 	padding: 41px 0 0;

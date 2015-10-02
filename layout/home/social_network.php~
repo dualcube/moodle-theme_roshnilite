@@ -35,32 +35,36 @@ if (!empty($html->socialfontawesomeicon1) || !empty($html->socialfontawesomeicon
 <div class="container">
 <h2 class="header-b-2"><?php echo $html->socialheading; ?></h2>
 <div class="social-links">
-<?php if ( !empty($html->socialfontawesomeicon1) ) { ?>
-<a href="<?php echo $html->socialicon1;?>"><?php echo $html->socialfontawesomeicon1;?></a>
-<?php 
-}
+<?php
+    if ( !empty($html->socialfontawesomeicon1) ) {
 ?>
-<?php if ( !empty($html->socialfontawesomeicon2)) { ?>
+<a href="<?php echo $html->socialicon1;?>"><?php echo $html->socialfontawesomeicon1;?></a>
+<?php
+    }
+?>
+<?php
+    if ( !empty($html->socialfontawesomeicon2)) {
+?>
 <a href="<?php echo $html->socialicon2;?>"><?php echo $html->socialfontawesomeicon2;?></a>
 <?php
-}
+    }
 ?>
-<?php if ( !empty($html->socialfontawesomeicon3)) { ?>
+<?php
+    if ( !empty($html->socialfontawesomeicon3)) {
+?>
 <a href="<?php echo $html->socialicon3;?>"><?php echo $html->socialfontawesomeicon3;?></a>
 <?php
-}
+    }
 ?>
-<?php if ( !empty($html->socialfontawesomeicon4)) { ?>
+<?php
+    if ( !empty($html->socialfontawesomeicon4)) {
+?>
 <a href="<?php echo $html->socialicon4;?>"><?php echo $html->socialfontawesomeicon4;?></a>
-<?php 
-}
+<?php
+    }
 ?>
 </div>
 </div><!-- END of .container -->
 </div><!-- END of .stay-connected -->
 <?php 
 }
-?>
-
-
-

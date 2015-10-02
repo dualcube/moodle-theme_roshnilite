@@ -475,7 +475,7 @@ if (is_siteadmin()) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
     if (get_config('theme_roshnilite', 'fontselect') === "2") {
-        if (floatval($CFG->version) >= 2014111005.01) { // 2.8.5+ (Build: 20150313) which has MDL-49074 integrated into it.
+        if (floatval($CFG->version) >= 2014111005.01) {
             $woff2 = true;
         } else {
             $woff2 = false;

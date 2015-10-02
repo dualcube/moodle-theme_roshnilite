@@ -48,4 +48,11 @@
         <license>GPL</license>
         <licenseversion>3.0</licenseversion>
     </library>
+    <library>
+        <location>css/fonts</location>
+        <name>Fonts</name>
+        <version>2015092100</version>
+        <license>SIL Open Font License</license>
+        <licenseversion>1.1</licenseversion>
+    </library>
 </libraries>
