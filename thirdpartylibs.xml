@@ -55,4 +55,46 @@
         <license>SIL Open Font License</license>
         <licenseversion>1.1</licenseversion>
     </library>
+    <library>
+        <location>css/bootstrap-responsive.css</location>
+        <name>Bootstrap Responsive</name>
+        <version>2.3.2</version>
+        <license>Apache</license>
+        <licenseversion>2.0</licenseversion>
+    </library>
+    <library>
+        <location>css/bootstrap-responsive.min.css</location>
+        <name>Bootstrap Responsive</name>
+        <version>2.3.2</version>
+        <license>Apache</license>
+        <licenseversion>2.0</licenseversion>
+    </library>
+    <library>
+        <location>css/bootstrap.css</location>
+        <name>Bootstrap</name>
+        <version>2.3.2</version>
+        <license>Apache</license>
+        <licenseversion>2.0</licenseversion>
+    </library>
+    <library>
+        <location>css/bootstrap.min.css</location>
+        <name>Bootstrap</name>
+        <version>2.3.2</version>
+        <license>Apache</license>
+        <licenseversion>2.0</licenseversion>
+    </library>
+    <library>
+        <location>css/jquery.bxslider.css</location>
+        <name>BxSlider</name>
+        <version>4.1.2</version>
+        <license>WTFPL</license>
+        <licenseversion>2.0</licenseversion>
+    </library>
+    <library>
+        <location>style/custom.css</location>
+        <name>Custom Style Sheet for font change.</name>
+        <version>2015092100</version>
+        <license>GPL</license>
+        <licenseversion>3.0</licenseversion>
+    </library>
 </libraries>
