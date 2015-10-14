@@ -72,8 +72,7 @@ if (is_siteadmin()) {
         $name = 'theme_roshnilite/slidertext'.$slidecounts;
         $title = get_string('slidertext', 'theme_roshnilite').$slidecounts;
         $description = get_string('slidertextdesc', 'theme_roshnilite').$slidecounts;
-        $default = '<h2>THE TASK OF THE</h2><h1>MODERN EDUCATOR</h1>
-        <h3 class="header-b">IS NOT TO CUT DOWN JUNGLES, BUT TO IRRIGATE DESERTS</h3>';
+        $default = get_string('slidertextdefault', 'theme_roshnilite');
         $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
         $setting->set_updatedcallback('theme_reset_all_caches');
         $temp->add($setting);
@@ -81,7 +80,7 @@ if (is_siteadmin()) {
         $name = 'theme_roshnilite/sliderbuttontext'.$slidecounts;
         $title = get_string('sliderbuttontext', 'theme_roshnilite').$slidecounts;
         $description = get_string('sliderbuttontextdesc', 'theme_roshnilite');
-        $default = 'GET STARTED';
+        $default = get_string('sliderbuttontextdefault', 'theme_roshnilite');
         $setting = new admin_setting_configtext($name, $title, $description, $default);
         $setting->set_updatedcallback('theme_reset_all_caches');
         $temp->add($setting);
@@ -89,7 +88,7 @@ if (is_siteadmin()) {
         $name = 'theme_roshnilite/sliderurl'.$slidecounts;
         $title = get_string('sliderurl', 'theme_roshnilite').$slidecounts;
         $description = get_string('sliderurldesc', 'theme_roshnilite').$slidecounts;
-        $default = '#';
+        $default = get_string('sliderurldefault', 'theme_roshnilite');
         $setting = new admin_setting_configtext($name, $title, $description, $default);
         $setting->set_updatedcallback('theme_reset_all_caches');
         $temp->add($setting);
@@ -98,7 +97,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsiteheading';
     $title = get_string('aboutsiteheading', 'theme_roshnilite');
     $description = get_string('aboutsiteheadingdesc', 'theme_roshnilite');
-    $default = 'NOBODY DOES IT LIKE US';
+    $default = get_string('aboutsiteheadingdefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -106,7 +105,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsitesubheading';
     $title = get_string('aboutsitesubheading', 'theme_roshnilite');
     $description = get_string('aboutsitesubheadingdesc', 'theme_roshnilite');
-    $default = 'Put In a Nice Little Piece Of Text That Describes Your USP';
+    $default = get_string('aboutsitesubheadingdefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -121,7 +120,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsitename1';
     $title = get_string('aboutsitename', 'theme_roshnilite');
     $description = get_string('faboutsitenamedesc', 'theme_roshnilite');
-    $default = 'Our Blog';
+    $default = get_string('aboutsitename1default', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -129,8 +128,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsitetext1';
     $title = get_string('aboutsitetext', 'theme_roshnilite');
     $description = get_string('faboutsitetextdesc', 'theme_roshnilite');
-    $default = "There's only one way to find out what life can be like at
-    University of Utopia: dip into some of our students' uncut and uncensored blogs.";
+    $default = get_string('aboutsitetext1default', 'theme_roshnilite');
     $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -138,7 +136,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsiteurl1';
     $title = get_string('aboutsiteurl', 'theme_roshnilite');
     $description = get_string('faboutsiteurldesc', 'theme_roshnilite');
-    $default = '#';
+    $default = get_string('sliderurldefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -155,7 +153,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsitename2';
     $title = get_string('aboutsitename', 'theme_roshnilite');
     $description = get_string('saboutsitenamedesc', 'theme_roshnilite');
-    $default = 'Courses';
+    $default = get_string('aboutsitename2default', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -163,8 +161,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsitetext2';
     $title = get_string('aboutsitetext', 'theme_roshnilite');
     $description = get_string('saboutsitetextdesc', 'theme_roshnilite');
-    $default = 'You can rename the content box names from the admin panel,
-    and then add nifty descriptions for all the content boxes.';
+    $default = get_string('aboutsitetext2default', 'theme_roshnilite');
     $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -172,7 +169,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsiteurl2';
     $title = get_string('aboutsiteurl', 'theme_roshnilite');
     $description = get_string('saboutsiteurldesc', 'theme_roshnilite');
-    $default = '#';
+    $default = get_string('sliderurldefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -189,7 +186,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsitename3';
     $title = get_string('aboutsitename', 'theme_roshnilite');
     $description = get_string('taboutsitenamedesc', 'theme_roshnilite');
-    $default = 'Latest News';
+    $default = get_string('aboutsitename3default', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -197,8 +194,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsitetext3';
     $title = get_string('aboutsitetext', 'theme_roshnilite');
     $description = get_string('taboutsitetextdesc', 'theme_roshnilite');
-    $default = 'Wondering what is happening at you? A lot.
-    And reading through this section will keep you updated about all the cutting edge research we are doing here!';
+    $default = get_string('aboutsitetext3default', 'theme_roshnilite');
     $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -206,7 +202,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsiteurl3';
     $title = get_string('aboutsiteurl', 'theme_roshnilite');
     $description = get_string('taboutsiteurldesc', 'theme_roshnilite');
-    $default = '#';
+    $default = get_string('sliderurldefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -224,7 +220,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsitename4';
     $title = get_string('aboutsitename', 'theme_roshnilite');
     $description = get_string('fraboutsitenamedesc', 'theme_roshnilite');
-    $default = 'Upcoming Events';
+    $default = get_string('aboutsitename4default', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -232,8 +228,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsitetext4';
     $title = get_string('aboutsitetext', 'theme_roshnilite');
     $description = get_string('fraboutsitetextdesc', 'theme_roshnilite');
-    $default = "All these content boxes are completely editable.
-    You can change the hover colors, icons, names and the description text. Cool, isn't it?";
+    $default = get_string('fraboutsitetextdescdefault', 'theme_roshnilite');
     $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -241,7 +236,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsiteurl4';
     $title = get_string('aboutsiteurl', 'theme_roshnilite');
     $description = get_string('fraboutsiteurldesc', 'theme_roshnilite');
-    $default = '#';
+    $default = get_string('sliderurldefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -259,7 +254,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/masonryheading';
     $title = get_string('masonryheading', 'theme_roshnilite');
     $description = get_string('masonryheadingdesc', 'theme_roshnilite');
-    $default = 'OUR CATEGORY';
+    $default = get_string('masonryheadingdefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -267,7 +262,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/masonrysubheading';
     $title = get_string('masonrysubheading', 'theme_roshnilite');
     $description = get_string('masonrysubheadingdesc', 'theme_roshnilite');
-    $default = 'You Can Showcase All Your Categories In This Beautiful Masonry Block';
+    $default = get_string('masonrysubheadingdefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -315,7 +310,7 @@ if (is_siteadmin()) {
         $name = 'theme_roshnilite/masonryrurl'.$masonrycounts;
         $title = get_string('masonryurl', 'theme_roshnilite').$masonrycounts;
         $description = get_string('masonryurldesc', 'theme_roshnilite').$masonrycounts;
-        $default = '#';
+        $default = get_string('sliderurldefault', 'theme_roshnilite');
         $setting = new admin_setting_configtext($name, $title, $description, $default);
         $setting->set_updatedcallback('theme_reset_all_caches');
         $temp->add($setting);
@@ -332,7 +327,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/address';
     $title = get_string('address', 'theme_roshnilite');
     $description = get_string('addressdesc', 'theme_roshnilite');
-    $default = 'Kolkata, India';
+    $default = get_string('addressdefault', 'theme_roshnilite');
     $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -348,7 +343,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/email';
     $title = get_string('email', 'theme_roshnilite');
     $description = get_string('emaildesc', 'theme_roshnilite');
-    $default = 'admin@dualcube.com';
+    $default = get_string('emaildefault', 'theme_roshnilite');
     $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -365,7 +360,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/phone';
     $title = get_string('phone', 'theme_roshnilite');
     $description = get_string('phonedesc', 'theme_roshnilite');
-    $default = '+91 33 64578322';
+    $default = get_string('phonedefault', 'theme_roshnilite');
     $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -373,7 +368,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/socialheading';
     $title = get_string('socialheading', 'theme_roshnilite');
     $description = get_string('socialheadingdesc', 'theme_roshnilite');
-    $default = 'STAY CONNECTED';
+    $default = get_string('socialheadingdefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -389,7 +384,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/socialicon1';
     $title = get_string('socialicon', 'theme_roshnilite');
     $description = get_string('socialicondesc', 'theme_roshnilite');
-    $default = 'javascript:void(0);';
+    $default = get_string('sliderurldefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -405,7 +400,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/socialicon2';
     $title = get_string('socialicon', 'theme_roshnilite');
     $description = get_string('socialicondesc', 'theme_roshnilite');
-    $default = 'javascript:void(0);';
+    $default = get_string('sliderurldefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -421,7 +416,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/socialicon3';
     $title = get_string('socialicon', 'theme_roshnilite');
     $description = get_string('socialicondesc', 'theme_roshnilite');
-    $default = 'socialicon';
+    $default = get_string('sliderurldefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -437,7 +432,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/socialicon4';
     $title = get_string('socialicon', 'theme_roshnilite');
     $description = get_string('socialicondesc', 'theme_roshnilite');
-    $default = 'javascript:void(0);';
+    $default = get_string('sliderurldefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -462,7 +457,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/fontnameheading';
     $title = get_string('fontnameheading', 'theme_roshnilite');
     $description = get_string('fontnameheadingdesc', 'theme_roshnilite');
-    $default = 'Raleway';
+    $default = get_string('fontnamedefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
@@ -470,7 +465,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/fontnamebody';
     $title = get_string('fontnamebody', 'theme_roshnilite');
     $description = get_string('fontnamebodydesc', 'theme_roshnilite');
-    $default = 'Raleway';
+    $default = get_string('fontnamedefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);

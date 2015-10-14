@@ -28,7 +28,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die;
-$plugin->version   = 2015092100;
+$plugin->version   = 2015092101;
 $plugin->component = 'theme_roshnilite';
 $plugin->dependencies = array(
     'theme_bootstrapbase'  => 2014051200,

@@ -92,15 +92,15 @@ $string['fontfilewoffbody'] = 'Body WOFF font file';
 $string['fontfilewofftwobody'] = 'Body WOFF2 font file';
 $string['fontfileeotbody'] = 'Body EOT font file';
 $string['fontfilesvgbody'] = 'Body SVG font file';
-$string['fontselectdesc'] = 'Font Select Desc';
+$string['fontselectdesc'] = 'You may choose from the ‘Standard’ fonts or add your customised fonts by selecting ‘Custom’ font.';
 $string['fonttypestandard'] = 'Font Type Standard';
 $string['fonttypecustom'] = 'Font Type Custom';
 $string['fontselect'] = 'Select Font';
 
 $string['fontnameheading'] = 'Choose Font Name Heading';
-$string['fontnameheadingdesc'] = 'Fontname Headingdesc';
+$string['fontnameheadingdesc'] = 'You may add the font name for the headings in your site i.e. site headings will be displayed in this font.';
 $string['fontnamebody'] = 'Choose Font Name Body';
-$string['fontnamebodydesc'] = 'Fontname Body Desc';
+$string['fontnamebodydesc'] = 'You may add the font name for the body of your site  i.e. the body of the site will be displayed in this font.';
 
 $string['customdesc'] = 'Custom Desc';
 
@@ -213,3 +213,25 @@ $string['masonrysubheadingdesc'] = '';
 
 $string['socialheading'] = 'Enter social heading';
 $string['socialheadingdesc'] = '';
+
+/* frontpage strings */
+$string['slidertextdefault'] = '<h2>THE TASK OF THE</h2><h1>MODERN EDUCATOR</h1><h3 class="header-b">IS NOT TO CUT DOWN JUNGLES, BUT TO IRRIGATE DESERTS</h3>';
+$string['sliderbuttontextdefault'] = 'GET STARTED';
+$string['sliderurldefault'] = 'javascript:void(0);';
+$string['aboutsiteheadingdefault'] = 'NOBODY DOES IT LIKE US';
+$string['aboutsitesubheadingdefault'] = 'Put In a Nice Little Piece Of Text That Describes Your USP';
+$string['aboutsitename1default'] = 'Our Blog';
+$string['aboutsitetext1default'] = "There's only one way to find out what life can be like at University of Utopia: dip into some of our students' uncut and uncensored blogs.";
+$string['aboutsitename2default'] = 'Courses';
+$string['aboutsitetext2default'] = 'You can rename the content box names from the admin panel, and then add nifty descriptions for all the content boxes.';
+$string['aboutsitename3default'] = 'Latest News';
+$string['aboutsitetext3default'] = 'Wondering what is happening at you? A lot. And reading through this section will keep you updated about all the cutting edge research we are doing here!';
+$string['aboutsitename4default'] = 'Upcoming Events';
+$string['fraboutsitetextdescdefault'] = "All these content boxes are completely editable. You can change the hover colors, icons, names and the description text. Cool, isn't it?";
+$string['masonryheadingdefault'] = 'OUR CATEGORY';
+$string['masonrysubheadingdefault'] = 'You Can Showcase All Your Categories In This Beautiful Masonry Block';
+$string['addressdefault'] = 'Kolkata, India';
+$string['emaildefault'] = 'admin@dualcube.com';
+$string['phonedefault'] = '+91 33 64578322';
+$string['socialheadingdefault'] = 'STAY CONNECTED';
+$string['fontnamedefault'] = 'Raleway';
