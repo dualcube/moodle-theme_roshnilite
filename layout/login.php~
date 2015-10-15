@@ -31,7 +31,7 @@
 
 $html = theme_roshnilite_get_html_for_settings($OUTPUT, $PAGE);
 echo $OUTPUT->doctype();
-$PAGE->requires->css('/theme/roshnilite/css/styles.css');
+$PAGE->requires->css('/theme/'.$CFG->theme.'/css/styles.css');
 ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 	<head>
@@ -42,11 +42,11 @@ $PAGE->requires->css('/theme/roshnilite/css/styles.css');
 		<?php echo $OUTPUT->standard_head_html() ?>
 		<link type="image/x-icon" rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>">
 		<?php 
-            $PAGE->requires->js('/theme/roshnilite/js/jquery-1.11.1.min.js', true);
-            $PAGE->requires->js('/theme/roshnilite/js/bootstrap.min.js', true);
-            $PAGE->requires->js('/theme/roshnilite/js/jquery.bxslider.min.js', true);
-            $PAGE->requires->js('/theme/roshnilite/js/jquery.scroll.js', true);
-            $PAGE->requires->js('/theme/roshnilite/js/engine.js', true);
+            $PAGE->requires->js('/theme/'.$CFG->theme.'/js/jquery-1.11.1.min.js', true);
+            $PAGE->requires->js('/theme/'.$CFG->theme.'/js/bootstrap.min.js', true);
+            $PAGE->requires->js('/theme/'.$CFG->theme.'/js/jquery.bxslider.min.js', true);
+            $PAGE->requires->js('/theme/'.$CFG->theme.'/js/jquery.scroll.js', true);
+            $PAGE->requires->js('/theme/'.$CFG->theme.'/js/engine.js', true);
         ?>
 	</head>
 <body <?php echo $OUTPUT->body_attributes(); ?>>

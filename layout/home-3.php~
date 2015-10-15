@@ -153,17 +153,17 @@ echo $OUTPUT->doctype()
 }
             ?>
             <?php
-                require($CFG->dirroot.'/theme/roshnilite/layout/home/firstslider.php');
+                require($CFG->dirroot.'/theme/'.$CFG->theme.'/layout/home/firstslider.php');
             ?>
 		</header><!-- END of header -->
 
 		<div class="content">
             <?php	
-                require($CFG->dirroot.'/theme/roshnilite/layout/home/aboutsite.php');
-                require($CFG->dirroot.'/theme/roshnilite/layout/home/availablecourse.php');
-                require($CFG->dirroot.'/theme/roshnilite/layout/home/categories.php');
-                require($CFG->dirroot.'/theme/roshnilite/layout/home/contacts.php');
-                require($CFG->dirroot.'/theme/roshnilite/layout/home/social_network.php');
+                require($CFG->dirroot.'/theme/'.$CFG->theme.'/layout/home/aboutsite.php');
+                require($CFG->dirroot.'/theme/'.$CFG->theme.'/layout/home/availablecourse.php');
+                require($CFG->dirroot.'/theme/'.$CFG->theme.'/layout/home/categories.php');
+                require($CFG->dirroot.'/theme/'.$CFG->theme.'/layout/home/contacts.php');
+                require($CFG->dirroot.'/theme/'.$CFG->theme.'/layout/home/social_network.php');
             ?>
 		</div><!-- END of .content -->
 		<?php

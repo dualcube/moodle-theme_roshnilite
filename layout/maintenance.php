@@ -29,7 +29,7 @@
  */
 // Get the HTML for the settings bits.
 $html = theme_roshnilite_get_html_for_settings($OUTPUT, $PAGE);
-$PAGE->requires->css('/theme/'.$CFG->theme.'/css/styles.css');
+$PAGE->requires->css('/theme/roshnilite/css/styles.css');
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 <head>

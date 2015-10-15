@@ -27,8 +27,8 @@
  * @copyright  2015 dualcube {@link http://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$PAGE->requires->css('/theme/'.$CFG->theme.'/css/font-awesome.min.css');
-$PAGE->requires->css('/theme/'.$CFG->theme.'/css/styles.css');
+$PAGE->requires->css('/theme/roshnilite/css/font-awesome.min.css');
+$PAGE->requires->css('/theme/roshnilite/css/styles.css');
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 <head>
@@ -37,11 +37,11 @@ echo $OUTPUT->doctype() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="image/x-icon" rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>">
 	<?php 
-        $PAGE->requires->js('/theme/'.$CFG->theme.'/js/jquery-1.11.1.min.js');
-        $PAGE->requires->js('/theme/'.$CFG->theme.'/js/bootstrap.min.js');
-        $PAGE->requires->js('/theme/'.$CFG->theme.'/js/jquery.bxslider.min.js');
-        $PAGE->requires->js('/theme/'.$CFG->theme.'/js/jquery.scroll.js');
-        $PAGE->requires->js('/theme/'.$CFG->theme.'/js/engine.js');
+        $PAGE->requires->js('/theme/roshnilite/js/jquery-1.11.1.min.js');
+        $PAGE->requires->js('/theme/roshnilite/js/bootstrap.min.js');
+        $PAGE->requires->js('/theme/roshnilite/js/jquery.bxslider.min.js');
+        $PAGE->requires->js('/theme/roshnilite/js/jquery.scroll.js');
+        $PAGE->requires->js('/theme/roshnilite/js/engine.js');
     ?>
 </head>
 

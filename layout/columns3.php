@@ -29,8 +29,8 @@
  */
 // Get the HTML for the settings bits.
 $html = theme_roshnilite_get_html_for_settings($OUTPUT, $PAGE);
-$PAGE->requires->css('/theme/'.$CFG->theme.'/css/font-awesome.min.css');
-$PAGE->requires->css('/theme/'.$CFG->theme.'/css/styles.css');
+$PAGE->requires->css('/theme/roshnilite/css/font-awesome.min.css');
+$PAGE->requires->css('/theme/roshnilite/css/styles.css');
 // Set default (LTR) layout mark-up for a three column page.
 $regionmainbox = 'span9';
 $regionmain = 'span9 pull-right';
@@ -51,11 +51,11 @@ echo $OUTPUT->doctype() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="image/x-icon" rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>">
 	<?php 
-        $PAGE->requires->js('/theme/'.$CFG->theme.'/js/jquery-1.11.1.min.js', true);
-        $PAGE->requires->js('/theme/'.$CFG->theme.'/js/bootstrap.min.js', true);
-        $PAGE->requires->js('/theme/'.$CFG->theme.'/js/jquery.bxslider.min.js', true);
-        $PAGE->requires->js('/theme/'.$CFG->theme.'/js/jquery.scroll.js', true);
-        $PAGE->requires->js('/theme/'.$CFG->theme.'/js/engine.js', true);
+        $PAGE->requires->js('/theme/roshnilite/js/jquery-1.11.1.min.js', true);
+        $PAGE->requires->js('/theme/roshnilite/js/bootstrap.min.js', true);
+        $PAGE->requires->js('/theme/roshnilite/js/jquery.bxslider.min.js', true);
+        $PAGE->requires->js('/theme/roshnilite/js/jquery.scroll.js', true);
+        $PAGE->requires->js('/theme/roshnilite/js/engine.js', true);
     ?>
 </head>
 
