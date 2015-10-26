@@ -531,7 +531,7 @@ header .bx-wrapper .bx-pager.bx-default-pager a {
 	float: left;
 	font-size: 22px;
 	display: inline-block;
-	background: url(img/logo.png) no-repeat center left;
+	/*background: url(img/logo.png) no-repeat center left;*/
 	padding-left: 25px;
 	padding-top:5px;
 	min-height: 35px;
@@ -555,7 +555,6 @@ header .bx-wrapper .bx-pager.bx-default-pager a {
 }
 
 .logo-text {
-	background: url(img/logo.png) no-repeat center left;
 	padding-left: 40px;
 }
 
@@ -1440,7 +1439,6 @@ footer {
 }
 
 #page-header {
-	padding-top: 55px;
 	background: none;
 	min-height: 63px;
 }
@@ -2115,7 +2113,7 @@ input[type="submit"],
 .adminsearchform input[type="submit"], 
 #searchform_button, 
 #id_submitbutton, 
-#id_cancel {
+#id_cancel, #checkall, #checknone {
 	border-radius: 0!important;
 	text-shadow: none!important;
 	box-shadow: none!important;
@@ -2996,7 +2994,6 @@ li.langmenu a.dropdown-toggle {
 	}
 	
 	#page-header {
-		padding-top: 65px;
 		min-height: 64px;
 	}
 	

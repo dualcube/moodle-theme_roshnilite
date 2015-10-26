@@ -133,10 +133,11 @@ function theme_roshnilite_set_bodyfont($css, $bodyfont) {
  * @return string The parsed CSS
  */
 function theme_roshnilite_set_logo($css, $logo) {
+    GLOBAL $CFG;
     $tag = '[[setting:logo]]';
     $replacement = $logo;
     if (is_null($replacement)) {
-        $replacement = '';
+        $replacement = $CFG->wwwroot.'/theme/roshnilite/css/img/logo.png';
     }
 
     $css = str_replace($tag, $replacement, $css);

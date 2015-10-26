@@ -23,6 +23,8 @@
 		slideMargin: 0,
 		moveSlides: 1,
 		controls: false,
+		auto: true,
+		pause: 10000
 	});  
 
 	$('.av-courses-slider').bxSlider({

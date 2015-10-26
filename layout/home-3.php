@@ -78,7 +78,7 @@ echo $OUTPUT->doctype()
 									</ul>
 									<ul class="menu">
 										<li>
-											<a href="<?php echo $CFG->wwwroot; ?>/login/logout.php"><span>Logout</span></a>
+											<a href="<?php echo $CFG->wwwroot; ?>/login/logout.php"><span><?php echo get_string('logout');?></span></a>
 										</li>
 									</ul>
 								</div>
@@ -103,13 +103,13 @@ echo $OUTPUT->doctype()
 									</ul>
 									<ul class="menu">
 										<li>
-											<a href="<?php echo $CFG->wwwroot; ?>/user/edit.php"><span>Edit Profile</span></a>
+											<a href="<?php echo $CFG->wwwroot; ?>/user/edit.php"><span><?php echo get_string('profile');?></span></a>
 										</li>
 										<li>
-											<a href="<?php echo $CFG->wwwroot.'/course/index.php';?>"><span>Course</span></a>
+											<a href="<?php echo $CFG->wwwroot.'/course/index.php';?>"><span><?php echo get_string('courses');?></span></a>
 										</li>
 										<li>
-											<a href="<?php echo $CFG->wwwroot; ?>/login/logout.php"><span>Logout</span></a>
+											<a href="<?php echo $CFG->wwwroot; ?>/login/logout.php"><span><?php echo get_string('logout');?></span></a>
 										</li>
 									</ul>
 								</div>
@@ -127,10 +127,12 @@ echo $OUTPUT->doctype()
 									</button>
 									<div class="nav-collapse collapse">
 										<ul class="nav">
-											<li><a href="<?php echo $CFG->wwwroot;?>" class="active">Home</a></li>
-											<li><a href="<?php echo $CFG->wwwroot.'/course/index.php';?>">Courses</a></li>
-											<li><a href="<?php echo $CFG->wwwroot.'/blog/index.php?userid='.$USER->id;?>">Blogs</a></li>
-											<li><a href="<?php echo $CFG->wwwroot.'/mod/forum/user.php?id='.$USER->id;?>">Forums</a></li>
+											<li><a href="<?php echo $CFG->wwwroot;?>" class="active"><?php echo get_string('home');?></a></li>
+											<li><a href="<?php echo $CFG->wwwroot.'/course/index.php';?>"><?php echo get_string('courses');?></a></li>
+											<li><a href="<?php echo $CFG->wwwroot.'/blog/index.php?userid='.$USER->id;?>">
+											<?php echo get_string('blogssite', 'blog');?></a></li>
+											<li><a href="<?php echo $CFG->wwwroot.'/mod/forum/user.php?id='.$USER->id;?>">
+											<?php echo get_string('forum', 'forum');?></a></li>
 										</ul>
 									</div><!--/.nav-collapse -->
 								</div>

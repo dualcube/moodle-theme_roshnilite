@@ -86,7 +86,13 @@ if (!empty($html->masonryheading)) {
 			<div class="mask"></div>
 			<div class="categories-item-cont">
 				<h5><a href="<?php echo $html->masonryurl1; ?>"><?php echo $html->masonrytext1; ?></a></h5>
-				<p><?php echo $html->masonrysubtext1; ?></p>
+				<p>
+				    <?php 
+        if (!empty($html->masonrysubtext1)) {
+                    echo $html->masonrysubtext1;
+        }
+        ?>
+				</p>
 			</div>
 		</div><!-- END of .categories-item -->
 <?php 
@@ -97,8 +103,13 @@ if (!empty($html->masonryheading)) {
 			<img src="<?php echo $masonryimage2;?>" alt="">
 			<div class="mask"></div>
 			<div class="categories-item-cont">
-				<h5><a href="<?php echo $html->masonryurl2; ?>"><?php echo $html->masonrytext2; ?></a></h5>
-				<p><?php echo $html->masonrysubtext2; ?></p>
+				<h5><a href="<?php echo $html->masonryurl2; ?>"><?php echo $html->masonrytext2; ?></a></h5>				<p>
+				    <?php 
+        if (!empty($html->masonrysubtext2)) {
+                    echo $html->masonrysubtext2;
+        }
+        ?>
+				</p>
 			</div>
 		</div><!-- END of .categories-item -->
 <?php
@@ -110,7 +121,13 @@ if (!empty($html->masonryheading)) {
 			<div class="mask"></div>
 			<div class="categories-item-cont">
 				<h5><a href="<?php echo $html->masonryurl3; ?>"><?php echo $html->masonrytext3; ?></a></h5>
-				<p><?php echo $html->masonrysubtext3; ?></p>
+				<p>
+				    <?php 
+        if (!empty($html->masonrysubtext3)) {
+                    echo $html->masonrysubtext3;
+        }
+        ?>
+				</p>
 			</div>
 		</div><!-- END of .categories-item -->
 <?php
@@ -122,7 +139,13 @@ if (!empty($html->masonryheading)) {
 			<div class="mask"></div>
 			<div class="categories-item-cont">
 				<h5><a href="<?php echo $html->masonryurl4; ?>"><?php echo $html->masonrytext4; ?></a></h5>
-				<p><?php echo $html->masonrysubtext4; ?></p>
+				<p>
+				    <?php 
+        if (!empty($html->masonrysubtext4)) {
+                    echo $html->masonrysubtext4;
+        }
+        ?>
+				</p>
 			</div>
 		</div><!-- END of .categories-item -->
 <?php
@@ -134,7 +157,13 @@ if (!empty($html->masonryheading)) {
 			<div class="mask"></div>
 			<div class="categories-item-cont">
 				<h5><a href="<?php echo $html->masonryurl5; ?>;"><?php echo $html->masonrytext5; ?></a></h5>
-				<p><?php echo $html->masonrysubtext5; ?></p>
+				<p>
+				    <?php 
+        if (!empty($html->masonrysubtext5)) {
+                    echo $html->masonrysubtext5;
+        }
+        ?>
+				</p>
 			</div>
 		</div><!-- END of .categories-item -->
 <?php
@@ -146,7 +175,13 @@ if (!empty($html->masonryheading)) {
 			<div class="mask"></div>
 			<div class="categories-item-cont">
 				<h5><a href="<?php echo $html->masonryurl6; ?>"><?php echo $html->masonrytext6; ?></a></h5>
-				<p><?php echo $html->masonrysubtext6; ?></p>
+				<p>
+				    <?php 
+        if (!empty($html->masonrysubtext6)) {
+                    echo $html->masonrysubtext6;
+        }
+        ?>
+				</p>
 			</div>
 		</div><!-- END of .categories-item -->
 <?php
@@ -158,7 +193,13 @@ if (!empty($html->masonryheading)) {
 			<div class="mask"></div>
 			<div class="categories-item-cont">
 				<h5><a href="<?php echo $html->masonryurl7; ?>"><?php echo $html->masonrytext7; ?></a></h5>
-				<p><?php echo $html->masonrysubtext7; ?></p>
+				<p>
+				    <?php 
+        if (!empty($html->masonrysubtext7)) {
+                    echo $html->masonrysubtext7;
+        }
+        ?>
+				</p>
 			</div>
 		</div><!-- END of .categories-item -->
 <?php
@@ -170,7 +211,13 @@ if (!empty($html->masonryheading)) {
 			<div class="mask"></div>
 			<div class="categories-item-cont">
 				<h5><a href="<?php echo $html->masonryurl8; ?>"><?php echo $html->masonrytext8; ?></a></h5>
-				<p><?php echo $html->masonrysubtext8; ?></p>
+				<p>
+				    <?php 
+        if (!empty($html->masonrysubtext8)) {
+                    echo $html->masonrysubtext8;
+        }
+        ?>
+				</p>
 			</div>
 		</div><!-- END of .categories-item -->
 <?php

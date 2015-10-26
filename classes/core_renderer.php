@@ -53,8 +53,8 @@ class theme_roshnilite_core_renderer extends theme_bootstrapbase_core_renderer {
      */
     public function favicon() {
         GLOBAL $PAGE, $CFG;
-        if (!empty($PAGE->theme->setting_file_url('faviconurl', 'faviconurl'))) {
-            return $PAGE->theme->setting_file_url('faviconurl', 'faviconurl');
+        if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
+            return $PAGE->theme->setting_file_url('favicon', 'favicon');
         } else {
             return $CFG->wwwroot.'/theme/'.$CFG->theme.'/favicon.ico';
         }

@@ -54,7 +54,7 @@ if ( $coursedetailsarray ) {
 ?>
     <div class="av-courses header2-nav-color">
         <div class="header-top">
-            <h2 class="header-b">Courses</h2>
+            <h2 class="header-b"><?php echo get_string('courses');?></h2>
         </div>
         <ul class="av-courses-slider">
 <?php
@@ -85,7 +85,7 @@ if ( $coursedetailsarray ) {
 ?>
         </ul><!-- END of .av-courses-slider -->
     <div>
-    <a href="<?php echo $CFG->wwwroot ?>/course/index.php" class="btn-view-all">View All Courses</a>
+    <a href="<?php echo $CFG->wwwroot ?>/course/index.php" class="btn-view-all"><?php echo get_string('viewallcourses');?></a>
 </div>
 </div><!-- END of .av-courses -->
 <?php
