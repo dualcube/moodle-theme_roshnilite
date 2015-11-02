@@ -528,7 +528,7 @@ header .bx-wrapper .bx-pager.bx-default-pager a {
 }
 
 .logo {
-	float: left;
+	/*float: left;*/
 	font-size: 22px;
 	display: inline-block;
 	/*background: url(img/logo.png) no-repeat center left;*/
