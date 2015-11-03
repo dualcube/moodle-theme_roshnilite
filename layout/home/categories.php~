@@ -27,50 +27,43 @@
  * @copyright  2015 dualcube {@link http://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$checkmasonryimage1 = $PAGE->theme->setting_file_url('masonryimage1', 'masonryimage1');
-if (!empty($checkmasonryimage1)) {
+
+if (!empty($PAGE->theme->setting_file_url('masonryimage1', 'masonryimage1'))) {
     $masonryimage1 = $PAGE->theme->setting_file_url('masonryimage1', 'masonryimage1');
 } else {
     $masonryimage1 = $CFG->wwwroot."/theme/roshnilite/data/cat-1.jpg";
 }
-$checkmasonryimage2 = $PAGE->theme->setting_file_url('masonryimage2', 'masonryimage2');
-if (!empty($checkmasonryimage2)) {
+if (!empty($PAGE->theme->setting_file_url('masonryimage2', 'masonryimage2'))) {
     $masonryimage2 = $PAGE->theme->setting_file_url('masonryimage2', 'masonryimage2');
 } else {
     $masonryimage2 = $CFG->wwwroot."/theme/roshnilite/data/cat-2.jpg";
 }
-$checkmasonryimage3 = $PAGE->theme->setting_file_url('masonryimage3', 'masonryimage3');
-if (!empty($checkmasonryimage3)) {
+if (!empty($PAGE->theme->setting_file_url('masonryimage3', 'masonryimage3'))) {
     $masonryimage3 = $PAGE->theme->setting_file_url('masonryimage3', 'masonryimage3');
 } else {
     $masonryimage3 = $CFG->wwwroot."/theme/roshnilite/data/cat-3.jpg";
 }
-$checkmasonryimage4 = $PAGE->theme->setting_file_url('masonryimage4', 'masonryimage4');
-if (!empty($checkmasonryimage4)) {
+if (!empty($PAGE->theme->setting_file_url('masonryimage4', 'masonryimage4'))) {
     $masonryimage4 = $PAGE->theme->setting_file_url('masonryimage4', 'masonryimage4');
 } else {
     $masonryimage4 = $CFG->wwwroot."/theme/roshnilite/data/cat-4.jpg";
 }
-$checkmasonryimage5 = $PAGE->theme->setting_file_url('masonryimage5', 'masonryimage5');
-if (!empty($checkmasonryimage5)) {
+if (!empty($PAGE->theme->setting_file_url('masonryimage5', 'masonryimage5'))) {
     $masonryimage5 = $PAGE->theme->setting_file_url('masonryimage5', 'masonryimage5');
 } else {
     $masonryimage5 = $CFG->wwwroot."/theme/roshnilite/data/cat-5.jpg";
 }
-$checkmasonryimage6 = $PAGE->theme->setting_file_url('masonryimage6', 'masonryimage6');
-if (!empty($checkmasonryimage6)) {
+if (!empty($PAGE->theme->setting_file_url('masonryimage6', 'masonryimage6'))) {
     $masonryimage6 = $PAGE->theme->setting_file_url('masonryimage6', 'masonryimage6');
 } else {
     $masonryimage6 = $CFG->wwwroot."/theme/roshnilite/data/cat-6.jpg";
 }
-$checkmasonryimage7 = $PAGE->theme->setting_file_url('masonryimage7', 'masonryimage7');
-if (!empty($checkmasonryimage7)) {
+if (!empty($PAGE->theme->setting_file_url('masonryimage7', 'masonryimage7'))) {
     $masonryimage7 = $PAGE->theme->setting_file_url('masonryimage7', 'masonryimage7');
 } else {
     $masonryimage7 = $CFG->wwwroot."/theme/roshnilite/data/cat-7.jpg";
 }
-$checkmasonryimage8 = $PAGE->theme->setting_file_url('masonryimage8', 'masonryimage8');
-if (!empty($checkmasonryimage8)) {
+if (!empty($PAGE->theme->setting_file_url('masonryimage8', 'masonryimage8'))) {
     $masonryimage8 = $PAGE->theme->setting_file_url('masonryimage8', 'masonryimage8');
 } else {
     $masonryimage8 = $CFG->wwwroot."/theme/roshnilite/data/cat-8.jpg";

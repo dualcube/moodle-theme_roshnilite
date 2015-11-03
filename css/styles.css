@@ -1458,6 +1458,7 @@ header.navbar.navbar-fixed-top {
 
 div#page-navbar {
 	border-bottom: 13px solid #e84c3d;
+	margin-top: 20px;
 }
 
 .logo-inner {
@@ -3458,6 +3459,9 @@ li.langmenu a.dropdown-toggle {
 	
 	.loginbox .loginform .form-label {
 		width:37%;	
+	}
+	div#page-navbar {
+		margin-top: 80px;
 	}
 	
 }

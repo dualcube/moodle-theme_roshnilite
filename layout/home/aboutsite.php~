@@ -27,26 +27,22 @@
  * @copyright  2015 dualcube {@link http://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$checkaboutsiteimage1 = $PAGE->theme->setting_file_url('aboutsiteimage1', 'aboutsiteimage1');
-if (!empty($checkaboutsiteimage1)) {
+if (!empty($PAGE->theme->setting_file_url('aboutsiteimage1', 'aboutsiteimage1'))) {
     $aboutsiteimage1 = $PAGE->theme->setting_file_url('aboutsiteimage1', 'aboutsiteimage1');
 } else {
     $aboutsiteimage1 = $CFG->wwwroot."/theme/roshnilite/data/icon-conts-1.png";
 }
-$checkaboutsiteimage2 = $PAGE->theme->setting_file_url('aboutsiteimage2', 'aboutsiteimage2');
-if (!empty($checkaboutsiteimage2)) {
+if (!empty($PAGE->theme->setting_file_url('aboutsiteimage2', 'aboutsiteimage2'))) {
     $aboutsiteimage2 = $PAGE->theme->setting_file_url('aboutsiteimage2', 'aboutsiteimage2');
 } else {
     $aboutsiteimage2 = $CFG->wwwroot."/theme/roshnilite/data/icon-conts-2.png";
 }
-$checkaboutsiteimage3 = $PAGE->theme->setting_file_url('aboutsiteimage3', 'aboutsiteimage3');
-if (!empty($checkaboutsiteimage3)) {
+if (!empty($PAGE->theme->setting_file_url('aboutsiteimage3', 'aboutsiteimage3'))) {
     $aboutsiteimage3 = $PAGE->theme->setting_file_url('aboutsiteimage3', 'aboutsiteimage3');
 } else {
     $aboutsiteimage3 = $CFG->wwwroot."/theme/roshnilite/data/icon-conts-3.png";
 }
-$checkaboutsiteimage4 = $PAGE->theme->setting_file_url('aboutsiteimage4', 'aboutsiteimage4');
-if (!empty($checkaboutsiteimage4)) {
+if (!empty($PAGE->theme->setting_file_url('aboutsiteimage4', 'aboutsiteimage4'))) {
     $aboutsiteimage4 = $PAGE->theme->setting_file_url('aboutsiteimage4', 'aboutsiteimage4');
 } else {
     $aboutsiteimage4 = $CFG->wwwroot."/theme/roshnilite/data/icon-conts-4.png";

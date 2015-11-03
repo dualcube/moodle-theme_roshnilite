@@ -27,38 +27,33 @@
  * @copyright  2015 dualcube {@link http://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$checkslideimage1 = $PAGE->theme->setting_file_url('slideimage1', 'slideimage1');
-if (!empty($checkslideimage1)) {
+
+if (!empty($PAGE->theme->setting_file_url('slideimage1', 'slideimage1'))) {
     $sliderimage1 = $PAGE->theme->setting_file_url('slideimage1', 'slideimage1');
 } else {
     $sliderimage1 = $CFG->wwwroot."/theme/roshnilite/data/sl-1.jpg";
 }
-$checkslideimage2 = $PAGE->theme->setting_file_url('slideimage2', 'slideimage2');
-if (!empty($checkslideimage2)) {
+if (!empty($PAGE->theme->setting_file_url('slideimage2', 'slideimage2'))) {
     $sliderimage2 = $PAGE->theme->setting_file_url('slideimage2', 'slideimage2');
 } else {
     $sliderimage2 = $CFG->wwwroot."/theme/roshnilite/data/sl-1.jpg";
 }
-$checkslideimage3 = $PAGE->theme->setting_file_url('slideimage3', 'slideimage3');
-if (!empty($checkslideimage3)) {
+if (!empty($PAGE->theme->setting_file_url('slideimage3', 'slideimage3'))) {
     $sliderimage3 = $PAGE->theme->setting_file_url('slideimage3', 'slideimage3');
 } else {
     $sliderimage3 = $CFG->wwwroot."/theme/roshnilite/data/sl-1.jpg";
 }
-$checkslideimage4 = $PAGE->theme->setting_file_url('slideimage4', 'slideimage4');
-if (!empty($checkslideimage4)) {
+if (!empty($PAGE->theme->setting_file_url('slideimage4', 'slideimage4'))) {
     $sliderimage4 = $PAGE->theme->setting_file_url('slideimage4', 'slideimage4');
 } else {
     $sliderimage4 = $CFG->wwwroot."/theme/roshnilite/data/sl-1.jpg";
 }
-$checkslideimage5 = $PAGE->theme->setting_file_url('slideimage5', 'slideimage5');
-if (!empty($checkslideimage5)) {
+if (!empty($PAGE->theme->setting_file_url('slideimage5', 'slideimage5'))) {
     $sliderimage5 = $PAGE->theme->setting_file_url('slideimage5', 'slideimage5');
 } else {
     $sliderimage5 = $CFG->wwwroot."/theme/roshnilite/data/sl-1.jpg";
 }
-$checkslideimage6 = $PAGE->theme->setting_file_url('slideimage6', 'slideimage6');
-if (!empty($checkslideimage6)) {
+if (!empty($PAGE->theme->setting_file_url('slideimage6', 'slideimage6'))) {
     $sliderimage6 = $PAGE->theme->setting_file_url('slideimage6', 'slideimage6');
 } else {
     $sliderimage6 = $CFG->wwwroot."/theme/roshnilite/data/sl-1.jpg";
