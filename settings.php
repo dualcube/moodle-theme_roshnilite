@@ -113,7 +113,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsiteimage1';
     $title = get_string('aboutsiteimage', 'theme_roshnilite');
     $description = get_string('faboutsiteimagedesc', 'theme_roshnilite');;
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'aboutsiteimage'.$slidecounts);
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'aboutsiteimage1');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
 
@@ -146,7 +146,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsiteimage2';
     $title = get_string('aboutsiteimage', 'theme_roshnilite');
     $description = get_string('saboutsiteimagedesc', 'theme_roshnilite');
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'aboutsiteimage'.$slidecounts);
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'aboutsiteimage2');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
 
@@ -179,7 +179,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsiteimage3';
     $title = get_string('aboutsiteimage', 'theme_roshnilite');
     $description = get_string('taboutsiteimagedesc', 'theme_roshnilite');
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'aboutsiteimage'.$slidecounts);
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'aboutsiteimage3');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
 
@@ -213,7 +213,7 @@ if (is_siteadmin()) {
     $name = 'theme_roshnilite/aboutsiteimage4';
     $title = get_string('aboutsiteimage', 'theme_roshnilite');
     $description = get_string('fraboutsiteimagedesc', 'theme_roshnilite');
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'aboutsiteimage'.$slidecounts);
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'aboutsiteimage4');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
 

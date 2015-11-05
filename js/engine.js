@@ -50,4 +50,10 @@
 		_item.removeClass('hidden');
 		_item.fadeIn();
 	});
+	$('.nav-collapse').removeClass('collapse');
+	$(".btn-navbar").on("click",function() { 
+		$(this).toggleClass("active-drop");
+		$('.nav-collapse').toggleClass('in collapse').removeClass('collapse');
+		$('.usermenu-show').removeClass('usermenu-show');
+	});
 });

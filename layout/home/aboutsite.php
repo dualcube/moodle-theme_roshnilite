@@ -46,6 +46,7 @@ if (!empty($checkaboutsiteimage3)) {
     $aboutsiteimage3 = $CFG->wwwroot."/theme/roshnilite/data/icon-conts-3.png";
 }
 $checkaboutsiteimage4 = $PAGE->theme->setting_file_url('aboutsiteimage4', 'aboutsiteimage4');
+echo $checkaboutsiteimage4;
 if (!empty($checkaboutsiteimage4)) {
     $aboutsiteimage4 = $PAGE->theme->setting_file_url('aboutsiteimage4', 'aboutsiteimage4');
 } else {
