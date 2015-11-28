@@ -130,8 +130,12 @@ echo $OUTPUT->doctype()
 										<ul class="nav">
 											<li><a href="<?php echo $CFG->wwwroot;?>" class="active"><?php echo get_string('home');?></a></li>
 											<li><a href="<?php echo $CFG->wwwroot.'/course/index.php';?>"><?php echo get_string('courses');?></a></li>
-											<?php if ($CFG->enableblogs == 1) { ?><li><a href="<?php echo $CFG->wwwroot.'/blog/index.php';?>">
-											<?php echo get_string('blogssite', 'blog');?></a></li><?php } ?>
+											<?php if ($CFG->enableblogs == 1) {
+                                            ?><li><a href="<?php echo $CFG->wwwroot.'/blog/index.php';?>">
+											<?php echo get_string('blogssite', 'blog');?></a></li>
+                                            <?php
+}
+                                            ?>
 											<li><a href="<?php echo $CFG->wwwroot.'/mod/forum/user.php?id='.$USER->id;?>">
 											<?php echo get_string('forum', 'forum');?></a></li>
 										</ul>

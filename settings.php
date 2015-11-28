@@ -581,5 +581,13 @@ if (is_siteadmin()) {
         $setting->set_updatedcallback('theme_reset_all_caches');
         $temp->add($setting);
     }
+    // Custom CSS file.
+    $name = 'theme_roshnilite/customcss';
+    $title = get_string('customcss', 'theme_roshnilite');
+    $description = get_string('customcssdesc', 'theme_roshnilite');
+    $default = '';
+    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $temp->add($setting);
     $ADMIN->add('theme_roshnilite', $temp);
 }

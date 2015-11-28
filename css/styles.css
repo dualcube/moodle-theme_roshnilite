@@ -56,7 +56,7 @@ aside.two-column-sidebar {
 }
 
 .breadcrumb-nav {
-	margin: 10px 0 10px 30px;
+	margin: 10px 0 10px 0;
 }
 
 .breadcrumb {
@@ -1458,7 +1458,7 @@ header.navbar.navbar-fixed-top {
 
 div#page-navbar {
 	border-bottom: 13px solid #e84c3d;
-	margin-top: 20px;
+	margin-top: 50px;
 }
 
 .logo-inner {
@@ -1903,6 +1903,7 @@ body.has_dock #page {
 
 .login-page #page-navbar {
 	border: none;
+	margin-top: 0;
 }
 
 .login-information {
@@ -2092,6 +2093,7 @@ div#notice div.singlebutton div {
 	width: auto;
 	text-align: right;
 	white-space: nowrap;
+	clear: both;
 }
 
 .loginbox label {
@@ -2695,7 +2697,7 @@ li.langmenu a.dropdown-toggle {
 @media screen and (max-width: 900px) {
 	
 	.loginbox .loginform .form-input {
-	    float: left;
+	    float: right;
 	}
 	
 	.loginbox .loginform .form-input input {
