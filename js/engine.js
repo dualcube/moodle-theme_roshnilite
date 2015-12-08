@@ -53,7 +53,7 @@
 	$('.nav-collapse').removeClass('collapse');
 	$(".btn-navbar").on("click",function() { 
 		$(this).toggleClass("active-drop");
-		$('.nav-collapse').toggleClass('in collapse').removeClass('collapse');
+		$('.nav-collapse').toggleClass('in collapse').removeClass('collapse').removeAttr("style");
 		$('.usermenu-show').removeClass('usermenu-show');
 	});
 });
