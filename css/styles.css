@@ -1,4 +1,4 @@
-﻿@import "fonts.css";
+@import "fonts.css";
 @import "bootstrap.css";
 @import "bootstrap-responsive.css";
 @import "jquery.bxslider.css";
@@ -340,7 +340,7 @@ form.innerpage-login {
 
 .header3.main-menu .usermenu {
 	margin: 0;
-	width: 180px;
+	width: auto;
 }
 
 .header3.main-menu .usermenu img {
@@ -547,6 +547,7 @@ header .bx-wrapper .bx-pager.bx-default-pager a {
 	min-height:35px;
 	color: rgba(0, 0, 0, .8)!important;
 	min-width: 110px;
+	background-size: contain;
 }
 
 .logo-img {
@@ -1353,7 +1354,7 @@ footer {
 .usermenu {
 	float: right;
 	margin: 12px 0 11px;
-	width: 174px;
+	width: auto;
 	box-sizing: border-box;
 	position: relative;
 }
@@ -1400,15 +1401,22 @@ footer {
 }
 
 .usermenu .menubar a:after {
-	content: "";
-	display: block;
-	width: 0;
-	height: 0;
-	position: absolute;
-	right: 10px;
-	top: 12px;
-	border: 5px solid transparent;
-	border-top: 8px solid #FFFFFF;
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #ffffff transparent transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 8px 5px 5px;
+    content: "";
+    display: inline-block !important;
+    height: 0;
+    margin: 0 10px !important;
+    position: relative !important;
+    right: 0 !important;
+    top: 4px !important;
+    width: 0 !important;
 }
 
 .usermenu .menu {
@@ -1458,7 +1466,7 @@ header.navbar.navbar-fixed-top {
 
 div#page-navbar {
 	border-bottom: 13px solid #e84c3d;
-	margin-top: 50px;
+	margin-top: 68px;
 }
 
 .logo-inner {
@@ -3463,7 +3471,7 @@ li.langmenu a.dropdown-toggle {
 		width:37%;	
 	}
 	div#page-navbar {
-		margin-top: 80px;
+		margin-top: 100px;
 	}
 	
 }
@@ -3489,3 +3497,10 @@ li.langmenu a.dropdown-toggle {
 }
 
 /* * - END of @media ---------------------------------------------------------- */
+
+.navbar .nav-collapse.in {
+	border-top: none !important;
+}
+.nav-collapse .nav > li > a:hover, .nav-collapse .nav > li > a:focus, .nav-collapse .dropdown-menu a:hover, .nav-collapse .dropdown-menu a:focus {
+	background-color: none !important;
+}
