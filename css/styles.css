@@ -366,9 +366,11 @@ form.innerpage-login {
 	margin: 0;
 	padding: 7px 20px;
 	border-left: solid 1px rgba(255, 255, 255, .3);
-	color: #FFF!important;
+	/*color: #FFF!important;*/
 }
-
+.navbar .nav .dropdown-toggle .caret {
+    margin-top: 20px;
+}
 .main-menu.header3 ul.nav li:last-child a {
 	border-right: solid 1px rgba(255, 255, 255, .3);
 }
@@ -396,6 +398,12 @@ form.innerpage-login {
 	color: #FFF!important;
 }
 
+.main-menu.header3 ul.nav ul li a {
+    color: #000;
+}
+.collapse.in {
+    height: auto !important;
+}
  @media screen and (max-width: 480px) {
 	.header3-login input {
 		width: 31%;
@@ -2546,8 +2554,8 @@ table.flexible, .generaltable {
 
 .langmenu, ul.nav .langmenu {
     float: left;
-    margin-top: 8px;
-	width:130px;
+    margin-top: 0px;
+	/*width:130px;*/
 	background:none;
 	position:relative;
 }
@@ -2567,9 +2575,9 @@ select.langmenu, li.langmenu {
 	
 }
 
-li.langmenu {
+/*li.langmenu {
 	margin-top: 18px!important;
-}
+}*/
 
 li.langmenu a.dropdown-toggle {
 	opacity:.8;
@@ -3504,3 +3512,4 @@ li.langmenu a.dropdown-toggle {
 .nav-collapse .nav > li > a:hover, .nav-collapse .nav > li > a:focus, .nav-collapse .dropdown-menu a:hover, .nav-collapse .dropdown-menu a:focus {
 	background-color: none !important;
 }
+
