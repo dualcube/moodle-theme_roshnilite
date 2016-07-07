@@ -2575,9 +2575,16 @@ select.langmenu, li.langmenu {
 	
 }
 
-/*li.langmenu {
-	margin-top: 18px!important;
-}*/
+.editor_atto_content {
+	padding: 24px !important;
+	overflow: initial;
+}
+.content ul, ol {
+    list-style: inside;
+}
+.editor_atto_content ul, .editor_atto_content > b >ol, .mceContentBody ol  {
+	list-style: inside !important;
+}
 
 li.langmenu a.dropdown-toggle {
 	opacity:.8;
