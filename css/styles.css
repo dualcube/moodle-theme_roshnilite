@@ -1529,8 +1529,8 @@ body.has_dock #page {
 
 #block-region-side-pre, #block-region-side-post {
 	min-height: 250px;
-	padding-bottom:9999px;
-	margin-bottom:-9999px;
+	/*padding-bottom:9999px;
+	margin-bottom:-9999px;*/
 }
 
 #block-region-side-post {
@@ -1539,7 +1539,7 @@ body.has_dock #page {
 
 #page-content {
 	margin: 0 auto;
-	overflow:hidden;
+	/*overflow:hidden;*/
 }
 
 #region-main a,
