@@ -59,4 +59,9 @@
 			$(this).children('ul.dropdown-menu').slideToggle();
 		});
 	});
+	$( window ).load(function() {
+  		var outerHeight = $('#page-content').outerHeight();
+		$('#block-region-side-post').css('min-height', outerHeight+'px');
+		$('#block-region-side-pre').css('min-height', outerHeight+'px');
+	});
 });
