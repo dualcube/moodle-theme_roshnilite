@@ -49,7 +49,7 @@ body {
 -------------------------*/
 /* [[setting:customcss]] */
 
-.adminsearchform input[type="submit"], input[type="submit"], input#id_submitbutton, #searchform_button, .adminsearchform input[type="submit"], .btn-2, .login-information,.usermenu .menubar a, .stay-connected i, .categories-item-cont, .av-course-item-cont, .bx-wrapper .bx-pager.bx-default-pager a.active, .btn-1, .header3.main-menu, #checkall, #checknone{
+.jsenabled .usermenu .moodle-actionmenu.show, .adminsearchform input[type="submit"], input[type="submit"], input#id_submitbutton, #searchform_button, .adminsearchform input[type="submit"], .btn-2, .login-information,.usermenu .menubar a, .stay-connected i, .categories-item-cont, .av-course-item-cont, .bx-wrapper .bx-pager.bx-default-pager a.active, .btn-1, .header3.main-menu, #checkall, #checknone{
     background: [[setting:maincolor]] !important;
 }
 

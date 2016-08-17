@@ -66,69 +66,8 @@ echo $OUTPUT->doctype() ?>
         <nav class="navbar-inner">
             <div class="container">
                 <a class="inner-logo logo-text" href="<?php echo $CFG->wwwroot;?>"></a>
-                 <?php echo $OUTPUT->lang_menu(); ?>
-                <?php if (!isloggedin()) { ?>
-                    <a href="<?php echo $CFG->wwwroot; ?>/login/index.php" class="btn-2"><?php echo get_string('login');?></a>
-<?php
-} else if (isguestuser()) { ?>
-                <div class="usermenu">
-                    <div>
-                        <ul class="menubar">
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <span class="userbutton">
-                                        <span>
-                                            <span class="avatar current">
-                                                <?php echo $OUTPUT->user_profile_picture(); ?>
-                                            </span>
-                                        </span>
-                                        <span>Hi, <?php echo $USER->firstname ." ". $USER->lastname; ?></span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="menu">
-                            <li>
-                                <a href="<?php echo $CFG->wwwroot; ?>/login/logout.php"><span>
-                                <?php echo get_string('logout');?></span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-<?php
-} else if (!isloggedin() or !isguestuser()) { ?>
-                <div class="usermenu">
-					<div>
-						<ul class="menubar">
-							<li>
-								<a href="javascript:void(0);">
-									<span class="userbutton">
-										<span>
-											<span class="avatar current">
-												<?php echo $OUTPUT->user_profile_picture(); ?>
-											</span>
-										</span>
-										<span>Hi, <?php echo $USER->firstname ." ". $USER->lastname; ?></span>
-									</span>
-								</a>
-							</li>
-						</ul>
-						<ul class="menu">
-							<li>
-								<a href="<?php echo $CFG->wwwroot; ?>/user/edit.php"><span><?php echo get_string('profile');?></span></a>
-							</li>
-							<li>
-								<a href="<?php echo $CFG->wwwroot.'/course/index.php';?>"><span><?php echo get_string('courses');?></span></a>
-							</li>
-							<li>
-								<a href="<?php echo $CFG->wwwroot; ?>/login/logout.php"><span><?php echo get_string('logout');?></span></a>
-							</li>
-						</ul>
-					</div>
-    				</div>
-<?php
-}
-?>
+                  <?php echo $OUTPUT->lang_menu();
+                   echo $OUTPUT->user_menu(); ?>
             </div>
         </nav>
     </div>

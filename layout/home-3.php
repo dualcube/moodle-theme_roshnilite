@@ -60,64 +60,7 @@ echo $OUTPUT->doctype()
 				<div class="main-menu header3">
 					<div class="container">
 						<a href="<?php echo $CFG->wwwroot;?>" class="inner-logo logo-text"></a>
-						<?php if (isguestuser()) {?>
-							<div class="usermenu">
-								<div>
-									<ul class="menubar">
-										<li>
-											<a href="javascript:void(0);">
-												<span class="userbutton">
-													<span>
-														<span class="avatar current">
-																<?php echo $OUTPUT->user_profile_picture(); ?>
-														</span>
-													</span>
-													<span>Hi, <?php echo $USER->firstname ." ". $USER->lastname; ?></span>
-												</span>
-											</a>
-										</li>
-									</ul>
-									<ul class="menu">
-										<li>
-											<a href="<?php echo $CFG->wwwroot; ?>/login/logout.php"><span><?php echo get_string('logout');?></span></a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						<?php 
-} else if (isloggedin() and !isguestuser()) { ?>
-							<div class="usermenu">
-								<div>
-									<ul class="menubar">
-										<li>
-											<a href="javascript:void(0);">
-												<span class="userbutton">
-													<span>
-														<span class="avatar current">
-															<?php echo $OUTPUT->user_profile_picture(); ?>
-														</span>
-													</span>
-													<span>Hi, <?php echo $USER->firstname ." ". $USER->lastname; ?></span>
-												</span>
-											</a>
-										</li>
-									</ul>
-									<ul class="menu">
-										<li>
-											<a href="<?php echo $CFG->wwwroot; ?>/user/edit.php"><span><?php echo get_string('profile');?></span></a>
-										</li>
-										<li>
-											<a href="<?php echo $CFG->wwwroot.'/course/index.php';?>"><span><?php echo get_string('courses');?></span></a>
-										</li>
-										<li>
-											<a href="<?php echo $CFG->wwwroot; ?>/login/logout.php"><span><?php echo get_string('logout');?></span></a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						<?php 
-}
-                        ?>
+                        <?php echo $OUTPUT->user_menu(); ?>
 						<div class="navbar header3">
 							<div class="navbar-inner">
 								<div class="">

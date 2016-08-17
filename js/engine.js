@@ -64,4 +64,12 @@
 		$('#block-region-side-post').css('min-height', outerHeight+'px');
 		$('#block-region-side-pre').css('min-height', outerHeight+'px');
 	});
+
+	$('ul li span.filler').hide();
+	$('ul li.divider').hide();
+
+	if ($('.usermenu span').hasClass("login")) {
+		$('.usermenu').hide();
+	}
 });
+
