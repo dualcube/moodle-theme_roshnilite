@@ -103,7 +103,8 @@ $string['fontnamebody'] = 'Choose Font Name Body';
 $string['fontnamebodydesc'] = 'You may add the font name for the body of your site  i.e. the body of the site will be displayed in this font.';
 
 $string['customdesc'] = 'Custom Desc';
-
+$string['moodlemaincontentinfrontpage'] = 'Enable default moodle homepage content';
+$string['moodlemaincontentinfrontpagedesc'] = '';
 $string['fontsettings'] = 'Font Settings';
 $string['slidercount'] = 'Slidercount ';
 $string['slidercountdesc'] = 'Select, from dropdown, the number of slides in the slider.You can add up to 6 slides.';

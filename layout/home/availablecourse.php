@@ -33,7 +33,7 @@ foreach ($course as $key => $coursevalue) {
     $coursedetailsarray[$key]["courseid"] = $CFG->wwwroot."/course/view.php?id=".$coursevalue->id;
     $coursedetailsarray[$key]["coursename"] = $coursevalue->fullname;
     $coursecontext = context_course::instance($coursevalue->id);
-    $isfile = $DB->get_records_sql("Select * from {files} where contextid = ? and filename != ?", array($coursecontext->id, "."));
+    $isfile = $DB->get_records_sql("Select * from {files} where contextid = ? and filename != ? and filearea = ?", array($coursecontext->id, ".", "overviewfiles"));
     if ( $isfile ) {
         foreach ($isfile as $key1 => $isfilevalue) {
             $courseimage = $CFG->wwwroot . "/pluginfile.php/" . $isfilevalue->contextid .
@@ -43,7 +43,7 @@ foreach ($course as $key => $coursevalue) {
     if ( !empty( $courseimage ) ) {
         $coursedetailsarray[$key]["courseimage"] = $courseimage;
     } else {
-        $coursedetailsarray[$key]["courseimage"] = $CFG->wwwroot."/theme/roshnilite/data/c-1.jpg";
+        $coursedetailsarray[$key]["courseimage"] = $CFG->wwwroot."/theme/roshnilite/data/nopic.jpg";
     }
     $courseimage = '';
 }

@@ -33,9 +33,10 @@
 		maxSlides: 4,
 		slideMargin: 0,
 		moveSlides: 1,
-		infiniteLoop: false,
+		infiniteLoop: true,
 		pager: false,
-		adaptiveWidth: true
+		adaptiveWidth: true,
+		controls: true
 	});
 
 	/******************************************/

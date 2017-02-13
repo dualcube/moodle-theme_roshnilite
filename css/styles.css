@@ -243,6 +243,7 @@ header {
 	position: relative;
 }
 
+
 .header-form {
 	background: #000000;
 	background: rgba(0,0,0,.4);
@@ -287,7 +288,7 @@ header {
 	padding: 15px 0;
 	position: absolute;
 	text-align: right;
-	top: 59px;
+	top: 105px;
 	width: 100%;
 	z-index: 1;
 }
@@ -404,6 +405,15 @@ form.innerpage-login {
 .collapse.in {
     height: auto !important;
 }
+@media screen and (max-width: 375px) {
+	.bx-wrapper img {
+	    max-width: 100%;
+	    display: block;
+	    max-height: 200px;
+	    height: 200px;
+	}
+}
+
  @media screen and (max-width: 480px) {
 	.header3-login input {
 		width: 31%;
@@ -427,7 +437,7 @@ form.innerpage-login {
 	.header3-login {
 		position: absolute;
 		position: relative;
-		top: 55px;
+		top: 105px;
 	}
 }
 .btn-2 {
@@ -593,9 +603,10 @@ header .bx-wrapper .bx-pager.bx-default-pager a {
 	font-weight: 600;
 	color: #000000;
 	text-transform: uppercase;
-	margin: 0 0 0 40px;
+	margin: 0 40px 0 0px;
 	padding: 0;
 	position: relative;
+	text-shadow: none;
 }
 
 .navbar .nav > li > a.active {
@@ -645,7 +656,16 @@ header .bx-wrapper .bx-pager.bx-default-pager a {
 	padding: 8px 0 6px;
 	min-height:53px;
 }
-
+.only {
+	position: absolute;
+	top: 54px;
+	left: 0;
+	width: 100%;
+	z-index: 2;
+	/*padding: 8px 0 6px;*/
+	background-color: #e84c3d;
+	min-height:53px;
+}
 .main-menu.header3 + .bx-wrapper .bx-viewport .top-slider .content-wrap .top-slide-content .customslider {
 	margin-top:-140px;
 }
@@ -657,7 +677,16 @@ header .bx-wrapper .bx-pager.bx-default-pager a {
 	box-sizing: border-box;
 	width: 100%;
 	z-index: 111111;
-	box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, .5);
+	box-shadow: none;
+}
+.fixed-header-only {
+	position: fixed;
+	top: 54px;
+	left: 0;
+	box-sizing: border-box;
+	width: 100%;
+	z-index: 2;
+	/*box-shadow: 0px 0px 20px 0px #d7d7d7;*/
 }
 
 /* 3 - END of header ---------------------------------------------------------- */
@@ -1385,6 +1414,7 @@ footer {
 
 .usermenu span {
 	display: inline-block;
+	color: #000;
 }
 
 .usermenu img {
@@ -1545,7 +1575,7 @@ body.has_dock #page {
 	/*overflow:hidden;*/
 }
 
-#region-main a,
+/*#region-main a,*/
 .block_calendar_upcoming .footer a,
 .block_news_items a,
 .searchform a,
@@ -2719,6 +2749,9 @@ li.langmenu a.dropdown-toggle {
   .top-slide-content .customslider {
     margin-top: 30px;
 	}
+	/*.top-slide-content {
+		top: 18%;
+	}*/
 	
 }
 
@@ -2775,7 +2808,9 @@ li.langmenu a.dropdown-toggle {
 	    height: 300px;
 	    width: 100%;
 	}
-	
+	.content {
+		margin-top: 26px;
+	}
 }
 
 /* ----------------------------------------------------------------------------------- */
@@ -2836,7 +2871,7 @@ li.langmenu a.dropdown-toggle {
 	}
 	
 	.header3-login {
-		top: 53px;
+		/*top: 53px;*/
 	}
 	
 	.main-menu.header3 ul.nav a {
@@ -3067,6 +3102,15 @@ li.langmenu a.dropdown-toggle {
 		font-weight: 600;
 		line-height: 16px;
 		letter-spacing: -.8px;
+	}
+	.nav-collapse .nav > li > a:hover, .nav-collapse .nav > li > a:focus, .nav-collapse .dropdown-menu a:hover, .nav-collapse .dropdown-menu a:focus {
+		background-color: transparent;
+	}
+	.nav-collapse .dropdown-menu a {
+		color: #000;
+	}
+	.nav-collapse .nav > li {
+		padding: 5px 0;
 	}
 }
 
@@ -3459,6 +3503,13 @@ li.langmenu a.dropdown-toggle {
 /* ----------------------------------------------------------------------------------- */
 
 @media screen and (max-width: 400px) {
+	.langmenu, ul.nav .langmenu {
+		width: 100px;
+	}
+	.popover-region-container {
+		height: 300px;
+		width: 220px;
+	}
 	.top-slide-content h3 {
 		font-size: 10px;
 		line-height: 10px;
@@ -3496,6 +3547,11 @@ li.langmenu a.dropdown-toggle {
 	
 }
 
+@media screen and (max-width: 320px) {
+	.logo-text {
+	    padding-left: 0;
+	}
+}
 @media (max-width: 1199px){
 	section.two-column-main {
 		width: 70% !important;	
@@ -3514,6 +3570,9 @@ li.langmenu a.dropdown-toggle {
 	aside.two-column-sidebar {
 		width: 100% !important;
 	}
+	.usermenu .show ul.menu {
+		left: -123%;
+	}
 }
 
 
@@ -3522,10 +3581,12 @@ li.langmenu a.dropdown-toggle {
 .navbar .nav-collapse.in {
 	border-top: none !important;
 }
-.nav-collapse .nav > li > a:hover, .nav-collapse .nav > li > a:focus, .nav-collapse .dropdown-menu a:hover, .nav-collapse .dropdown-menu a:focus {
-	background-color: none !important;
+/*.nav-collapse .nav > li > a:hover, .nav-collapse .nav > li > a:focus, .nav-collapse .dropdown-menu a:hover, .nav-collapse .dropdown-menu a:focus {
+	background: none !important;
+}*/
+.navbar .nav li.dropdown.open>.dropdown-toggle {
+	background-color:transparent;
 }
-
 .usermenu .login {
     padding-top: 10px;
 }
@@ -3546,9 +3607,10 @@ li.langmenu a.dropdown-toggle {
 	margin-left: 20px;
 }
 .dropdown-menu {
-	background-color: #000;
+	background-color: #fff;
 	margin-top: 15px;
 }
+
 .dropdown-menu li {
 	border-top: 1px solid #FFF;
 }
@@ -3559,10 +3621,10 @@ li.langmenu a.dropdown-toggle {
 	display: none !important;
 }
 .moodle-actionmenu[data-enhanced].show .menu a {
- color: #FFFFFF;
+ color: #000 !important;
 }
 .jsenabled .usermenu .moodle-actionmenu>.menu {
-    background-color: #333;
+    background-color: #FFF;
 }
 .jsenabled .usermenu .moodle-actionmenu.show .menu.align-tr-br {
     margin-top: 0px !important;
@@ -3571,3 +3633,45 @@ li.langmenu a.dropdown-toggle {
 .header3 .langmenu, ul.nav .langmenu {
     margin-top: 0;
 }    
+
+
+.submissionlinks a {
+	text-shadow: none;
+	color: #fff !important;
+}
+.inplaceeditable .quickediticon img {
+    opacity: 1;
+}
+
+.moodlecorecontent {
+	margin-top: 10px;
+}
+
+
+.moodlecorecontent .buttons .singlebutton form div input {
+    margin-left: 0px;
+}
+.moodlecorecontent .buttons .singlebutton form div {
+    margin-left: 0px;
+}
+.turnedit {
+	padding-left: 12px;
+	padding-right: 12px;
+	line-height: 27px;
+	color: #fff !important;
+}
+.maincontent {
+	display: none;
+}
+.messagesnotifications {
+	margin-top: 15px;
+}
+.popover-region-footer-container {
+	height: 40px;
+}
+.hover-tooltip-container .hover-tooltip {
+	top: 10px;
+}
+.popover-region {
+	margin-left: 5px;
+}

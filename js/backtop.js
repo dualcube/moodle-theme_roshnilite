@@ -5,9 +5,11 @@ jQuery(document).ready(function() {
 		var scrollTop = $(window).scrollTop();
 		if (scrollTop > stickyNavTop) {
 			$('.main-menu').addClass('fixed-header');
+			$('.only').addClass('fixed-header-only');
 			$('body').addClass('fixed-header-content-margin');
 		} else {
 			$('.main-menu').removeClass('fixed-header');
+			$('.only').removeClass('fixed-header-only');
 			$('body').removeClass('fixed-header-content-margin');
 		}
 	};

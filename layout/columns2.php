@@ -67,7 +67,10 @@ echo $OUTPUT->doctype() ?>
             <div class="container">
                 <a class="inner-logo logo-text" href="<?php echo $CFG->wwwroot;?>"></a>
                   <?php echo $OUTPUT->lang_menu();
-                   echo $OUTPUT->user_menu(); ?>
+                    echo $OUTPUT->user_menu(); ?>
+                    <div class="messagesnotifications">
+                        <?php echo $OUTPUT->navbar_plugin_output(); ?>
+                    </div>
             </div>
         </nav>
     </div>

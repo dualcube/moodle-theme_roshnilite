@@ -47,6 +47,13 @@ if (is_siteadmin()) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
 
+    $name = 'theme_roshnilite/moodlemaincontentinfrontpage';
+    $title = get_string('moodlemaincontentinfrontpage', 'theme_roshnilite');
+    $description = get_string('moodlemaincontentinfrontpagedesc', 'theme_roshnilite');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 1);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $temp->add($setting);
+
     $name = 'theme_roshnilite/slidercount';
     $title = get_string('slidercount', 'theme_roshnilite');
     $description = get_string('slidercountdesc', 'theme_roshnilite');
