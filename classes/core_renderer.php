@@ -33,7 +33,14 @@ class theme_roshnilite_core_renderer extends theme_bootstrapbase_core_renderer {
      * overridding full_header function.
      */
     public function full_header() {
+        GLOBAL $USER, $PAGE;
         $html = html_writer::start_tag('header', array('id' => 'page-header', 'class' => 'clearfix'));
+        if ($PAGE->pagelayout == "mydashboard" || $PAGE->pagelayout == "mypublic") {
+            $html .= html_writer::start_div('clearfix', array('class' => 'userprofilepic container'));
+            $html .= $this->dashboard_profile_user_profile_picture();
+            $html .= html_writer::start_span().$USER->firstname ." ". $USER->lastname . html_writer::end_span();
+            $html .= html_writer::end_div();
+        }
         $html .= html_writer::start_div('clearfix', array('id' => 'page-navbar'));
         $html .= html_writer::start_div('clearfix', array('class' => 'container'));
         $html .= html_writer::tag('nav', $this->navbar(), array('class' => 'breadcrumb-nav'));
@@ -61,6 +68,14 @@ class theme_roshnilite_core_renderer extends theme_bootstrapbase_core_renderer {
     public function user_profile_picture() {
         GLOBAL $USER;
         $userpic = parent::user_picture($USER, array('link' => false, 'size' => 28));
+        return $userpic;
+    }
+    /** 
+     * overridding dashboard_profile_user_profile_picture function.
+     */
+    public function dashboard_profile_user_profile_picture() {
+        GLOBAL $USER;
+        $userpic = parent::user_picture($USER, array('link' => false));
         return $userpic;
     }
     /** 

@@ -1490,6 +1490,7 @@ footer {
 #page-header {
 	background: none;
 	min-height: 63px;
+	margin-top: 65px;
 }
 
 #page-header .navbar {
@@ -1498,7 +1499,7 @@ footer {
 
 header.navbar.navbar-fixed-top {
 	min-height: 55px;
-	position: absolute;
+	/*position: absolute;*/
 }
 
 #page-header .main-menu {
@@ -1507,7 +1508,7 @@ header.navbar.navbar-fixed-top {
 
 div#page-navbar {
 	border-bottom: 13px solid #e84c3d;
-	margin-top: 68px;
+	/*margin-top: 68px;*/
 }
 
 .logo-inner {
@@ -3610,7 +3611,10 @@ li.langmenu a.dropdown-toggle {
 	background-color: #fff;
 	margin-top: 15px;
 }
-
+.langmenu .dropdown-menu {
+	overflow: auto;
+	max-height: 200px;
+}
 .dropdown-menu li {
 	border-top: 1px solid #FFF;
 }
@@ -3674,4 +3678,7 @@ li.langmenu a.dropdown-toggle {
 }
 .popover-region {
 	margin-left: 5px;
+}
+.userprofilepic span {
+	padding-left: 10px;
 }

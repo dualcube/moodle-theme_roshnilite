@@ -61,9 +61,11 @@ echo $OUTPUT->doctype()
 					<div class="container">
 						<a href="<?php echo $CFG->wwwroot;?>" class="inner-logo logo-text"></a>
                         <?php echo $OUTPUT->user_menu(); ?>
+                        <?php if ($CFG->version > 2016052304) { ?>
                         <div class="messagesnotifications">
     						<?php echo $OUTPUT->navbar_plugin_output(); ?>
                     	</div>
+                    	<?php } ?>
 					</div><!-- END of .container -->
 				</div><!-- END of main-menu -->
 				<div class="only">
@@ -111,7 +113,7 @@ echo $OUTPUT->doctype()
                 		if ($PAGE->user_is_editing()) { ?>
                 			<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=off';?>"><?php echo get_string('turneditingoff');?></a>
                 		<?php } else { ?>
-                			<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=on';?>"><?php echo get_string('turneditingoff');?></a>
+                			<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=on';?>"><?php echo get_string('turneditingon');?></a>
                 		<?php }
                 		?>
                 	</div>
