@@ -3682,3 +3682,15 @@ li.langmenu a.dropdown-toggle {
 .userprofilepic span {
 	padding-left: 10px;
 }
+
+.messaging-area-container .contacts-area .contacts .contact {
+	text-align: left !important;
+	padding: 7px 9px !important;
+}
+.forumpost .maincontent {
+	display: block !important;
+}
+
+.feditor .editor_atto_content {
+	overflow: auto !important;
+}
