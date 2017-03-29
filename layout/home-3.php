@@ -61,7 +61,7 @@ echo $OUTPUT->doctype()
 					<div class="container">
 						<a href="<?php echo $CFG->wwwroot;?>" class="inner-logo logo-text"></a>
                         <?php echo $OUTPUT->user_menu(); ?>
-                        <?php if ($CFG->version > 2016052304) { ?>
+                        <?php if ($CFG->version >= 2016120500) { ?>
                         <div class="messagesnotifications">
     						<?php echo $OUTPUT->navbar_plugin_output(); ?>
                     	</div>
