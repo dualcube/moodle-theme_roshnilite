@@ -57,8 +57,8 @@ if (!empty($html->aboutsiteheading)) {
 ?>
 <div class="about">
 <div class="container">
-<h1 class="h-large"><?php echo $html->aboutsiteheading;?><span></span></h1>
-<h3 class="header-b-2"><?php echo $html->aboutsitesubheading;?></h3>
+<h1 class="h-large"><?php echo format_text($html->aboutsiteheading, "", $roshniliteformatoptions);?><span></span></h1>
+<h3 class="header-b-2"><?php echo format_text($html->aboutsitesubheading, "", $roshniliteformatoptions);?></h3>
 <div class="clearfix"></div>
 <div class="about-items">
 <?php
@@ -70,8 +70,8 @@ if (!empty($html->aboutsiteheading)) {
 <a href="<?php echo $html->aboutsiteurl1; ?>"><img alt="" src="<?php echo $aboutsiteimage1; ?>"></i></a>
 </div>
 </div>
-<h5><a href="<?php echo $html->aboutsiteurl1; ?>"><?php echo $html->aboutsitename1; ?></a></h5>
-<p><?php echo $html->aboutsitetext1; ?></p>
+<h5><a href="<?php echo $html->aboutsiteurl1; ?>"><?php echo format_text($html->aboutsitename1, "", $roshniliteformatoptions); ?></a></h5>
+<p><?php echo format_text($html->aboutsitetext1, "", $roshniliteformatoptions); ?></p>
 </div><!-- END of .about-item -->
 <?php
     }
@@ -83,8 +83,8 @@ if (!empty($html->aboutsiteheading)) {
 <a href="<?php echo $html->aboutsiteurl2; ?>"><img alt="" src="<?php echo $aboutsiteimage2; ?>"></a>
 </div>
 </div>
-<h5><a href="<?php echo $html->aboutsiteurl2; ?>"><?php echo $html->aboutsitename2; ?></a></h5>
-<p><?php echo $html->aboutsitetext2; ?></p>
+<h5><a href="<?php echo $html->aboutsiteurl2; ?>"><?php echo format_text($html->aboutsitename2, "", $roshniliteformatoptions); ?></a></h5>
+<p><?php echo format_text($html->aboutsitetext2, "", $roshniliteformatoptions); ?></p>
 </div><!-- END of .about-item -->
 <?php
     }
@@ -96,8 +96,8 @@ if (!empty($html->aboutsiteheading)) {
 <a href="<?php echo $html->aboutsiteurl3; ?>"><img alt="" src="<?php echo $aboutsiteimage3; ?>"></a>
 </div>
 </div>
-<h5><a href="<?php echo $html->aboutsiteurl3; ?>"><?php echo $html->aboutsitename3; ?></a></h5>
-<p><?php echo $html->aboutsitetext3; ?></p>
+<h5><a href="<?php echo $html->aboutsiteurl3; ?>"><?php echo format_text($html->aboutsitename3, "", $roshniliteformatoptions); ?></a></h5>
+<p><?php echo format_text($html->aboutsitetext3, "", $roshniliteformatoptions); ?></p>
 </div><!-- END of .about-item -->
 <?php
     }
@@ -109,8 +109,8 @@ if (!empty($html->aboutsiteheading)) {
 <a href="<?php echo $html->aboutsiteurl4; ?>"><img alt="" src="<?php echo $aboutsiteimage4; ?>"></a>
 </div>
 </div>
-<h5><a href="<?php echo $html->aboutsiteurl4; ?>"><?php echo $html->aboutsitename4; ?></a></h5>
-<p><?php echo $html->aboutsitetext4; ?></p>
+<h5><a href="<?php echo $html->aboutsiteurl4; ?>"><?php echo format_text($html->aboutsitename4, "", $roshniliteformatoptions); ?></a></h5>
+<p><?php echo format_text($html->aboutsitetext4, "", $roshniliteformatoptions); ?></p>
 </div><!-- END of .about-item -->
 <?php 
     }

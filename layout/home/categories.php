@@ -80,8 +80,8 @@ if (!empty($html->masonryheading)) {
 
 <div class="categories">
 	<div class="container">
-		<h1 class="h-large"><?php echo $html->masonryheading; ?></h1>
-		<h3 class="header-b-2"><?php echo $html->masonrysubheading; ?></h3>
+		<h1 class="h-large"><?php echo format_text($html->masonryheading, "", $roshniliteformatoptions); ?></h1>
+		<h3 class="header-b-2"><?php echo format_text($html->masonrysubheading, "", $roshniliteformatoptions); ?></h3>
 	</div><!-- END of .container -->
 
 	<div class="categories-items">
@@ -92,11 +92,11 @@ if (!empty($html->masonryheading)) {
 			<img src="<?php echo $masonryimage1;?>" alt="">
 			<div class="mask"></div>
 			<div class="categories-item-cont">
-				<h5><a href="<?php echo $html->masonryurl1; ?>"><?php echo $html->masonrytext1; ?></a></h5>
+				<h5><a href="<?php echo $html->masonryurl1; ?>"><?php echo format_text($html->masonrytext1, "", $roshniliteformatoptions); ?></a></h5>
 				<p>
 				    <?php 
         if (!empty($html->masonrysubtext1)) {
-                    echo $html->masonrysubtext1;
+                    echo format_text($html->masonrysubtext1, "", $roshniliteformatoptions);
         }
         ?>
 				</p>
@@ -110,10 +110,10 @@ if (!empty($html->masonryheading)) {
 			<img src="<?php echo $masonryimage2;?>" alt="">
 			<div class="mask"></div>
 			<div class="categories-item-cont">
-				<h5><a href="<?php echo $html->masonryurl2; ?>"><?php echo $html->masonrytext2; ?></a></h5>				<p>
+				<h5><a href="<?php echo $html->masonryurl2; ?>"><?php echo format_text($html->masonrytext2, "", $roshniliteformatoptions); ?></a></h5>				<p>
 				    <?php 
         if (!empty($html->masonrysubtext2)) {
-                    echo $html->masonrysubtext2;
+                    echo format_text($html->masonrysubtext2, "", $roshniliteformatoptions);
         }
         ?>
 				</p>
@@ -127,11 +127,11 @@ if (!empty($html->masonryheading)) {
 			<img src="<?php echo $masonryimage3;?>" alt="">
 			<div class="mask"></div>
 			<div class="categories-item-cont">
-				<h5><a href="<?php echo $html->masonryurl3; ?>"><?php echo $html->masonrytext3; ?></a></h5>
+				<h5><a href="<?php echo $html->masonryurl3; ?>"><?php echo format_text($html->masonrytext3, "", $roshniliteformatoptions); ?></a></h5>
 				<p>
 				    <?php 
         if (!empty($html->masonrysubtext3)) {
-                    echo $html->masonrysubtext3;
+                    echo format_text($html->masonrysubtext3, "", $roshniliteformatoptions);
         }
         ?>
 				</p>
@@ -145,11 +145,11 @@ if (!empty($html->masonryheading)) {
 			<img src="<?php echo $masonryimage4;?>" alt="">
 			<div class="mask"></div>
 			<div class="categories-item-cont">
-				<h5><a href="<?php echo $html->masonryurl4; ?>"><?php echo $html->masonrytext4; ?></a></h5>
+				<h5><a href="<?php echo $html->masonryurl4; ?>"><?php echo format_text($html->masonrytext4, "", $roshniliteformatoptions); ?></a></h5>
 				<p>
 				    <?php 
         if (!empty($html->masonrysubtext4)) {
-                    echo $html->masonrysubtext4;
+                    echo format_text($html->masonrysubtext4, "", $roshniliteformatoptions);
         }
         ?>
 				</p>
@@ -163,11 +163,11 @@ if (!empty($html->masonryheading)) {
 			<img src="<?php echo $masonryimage5;?>" alt="">
 			<div class="mask"></div>
 			<div class="categories-item-cont">
-				<h5><a href="<?php echo $html->masonryurl5; ?>;"><?php echo $html->masonrytext5; ?></a></h5>
+				<h5><a href="<?php echo $html->masonryurl5; ?>;"><?php echo format_text($html->masonrytext5, "", $roshniliteformatoptions); ?></a></h5>
 				<p>
 				    <?php 
         if (!empty($html->masonrysubtext5)) {
-                    echo $html->masonrysubtext5;
+                    echo format_text($html->masonrysubtext5, "", $roshniliteformatoptions);
         }
         ?>
 				</p>
@@ -181,11 +181,11 @@ if (!empty($html->masonryheading)) {
 			<img src="<?php echo $masonryimage6;?>" alt="">
 			<div class="mask"></div>
 			<div class="categories-item-cont">
-				<h5><a href="<?php echo $html->masonryurl6; ?>"><?php echo $html->masonrytext6; ?></a></h5>
+				<h5><a href="<?php echo $html->masonryurl6; ?>"><?php echo format_text($html->masonrytext6, "", $roshniliteformatoptions); ?></a></h5>
 				<p>
 				    <?php 
         if (!empty($html->masonrysubtext6)) {
-                    echo $html->masonrysubtext6;
+                    echo format_text($html->masonrysubtext6, "", $roshniliteformatoptions);
         }
         ?>
 				</p>
@@ -199,11 +199,11 @@ if (!empty($html->masonryheading)) {
 			<img src="<?php echo $masonryimage7;?>" alt="">
 			<div class="mask"></div>
 			<div class="categories-item-cont">
-				<h5><a href="<?php echo $html->masonryurl7; ?>"><?php echo $html->masonrytext7; ?></a></h5>
+				<h5><a href="<?php echo $html->masonryurl7; ?>"><?php echo format_text($html->masonrytext7, "", $roshniliteformatoptions); ?></a></h5>
 				<p>
 				    <?php 
         if (!empty($html->masonrysubtext7)) {
-                    echo $html->masonrysubtext7;
+                    echo format_text($html->masonrysubtext7, "", $roshniliteformatoptions);
         }
         ?>
 				</p>
@@ -217,11 +217,11 @@ if (!empty($html->masonryheading)) {
 			<img src="<?php echo $masonryimage8; ?>" alt="">
 			<div class="mask"></div>
 			<div class="categories-item-cont">
-				<h5><a href="<?php echo $html->masonryurl8; ?>"><?php echo $html->masonrytext8; ?></a></h5>
+				<h5><a href="<?php echo $html->masonryurl8; ?>"><?php echo format_text($html->masonrytext8, "", $roshniliteformatoptions); ?></a></h5>
 				<p>
 				    <?php 
         if (!empty($html->masonrysubtext8)) {
-                    echo $html->masonrysubtext8;
+                    echo format_text($html->masonrysubtext8, "", $roshniliteformatoptions);
         }
         ?>
 				</p>

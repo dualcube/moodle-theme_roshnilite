@@ -31,6 +31,11 @@
 // Get the HTML for the settings bits.
 $html = theme_roshnilite_get_html_for_settings($OUTPUT, $PAGE);
 global $DB, $USER, $CFG, $PAGE;
+
+$roshniliteformatoptions = new stdClass();
+$roshniliteformatoptions->noclean = true;
+$roshniliteformatoptions->overflowdiv = false;
+
 $enablemoodlemaincontent = get_config('theme_roshnilite', 'moodlemaincontentinfrontpage');
 $PAGE->requires->css('/theme/roshnilite/css/font-awesome.min.css', true);
 $PAGE->requires->css('/theme/roshnilite/css/styles.css');

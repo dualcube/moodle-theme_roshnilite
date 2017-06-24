@@ -33,7 +33,7 @@ if (!empty($html->socialfontawesomeicon1) || !empty($html->socialfontawesomeicon
 ?>
 <div class="stay-connected">
 <div class="container">
-<h2 class="header-b-2"><?php echo $html->socialheading; ?></h2>
+<h2 class="header-b-2"><?php echo format_text($html->socialheading, "", $roshniliteformatoptions); ?></h2>
 <div class="social-links">
 <?php
     if ( !empty($html->socialfontawesomeicon1) ) {

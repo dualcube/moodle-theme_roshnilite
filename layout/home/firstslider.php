@@ -73,11 +73,11 @@ if (!empty($checkslideimage6)) {
 	<li class="content-wrap">
 		<img src="<?php echo $sliderimage1;?>" alt="">
 		<div class="top-slide-content"><div class="customslider">
-			<?php echo $html->slidertext1;?>
+			<?php echo format_text($html->slidertext1, "", $roshniliteformatoptions);?>
 <?php
         if (!empty($html->sliderbuttontext1)) {
 ?>
-			<a href="<?php echo $html->sliderurl1;?>" class="btn-1"><?php echo $html->sliderbuttontext1;?></a>
+			<a href="<?php echo $html->sliderurl1;?>" class="btn-1"><?php echo format_text($html->sliderbuttontext1, "", $roshniliteformatoptions);?></a>
 <?php
         }
 ?>
@@ -90,11 +90,11 @@ if (!empty($checkslideimage6)) {
 	<li class="content-wrap">
 		<img src="<?php echo $sliderimage2;?>" alt="">
 		<div class="top-slide-content"><div class="customslider">
-			<?php echo $html->slidertext2;?>
+			<?php echo format_text($html->slidertext2, "", $roshniliteformatoptions);?>
 <?php
         if (!empty($html->sliderbuttontext2)) {
 ?>
-			<a href="<?php echo $html->sliderurl2;?>" class="btn-1"><?php echo $html->sliderbuttontext2;?></a>
+			<a href="<?php echo $html->sliderurl2;?>" class="btn-1"><?php echo format_text($html->sliderbuttontext2, "", $roshniliteformatoptions);?></a>
 <?php
         }
 ?>
@@ -107,11 +107,11 @@ if (!empty($checkslideimage6)) {
 	<li class="content-wrap">
 		<img src="<?php echo $sliderimage3;?>" alt="">
 		<div class="top-slide-content">
-			<?php echo $html->slidertext3;?>
+			<?php echo format_text($html->slidertext3, "", $roshniliteformatoptions);?>
 <?php
         if (!empty($html->sliderbuttontext3)) {
 ?>
-			<a href="<?php echo $html->sliderurl3;?>" class="btn-1"><?php echo $html->sliderbuttontext3;?></a>
+			<a href="<?php echo $html->sliderurl3;?>" class="btn-1"><?php echo format_text($html->sliderbuttontext3, "", $roshniliteformatoptions);?></a>
 <?php
         }
 ?>
@@ -124,11 +124,11 @@ if (!empty($checkslideimage6)) {
 	<li class="content-wra    ">
 		<img src="<?php echo $sliderimage4;?>" alt="">
 		<div class="top-slide-content">
-			<?php echo $html->slidertext4;?>
+			<?php echo format_text($html->slidertext4, "", $roshniliteformatoptions);?>
 <?php
         if (!empty($html->sliderbuttontext4)) {
 ?>
-			<a href="<?php echo $html->sliderurl4;?>" class="btn-1"><?php echo $html->sliderbuttontext4;?></a>
+			<a href="<?php echo $html->sliderurl4;?>" class="btn-1"><?php echo format_text($html->sliderbuttontext4, "", $roshniliteformatoptions);?></a>
 <?php
         }
 ?>
@@ -141,11 +141,11 @@ if (!empty($checkslideimage6)) {
 	<li class="content-wrap">
 		<img src="<?php echo $sliderimage5;?>" alt="">
 		<div class="top-slide-content">
-			<?php echo $html->slidertext5;?>
+			<?php echo format_text($html->slidertext5, "", $roshniliteformatoptions);?>
 <?php
         if (!empty($html->sliderbuttontext5)) {
 ?>
-			<a href="<?php echo $html->sliderurl6;?>" class="btn-1"><?php echo $html->sliderbuttontext5;?></a>
+			<a href="<?php echo $html->sliderurl6;?>" class="btn-1"><?php echo format_text($html->sliderbuttontext5, "", $roshniliteformatoptions);?></a>
 <?php
         }
 ?>
@@ -158,11 +158,11 @@ if (!empty($checkslideimage6)) {
 	<li class="content-wrap">
 		<img src="<?php echo $sliderimage6;?>" alt="">
 		<div class="top-slide-content">
-			<?php echo $html->slidertext6;?>
+			<?php echo format_text($html->slidertext6, "", $roshniliteformatoptions);?>
 <?php
         if (!empty($html->sliderbuttontext6)) {
 ?>
-			<a href="<?php echo $html->sliderurl6;?>" class="btn-1"><?php echo $html->sliderbuttontext6;?></a>
+			<a href="<?php echo $html->sliderurl6;?>" class="btn-1"><?php echo format_text($html->sliderbuttontext6, "", $roshniliteformatoptions);?></a>
 <?php
         }
 ?>
