@@ -3698,3 +3698,13 @@ li.langmenu a.dropdown-toggle {
     vertical-align: middle !important;
     padding-right: 3px;
 }
+#page-mod-book-view .book_content .no-overflow {
+	padding: 15px 0px !important;
+}
+#page-mod-book-view .book_content .no-overflow h2 {
+	margin-left: 0px !important;
+    font-size: 26px !important;
+}
+#page-mod-book-view .book_content .no-overflow ul, #page-mod-book-view .book_content .no-overflow ol {
+    margin: 0 0 10px 25px !important;
+}
