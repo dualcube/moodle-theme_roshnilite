@@ -66,13 +66,13 @@ echo $OUTPUT->doctype() ?>
         <nav class="navbar-inner">
             <div class="container">
                 <a class="inner-logo logo-text" href="<?php echo $CFG->wwwroot;?>"></a>
-                  <?php echo $OUTPUT->lang_menu();
-                    echo $OUTPUT->user_menu(); ?>
+                  <?php echo $OUTPUT->user_menu(); ?>
                     <?php if ($CFG->version >= 2016120500) { ?>
                     <div class="messagesnotifications">
                         <?php echo $OUTPUT->navbar_plugin_output(); ?>
                     </div>
-                  <?php } ?>
+                  <?php } 
+                    echo $OUTPUT->custom_menu(); ?>
             </div>
         </nav>
     </div>
