@@ -59,7 +59,7 @@ echo $OUTPUT->doctype()
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link type="image/x-icon" rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>">
 	</head>
-	<body class="header-3">
+	<body <?php echo $OUTPUT->body_attributes(); ?>>
 		<?php echo $OUTPUT->standard_top_of_body_html() ?>
 		<header id="header">
 				<div class="main-menu header3">
@@ -114,12 +114,14 @@ echo $OUTPUT->doctype()
             	<?php if ($enablemoodlemaincontent == 1) { ?>
                 <div class="container">
                 	<div class="moodlecorecontent">
-                		<?php echo $OUTPUT->main_content(); 
-                		if ($PAGE->user_is_editing()) { ?>
-                			<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=off';?>"><?php echo get_string('turneditingoff');?></a>
-                		<?php } else { ?>
-                			<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=on';?>"><?php echo get_string('turneditingon');?></a>
-                		<?php }
+                		<?php echo $OUTPUT->main_content();
+                		if (isloggedin()) {
+	                		if ($PAGE->user_is_editing()) { ?>
+	                			<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=off';?>"><?php echo get_string('turneditingoff');?></a>
+	                		<?php } else { ?>
+	                			<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=on';?>"><?php echo get_string('turneditingon');?></a>
+	                		<?php }
+	                	}
                 		?>
                 	</div>
                 </div>
