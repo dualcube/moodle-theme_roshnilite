@@ -3708,3 +3708,9 @@ li.langmenu a.dropdown-toggle {
 #page-mod-book-view .book_content .no-overflow ul, #page-mod-book-view .book_content .no-overflow ol {
     margin: 0 0 10px 25px !important;
 }
+#page-my-index .block_myoverview .content ul{
+    list-style: none !important;
+}
+#page #page-header{
+	padding-top: 55px !important;
+}
