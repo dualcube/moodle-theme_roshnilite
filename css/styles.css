@@ -542,7 +542,6 @@ header .bx-wrapper .bx-pager.bx-default-pager a {
 	box-sizing: border-box;
 	width: 100%;
 	z-index: 10;
-	box-shadow: 0px 0px 20px 0px #d7d7d7;
 }
 
 .logo {
