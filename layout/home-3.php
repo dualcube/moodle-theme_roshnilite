@@ -50,7 +50,8 @@ if (right_to_left()) {
 } else {
     $regionbsid = 'region-bs-main-and-pre';
 }
-echo $OUTPUT->doctype()
+echo $OUTPUT->doctype();
+$context = context_system::instance();
 ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 	<head>
@@ -116,11 +117,13 @@ echo $OUTPUT->doctype()
                 	<div class="moodlecorecontent">
                 		<?php echo $OUTPUT->main_content();
                 		if (isloggedin()) {
-	                		if ($PAGE->user_is_editing()) { ?>
-	                			<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=off';?>"><?php echo get_string('turneditingoff');?></a>
-	                		<?php } else { ?>
-	                			<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=on';?>"><?php echo get_string('turneditingon');?></a>
-	                		<?php }
+					if (has_capability('moodle/course:create', $context)) {
+						if ($PAGE->user_is_editing()) { ?>
+							<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=off';?>"><?php echo get_string('turneditingoff');?></a>
+						<?php } else { ?>
+							<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=on';?>"><?php echo get_string('turneditingon');?></a>
+						<?php }
+					}
 	                	}
                 		?>
                 	</div>
