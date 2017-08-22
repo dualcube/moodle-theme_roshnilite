@@ -27,7 +27,7 @@
  * @copyright  2015 dualcube {@link http://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$course = $DB->get_records_sql('SELECT c.* FROM {course} c where id != ?', array(1));
+$course = $DB->get_records_sql('SELECT c.* FROM {course} c where id != ? AND visible = ?', array(1, 1));
 $coursedetailsarray = array();
 foreach ($course as $key => $coursevalue) {
     $coursedetailsarray[$key]["courseid"] = $CFG->wwwroot."/course/view.php?id=".$coursevalue->id;
