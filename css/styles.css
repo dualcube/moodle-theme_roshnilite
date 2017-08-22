@@ -1,4 +1,4 @@
-﻿@import "fonts.css";
+@import "fonts.css";
 @import "bootstrap.css";
 @import "bootstrap-responsive.css";
 @import "jquery.bxslider.css";
@@ -542,6 +542,7 @@ header .bx-wrapper .bx-pager.bx-default-pager a {
 	box-sizing: border-box;
 	width: 100%;
 	z-index: 10;
+	/*box-shadow: 0px 0px 20px 0px #d7d7d7;*/
 }
 
 .logo {
@@ -929,8 +930,10 @@ header .bx-wrapper .bx-pager.bx-default-pager a {
 }
 
 .about-item h5 {
+	font-size: 20px;
 	height: 23px;
 	overflow: hidden;
+	padding-bottom: 25px;
 }
 
 .about-item a {
@@ -3692,7 +3695,6 @@ li.langmenu a.dropdown-toggle {
 	list-style: inside !important;
     list-style-type: decimal !important;
 }
-
 .preferences-groups ul li a img {
     vertical-align: middle !important;
     padding-right: 3px;
@@ -3712,4 +3714,32 @@ li.langmenu a.dropdown-toggle {
 }
 #page #page-header{
 	padding-top: 55px !important;
+}
+#page.login-page #page-header {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+.block_navigation .block_tree i, .block_settings .block_tree i {
+	display: inline-block !important;
+}
+.block_navigation .block_tree p.hasicon, .block_settings .block_tree p.hasicon {
+	text-indent: -5px !important;
+}
+.block_navigation .block_tree p a, .block_settings .block_tree p a {
+	font-size: 13px !important;	
+}
+.block_navigation .block_tree li.depth_2, .block_settings .block_tree li.depth_2 {
+    padding: 0 0 10px !important;
+}
+.text_to_html {
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: 100;
+}
+.about-item:hover {
+    background: #e84c3d !important;
+    color: #FFF;
+}
+.about-item:hover h5 a {
+    color: #FFF;
 }
