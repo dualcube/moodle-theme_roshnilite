@@ -24,7 +24,7 @@
  * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link http://dualcube.com}
+ * @copyright  2015 dualcube {@link https://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $course = $DB->get_records_sql('SELECT c.* FROM {course} c where id != ? AND visible = ?', array(1, 1));
@@ -49,40 +49,45 @@ foreach ($course as $key => $coursevalue) {
 }
 ?>
 <div class = "clearfix"></div>
-<?php
-if ( $coursedetailsarray ) {
-?>
+<?php if ( $coursedetailsarray ) { ?>
     <div class="av-courses header2-nav-color">
         <div class="header-top">
             <h2 class="header-b"><?php echo get_string('courses');?></h2>
         </div>
         <ul class="av-courses-slider">
-<?php
-    foreach ($coursedetailsarray as $avlcoursearrayvalue) {
-?>
+      <?php
+      if (COUNT($coursedetailsarray) == 1) { ?>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                $(".av-courses").find(".bx-wrapper").find(".bx-viewport").find("ul").find(".bx-clone").remove();
+                $(".av-courses").find(".bx-wrapper").find(".bx-controls").find(".bx-controls-direction").find(".bx-prev").hide();
+                $(".av-courses").find(".bx-wrapper").find(".bx-controls").find(".bx-controls-direction").find(".bx-next").hide();
+                $(".av-courses").find(".bx-wrapper").find(".bx-viewport").find(".av-courses-slider").find(".fourth-effect").css("float", "none");  
+            });
+        </script>
+<?php  } else { ?>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                $(".av-courses").find(".bx-wrapper").find(".bx-controls").find(".bx-controls-direction").find(".bx-prev").show();
+                $(".av-courses").find(".bx-wrapper").find(".bx-controls").find(".bx-controls-direction").find(".bx-next").show();
+                $(".av-courses").find(".bx-wrapper").find(".bx-viewport").find(".av-courses-slider").find(".fourth-effect").css("float", "left");  
+            });
+        </script>
+<?php  }
+       foreach ($coursedetailsarray as $avlcoursearrayvalue) { ?>
                 <li class = "view fourth-effect">
-<?php
-        if ( !empty ($avlcoursearrayvalue["courseimage"]) ) {
-?> 
-                        <img src="<?php echo $avlcoursearrayvalue["courseimage"]; ?>" alt="">
-<?php
-        }
-?>
-<?php
-        if ( !empty ($avlcoursearrayvalue["coursename"]) ) {
-?> 
+          <?php if ( !empty ($avlcoursearrayvalue["courseimage"]) ) { ?> 
+                    <img src="<?php echo $avlcoursearrayvalue["courseimage"]; ?>" alt="">
+          <?php }
+                if ( !empty ($avlcoursearrayvalue["coursename"]) ) { ?> 
                     <div class="mask"></div>
                     <div class="av-course-item-cont">
                        <h2><a href="<?php echo $avlcoursearrayvalue["courseid"]; ?>">
                        <?php echo $avlcoursearrayvalue["coursename"]; ?></a></h2>
                     </div>
-<?php
-        }
-?>
+          <?php } ?>
                 </li>
-<?php
-    }
-?>
+      <?php } ?>
         </ul><!-- END of .av-courses-slider -->
     <div>
     <a href="<?php echo $CFG->wwwroot ?>/course/index.php" class="btn-view-all"><?php echo get_string('viewallcourses');?></a>
