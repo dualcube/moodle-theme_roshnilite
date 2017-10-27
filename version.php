@@ -24,11 +24,11 @@
  * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link http://dualcube.com}
+ * @copyright  2015 dualcube {@link https://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die;
-$plugin->version   = 2015092115;
+$plugin->version   = 2015092116;
 $plugin->component = 'theme_roshnilite';
 $plugin->dependencies = array(
     'theme_bootstrapbase'  => 2014051200,
