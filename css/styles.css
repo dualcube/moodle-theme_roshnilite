@@ -3732,8 +3732,8 @@ li.langmenu a.dropdown-toggle {
     padding: 0 0 10px !important;
 }
 .text_to_html {
-	padding-left: 5px;
-	padding-right: 5px;
+	/*padding-left: 5px;
+	padding-right: 5px;*/
 	font-weight: 100;
 }
 .about-item:hover {
@@ -3742,4 +3742,7 @@ li.langmenu a.dropdown-toggle {
 }
 .about-item:hover h5 a {
     color: #FFF;
+}
+#page-admin-index #region-main .alert {
+    margin-left: auto;
 }
