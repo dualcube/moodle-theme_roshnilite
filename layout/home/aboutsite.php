@@ -24,7 +24,7 @@
  * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link http://dualcube.com}
+ * @copyright  2015 dualcube {@link https://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $checkaboutsiteimage1 = $PAGE->theme->setting_file_url('aboutsiteimage1', 'aboutsiteimage1');
@@ -71,7 +71,7 @@ if (!empty($html->aboutsiteheading)) {
 </div>
 </div>
 <h5><a href="<?php echo $html->aboutsiteurl1; ?>"><?php echo format_text($html->aboutsitename1, "", $roshniliteformatoptions); ?></a></h5>
-<p><?php echo format_text($html->aboutsitetext1, "", $roshniliteformatoptions); ?></p>
+<?php echo format_text($html->aboutsitetext1, "", $roshniliteformatoptions); ?>
 </div><!-- END of .about-item -->
 <?php
     }
@@ -84,7 +84,7 @@ if (!empty($html->aboutsiteheading)) {
 </div>
 </div>
 <h5><a href="<?php echo $html->aboutsiteurl2; ?>"><?php echo format_text($html->aboutsitename2, "", $roshniliteformatoptions); ?></a></h5>
-<p><?php echo format_text($html->aboutsitetext2, "", $roshniliteformatoptions); ?></p>
+<?php echo format_text($html->aboutsitetext2, "", $roshniliteformatoptions); ?>
 </div><!-- END of .about-item -->
 <?php
     }
@@ -97,7 +97,7 @@ if (!empty($html->aboutsiteheading)) {
 </div>
 </div>
 <h5><a href="<?php echo $html->aboutsiteurl3; ?>"><?php echo format_text($html->aboutsitename3, "", $roshniliteformatoptions); ?></a></h5>
-<p><?php echo format_text($html->aboutsitetext3, "", $roshniliteformatoptions); ?></p>
+<?php echo format_text($html->aboutsitetext3, "", $roshniliteformatoptions); ?>
 </div><!-- END of .about-item -->
 <?php
     }
@@ -110,7 +110,7 @@ if (!empty($html->aboutsiteheading)) {
 </div>
 </div>
 <h5><a href="<?php echo $html->aboutsiteurl4; ?>"><?php echo format_text($html->aboutsitename4, "", $roshniliteformatoptions); ?></a></h5>
-<p><?php echo format_text($html->aboutsitetext4, "", $roshniliteformatoptions); ?></p>
+<?php echo format_text($html->aboutsitetext4, "", $roshniliteformatoptions); ?>
 </div><!-- END of .about-item -->
 <?php 
     }
