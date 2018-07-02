@@ -3746,3 +3746,20 @@ li.langmenu a.dropdown-toggle {
 #page-admin-index #region-main .alert {
     margin-left: auto;
 }
+
+/**
+ * Text display fixups
+ */
+.generalbox.center {
+	text-align: inherit;
+}
+
+.box.generalbox table td {
+	padding: 1em;
+	border: 1px solid #ccc;
+}
+
+.generalbox ul,
+.generalbox ol {
+	margin: 0 0 10px 25px;
+}
