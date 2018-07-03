@@ -3763,3 +3763,66 @@ li.langmenu a.dropdown-toggle {
 .generalbox ol {
 	margin: 0 0 10px 25px;
 }
+/* Visual presentation improvements */
+.messagesnotifications {
+    margin-top: 11px;
+}
+button:hover, input.form-submit:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+button:focus,
+input.form-submit:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+.usermenu a span.userbutton:hover,
+.usermenu a span.userbutton:focus {
+  color: #ccc;
+}
+.usermenu a span.userbutton {
+  color: #fff;
+}
+.pagelayout-frontpage header {
+    min-height: unset;
+}
+.pagelayout-frontpage header .only {
+  display: none;
+}
+.pagelayout-frontpage .header3.main-menu {
+  /* background: rgba(54, 85, 116, 0.84) !important;*/
+  background: #4b647c !important;
+}
+.pagelayout-frontpage .usermenu .menubar a,
+.jsenabled .usermenu .moodle-actionmenu.show {
+  background: transparent !important;
+}
+.inner-logo {
+  margin: 15px 0 10px;
+}
+.pagelayout-frontpage .about {
+    padding: 20px 0 0;
+}
+.header3-login {
+    background: rgba(0, 0, 0, 0);
+    top: 0;
+}
+@media screen and (max-width: 767px) {
+  .header3-login {
+      position: relative;
+      text-align: center;
+      background: #CCC;
+  }
+}
+.pagelayout-mydashboard header.navbar.navbar-fixed-top,
+.pagelayout-course header.navbar.navbar-fixed-top,
+.pagelayout-admin header.navbar.navbar-fixed-top {
+  border-bottom: 1px solid #dbdada;
+}
+.jsenabled .usermenu .moodle-actionmenu.show .menu a:hover,
+.about-item:hover {
+  background: rgb(54,85,116, .85) !important;
+}
+.about-item {
+  padding: 0 30px 30px;
+}
