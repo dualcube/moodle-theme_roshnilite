@@ -110,7 +110,7 @@ $context = context_system::instance();
             <?php	
             	require($CFG->dirroot.'/theme/roshnilite/layout/home/firstslider.php');
                 require($CFG->dirroot.'/theme/roshnilite/layout/home/aboutsite.php');
-                require($CFG->dirroot.'/theme/roshnilite/layout/home/availablecourse.php');
+                // require($CFG->dirroot.'/theme/roshnilite/layout/home/availablecourse.php');
             ?>
             	<?php if ($enablemoodlemaincontent == 1) { ?>
                 <div class="container">
@@ -132,7 +132,7 @@ $context = context_system::instance();
                 	<div class="maincontent"><?php echo $OUTPUT->main_content();?></div>
                 <?php } ?>
             <?php
-            	require($CFG->dirroot.'/theme/roshnilite/layout/home/categories.php');
+            	// require($CFG->dirroot.'/theme/roshnilite/layout/home/categories.php');
                 require($CFG->dirroot.'/theme/roshnilite/layout/home/contacts.php');
                 require($CFG->dirroot.'/theme/roshnilite/layout/home/social_network.php');
             ?>
