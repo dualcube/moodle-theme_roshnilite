@@ -93,12 +93,3 @@ div#page-navbar {
 #searchform_button {
     border-color: [[setting:maincolor]] !important;
 }
-
-.message-drawer {
-	top:65px;
-}
-
-.popover-region-container {
-	z-index: 99;
-	top: 42px;
-}

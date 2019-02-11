@@ -24,7 +24,7 @@
  * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link http://dualcube.com}
+ * @copyright  2015 dualcube {@link https://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -117,13 +117,13 @@ $context = context_system::instance();
                 	<div class="moodlecorecontent">
                 		<?php echo $OUTPUT->main_content();
                 		if (isloggedin()) {
-					if (has_capability('moodle/course:create', $context)) {
-						if ($PAGE->user_is_editing()) { ?>
-							<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=off';?>"><?php echo get_string('turneditingoff');?></a>
-						<?php } else { ?>
-							<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=on';?>"><?php echo get_string('turneditingon');?></a>
-						<?php }
-					}
+                			if (has_capability('moodle/course:create', $context)) {
+		                		if ($PAGE->user_is_editing()) { ?>
+		                			<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=off';?>"><?php echo get_string('turneditingoff');?></a>
+		                		<?php } else { ?>
+		                			<a class = "turnedit btn-1" href="<?php echo $CFG->wwwroot.'/course/view.php?id=1&sesskey='.sesskey().'&edit=on';?>"><?php echo get_string('turneditingon');?></a>
+		                		<?php }
+		                	}
 	                	}
                 		?>
                 	</div>
@@ -137,6 +137,11 @@ $context = context_system::instance();
                 require($CFG->dirroot.'/theme/roshnilite/layout/home/social_network.php');
             ?>
 		</div><!-- END of .content -->
+		<?php 
+    if($CFG->version >= 2018101900)
+    {
+    echo $OUTPUT->standard_after_main_region_html();
+    } ?>
 		<?php
            require('footer.php'); echo $OUTPUT->standard_end_of_body_html()
         ?>

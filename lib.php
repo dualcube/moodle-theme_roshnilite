@@ -17,7 +17,7 @@
 /**
  * theme_roshnilite lib file.
  * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link http://dualcube.com}
+ * @copyright  2015 dualcube {@link https://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 /**

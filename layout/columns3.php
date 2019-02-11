@@ -24,7 +24,7 @@
  * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link http://dualcube.com}
+ * @copyright  2015 dualcube {@link https://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 // Get the HTML for the settings bits.
@@ -59,9 +59,10 @@ echo $OUTPUT->doctype() ?>
     ?>
 </head>
 
-<body <?php echo $OUTPUT->body_attributes(); ?>>
+<body <?php echo $OUTPUT->body_attributes('two-column'); ?>>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
+
 
 <header class="navbar navbar-fixed-top<?php echo $html->navbarclass ?> moodle-has-zindex">
     <div class="inner-header">
@@ -69,7 +70,7 @@ echo $OUTPUT->doctype() ?>
             <div class="container">
                 <a class="inner-logo logo-text" href="<?php echo $CFG->wwwroot;?>"></a>
                 <?php echo $OUTPUT->user_menu(); ?>
-                 <?php if ($CFG->version >= 2016120500) { ?>
+                  <?php if ($CFG->version >= 2016120500) { ?> 
                     <div class="messagesnotifications">
                         <?php echo $OUTPUT->navbar_plugin_output(); ?>
                     </div>
@@ -79,6 +80,7 @@ echo $OUTPUT->doctype() ?>
         </nav>
     </div>
 </header>
+
 <div id="page">
    <?php if ($CFG->version >= 2015051100) {
         echo $OUTPUT->full_header();
@@ -104,6 +106,7 @@ echo $OUTPUT->doctype() ?>
     	<div class="container">
         <div id="region-main-box" class="<?php echo $regionmainbox; ?>">
             <div class="row-fluid">
+                
                 <section id="region-main" class="<?php echo $regionmain; ?>">
                     <?php
                     echo $OUTPUT->course_content_header();
@@ -117,6 +120,12 @@ echo $OUTPUT->doctype() ?>
         <?php echo $OUTPUT->blocks('side-post', $sidepost); ?>
       </div> 
     </div>
+
+    <?php 
+    if($CFG->version >= 2018101900)
+    {
+    echo $OUTPUT->standard_after_main_region_html();
+    } ?>
     <?php require('footer.php'); echo $OUTPUT->standard_end_of_body_html() ?>
 </div>
 </body>

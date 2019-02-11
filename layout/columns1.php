@@ -24,7 +24,7 @@
  * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link http://dualcube.com}
+ * @copyright  2015 dualcube {@link https://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 // Get the HTML for the settings bits.
@@ -96,6 +96,11 @@ echo $OUTPUT->doctype() ?>
             </section>
         </div>
     </div>
+    <?php 
+    if($CFG->version >= 2018101900)
+    {
+    echo $OUTPUT->standard_after_main_region_html();
+    } ?>
     <?php require('footer.php'); echo $OUTPUT->standard_end_of_body_html() ?>
 </div>
 </body>
