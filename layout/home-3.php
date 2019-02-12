@@ -96,6 +96,7 @@ $context = context_system::instance();
 					<div class="header3-login">
 						<div class="container">
 							<form method="post" action="<?php echo $CFG->wwwroot; ?>/login/index.php?authldap_skipntlmsso=1">
+								<input type="hidden" name="logintoken" value="<?php echo s(\core\session\manager::get_login_token()); ?>" />
 								<input type="text" name="username" placeholder="Username:">
 								<input type="password" name="password" placeholder="Password:">
 								<input type="submit" value="LOG IN">
