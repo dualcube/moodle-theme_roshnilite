@@ -15,68 +15,65 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Moodle's roshnilite theme, an example of how to make a Bootstrap theme
+ * Language file.
  *
- * DO NOT MODIFY THIS THEME!
- * COPY IT FIRST, THEN RENAME THE COPY AND MODIFY IT INSTEAD.
- *
- * For full information about creating Moodle themes, see:
- * http://docs.moodle.org/dev/Themes_2.0
- *
- * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link https://dualcube.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   theme_roshnilite
+ * @copyright 2018 Bas Brands
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die;
+
+// This line protects the file from being accessed by a URL directly.
+defined('MOODLE_INTERNAL') || die();
+
+// Raw SCSS setting.
 $string['choosereadme'] = '
 <div class="clearfix">
 <div class="well">
-<h2>Roshnilite</h2>
+<h2>Roshni Lite</h2>
 <p><img class=img-polaroid src="roshnilite/pix/screenshot.jpg" /></p>
 </div>
 <div class="well">
 <h3>Parents</h3>
-<p>This theme is based upon the Bootstrap theme, which was created for Moodle 2.5, with the help of:<br>
+<p>This theme was previously based upon the Bootstrapbase theme, which was created for Moodle 2.5, with the help of:<br>
 Stuart Lamour, Mark Aberdour, Paul Hibbitts, Mary Evans.</p>
 <p>Font setting section of this theme is based upon the Essential theme with the help of:<br>
 Julian Ridden, Gareth J. Barnard, David Bezemer.</p>
 <h3>Theme Credits</h3>
+<p>This theme has now been redeveloped as a child of Boost theme. This theme is compatible with moodle version starting from 3.6.8 to latest 3.8.1</p>
 <p>Authors: Dualcube<br>
 Contact: admin@dualcube.com<br>
 Website: <a href="https://dualcube.com/">https://dualcube.com/</a>
 </p>
 </div></div>';
-
 $string['configtitle'] = 'Roshni Lite';
+$string['navbardark'] = 'Use a dark style navbar';
+$string['navbardarkdesc'] = 'Swaps text and background colours for the navbar at the top of the page between dark and light.';
+$string['pluginname'] = 'Roshni Lite';
+$string['presetfiles'] = 'Additional theme preset files';
+$string['presetfiles_desc'] = 'Preset files can be used to dramatically alter the appearance of the theme. See <a href="https://docs.moodle.org/dev/Boost_Presets">Boost presets</a> for information on creating and sharing your own preset files, and see the <a href="https://archive.moodle.net/boost">Presets repository</a> for presets that others have shared.';
+
+$string['preset'] = 'Theme preset';
+$string['preset_desc'] = 'Pick a preset to broadly change the look of the theme.';
+
+$string['region-side-post'] = 'Right';
+$string['region-side-pre'] = 'Left';
+
+$string['sitetitle'] = 'Site title';
+$string['privacy:metadata'] = 'The roshnilite theme does not store any personal data.';
 
 $string['customcss'] = 'Custom CSS';
 $string['customcssdesc'] = 'Whatever CSS rules you add to this textarea will be reflected in every page, making for easier customization of this theme.';
-
-$string['footnote'] = 'Footnote';
-$string['footnotedesc'] = 'Whatever you add to this textarea will be displayed in the footer throughout your Moodle site.';
-
-$string['invert'] = 'Invert navbar';
-$string['invertdesc'] = 'Swaps text and background for the navbar at the top of the page between black and white.';
 
 $string['logo'] = 'Logo';
 $string['logodesc'] = 'Please upload or enter the url of your custom logo here if you want to add it to the header.
 The image should be 65px high and any reasonable width that suits.
 If you upload a logo it will replace the standard icon and name that was displayed by default.';
 
-
 $string['favicon'] = 'Favicon';
 $string['favicondesc'] = 'Please upload or enter the url of the icon you want to show in the browser address bar, the fav icon.';
-
-$string['pluginname'] = 'Roshnilite';
-
-$string['region-side-post'] = 'Right';
-$string['region-side-pre'] = 'Left';
-
 $string['generalsettings'] = 'General Settings';
 $string['standarddesc'] = 'General Settings Desc';
 $string['customsettings'] = 'Custom Settings';
-
-
 
 $string['fontfiles'] = 'Upload Unlimited Fonts';
 $string['fontfilesdesc'] = 'Upload your font files here.';
@@ -123,7 +120,7 @@ $string['slidertextdesc'] = 'Enter a descriptive text for your slide ';
 $string['sliderurl'] = 'Link for slide ';
 $string['sliderbuttontext'] = 'Enter your text for button on slide ';
 $string['sliderbuttontextdesc'] = 'If you do not enter any text, the button will be disappear.';
-$string['sliderurldesc'] = "Enter the target destination of the image link on slide ";
+$string['sliderurldesc'] = "Enter only pagename. e.g. If you want to go to the dashboard page, just write 'my' and it will redirective to the dashboard page of your moodle site.";
 
 $string['maincolor'] = 'Choose Main Theme Color';
 $string['maincolordesc'] = 'Choose your own custom Color scheme for the theme.';
@@ -216,7 +213,7 @@ $string['socialheading'] = 'Enter social heading';
 $string['socialheadingdesc'] = '';
 
 /* frontpage strings */
-$string['slidertextdefault'] = '<h2>THE TASK OF THE</h2><h1>MODERN EDUCATOR</h1><h3 class="header-b">IS NOT TO CUT DOWN JUNGLES, BUT TO IRRIGATE DESERTS</h3>';
+$string['slidertextdefault'] = '<h2>THE TASK OF THE</h2><h1>MODERN EDUCATOR</h1> <h3>IS NOT TO CUT DOWN JUNGLES, BUT TO IRRIGATE DESERTS</h3>';
 $string['sliderbuttontextdefault'] = 'GET STARTED';
 $string['sliderurldefault'] = 'javascript:void(0);';
 $string['aboutsiteheadingdefault'] = 'NOBODY DOES IT LIKE US';
@@ -236,3 +233,41 @@ $string['emaildefault'] = 'admin@dualcube.com';
 $string['phonedefault'] = '+91 33 64578322';
 $string['socialheadingdefault'] = 'STAY CONNECTED';
 $string['fontnamedefault'] = 'Raleway';
+
+$string['facultysettings'] = 'Faculty Settings';
+$string['facultyheading'] = 'Our Top Faculties';
+$string['facultycount'] = 'Faculty Count';
+$string['facultycountdesc'] = 'Select, from dropdown, the number of blocks in the Faculty block section. You can add up to 8 blocks.';
+
+$string['facultyimage'] = 'Enter URL of your faculty image';
+$string['facultyimagedesc'] = 'Enter URL of your faculty image';
+$string['facultytwitterurldesc'] = 'Enter the twitter url for the faculty block ';
+
+$string['facultyname'] = 'Enter name of faculty ';
+$string['facultynamedesc'] = 'Enter the text for faculty description ';
+$string['facultysubtext'] = 'Enter the description of the faculty ';
+$string['facultysubtextdesc'] = 'Enter the description for faculty block ';
+$string['facultyfburl'] = 'Enter faculty facebook URL ';
+$string['facultyfburldesc'] = 'Enter the facebook url for the faculty block ';
+$string['facultylnkdnurl'] = 'Enter faculty linkedin URL ';
+$string['facultylnkdnurldesc'] = 'Enter the linkedin url for the faculty block ';
+
+$string['facultygoogleurl'] = 'Enter faculty google URL ';
+$string['facultygoogleurldesc'] = 'Enter the google url for the faculty block ';
+
+$string['facultytwitterurl'] = 'Enter faculty twitter URL ';
+$string['facultytwitterurldesc'] = 'Enter the twitter url for the faculty block ';
+
+$string['backgroundimage'] = 'Background image';
+$string['backgroundimage_desc'] = 'The image to display as a background of the site. The background image you upload here will override the background image in your theme preset files.';
+
+$string['brandcolor'] = 'Brand colour';
+$string['brandcolor_desc'] = 'The accent colour.';
+
+$string['advancedsettings'] = 'Advanced settings';
+
+$string['rawscsspre'] = 'Raw initial SCSS';
+$string['rawscsspre_desc'] = 'In this field you can provide initialising SCSS code, it will be injected before everything else. Most of the time you will use this setting to define variables.';
+
+$string['rawscss'] = 'Raw SCSS';
+$string['rawscss_desc'] = 'Use this field to provide SCSS or CSS code which will be injected at the end of the style sheet.';

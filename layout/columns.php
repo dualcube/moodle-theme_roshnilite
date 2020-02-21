@@ -31,7 +31,11 @@
 defined('MOODLE_INTERNAL') || die();
 global $PAGE;
 
-$bodyattributes = $OUTPUT->body_attributes();
+if (!empty($PAGE->theme->setting_file_url('logo', 'logo'))) {
+    $imgpath = $PAGE->theme->setting_file_url('logo', 'logo');
+} else {
+    $imgpath = $CFG->wwwroot."/theme/roshnilite/style/img/logo.png";
+}
 
 if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
     $favicon = $PAGE->theme->setting_file_url('favicon', 'favicon');
@@ -39,11 +43,31 @@ if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
     $favicon = $CFG->wwwroot."/theme/roshnilite/pix/favicon.ico";
 }
 
+$bodyattributes = $OUTPUT->body_attributes();
+$blockspre = $OUTPUT->blocks('side-pre');
+$blockspost = $OUTPUT->blocks('side-post');
+
+$hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
+$hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
+
+
+if ($CFG->version >= 2018120300) {
+    $version18 = $OUTPUT->standard_after_main_region_html();
+} else {
+    $version18 = '';
+}
+
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
+    'sidepreblocks' => $blockspre,
+    'sidepostblocks' => $blockspost,
+    'haspreblocks' => $hassidepre,
+    'haspostblocks' => $hassidepost,
     'bodyattributes' => $bodyattributes,
-    'favicon' => $favicon
+    'version18' => $version18,
+    'imgpath' => $imgpath,
+    'favicon' => $favicon,
 ];
 
-echo $OUTPUT->render_from_template('theme_roshnilite/login', $templatecontext);
+echo $OUTPUT->render_from_template('theme_roshnilite/columns', $templatecontext);

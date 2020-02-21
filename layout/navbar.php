@@ -23,17 +23,24 @@
  * For full information about creating Moodle themes, see:
  * http://docs.moodle.org/dev/Themes_2.0
  *
- * @package   theme_roshnilite
- * @copyright 2020 DualCube {@link https://dualcube.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    theme_roshnilite
+ * @copyright  2020 DualCube {@link https://dualcube.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
+
 global $PAGE;
 
+if (!empty($PAGE->theme->setting_file_url('logo', 'logo'))) {
+    $imgpath = $PAGE->theme->setting_file_url('logo', 'logo');
+} else {
+    $imgpath = $CFG->wwwroot."/theme/roshnilite/style/img/logo.png";
+}
+
 $templatecontext = [
-    'sitename' => format_string($SITE->shortname, true, ["escape" => false]),
-    'output' => $OUTPUT
+   'output' => $OUTPUT,
+   'favicon' => $favicon,
 ];
 
-echo $OUTPUT->render_from_template('theme_roshnilite/maintenance', $templatecontext);
+echo $OUTPUT->render_from_template('theme_roshnilite/navbar', $templatecontext);

@@ -15,24 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Moodle's roshnilite theme, an example of how to make a Bootstrap theme
- *
- * DO NOT MODIFY THIS THEME!
- * COPY IT FIRST, THEN RENAME THE COPY AND MODIFY IT INSTEAD.
- *
- * For full information about creating Moodle themes, see:
- * http://docs.moodle.org/dev/Themes_2.0
+ * Roshnilite theme.
  *
  * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link https://dualcube.com}
+ * @copyright  2018 Bas Brands
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die;
-$plugin->version   = 2015092116;
+
+// This line protects the file from being accessed by a URL directly.
+defined('MOODLE_INTERNAL') || die();
+
+$plugin->version = 2020022100;
+$plugin->requires = 2018120307;
 $plugin->component = 'theme_roshnilite';
-$plugin->dependencies = array(
-    'theme_bootstrapbase'  => 2014051200,
-);
+$plugin->dependencies = array('theme_boost' => 2018120200);
 $plugin->maturity = MATURITY_STABLE;
-$plugin->requires  = 2013051401;
-$plugin->release = '2.5 (Build: 2014082901)';
+$plugin->release = '3.0 (Build: 2020022100)';

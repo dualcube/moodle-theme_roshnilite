@@ -24,82 +24,29 @@
  * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link https://dualcube.com}
+ * @copyright  2020 DualCube {@link https://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-// Get the HTML for the settings bits.
-$html = theme_roshnilite_get_html_for_settings($OUTPUT, $PAGE);
 
-// Set default (LTR) layout mark-up for a three column page.
-$regionmainbox = 'span9';
-$regionmain = 'span8 pull-right';
-$sidepre = 'span4 desktop-first-column';
-$sidepost = 'span3 pull-right';
-// Reset layout mark-up for RTL languages.
-if (right_to_left()) {
-    $regionmainbox = 'span9 pull-right';
-    $regionmain = 'span8';
-    $sidepre = 'span4 pull-right';
-    $sidepost = 'span3 desktop-first-column';
-}
+defined('MOODLE_INTERNAL') || die();
+global $PAGE;
 
-echo $OUTPUT->doctype() ?>
-<html <?php echo $OUTPUT->htmlattributes(); ?>>
-<head>
-    <title><?php echo $OUTPUT->page_title(); ?></title>
-    <link type="image/x-icon" rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>">
-    <?php echo $OUTPUT->standard_head_html() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+$bodyattributes = $OUTPUT->body_attributes();
 
-<body <?php echo $OUTPUT->body_attributes(); ?>>
+$blockspre = $OUTPUT->blocks('side-pre');
+$blockspost = $OUTPUT->blocks('side-post');
 
-<?php echo $OUTPUT->standard_top_of_body_html() ?>
+$hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
+$hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 
-<header role="banner" class="navbar navbar-fixed-top moodle-has-zindex">
-    <div class="inner-header">
-        <nav role="navigation" class="navbar-inner">
-            <div class="container">
-                <a href="<?php echo $CFG->wwwroot;?>" class="logo"></a>
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav pull-right">
-                        <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-</header>
+$templatecontext = [
+    'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
+    'output' => $OUTPUT,
+    'sidepreblocks' => $blockspre,
+    'sidepostblocks' => $blockspost,
+    'haspreblocks' => $hassidepre,
+    'haspostblocks' => $hassidepost,
+    'bodyattributes' => $bodyattributes
+];
 
-<div id="page" class="container-fluid">
-
-    <header id="page-header" class="clearfix">
-        <?php echo $html->heading; ?>
-    </header>
-
-    <div id="page-content" class="row-fluid">
-        <div id="region-main-box" class="<?php echo $regionmainbox; ?>">
-            <div class="row-fluid">
-                <section id="region-main" class="<?php echo $regionmain; ?>">
-                    <?php echo $OUTPUT->main_content(); ?>
-                </section>
-                <?php echo $OUTPUT->blocks('side-pre', $sidepre); ?>
-            </div>
-        </div>
-        <?php echo $OUTPUT->blocks('side-post', $sidepost); ?>
-    </div>
-    <?php 
-    if($CFG->version >= 2018101900)
-    {
-    echo $OUTPUT->standard_after_main_region_html();
-    } ?>
-    <?php echo $OUTPUT->standard_end_of_body_html() ?>
-
-</div>
-</body>
-</html>
+echo $OUTPUT->render_from_template('theme_roshnilite/secure', $templatecontext);

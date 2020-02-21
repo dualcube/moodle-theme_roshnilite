@@ -24,14 +24,14 @@
  * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link https://dualcube.com}
+ * @copyright  2020 DualCube {@link https://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-?>
-<footer>
-	<?php 
-    echo $OUTPUT->home_link();
-    echo $OUTPUT->login_info();
-    echo $OUTPUT->standard_footer_html();
-    ?>
-</footer>
+
+defined('MOODLE_INTERNAL') || die();
+
+$templatecontext = [
+    'output' => $OUTPUT,
+];
+
+echo $OUTPUT->render_from_template('theme_roshnilite/footer', $templatecontext);

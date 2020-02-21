@@ -17,35 +17,131 @@
 /**
  * theme_roshnilite lib file.
  * @package    theme_roshnilite
- * @copyright  2015 dualcube {@link https://dualcube.com}
+ * @copyright  2020 DualCube {@link https://dualcube.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+// Every file should have GPL and copyright in the header - we skip it in tutorials but you should not skip it for real.
+
+// This line protects the file from being accessed by a URL directly.
+defined('MOODLE_INTERNAL') || die();
+
+// We will add callbacks here as we add features to our theme.
+// Function to return the SCSS to prepend to our main SCSS for this theme.
+// Note the function name starts with the component name because this is a global function and we don't want namespace clashes.
 /**
- * theme_roshnilite_get_setting function for load custom settings.
+ * theme_roshnilite_get_pre_scss function for load custom settings.
  *
- * @param string $setting
- * @param string $format
+ * @param string $theme
  * @return $theme->settings->$setting
  */
-function theme_roshnilite_get_setting($setting, $format = false) {
+function theme_roshnilite_get_pre_scss($theme) {
     global $CFG;
-    require_once($CFG->dirroot . '/lib/weblib.php');
-    static $theme;
-    if (empty($theme)) {
-        $theme = theme_config::load('roshnilite');
+
+    $scss = '';
+    $configurable = [
+        'brandcolor' => ['secondary', 'black']
+    ];
+
+    // Prepend variables first.
+    foreach ($configurable as $configkey => $targets) {
+        $value = isset($theme->settings->{$configkey}) ? $theme->settings->{$configkey} : null;
+        if (empty($value)) {
+            continue;
+        }
+        array_map(function($target) use (&$scss, $value) {
+            $scss .= '$' . $target . ': ' . $value . ";\n";
+        }, (array) $targets);
     }
-    if (empty($theme->settings->$setting)) {
-        return false;
-    } else if (!$format) {
-        return $theme->settings->$setting;
-    } else if ($format === 'format_text') {
-        return format_text($theme->settings->$setting, FORMAT_PLAIN);
-    } else if ($format === 'format_html') {
-        return format_text($theme->settings->$setting, FORMAT_HTML, array('trusted' => true, 'noclean' => true));
-    } else {
-        return format_string($theme->settings->$setting);
+
+    // Prepend pre-scss.
+    if (!empty($theme->settings->scsspre)) {
+        $scss .= $theme->settings->scsspre;
     }
+
+    if (!empty($theme->settings->fontsize)) {
+        $scss .= '$font-size-base: ' . (1 / 100 * $theme->settings->fontsize) . "rem !default;\n";
+    }
+
+    return $scss;
 }
+// Function to return the SCSS to append to our main SCSS for this theme.
+// Note the function name starts with the component name because this is a global function and we don't want namespace clashes.
+/**
+ * theme_roshnilite_get_extra_scss function for load custom settings.
+ *
+ * @param string $theme
+ * @return $theme->settings->$setting
+ */
+function theme_roshnilite_get_extra_scss($theme) {
+    global $CFG;
+    $content = '';
+
+    // Set the page background image.
+    $imageurl = $theme->setting_file_url('backgroundimage', 'backgroundimage');
+    if (!empty($imageurl)) {
+        $content .= '$imageurl: "' . $imageurl . '";';
+        $content .= file_get_contents($CFG->dirroot .
+            '/theme/roshnilite/scss/roshnilite/body-background.scss');
+    }
+
+    if (!empty($theme->settings->navbardark)) {
+        $content .= file_get_contents($CFG->dirroot .
+            '/theme/roshnilite/scss/roshnilite/navbar-dark.scss');
+    } else {
+        $content .= file_get_contents($CFG->dirroot .
+            '/theme/roshnilite/scss/roshnilite/navbar-light.scss');
+    }
+    if (!empty($theme->settings->scss)) {
+        $content .= $theme->settings->scss;
+    }
+    return $content;
+}
+
+/**
+ * Get compiled css.
+ *
+ * @return string compiled css
+ */
+function theme_roshnilite_get_precompiled_css() {
+    global $CFG;
+    return file_get_contents($CFG->dirroot . '/theme/roshnilite/style/moodle.css');
+}
+
+/**
+ * theme_roshnilite_get_main_scss_content function for load custom theme css settings.
+ *
+ * @param string $theme
+ * @return string $pre,$scss and $post
+ */
+function theme_roshnilite_get_main_scss_content($theme) {
+    global $CFG;
+
+    $scss = '';
+    $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
+    $fs = get_file_storage();
+
+    $context = context_system::instance();
+    if ($filename == 'default.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/roshnilite/scss/preset/default.scss');
+    } else if ($filename == 'plain.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/roshnilite/scss/preset/plain.scss');
+    } else if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_roshnilite', 'preset', 0, '/', $filename))) {
+        $scss .= $presetfile->get_content();
+    } else {
+        // Safety fallback - maybe new installs etc.
+        $scss .= file_get_contents($CFG->dirroot . '/theme/roshnilite/scss/preset/default.scss');
+    }
+
+    // Pre CSS - this is loaded AFTER any prescss from the setting but before the main scss.
+    $pre = file_get_contents($CFG->dirroot . '/theme/roshnilite/scss/roshnilite/pre.scss');
+    // Post CSS - this is loaded AFTER the main scss but before the extra scss from the setting.
+    $post = file_get_contents($CFG->dirroot . '/theme/roshnilite/scss/roshnilite/post.scss');
+
+    return $pre . "\n" . $scss . "\n" . $post;
+
+}
+
 /**
  * Parses CSS before it is cached.
  *
@@ -81,23 +177,55 @@ function theme_roshnilite_process_css($css, $theme) {
     $css = theme_roshnilite_set_customcss($css, $customcss);
     $thememaincolor = theme_roshnilite_get_setting('maincolor');
     $css = theme_roshnilite_set_maincolor($css, $thememaincolor);
+    $themebrandcolor = theme_roshnilite_get_setting('brandcolor');
+    $css = theme_roshnilite_set_brandcolor($css, $themebrandcolor);
+    return $css;
+}
+
+/**
+ * Adds the logo to CSS.
+ *
+ * @param string $css The CSS.
+ * @param string $logo The URL of the logo.
+ * @return string The parsed CSS
+ */
+function theme_roshnilite_set_logo($css, $logo) {
+    GLOBAL $CFG;
+    $tag = '[[setting:logo]]';
+    $replacement = $logo;
+    if (is_null($replacement)) {
+        $replacement = $CFG->wwwroot.'/theme/roshnilite/style/img/logo.png';
+    }
+
+    $css = str_replace($tag, $replacement, $css);
+
     return $css;
 }
 /**
- * Adds any custom color to the CSS before it is cached.
+ * theme_roshnilite_get_setting function for load custom settings.
  *
- * @param string $css The original CSS.
- * @param string $themecolor The custom CSS to add.
- * @return string The CSS which now contains our custom CSS.
+ * @param string $setting
+ * @param string $format
+ * @return $theme->settings->$setting
  */
-function theme_roshnilite_set_maincolor($css, $themecolor) {
-    $tag = '[[setting:maincolor]]';
-    $replacement = $themecolor;
-    if (is_null($replacement)) {
-        $replacement = '#e74c3c';
+function theme_roshnilite_get_setting($setting, $format = false) {
+    global $CFG;
+    require_once($CFG->dirroot . '/lib/weblib.php');
+    static $theme;
+    if (empty($theme)) {
+        $theme = theme_config::load('roshnilite');
     }
-    $css = str_replace($tag, $replacement, $css);
-    return $css;
+    if (empty($theme->settings->$setting)) {
+        return false;
+    } else if (!$format) {
+        return $theme->settings->$setting;
+    } else if ($format === 'format_text') {
+        return format_text($theme->settings->$setting, FORMAT_PLAIN);
+    } else if ($format === 'format_html') {
+        return format_text($theme->settings->$setting, FORMAT_HTML, array('trusted' => true, 'noclean' => true));
+    } else {
+        return format_string($theme->settings->$setting);
+    }
 }
 /**
  * Adds any custom headingfont to the CSS before it is cached.
@@ -126,25 +254,6 @@ function theme_roshnilite_set_bodyfont($css, $bodyfont) {
     return $css;
 }
 /**
- * Adds the logo to CSS.
- *
- * @param string $css The CSS.
- * @param string $logo The URL of the logo.
- * @return string The parsed CSS
- */
-function theme_roshnilite_set_logo($css, $logo) {
-    GLOBAL $CFG;
-    $tag = '[[setting:logo]]';
-    $replacement = $logo;
-    if (is_null($replacement)) {
-        $replacement = $CFG->wwwroot.'/theme/roshnilite/css/img/logo.png';
-    }
-
-    $css = str_replace($tag, $replacement, $css);
-
-    return $css;
-}
-/**
  * Adds the font to CSS.
  *
  * @param string $css The CSS.
@@ -153,8 +262,11 @@ function theme_roshnilite_set_logo($css, $logo) {
  * @return string The parsed CSS
  */
 function theme_roshnilite_set_fontfiles($css, $type, $fontname) {
-    $tag = '[[setting:fontfiles' . $type . ']]';
-    $replacement = '';
+    $tag = '[[setting:fontname]]';
+    $replacement = $fontname;
+    if (is_null($replacement)) {
+        $replacement = '';
+    }
     if (theme_roshnilite_get_setting('fontselect') === '2') {
         static $theme;
         if (empty($theme)) {
@@ -201,75 +313,6 @@ function theme_roshnilite_set_fontfiles($css, $type, $fontname) {
     return $css;
 }
 /**
- * Serves any files associated with the theme settings.
- *
- * @param stdClass $course
- * @param stdClass $cm
- * @param context $context
- * @param string $filearea
- * @param array $args
- * @param bool $forcedownload
- * @param array $options
- * @return bool
- */
-function theme_roshnilite_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
-    static $theme;
-    if (empty($theme)) {
-        $theme = theme_config::load('roshnilite');
-    }
-    if ($context->contextlevel == CONTEXT_SYSTEM) {
-        if ($filearea === 'logo') {
-            return $theme->setting_file_serve('logo', $args, $forcedownload, $options);
-        } else if (preg_match("/^fontfile(eot|otf|svg|ttf|woff|woff2)(heading|body)$/", $filearea)) {
-            return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
-        } else if (preg_match("/^(marketing|slide)[1-9][0-9]*image$/", $filearea)) {
-            return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
-        } else if ($filearea === 'favicon') {
-            return $theme->setting_file_serve('favicon', $args, $forcedownload, $options);
-        } else if ($filearea === 'masonryimage1') {
-            return $theme->setting_file_serve('masonryimage1', $args, $forcedownload, $options);
-        } else if ($filearea === 'masonryimage2') {
-            return $theme->setting_file_serve('masonryimage2', $args, $forcedownload, $options);
-        } else if ($filearea === 'masonryimage3') {
-            return $theme->setting_file_serve('masonryimage3', $args, $forcedownload, $options);
-        } else if ($filearea === 'masonryimage4') {
-            return $theme->setting_file_serve('masonryimage4', $args, $forcedownload, $options);
-        } else if ($filearea === 'masonryimage5') {
-            return $theme->setting_file_serve('masonryimage5', $args, $forcedownload, $options);
-        } else if ($filearea === 'masonryimage6') {
-            return $theme->setting_file_serve('masonryimage6', $args, $forcedownload, $options);
-        } else if ($filearea === 'masonryimage7') {
-            return $theme->setting_file_serve('masonryimage7', $args, $forcedownload, $options);
-        } else if ($filearea === 'masonryimage8') {
-            return $theme->setting_file_serve('masonryimage8', $args, $forcedownload, $options);
-        } else if ($filearea === 'slideimage1') {
-            return $theme->setting_file_serve('slideimage1', $args, $forcedownload, $options);
-        } else if ($filearea === 'slideimage2') {
-            return $theme->setting_file_serve('slideimage2', $args, $forcedownload, $options);
-        } else if ($filearea === 'slideimage3') {
-            return $theme->setting_file_serve('slideimage3', $args, $forcedownload, $options);
-        } else if ($filearea === 'slideimage4') {
-            return $theme->setting_file_serve('slideimage4', $args, $forcedownload, $options);
-        } else if ($filearea === 'slideimage5') {
-            return $theme->setting_file_serve('slideimage5', $args, $forcedownload, $options);
-        } else if ($filearea === 'slideimage6') {
-            return $theme->setting_file_serve('slideimage6', $args, $forcedownload, $options);
-        } else if ($filearea === 'aboutsiteimage1') {
-            return $theme->setting_file_serve('aboutsiteimage1', $args, $forcedownload, $options);
-        } else if ($filearea === 'aboutsiteimage2') {
-            return $theme->setting_file_serve('aboutsiteimage2', $args, $forcedownload, $options);
-        } else if ($filearea === 'aboutsiteimage3') {
-            return $theme->setting_file_serve('aboutsiteimage3', $args, $forcedownload, $options);
-        } else if ($filearea === 'aboutsiteimage4') {
-            return $theme->setting_file_serve('aboutsiteimage4', $args, $forcedownload, $options);
-        } else {
-            send_file_not_found();
-        }
-    } else {
-        send_file_not_found();
-    }
-}
-/**
  * Adds any custom CSS to the CSS before it is cached.
  *
  * @param string $css The original CSS.
@@ -287,6 +330,40 @@ function theme_roshnilite_set_customcss($css, $customcss) {
 
     return $css;
 }
+/**
+ * Adds any custom color to the CSS before it is cached.
+ *
+ * @param string $css The original CSS.
+ * @param string $themecolor The custom CSS to add.
+ * @return string The CSS which now contains our custom CSS.
+ */
+function theme_roshnilite_set_maincolor($css, $themecolor) {
+    $tag = '[[setting:maincolor]]';
+    $replacement = $themecolor;
+    if (is_null($replacement)) {
+        $replacement = '#e74c3c';
+    }
+    $css = str_replace($tag, $replacement, $css);
+    return $css;
+}
+
+/**
+ * Adds any custom color to the CSS before it is cached.
+ *
+ * @param string $css The original CSS.
+ * @param string $themecolor The custom CSS to add.
+ * @return string The CSS which now contains our custom CSS.
+ */
+function theme_roshnilite_set_brandcolor($css, $themecolor) {
+    $tag = '[[setting:brandcolor]]';
+    $replacement = $themecolor;
+    if (is_null($replacement)) {
+        $replacement = '#e74c3c';
+    }
+    $css = str_replace($tag, $replacement, $css);
+    return $css;
+}
+
 
 /**
  * Returns an object containing HTML for the areas affected by settings.
@@ -573,29 +650,74 @@ function theme_roshnilite_get_html_for_settings(renderer_base $output, moodle_pa
     }
     return $return;
 }
-
 /**
- * All theme functions should start with theme_roshnilite_
- * @deprecated since 2.5.1
+ * Serves any files associated with the theme settings.
+ *
+ * @param stdClass $course
+ * @param stdClass $cm
+ * @param context $context
+ * @param string $filearea
+ * @param array $args
+ * @param bool $forcedownload
+ * @param array $options
+ * @return bool
  */
-function roshnilite_process_css() {
-    throw new coding_exception('Please call theme_'.__FUNCTION__.' instead of '.__FUNCTION__);
+function theme_roshnilite_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
+    static $theme;
+    if (empty($theme)) {
+        $theme = theme_config::load('roshnilite');
+    }
+    if ($context->contextlevel == CONTEXT_SYSTEM) {
+        if ($filearea === 'logo') {
+            return $theme->setting_file_serve('logo', $args, $forcedownload, $options);
+        } else if ($filearea === 'backgroundimage') {
+            return $theme->setting_file_serve('backgroundimage', $args, $forcedownload, $options);
+        } else if (preg_match("/^fontfile(eot|otf|svg|ttf|woff|woff2)(heading|body)$/", $filearea)) {
+            return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
+        } else if (preg_match("/^(marketing|slide)[1-9][0-9]*image$/", $filearea)) {
+            return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
+        } else if ($filearea === 'favicon') {
+            return $theme->setting_file_serve('favicon', $args, $forcedownload, $options);
+        } else if ($filearea === 'slideimage1') {
+            return $theme->setting_file_serve('slideimage1', $args, $forcedownload, $options);
+        } else if ($filearea === 'slideimage2') {
+            return $theme->setting_file_serve('slideimage2', $args, $forcedownload, $options);
+        } else if ($filearea === 'slideimage3') {
+            return $theme->setting_file_serve('slideimage3', $args, $forcedownload, $options);
+        } else if ($filearea === 'slideimage4') {
+            return $theme->setting_file_serve('slideimage4', $args, $forcedownload, $options);
+        } else if ($filearea === 'slideimage5') {
+            return $theme->setting_file_serve('slideimage5', $args, $forcedownload, $options);
+        } else if ($filearea === 'slideimage6') {
+            return $theme->setting_file_serve('slideimage6', $args, $forcedownload, $options);
+        } else if ($filearea === 'aboutsiteimage1') {
+            return $theme->setting_file_serve('aboutsiteimage1', $args, $forcedownload, $options);
+        } else if ($filearea === 'aboutsiteimage2') {
+            return $theme->setting_file_serve('aboutsiteimage2', $args, $forcedownload, $options);
+        } else if ($filearea === 'aboutsiteimage3') {
+            return $theme->setting_file_serve('aboutsiteimage3', $args, $forcedownload, $options);
+        } else if ($filearea === 'aboutsiteimage4') {
+            return $theme->setting_file_serve('aboutsiteimage4', $args, $forcedownload, $options);
+        } else if ($filearea === 'facultyimage1') {
+            return $theme->setting_file_serve('facultyimage1', $args, $forcedownload, $options);
+        } else if ($filearea === 'facultyimage2') {
+            return $theme->setting_file_serve('facultyimage2', $args, $forcedownload, $options);
+        } else if ($filearea === 'facultyimage3') {
+            return $theme->setting_file_serve('facultyimage3', $args, $forcedownload, $options);
+        } else if ($filearea === 'facultyimage4') {
+            return $theme->setting_file_serve('facultyimage4', $args, $forcedownload, $options);
+        } else if ($filearea === 'facultyimage5') {
+            return $theme->setting_file_serve('facultyimage5', $args, $forcedownload, $options);
+        } else if ($filearea === 'facultyimage6') {
+            return $theme->setting_file_serve('facultyimage6', $args, $forcedownload, $options);
+        } else if ($filearea === 'facultyimage7') {
+            return $theme->setting_file_serve('facultyimage7', $args, $forcedownload, $options);
+        } else if ($filearea === 'facultyimage8') {
+            return $theme->setting_file_serve('facultyimage8', $args, $forcedownload, $options);
+        } else {
+            send_file_not_found();
+        }
+    } else {
+        send_file_not_found();
+    }
 }
-
-/**
- * All theme functions should start with theme_roshnilite_
- * @deprecated since 2.5.1
- */
-function roshnilite_set_logo() {
-    throw new coding_exception('Please call theme_'.__FUNCTION__.' instead of '.__FUNCTION__);
-}
-
-/**
- * All theme functions should start with theme_roshnilite_
- * @deprecated since 2.5.1
- */
-function roshnilite_set_customcss() {
-    throw new coding_exception('Please call theme_'.__FUNCTION__.' instead of '.__FUNCTION__);
-}
-
-

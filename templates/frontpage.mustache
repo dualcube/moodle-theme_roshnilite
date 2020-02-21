@@ -1,0 +1,215 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see < http://www.gnu.org/licenses/ >.
+}}
+{{!
+    @template theme_roshnilite/columns
+
+    Admin time setting template.
+
+    Roshnilite 1-3 column layout template.
+
+    Context variables required for this template:
+    * sitename - The name of the site
+    * output - The core renderer for the page
+    * bodyattributes - attributes for the body tag as a string of html attributes
+    * sidepreblocks - HTML for the blocks
+    * hasblocks - true if there are blocks on this page
+    * regionmainsettingsmenu - HTML for the region main settings menu
+    * hasregionmainsettingsmenu - There is a region main settings menu on this page.
+
+    Example context (json):
+    {
+        "sitename": "Moodle",
+        "output": {
+            "doctype": "<!DOCTYPE html>",
+            "page_title": "Test page",
+            "favicon": "favicon.ico",
+            "main_content": "<h1>Headings make html validators happier</h1>"
+         },
+        "bodyattributes":"",
+        "sidepreblocks": "<h2>Blocks html goes here</h2>",
+        "sidepostblocks": "<h2>Blocks html goes here</h2>",
+        "haspreblocks":true,
+        "haspostblocks":true
+    }
+}}
+{{> theme_roshnilite/head }}
+
+<body {{{ bodyattributes }}}>
+
+    <div id="page-wrapper">
+    
+        {{{ output.standard_top_of_body_html }}}
+        
+        {{>theme_roshnilite/frontpagenavbar}}
+    
+        {{{ sliderdetails }}}
+    
+        <!-- home slide -->
+        <!-- describe usp -->
+        <section class="container describe-usp">
+        <div class="heading-large text-center">{{{ aboutsiteheading }}}</div>
+        <div class="header-small text-center">{{{ aboutsitesubheading }}}</div>                    
+            <div class="row about-items">
+              {{ #aboutsitename1 }}
+              <div class="col-md-3 col-sm-2 col-xs-12">
+                  <div class=" about-item">
+                    <div class="about-item-img-wr">
+                        <div class="about-item-img">
+                          <a href="{{{ aboutsiteurl1 }}}"><img src={{aboutsiteimage1}}  alt="aboutsiteurl1" /></a>
+                        </div>
+                    </div>
+                    <a href="{{{ aboutsiteurl1 }}}">{{{ aboutsitename1 }}}</a>
+                    <div class="about-text">{{{ aboutsitetext1 }}}</div>
+                  </div>
+              </div>
+              {{ /aboutsitename1 }}
+              {{ #aboutsitename2 }}
+              <div class="col-md-3 col-sm-2 col-xs-12">
+                  <div class=" about-item">
+                    <div class="about-item-img-wr">
+                        <div class="about-item-img">
+                          <a href="{{{ aboutsiteurl2 }}}"><img src={{aboutsiteimage2}} alt="aboutsiteurl2" /></a>
+                        </div>
+                    </div>
+                    <a href="{{{ aboutsiteurl2 }}}">{{{ aboutsitename2 }}}</a>
+                    <div class="about-text">{{{ aboutsitetext1 }}}</div>
+                  </div>
+              </div>
+              {{ /aboutsitename2 }}
+              {{ #aboutsitename3 }}
+              <div class="col-md-3 col-sm-2 col-xs-12">
+                  <div class=" about-item">
+                    <div class="about-item-img-wr">
+                        <div class="about-item-img">
+                          <a href="{{{ aboutsiteurl3 }}}"><img src={{aboutsiteimage3}}  alt="aboutsiteurl3"/></a>
+                        </div>
+                    </div>
+                    <a href="{{{ aboutsiteurl3 }}}">{{{ aboutsitename3 }}}</a>
+                    <div class="about-text">{{{ aboutsitetext3 }}}</div>
+                  </div>
+              </div>
+              {{ /aboutsitename3 }}
+              {{ #aboutsitename4 }}
+              <div class="col-md-3 col-sm-2 col-xs-12">
+                  <div class=" about-item">
+                    <div class="about-item-img-wr">
+                        <div class="about-item-img">
+                          <a href="{{{ aboutsiteurl4 }}}"><img src={{aboutsiteimage4}}  alt="aboutsiteurl4"/></a>
+                        </div>
+                    </div>
+                    <a href="{{{ aboutsiteurl4 }}}">{{{ aboutsitename4 }}}</a>
+                    <div class="about-text">{{{ aboutsitetext4 }}}</div>
+                  </div>
+              </div>
+              {{ /aboutsitename4 }}
+            </div>
+        </section>
+        <!-- describe usp -->
+        
+        <!-- courses -->
+        {{{ coursedetail }}}
+        <a href="{{{ config.wwwroot }}}/course/index.php" class="btn-view-all">{{{ allcourse }}}</a>
+        <!-- courses--> 
+    
+        <!-- our category -->
+        {{{ categorydetails }}}
+        
+        <!-- faculties -->
+        {{{ facultydetails }}}
+        <!-- faculties -->
+        <!-- footer -->
+        <div class="contact-items-wrap">
+            <div class="contact-item">
+              {{{ addressfontawesomeicon }}}
+              {{{ address }}}
+            </div>          
+            <div class="contact-item">
+              {{{ emailfontawesomeicon }}}
+              {{{ email }}}
+            </div>  
+            <div class="contact-item">
+              {{{ phonefontawesomeicon }}}
+              {{{ phone }}}
+            </div>          
+        </div>
+        <div class="stay-connected">
+            <div class="container">
+              <div class="socialheading">
+                  {{{ socialheading }}}
+              </div>
+              <div class="social-links">    
+            <a href="{{{ socialicon1 }}}">
+              {{{ socialfontawesomeicon1 }}}
+            </a>            
+                  <a href="{{{ socialicon2 }}}">
+                    {{{ socialfontawesomeicon2 }}}
+                  </a>
+                  <a href="{{{ socialicon3 }}}">
+                    {{{ socialfontawesomeicon3 }}}
+                  </a>              
+                  <a href="{{{socialicon4}}}">
+                    {{{ socialfontawesomeicon4 }}}
+                  </a>
+              </div>
+            </div>
+        </div>
+        
+        {{{ maincontent }}}
+        {{{ version18 }}}
+    
+    
+    </div>
+    {{> theme_roshnilite/footer }}
+
+    {{#js}}
+    require(['theme_boost/loader'], function() {
+        require(['jquery', 'theme_boost/carousel', 'core/log'],
+        function($, carousel, log) {
+            $(document).ready(function(){
+                $('#courseCarousel').carousel({
+                    interval :2000
+                });
+                
+                $('#categoryCarousel').carousel({
+                    interval :8000
+                })
+                
+                $('#facultyCarousel').carousel({
+                    interval :5000
+                })
+                
+                $('.carouselMultiple .carousel-item').each(function(){
+                    var next = $(this).next();
+                    if (!next.length) {
+                        next = $(this).siblings(':first');
+                    }
+                    next.children(':first-child').clone().appendTo($(this));
+                    
+                    for (var i=0;i<2;i++) {
+                        next=next.next();
+                        if (!next.length) {
+                            next = $(this).siblings(':first');
+                        }
+                        next.children(':first-child').clone().appendTo($(this));
+                    }
+                });
+            });
+        });
+    });
+    {{/js}}
+</body>
+</html>
