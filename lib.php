@@ -187,6 +187,9 @@ function theme_roshnilite_process_css($css, $theme) {
 function theme_roshnilite_set_fontsize($css, $themefontsize) {
     $tag = '[[setting:fontsize]]';
     $replacement = $themefontsize;
+	if (is_null($replacement)) {
+        $replacement = '13';
+    }
     $css = str_replace($tag, $replacement, $css);
     return $css;
 }

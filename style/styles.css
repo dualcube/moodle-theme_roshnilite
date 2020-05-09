@@ -73,29 +73,32 @@ input[type="submit"]:hover, .btn-primary:not(:disabled):not(.disabled):active{
 }
 .container{ margin: 0 auto; }
 .blocks-pre {
-    border-top: 10px solid #e84c3d;
+    /* border-top: 10px solid #e84c3d; */
     position: relative;
 }
 .region-main-content {
     padding: 30px 10px !important;
     /*boost*/
 }
-.blocks-pre:after {
-    content: "";
-    position: absolute;
-    left: -32.5%;
-    top: -10px;
-    border-top: 10px solid [[setting:maincolor]];
-    width: 100%;
+#page-header{
+	border-bottom: 10px solid #e84c3d;
 }
-.blocks-pre:before {
-    content: "";
-    position: absolute;
-    right: -32.5%;
-    top: -10px;
-    border-top: 10px solid [[setting:maincolor]];
-    width: 100%;
-}
+/* .blocks-pre:after { */
+    /* content: ""; */
+    /* position: absolute; */
+    /* left: -32.5%; */
+    /* top: -10px; */
+    /* border-top: 10px solid [[setting:maincolor]]; */
+    /* width: 100%; */
+/* } */
+/* .blocks-pre:before { */
+    /* content: ""; */
+    /* position: absolute; */
+    /* right: -32.5%; */
+    /* top: -10px; */
+    /* border-top: 10px solid [[setting:maincolor]]; */
+    /* width: 100%; */
+/* } */
 .navbar-bootswatch {
     background-color: [[setting:maincolor]];
 }
