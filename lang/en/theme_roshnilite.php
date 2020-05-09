@@ -271,3 +271,13 @@ $string['rawscsspre_desc'] = 'In this field you can provide initialising SCSS co
 
 $string['rawscss'] = 'Raw SCSS';
 $string['rawscss_desc'] = 'Use this field to provide SCSS or CSS code which will be injected at the end of the style sheet.';
+
+$string['fontsize'] = 'Font size reference';
+$string['fontsize_desc'] = 'This allows you to set the default font size for this theme. It is not recommended to set this higher than 13px as it is known to cause display problems with certain blocks.';
+
+$string['eleven'] = '11px';
+$string['twelve'] = '12px';
+$string['thirteen'] = '13px';
+$string['fourteen'] = '14px';
+$string['fifteen'] = '15px';
+$string['sixteen'] = '16px';

@@ -467,6 +467,22 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
+    
+    $name = 'theme_roshnilite/fontsize';
+    $title = get_string('fontsize', 'theme_roshnilite');
+    $description = get_string('fontsize_desc', 'theme_roshnilite');
+    $default = get_string('thirteen', 'theme_roshnilite');
+    // $choices = array(
+    //         11 => get_string('eleven', 'theme_roshnilite'),
+    //         12 => get_string('twelve', 'theme_roshnilite'),
+    //         13 => get_string('thirteen', 'theme_roshnilite'),
+    //         14 => get_string('fourteen', 'theme_roshnilite'),
+    //         15 => get_string('fifteen', 'theme_roshnilite'),
+    //         16 => get_string('sixteen', 'theme_roshnilite'),
+    // );
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
 
     // Heading font name.
     $name = 'theme_roshnilite/fontnameheading';

@@ -178,6 +178,7 @@ img.userpicture {
 }
 li.breadcrumb-item a, .nav-tabs, .form-item .form-label label , a, span, .form-item .form-setting .form-defaultinfo, .form-control{
     font-family: [[setting:bodyfont]];
+    font-size: [[setting:fontsize]]px ;
 }
 .text-info, .highlight {
     color: [[setting:brandcolor]] !important;
@@ -640,7 +641,8 @@ input#id_query {
 }
 span.site-name.d-none.d-md-inline img {
     width: 125px;
-    height: 35px;
+    /*height: 35px;*/
+    height: 63px;
     object-fit: contain;
 }
 .categories-item{width:25%;}
