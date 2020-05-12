@@ -179,6 +179,18 @@ function theme_roshnilite_process_css($css, $theme) {
     $css = theme_roshnilite_set_maincolor($css, $thememaincolor);
     $themebrandcolor = theme_roshnilite_get_setting('brandcolor');
     $css = theme_roshnilite_set_brandcolor($css, $themebrandcolor);
+    $themefontsize = theme_roshnilite_get_setting('fontsize');
+    $css = theme_roshnilite_set_fontsize($css, $themefontsize);
+    return $css;
+}
+
+function theme_roshnilite_set_fontsize($css, $themefontsize) {
+    $tag = '[[setting:fontsize]]';
+    $replacement = $themefontsize;
+	if (is_null($replacement)) {
+        $replacement = '13';
+    }
+    $css = str_replace($tag, $replacement, $css);
     return $css;
 }
 
