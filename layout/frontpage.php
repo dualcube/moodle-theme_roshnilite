@@ -107,7 +107,7 @@ if (!empty($checkslidercount)) {
         for ($i = 1; $i <= $totalslidercount; $i++) {
             $slideimage = $PAGE->theme->setting_file_url('slideimage' . $i, 'slideimage' . $i);
             if ($slideimage == '') {
-                $slideimage = $CFG->wwwroot."/theme/roshnilite/data/sl-1.jpg";
+                $slideimage = $CFG->wwwroot."/theme/roshnilite/pix/sl-1.jpg";
             }
             $slidertext = get_config('theme_roshnilite', 'slidertext' . $i);
             $sliderbuttontext = get_config('theme_roshnilite', 'sliderbuttontext' . $i);
@@ -175,7 +175,7 @@ $checkaboutsiteimage1 = $PAGE->theme->setting_file_url('aboutsiteimage1', 'about
 if (!empty($checkaboutsiteimage1)) {
     $aboutsiteimage1 = $PAGE->theme->setting_file_url('aboutsiteimage1', 'aboutsiteimage1');
 } else {
-    $aboutsiteimage1 = $CFG->wwwroot."/theme/roshnilite/data/icon-conts-1.png";
+    $aboutsiteimage1 = $CFG->wwwroot."/theme/roshnilite/pix/icon-conts-1.png";
 }
 
 $aboutsitename2 = format_text((!empty($html->aboutsitename2)) ? $html->aboutsitename2 :
@@ -187,7 +187,7 @@ $checkaboutsiteimage2 = $PAGE->theme->setting_file_url('aboutsiteimage2', 'about
 if (!empty($checkaboutsiteimage2)) {
     $aboutsiteimage2 = $PAGE->theme->setting_file_url('aboutsiteimage2', 'aboutsiteimage2');
 } else {
-    $aboutsiteimage2 = $CFG->wwwroot."/theme/roshnilite/data/icon-conts-2.png";
+    $aboutsiteimage2 = $CFG->wwwroot."/theme/roshnilite/pix/icon-conts-2.png";
 }
 
 $aboutsitename3 = format_text((!empty($html->aboutsitename3)) ? $html->aboutsitename3 :
@@ -199,7 +199,7 @@ $checkaboutsiteimage3 = $PAGE->theme->setting_file_url('aboutsiteimage3', 'about
 if (!empty($checkaboutsiteimage3)) {
     $aboutsiteimage3 = $PAGE->theme->setting_file_url('aboutsiteimage3', 'aboutsiteimage3');
 } else {
-    $aboutsiteimage3 = $CFG->wwwroot."/theme/roshnilite/data/icon-conts-3.png";
+    $aboutsiteimage3 = $CFG->wwwroot."/theme/roshnilite/pix/icon-conts-3.png";
 }
 
 $aboutsitename4 = format_text((!empty($html->aboutsitename4)) ? $html->aboutsitename4 :
@@ -211,7 +211,7 @@ $checkaboutsiteimage4 = $PAGE->theme->setting_file_url('aboutsiteimage4', 'about
 if (!empty($checkaboutsiteimage4)) {
     $aboutsiteimage4 = $PAGE->theme->setting_file_url('aboutsiteimage4', 'aboutsiteimage4');
 } else {
-    $aboutsiteimage4 = $CFG->wwwroot."/theme/roshnilite/data/icon-conts-4.png";
+    $aboutsiteimage4 = $CFG->wwwroot."/theme/roshnilite/pix/icon-conts-4.png";
 }
 
 $course = $DB->get_records_sql('SELECT c.* FROM {course} c where id != ? AND visible = ?', array(1, 1));
@@ -239,7 +239,7 @@ if (count($course) > 0) {
         if ( !empty( $courseimage ) ) {
             $coursedetailsarray[$key]["courseimage"] = $courseimage;
         } else {
-            $coursedetailsarray[$key]["courseimage"] = $CFG->wwwroot."/theme/roshnilite/data/nopic.jpg";
+            $coursedetailsarray[$key]["courseimage"] = $CFG->wwwroot."/theme/roshnilite/pix/nopic.jpg";
         }
         $courseimage = '';
     }
@@ -369,7 +369,7 @@ if (!empty($checkfacultycount)) {
         for ($i = 1; $i <= $str1; $i++) {
             $facultyimage = $PAGE->theme->setting_file_url('facultyimage' . $i, 'facultyimage' . $i);
             if ($facultyimage == '') {
-                $facultyimage = $CFG->wwwroot."/theme/roshnilite/data/nopic.jpg";
+                $facultyimage = $CFG->wwwroot."/theme/roshnilite/pix/nopic.jpg";
             }
             $facultyname = get_config('theme_roshnilite', 'facultyname' . $i);
             $facultysubtext = get_config('theme_roshnilite', 'facultysubtext' . $i);

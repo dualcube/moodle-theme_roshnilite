@@ -162,9 +162,28 @@ img.userpicture {
 #label_3_10 .item-content-wrap:before{
     display: none;
 }
-li.breadcrumb-item a, .nav-tabs, .form-item .form-label label , a, span, .form-item .form-setting .form-defaultinfo, .form-control{
+h1 {
+    font-size: 2rem !important;
+}
+h2 {
+    font-size: 1.6rem !important;
+}
+h3 {
+    font-size: 1.3rem !important;
+}
+h4 {
+    font-size: 1rem !important;
+}
+i.icon.fa.fa-bell.fa-fw {
+    padding-top: 3px;
+}
+.context-header-settings-menu,
+.region-main-settings-menu {
+  margin-right: 30px;
+}
+body, select, div.completionprogress, #page-footer .logininfo, .btn, section div.card-body, li.breadcrumb-item, li.breadcrumb-item a, .nav-tabs, .form-item .form-label label, .form-item .form-label p, .form-item .form-select select, .form-item .form-description p , a, span, .form-item .form-setting .form-defaultinfo, .form-control{
     font-family: [[setting:bodyfont]];
-    font-size: [[setting:fontsize]]px ;
+    font-size: [[setting:fontsize]]px !important;
 }
 .text-info, .highlight {
     color: [[setting:brandcolor]] !important;
@@ -555,6 +574,7 @@ footer#page-footer {
 }
 span.site-name.d-none.d-md-inline img {
     max-width: 100%;
+    max-height: 50px;
 }
 .form-control:focus {
     color: #495057;

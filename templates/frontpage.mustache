@@ -177,11 +177,11 @@
 
     {{#js}}
     require(['theme_boost/loader'], function() {
-        require(['jquery', 'theme_boost/carousel', 'core/log'],
-        function($, carousel, log) {
+        require(['jquery', 'core/log'],
+        function($, log) {
             $(document).ready(function(){
                 $('#courseCarousel').carousel({
-                    interval :2000
+                    interval :5000
                 });
                 
                 $('#categoryCarousel').carousel({

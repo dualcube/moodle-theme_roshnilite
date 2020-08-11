@@ -471,7 +471,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_roshnilite/fontsize';
     $title = get_string('fontsize', 'theme_roshnilite');
     $description = get_string('fontsize_desc', 'theme_roshnilite');
-    $default = '13';
+    $default = '15';
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);

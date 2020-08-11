@@ -9968,7 +9968,8 @@ input[disabled] {
   max-width: 4em;
   height: 2em;
   display: block;
-  margin-top: 4px; }
+  margin-top: 4px;
+  margin-right: 30px; }
 
 .context-header-settings-menu .dropdown-toggle > .icon,
 #region-main-settings-menu .dropdown-toggle > .icon {
