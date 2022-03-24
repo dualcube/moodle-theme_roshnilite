@@ -198,6 +198,7 @@ a:hover {
 }
 a.navbar-brand {
     margin-left: 20px;
+    padding: 0;
 }
 .dropdown-item.active, .dropdown-item:active {, span
     text-decoration: none;
@@ -646,13 +647,21 @@ input#id_query {
     top: -150px;
 }
 span.site-name.d-none.d-md-inline img {
-    width: 125px;
-    /*height: 35px;*/
-    height: 63px;
+        max-width: 125px;
+    max-height: 70px;
     object-fit: contain;
 }
 .categories-item{width:25%;}
 #coursesearch{ margin-bottom:20px;}
+#home-slide h3{
+    font-size: 22px !important;
+}
+#home-slide h1{
+    font-size: 38px !important;
+}
+#home-slide h2{
+    font-size: 30px !important;
+}
 }
 @media (max-width:768px){
 .h-large, .stay-connected .socialheading {
@@ -735,6 +744,7 @@ span.arrow_text {
 .block_myoverview .dashboard-card-deck .dashboard-card, .block_recentlyaccesseditems .dashboard-card-deck .dashboard-card {
     width: 100%;
 }
+
 .navbar .popover-region .popover-region-container{ margin: 0 20px; }
 .popover-region-toggle::after{ bottom: -9px; }
 .popover-region-toggle::before{ bottom: -9px; }
@@ -792,7 +802,7 @@ span.arrow_text {
   min-width: 100%;
  }
 #home-slide .carousel-caption{
-  bottom: 30%;
+  bottom: 25%;
 }
 .no-padding{
   padding: 0;
@@ -803,7 +813,7 @@ span.arrow_text {
     position: relative;
     margin: 50px auto;
     max-width: 770px;
-    font-size: 22px;
+    
 }
 #home-slide h3:before {
     content: "";
@@ -1141,7 +1151,7 @@ ul.social-network.social-circle li {
     background-image: url(roshnilite/style/img/button-next.png);
     text-align: left;
     position: absolute;
-    right: -22px;
+    right: 0;
     width: 13px;
     height: 25px;
     top: 50%;
@@ -1404,4 +1414,36 @@ input[type="submit"]:hover{
 }
 .columnright .block_myprofile .myprofileitem span{
     font-size: 12px;
+}
+.navbar {
+    min-height: 50px !important;
+    max-height: 70px;
+        padding-top: 0;
+    padding-bottom: 0;
+}
+/*div{ border:1px solid red; }*/
+input[type="text"], input[type="url"], textarea, input[type="submit"], input.srch-fld, select, input[type="file"]{
+    font-family: [[setting:bodyfont]];
+    font-size: [[setting:fontsize]]px ;
+}
+h1, h2, h3, h4, h5, h6, p, a{
+    font-family: [[setting:bodyfont]] !important;
+    font-size: [[setting:fontsize]]px !important;
+} 
+.btn{
+    font-family: [[setting:bodyfont]];
+    font-size: [[setting:fontsize]]px ;
+}
+.custom-select{
+    font-family: [[setting:bodyfont]];
+    font-size: [[setting:fontsize]]px ;
+        max-width: 100%;
+}
+body{
+    font-family: [[setting:bodyfont]];
+    font-size: [[setting:fontsize]]px ;
+}
+.moodle-dialogue-base .closebutton::after{
+    font-family: [[setting:bodyfont]];
+    font-size: [[setting:fontsize]]px ;
 }
