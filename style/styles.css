@@ -68,8 +68,8 @@ input[type="submit"]:hover, .btn-primary:not(:disabled):not(.disabled):active{
     border: 1px solid [[setting:brandcolor]];
 }
 .container-fluid {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 .container{ margin: 0 auto; }
 .blocks-pre {
@@ -638,6 +638,16 @@ table#emoticonsetting, #logstoreplugins, #courseenrolmentplugins, #plugins-contr
 input#id_query {
     margin-top: 14px;
 }
+.card-body.p-3 {
+    background: #e74c3c05;
+    border: 1px solid rgb(231 120 105 / 9%);
+    border-radius: 0.25rem;
+    margin: 1rem 0 0;
+}
+.contentWrap{
+    border-top: 1px solid #000;
+    margin-top: 0.5rem;
+}
 @media (min-width: 1200px){
 .contentWrap{
     display: flex;
@@ -676,12 +686,6 @@ input#id_query {
     padding: 0;
     border-right: 1px solid #e74c3c;
 }
-.card-body.p-3 {
-    background: #e74c3c05;
-    border: 1px solid rgb(231 120 105 / 9%);
-    border-radius: 0.25rem;
-    margin: 1rem 0;
-}
 .bx-controls-direction {
     position: relative;
     top: -150px;
@@ -704,6 +708,10 @@ span.site-name.d-none.d-md-inline img {
 }
 }
 @media (max-width:768px){
+    .container-fluid {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
 .h-large, .stay-connected .socialheading {
     font-size: 22px;
     line-height: 33px;
@@ -1433,7 +1441,7 @@ input[type="submit"]:hover{
 }
 #page-login-forgot_password .mform fieldset:last-child{ border-bottom: 0; }
 #region-main-box.region-main{
-    padding: 0 20px;
+    padding: 0 20px !important;
 }
 #page-login-index .card {
     border: 1px solid [[setting:maincolor]];
