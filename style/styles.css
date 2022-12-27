@@ -68,8 +68,8 @@ input[type="submit"]:hover, .btn-primary:not(:disabled):not(.disabled):active{
     border: 1px solid [[setting:brandcolor]];
 }
 .container-fluid {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 .container{ margin: 0 auto; }
 .blocks-pre {
@@ -80,24 +80,29 @@ input[type="submit"]:hover, .btn-primary:not(:disabled):not(.disabled):active{
     /*boost*/
 }
 #page-header{
-	border-bottom: 10px solid #e84c3d;
+	/* border-bottom: 10px solid #e84c3d; */
+    padding-top: 1rem;
 }
+/* div#page-navbar {
+    padding: 0 2rem 1rem 0;
+} */
 .navbar-bootswatch {
     background-color: [[setting:maincolor]];
 }
 .wrap-width {
-    max-width: 1170px;
+    /* max-width: 1170px; */
     margin: 0 auto;
-    width: 1170px;
+    /* width: 1170px; */
 }
 .navbar-bootswatch .navbar-nav .nav-link {
     color: #e6e6e6;
     /*static*/
 }
 .usermenu {
-    background: #e6e6e6;
+    background:#e74c3c;
     /*static*/
     padding: 7px 17px;
+    border: 1px solid #e6e4d6;
 }
 img.userpicture {
     margin-right: 0;
@@ -109,7 +114,8 @@ img.userpicture {
     border: 0;
     color: #fff;
     /*static*/
-    border-radius: 0;
+    border-radius: 0;    
+    margin: 0 0rem 1rem 2rem;
 }
 .singlebutton .btn.btn-secondary:hover{
 }
@@ -133,16 +139,16 @@ img.userpicture {
     position: relative;
 }
 .block_navigation .block_tree [aria-expanded="true"]:before, .type_course.depth_2.contains_branch .item-content-wrap:before {
-    content: "\f0e4";
+    /* content: "\f0e4";
     margin-right: 10px;
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
-    font-size: 16px;
+    font-size: 16px; */
 }
 .block_settings .block_tree [aria-expanded="false"]:before, .block_navigation .block_tree [aria-expanded="false"]:before {
     content: "\f105";
     margin-right: 0;
-    display: inline-block;
+    /* display: inline-block; */
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
     font-size: 14px;
@@ -158,6 +164,8 @@ img.userpicture {
     margin-left: -5px;
     text-align: center;
     font-weight: 700;
+    position: absolute;
+    opacity: 0;
 }
 #label_3_10 .item-content-wrap:before{
     display: none;
@@ -244,14 +252,15 @@ p.tree_item.hasicon.tree_item.leaf:before{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     width: 14px;
-    background: #000;
+    /* background: #000; */
     border-radius: 10px;
-    color: #fff;
+    color: #e74c3c;
     /* Static */
     margin-right: 5px;
     margin-left: -5px;
     text-align: center;
     font-weight: 700;
+   display: none;
 }
 p.tree_item.hasicon.active_tree_node.tree_item.leaf:before {
 }
@@ -556,6 +565,18 @@ footer#page-footer {
 .activity-navigation #next-activity-link {
     white-space: nowrap;
 }
+.block_navigation .block_tree .tree_item.branch, .block_settings .block_tree .tree_item.branch{
+    padding: 0 5%!important;
+}
+.block_navigation .block_tree .tree_item.branch:hover, .block_settings .block_tree .tree_item.branch:hover, p.tree_item.hasicon.tree_item.leaf:hover, p.tree_item.hasicon.active_tree_node.tree_item.leaf:hover{
+ background-color: #e84e3d14;
+}
+p.tree_item.active_tree_node.tree_item.branch, p.tree_item.hasicon.active_tree_node.tree_item.leaf {
+    background: #e84e3d14;
+}
+p.tree_item.active_tree_node.tree_item.branch a, p.tree_item.hasicon.active_tree_node.tree_item.leaf a {
+    /* color: #373a3c !important; */
+}
 .block_settings .block_tree .tree_item.branch {
     margin-left: 0;
     padding-left: .75rem;
@@ -617,12 +638,23 @@ table#emoticonsetting, #logstoreplugins, #courseenrolmentplugins, #plugins-contr
 input#id_query {
     margin-top: 14px;
 }
+.card-body.p-3 {
+    background: #e74c3c05;
+    border: 1px solid rgb(231 120 105 / 9%);
+    border-radius: 0.25rem;
+    margin: 1rem 0 0;
+}
+.contentWrap{
+    border-top: 1px solid #000;
+    margin-top: 0.5rem;
+}
 @media (min-width: 1200px){
 .contentWrap{
     display: flex;
-    max-width: 1170px;
-    margin: 0 auto;
-    width: 1170px;
+    max-width: initial;
+    margin: 8px auto 0;
+    width: 100%;
+    border-top: 1px solid #000;
 }
 .columnleft{
     flex: 0 0 23% !important;
@@ -641,6 +673,18 @@ input#id_query {
     flex: 0 0 57% !important;
     max-width: 57% !important;
     padding: 40px 1rem;
+}
+#page-content.blocks-pre .region-main {
+    flex: 0 0 80% !important;
+    max-width: 77% !important;
+    padding: 1rem;
+    border: 0;
+}
+#page-content.blocks-pre.blocks-post .region-main {
+    flex: 0 0 59% !important;
+    max-width: 56% !important;
+    padding: 0;
+    border-right: 1px solid #e74c3c;
 }
 .bx-controls-direction {
     position: relative;
@@ -664,6 +708,10 @@ span.site-name.d-none.d-md-inline img {
 }
 }
 @media (max-width:768px){
+    .container-fluid {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
 .h-large, .stay-connected .socialheading {
     font-size: 22px;
     line-height: 33px;
@@ -1393,7 +1441,7 @@ input[type="submit"]:hover{
 }
 #page-login-forgot_password .mform fieldset:last-child{ border-bottom: 0; }
 #region-main-box.region-main{
-    padding: 0 20px;
+    padding: 0 20px !important;
 }
 #page-login-index .card {
     border: 1px solid [[setting:maincolor]];
@@ -1446,4 +1494,8 @@ body{
 .moodle-dialogue-base .closebutton::after{
     font-family: [[setting:bodyfont]];
     font-size: [[setting:fontsize]]px ;
+}
+/* new css added here */
+li.nav-item {
+    display: flex;
 }
