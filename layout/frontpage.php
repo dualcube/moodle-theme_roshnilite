@@ -98,6 +98,7 @@ if (!empty($checkslidercount)) {
         $totalslidercount = (int)$totalslidercount;
         $sliderdetails = '<div class="container-fluid no-padding">
         <div id="home-slide" class="carousel slide" data-ride="carousel">
+        <h3></h3>
             <ul class="carousel-indicators">';
         for ($i = 0; $i < $totalslidercount; $i++) {
             $sliderdetails .= '<li data-target="#home-slide" data-slide-to="' . $i . '"></li>';

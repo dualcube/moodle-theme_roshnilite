@@ -159,7 +159,7 @@ function theme_roshnilite_process_css($css, $theme) {
     if (!empty($theme->settings->fontnamebody)) {
         $font = $theme->settings->fontnamebody;
     } else {
-        $font = 'Raleway';
+        $font = get_string('fontnamedefault', 'theme_roshnilite');
     }
     $headingfont = theme_roshnilite_get_setting('fontnameheading');
     $bodyfont = theme_roshnilite_get_setting('fontnamebody');

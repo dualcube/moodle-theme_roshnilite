@@ -232,7 +232,7 @@ $string['addressdefault'] = 'Kolkata, India';
 $string['emaildefault'] = 'admin@dualcube.com';
 $string['phonedefault'] = '+91 33 64578322';
 $string['socialheadingdefault'] = 'STAY CONNECTED';
-$string['fontnamedefault'] = 'Raleway';
+$string['fontnamedefault'] = '';
 
 $string['facultysettings'] = 'Faculty Settings';
 $string['facultyheading'] = 'Our Top Faculties';
