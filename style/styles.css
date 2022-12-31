@@ -1509,3 +1509,23 @@
   li.nav-item {
       display: flex;
   }
+  #page-admin-plugins #plugins-control-panel .version .versionnumber,
+   #page-admin-plugins #plugins-control-panel .notes .requiredby, 
+   #page-admin-plugins #plugins-control-panel .pluginname .componentname {
+    font-size: 1rem;
+    color: #868e96;
+}
+
+@media only screen and (min-width: 769px) {
+    .dropdown-menu.show {
+        left: -22%!important;
+        transform: translate(-50%, 35%) !important;
+    }
+    .pagelayout-login #region-main {
+        width: 25%;
+        margin: auto;
+    }
+     .d-print-block {
+        display: block !important;
+    }
+  }
