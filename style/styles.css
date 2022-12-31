@@ -770,7 +770,6 @@
       margin: 0 auto;
   }
   .fixed-top .d-none {
-      display: inline-block !important;
   }
   .navbar-expand .navbar-nav {
       flex-direction: row;
@@ -1104,7 +1103,7 @@
   .item-inner .icon-holder {
       width: 3.125rem;
       height: 3.125rem;
-      background: url([[pix:theme|img/categoryImg.svg]]) no-repeat center;
+      background: url([[pix:theme|img/categoryImg]]) no-repeat center;
       float: left;
       margin-right: 0.938rem;
   }
@@ -1177,7 +1176,7 @@
       height: 0.313rem;
       left: -3.438rem;
       top: -0.625rem;
-      background: url([[pix:theme|img/line-left-light.png]]) no-repeat center;
+      background: url([[pix:theme|img/line-left-light]]) no-repeat center;
   }
   .socialheading:after {
       content: "";
@@ -1187,7 +1186,7 @@
       height: 0.313rem;
       right: -3.438rem;
       bottom: -0.813rem;
-      background: url([[pix:theme|img/line-right-light.png]]) no-repeat center;
+      background: url([[pix:theme|img/line-right-light]]) no-repeat center;
   }
   .mobile-app {
       text-align: center;
@@ -1196,7 +1195,7 @@
       margin-bottom: 3.125rem;
   }
   .carousel-control-prev-icon {
-      background-image: url([[pix:theme|img/button-previous.png]]);
+      background-image: url([[pix:theme|img/button-previous]]);
       text-align: left;
       position: absolute;
       left: -0.813rem;
@@ -1205,10 +1204,10 @@
       top: 50%;
   }
   .carousel-control-next-icon {
-      background-image: url([[pix:theme|img/button-next.png]]);
+      background-image: url([[pix:theme|img/button-next]]);
       text-align: left;
       position: absolute;
-      right: 0;
+      right: -1.75rem;
       width: 0.813rem;
       height: 1.563rem;
       top: 50%;
@@ -1515,7 +1514,10 @@
     font-size: 1rem;
     color: #868e96;
 }
-
+.navbar.fixed-top {
+    display: flex;
+    align-items: center;
+}
 @media only screen and (min-width: 769px) {
     .dropdown-menu.show {
         left: -22%!important;
