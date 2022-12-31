@@ -584,8 +584,8 @@
   .block_settings .block_tree .tree_item.branch span{
       color: [[setting:brandcolor]];
   }
-  .dropdown-menu.dropdown-menu-right {
-      right: -1.063rem !important
+  .dropdown-menu.dropdown-menu-right.show {
+      right: -1.063rem !important;
       left: inherit !important;
       transform: translate3d(0, 1.25rem, 0rem) !important;
       /*for dropdown*/
