@@ -159,7 +159,7 @@ function theme_roshnilite_process_css($css, $theme) {
     if (!empty($theme->settings->fontnamebody)) {
         $font = $theme->settings->fontnamebody;
     } else {
-        $font = 'Raleway';
+        $font = get_string('fontnamedefault', 'theme_roshnilite');
     }
     $headingfont = theme_roshnilite_get_setting('fontnameheading');
     $bodyfont = theme_roshnilite_get_setting('fontnamebody');
@@ -206,7 +206,7 @@ function theme_roshnilite_set_logo($css, $logo) {
     $tag = '[[setting:logo]]';
     $replacement = $logo;
     if (is_null($replacement)) {
-        $replacement = $CFG->wwwroot.'/theme/roshnilite/style/img/logo.png';
+        $replacement = $CFG->wwwroot.'/theme/roshnilite/pix/img/logo.png';
     }
 
     $css = str_replace($tag, $replacement, $css);

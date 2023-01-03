@@ -32,6 +32,7 @@ $THEME->sheets = ['styles'];
 
 $THEME->editor_sheets = [];
 $THEME->parents = ['boost'];
+$THEME->haseditswitch = true;
 $THEME->enable_dock = false;
 $THEME->extrascsscallback = 'theme_roshnilite_get_extra_scss';
 $THEME->prescsscallback = 'theme_roshnilite_get_pre_scss';

@@ -35,7 +35,7 @@ global $DB, $PAGE;
 if (!empty($PAGE->theme->setting_file_url('logo', 'logo'))) {
     $imgpath = $PAGE->theme->setting_file_url('logo', 'logo');
 } else {
-    $imgpath = $CFG->wwwroot."/theme/roshnilite/style/img/logo.png";
+    $imgpath = $CFG->wwwroot."/theme/roshnilite/pix/img/logo.png";
 }
 if (!isloggedin()) { 
     $login = '    <div class="loginnavbar">
@@ -98,6 +98,7 @@ if (!empty($checkslidercount)) {
         $totalslidercount = (int)$totalslidercount;
         $sliderdetails = '<div class="container-fluid no-padding">
         <div id="home-slide" class="carousel slide" data-ride="carousel">
+        <h3></h3>
             <ul class="carousel-indicators">';
         for ($i = 0; $i < $totalslidercount; $i++) {
             $sliderdetails .= '<li data-target="#home-slide" data-slide-to="' . $i . '"></li>';
