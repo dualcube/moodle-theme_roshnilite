@@ -206,7 +206,7 @@ function theme_roshnilite_set_logo($css, $logo) {
     $tag = '[[setting:logo]]';
     $replacement = $logo;
     if (is_null($replacement)) {
-        $replacement = $CFG->wwwroot.'/theme/roshnilite/style/img/logo.png';
+        $replacement = $CFG->wwwroot.'/theme/roshnilite/pix/img/logo.png';
     }
 
     $css = str_replace($tag, $replacement, $css);

@@ -99,10 +99,8 @@
       /*static*/
   }
   .usermenu {
-      background:#e74c3c;
       /*static*/
       padding: 0.438rem 1.063rem;
-      border: 0.06rem solid #e6e4d6;
   }
   img.userpicture {
       margin-right: 0;
@@ -139,16 +137,11 @@
       position: relative;
   }
   .block_navigation .block_tree [aria-expanded="true"]:before, .type_course.depth_2.contains_branch .item-content-wrap:before {
-      /* content: "\f0e4";
-      margin-right: 10px;
-      display: inline-block;
-      font: normal normal normal 14px/1 FontAwesome;
-      font-size: 16px; */
+    
   }
   .block_settings .block_tree [aria-expanded="false"]:before, .block_navigation .block_tree [aria-expanded="false"]:before {
       content: "\f105";
       margin-right: 0;
-      /* display: inline-block; */
       font: normal normal normal 0.875rem/1 FontAwesome;
       font-size: inherit;
       font-size: 0.875rem;
@@ -524,6 +517,12 @@
       margin-bottom: 2.5rem;
       border-top: 0.06rem solid [[setting:maincolor]];
   }
+  body#page-login-index footer#page-footer {
+    background: #eee;
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+}
   #page-wrapper {
       height: auto;}
   #page-footer .validators {
@@ -1500,6 +1499,9 @@
       font-family: [[setting:bodyfont]];
       font-size: [[setting:fontsize]]px ;
   }
+  div#topofscroll {
+    max-width: 100% !important;
+}
   .moodle-dialogue-base .closebutton::after{
       font-family: [[setting:bodyfont]];
       font-size: [[setting:fontsize]]px ;
@@ -1518,6 +1520,12 @@
     display: flex;
     align-items: center;
 }
+.custom-switch .custom-control-label::before {
+    top: 0.15rem;
+}
+.custom-switch .custom-control-label::after {
+    top: calc(-0.3875rem + 0.625rem);
+   }
 @media only screen and (min-width: 769px) {
     .dropdown-menu.show {
         left: -22%!important;
