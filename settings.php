@@ -15,10 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * roshnilite theme settings file.
+ * Roshnilite theme.
  *
  * @package    theme_roshnilite
- * @copyright  2020 DualCube
+ * @author DualCube <admin@dualcube.com>
+ * @copyright  Dualcube (https://dualcube.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die;  

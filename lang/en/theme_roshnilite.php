@@ -17,9 +17,10 @@
 /**
  * Language file.
  *
- * @package   theme_roshnilite
- * @copyright 2018 Bas Brands
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    theme_roshnilite
+ * @author DualCube <admin@dualcube.com>
+ * @copyright  Dualcube (https://dualcube.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 // This line protects the file from being accessed by a URL directly.
