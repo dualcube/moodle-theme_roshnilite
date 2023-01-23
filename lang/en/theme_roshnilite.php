@@ -19,7 +19,7 @@
  *
  * @package    theme_roshnilite
  * @author DualCube <admin@dualcube.com>
- * @copyright  Dualcube (https://dualcube.com)
+ * @copyright  DualCube (https://dualcube.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -41,7 +41,7 @@ Stuart Lamour, Mark Aberdour, Paul Hibbitts, Mary Evans.</p>
 Julian Ridden, Gareth J. Barnard, David Bezemer.</p>
 <h3>Theme Credits</h3>
 <p>This theme has now been redeveloped as a child of Boost theme. This theme is compatible with moodle version starting from 3.6.8 to latest 3.8.1</p>
-<p>Authors: Dualcube<br>
+<p>Authors: DualCube<br>
 Contact: admin@dualcube.com<br>
 Website: <a href="https://dualcube.com/">https://dualcube.com/</a>
 </p>

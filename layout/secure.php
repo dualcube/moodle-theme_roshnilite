@@ -19,7 +19,7 @@
  *
  * @package    theme_roshnilite
  * @author DualCube <admin@dualcube.com>
- * @copyright  Dualcube (https://dualcube.com)
+ * @copyright  DualCube (https://dualcube.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
