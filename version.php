@@ -18,16 +18,17 @@
  * Roshnilite theme.
  *
  * @package    theme_roshnilite
- * @copyright  2018 Bas Brands
+ * @author DualCube <admin@dualcube.com>
+ * @copyright  DualCube (https://dualcube.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 // This line protects the file from being accessed by a URL directly.
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2023011900;
+$plugin->version = 2023012000;
 $plugin->requires = 2018120307;
 $plugin->component = 'theme_roshnilite';
 $plugin->dependencies = array('theme_boost' => 2022041900);
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '3.3 (Build: 2023011900)';
+$plugin->release = '3.3 (Build: 2023012000)';

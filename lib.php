@@ -15,9 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * theme_roshnilite lib file.
+ * Roshnilite theme.
+ *
  * @package    theme_roshnilite
- * @copyright  2020 DualCube {@link https://dualcube.com}
+ * @author DualCube <admin@dualcube.com>
+ * @copyright  DualCube (https://dualcube.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

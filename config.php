@@ -15,11 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Roshnilite config.
+ * Roshnilite theme.
  *
- * @package   theme_roshnilite
- * @copyright 2018 Bas Brands
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    theme_roshnilite
+ * @author DualCube <admin@dualcube.com>
+ * @copyright  DualCube (https://dualcube.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 // This line protects the file from being accessed by a URL directly.
@@ -32,7 +33,7 @@ $THEME->sheets = ['styles'];
 
 $THEME->editor_sheets = [];
 $THEME->parents = ['boost'];
-$THEME->haseditswitch = true;
+$THEME->haseditswitch = false;
 $THEME->enable_dock = false;
 $THEME->extrascsscallback = 'theme_roshnilite_get_extra_scss';
 $THEME->prescsscallback = 'theme_roshnilite_get_pre_scss';
