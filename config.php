@@ -79,7 +79,7 @@ $THEME->layouts = [
         'file' => 'frontpage.php',
         'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre',
-        'options' => array('nofullheader' => true),
+        'options' => array('nofullheader' => true, 'nonavbar' => true),
     ),
     // Server administration scripts.
     'admin' => array(
@@ -137,7 +137,7 @@ $THEME->layouts = [
     ),
     // The pagelayout used when a redirection is occuring.
     'redirect' => array(
-        'file' => 'embedded.php',
+        'file' => 'frontpage.php',
         'regions' => array(),
     ),
     // The pagelayout used for reports.
