@@ -290,7 +290,7 @@ $allcourse = get_string('viewallcourses');
 $masonryheading = format_text((!empty($html->masonryheading)) ? $html->masonryheading :
     get_string('masonryheadingdefault', 'theme_roshnilite'), "", $roshniliteformatoptions);
 
-$masonrysubheading1 = format_text((!empty($html->masonrysubheading1)) ? $html->masonrysubheading1 :
+$masonrysubheading = format_text((!empty($html->masonrysubheading)) ? $html->masonrysubheading :
     get_string('masonrysubheadingdefault', 'theme_roshnilite'), "", $roshniliteformatoptions);
 
 $categorydetails = '';
@@ -299,7 +299,7 @@ $categories = $DB->get_records('course_categories');
 if (!empty( $categories ) && count($categories) > 1) {
     $categorydetails .= '<div class="container text-center our-category">
   <div class="heading-large text-center">' . $masonryheading . '</div>
-  <div class="header-small text-center">' . $masonrysubheading1 . '</div>
+  <div class="header-small text-center">' . $masonrysubheading . '</div>
     <div class="row mx-auto my-auto">
         <div id="categoryCarousel" class="carouselMultiple carousel slide w-100" data-ride="carousel">
             <div class="carousel-inner w-100" role="listbox">';
@@ -505,7 +505,7 @@ $templatecontext = [
     'coursedetail' => $coursedetail,
 
     'masonryheading' => $masonryheading,
-    'masonrysubheading1' => $masonrysubheading1,
+    'masonrysubheading1' => $masonrysubheading,
 
     'socialfontawesomeicon1' => $socialfontawesomeicon1,
     'socialfontawesomeicon2' => $socialfontawesomeicon2,
