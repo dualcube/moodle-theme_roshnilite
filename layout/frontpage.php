@@ -143,7 +143,7 @@ if ($enablemoodlemaincontent == 1) {
     $maincontent .= $OUTPUT->main_content();
     if (isloggedin()) {
         if (has_capability('moodle/course:create', $context)) {
-            if ($PAGE->user_is_editing()) {
+            if ($PAGE->user_is_editing() && isset($turneditingoff)) {
                 $maincontent .= '<a class = "turnedit turneditbtn" href="' . $turneditingoff . '">' . get_string('turneditingoff') . '</a>';
             } else {
                 $maincontent .= '<a class = "turnedit turneditbtn" href="">' . get_string('turneditingon') . '</a>';
@@ -307,7 +307,7 @@ if (!empty( $categories ) && count($categories) > 1) {
     foreach ($categories as $cat) {
         $active = ($a == 0) ? 'active' : '';
         $a++;
-        $catdes = (strip_tags($cat->description));
+        $catdes = ( $cat->description != null ? strip_tags($cat->description) : '');
         $categorydetails .= '<div class="carousel-item ' . $active . '">
                     <div class="categories-item item">
                       <div class="item-inner media align-items-center">
@@ -434,7 +434,7 @@ $socialicon1 = get_config('theme_roshnilite', 'socialicon1');
 $socialfontawesomeicon2 = get_config('theme_roshnilite', 'socialfontawesomeicon2');
 $socialicon2 = get_config('theme_roshnilite', 'socialicon2');
 $socialfontawesomeicon3 = get_config('theme_roshnilite', 'socialfontawesomeicon3');
-$socialicon3 = get_config('theme_roshnilite', 'socialicon4');
+$socialicon3 = get_config('theme_roshnilite', 'socialicon3');
 $socialfontawesomeicon4 = get_config('theme_roshnilite', 'socialfontawesomeicon4');
 $socialicon4 = get_config('theme_roshnilite', 'socialicon4');
 
