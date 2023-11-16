@@ -27,15 +27,15 @@ defined('MOODLE_INTERNAL') || die();
 global $PAGE;
 
 if (!empty($PAGE->theme->setting_file_url('logo', 'logo'))) {
-    $imgpath = $PAGE->theme->setting_file_url('logo', 'logo');
+	$imgpath = $PAGE->theme->setting_file_url('logo', 'logo');
 } else {
-    $imgpath = $CFG->wwwroot."/theme/roshnilite/pix/img/logo.png";
+	$imgpath = $CFG->wwwroot . "/theme/roshnilite/pix/img/logo.png";
 }
 
 if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
-    $favicon = $PAGE->theme->setting_file_url('favicon', 'favicon');
+	$favicon = $PAGE->theme->setting_file_url('favicon', 'favicon');
 } else {
-    $favicon = $CFG->wwwroot."/theme/roshnilite/pix/favicon.ico";
+	$favicon = $CFG->wwwroot . "/theme/roshnilite/pix/favicon.ico";
 }
 
 $bodyattributes = $OUTPUT->body_attributes();
@@ -47,22 +47,22 @@ $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 
 
 if ($CFG->version >= 2018120300) {
-    $version18 = $OUTPUT->standard_after_main_region_html();
+	$version18 = $OUTPUT->standard_after_main_region_html();
 } else {
-    $version18 = '';
+	$version18 = '';
 }
 
 $templatecontext = [
-    'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
-    'output' => $OUTPUT,
-    'sidepreblocks' => $blockspre,
-    'sidepostblocks' => $blockspost,
-    'haspreblocks' => $hassidepre,
-    'haspostblocks' => $hassidepost,
-    'bodyattributes' => $bodyattributes,
-    'version18' => $version18,
-    'imgpath' => $imgpath,
-    'favicon' => $favicon,
+	'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
+	'output' => $OUTPUT,
+	'sidepreblocks' => $blockspre,
+	'sidepostblocks' => $blockspost,
+	'haspreblocks' => $hassidepre,
+	'haspostblocks' => $hassidepost,
+	'bodyattributes' => $bodyattributes,
+	'version18' => $version18,
+	'imgpath' => $imgpath,
+	'favicon' => $favicon,
 ];
 
 echo $OUTPUT->render_from_template('theme_roshnilite/columns', $templatecontext);
