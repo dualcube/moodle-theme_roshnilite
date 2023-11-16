@@ -22,7 +22,8 @@
  * @copyright  DualCube (https://dualcube.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die;  
+
+defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
 
@@ -59,7 +60,7 @@ if ($ADMIN->fulltree) {
     $description = get_string('presetfiles_desc', 'theme_roshnilite');
 
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'preset', 0,
-        array('maxfiles' => 20, 'accepted_types' => array('.scss')));
+        ['maxfiles' => 20, 'accepted_types' => ['.scss']]);
     $page->add($setting);
 
     // Background image setting.
@@ -105,14 +106,14 @@ if ($ADMIN->fulltree) {
     $title = get_string('slidercount', 'theme_roshnilite');
     $description = get_string('slidercountdesc', 'theme_roshnilite');
     $setting = new admin_setting_configselect($name, $title, $description, 0,
-    array(
+    [
             1 => get_string('one', 'theme_roshnilite'),
             2 => get_string('two', 'theme_roshnilite'),
             3 => get_string('three', 'theme_roshnilite'),
             4 => get_string('four', 'theme_roshnilite'),
             5 => get_string('five', 'theme_roshnilite'),
             6 => get_string('six', 'theme_roshnilite'),
-        ));
+        ]);
     $page->add($setting);
 
     for ($slidecounts = 1; $slidecounts <= get_config('theme_roshnilite', 'slidercount'); $slidecounts = $slidecounts + 1) {
@@ -461,14 +462,14 @@ if ($ADMIN->fulltree) {
     $title = get_string('fontselect', 'theme_roshnilite');
     $description = get_string('fontselectdesc', 'theme_roshnilite');
     $default = 1;
-    $choices = array(
+    $choices = [
             1 => get_string('fonttypestandard', 'theme_roshnilite'),
             2 => get_string('fonttypecustom', 'theme_roshnilite'),
-    );
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
-    
+
     $name = 'theme_roshnilite/fontsize';
     $title = get_string('fontsize', 'theme_roshnilite');
     $description = get_string('fontsize_desc', 'theme_roshnilite');
@@ -622,7 +623,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('facultycount', 'theme_roshnilite');
     $description = get_string('facultycountdesc', 'theme_roshnilite');
     $setting = new admin_setting_configselect($name, $title, $description, 0,
-    array(
+    [
             1 => get_string('one', 'theme_roshnilite'),
             2 => get_string('two', 'theme_roshnilite'),
             3 => get_string('three', 'theme_roshnilite'),
@@ -631,7 +632,7 @@ if ($ADMIN->fulltree) {
             6 => get_string('six', 'theme_roshnilite'),
             7 => get_string('seven', 'theme_roshnilite'),
             8 => get_string('eight', 'theme_roshnilite'),
-        ));
+        ]);
     $page->add($setting);
 
     for ($facultycounts = 1; $facultycounts <= get_config('theme_roshnilite', 'facultycount'); $facultycounts++) {

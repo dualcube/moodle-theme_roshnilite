@@ -28,7 +28,7 @@ global $PAGE;
 
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ["escape" => false]),
-    'output' => $OUTPUT
+    'output' => $OUTPUT,
 ];
 
 echo $OUTPUT->render_from_template('theme_roshnilite/maintenance', $templatecontext);
