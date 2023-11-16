@@ -25,9 +25,6 @@
 
 // Every file should have GPL and copyright in the header - we skip it in tutorials but you should not skip it for real.
 
-// This line protects the file from being accessed by a URL directly.
-defined('MOODLE_INTERNAL') || die();
-
 // We will add callbacks here as we add features to our theme.
 // Function to return the SCSS to prepend to our main SCSS for this theme.
 // Note the function name starts with the component name because this is a global function and we don't want namespace clashes.
@@ -42,7 +39,7 @@ function theme_roshnilite_get_pre_scss($theme) {
 
     $scss = '';
     $configurable = [
-        'brandcolor' => ['secondary', 'black']
+        'brandcolor' => ['secondary', 'black'],
     ];
 
     // Prepend variables first.
@@ -189,7 +186,7 @@ function theme_roshnilite_process_css($css, $theme) {
 function theme_roshnilite_set_fontsize($css, $themefontsize) {
     $tag = '[[setting:fontsize]]';
     $replacement = $themefontsize;
-	if (is_null($replacement)) {
+    if (is_null($replacement)) {
         $replacement = '15';
     }
     $css = str_replace($tag, $replacement, $css);
@@ -236,7 +233,7 @@ function theme_roshnilite_get_setting($setting, $format = false) {
     } else if ($format === 'format_text') {
         return format_text($theme->settings->$setting, FORMAT_PLAIN);
     } else if ($format === 'format_html') {
-        return format_text($theme->settings->$setting, FORMAT_HTML, array('trusted' => true, 'noclean' => true));
+        return format_text($theme->settings->$setting, FORMAT_HTML, ['trusted' => true, 'noclean' => true]);
     } else {
         return format_string($theme->settings->$setting);
     }
@@ -287,7 +284,7 @@ function theme_roshnilite_set_fontfiles($css, $type, $fontname) {
             $theme = theme_config::load('roshnilite');
         }
 
-        $fontfiles = array();
+        $fontfiles = [];
         $fontfileeot = $theme->setting_file_url('fontfileeot' . $type, 'fontfileeot' . $type);
         if (!empty($fontfileeot)) {
             $fontfiles[] = "url('" . $fontfileeot . "?#iefix') format('embedded-opentype')";
@@ -402,7 +399,7 @@ function theme_roshnilite_get_html_for_settings(renderer_base $output, moodle_pa
     }
 
     if (!empty($page->theme->settings->logo)) {
-        $return->heading = html_writer::tag('div', '', array('class' => 'logo'));
+        $return->heading = html_writer::tag('div', '', ['class' => 'logo']);
     } else {
         $return->heading = $output->page_heading();
     }
@@ -676,7 +673,7 @@ function theme_roshnilite_get_html_for_settings(renderer_base $output, moodle_pa
  * @param array $options
  * @return bool
  */
-function theme_roshnilite_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
+function theme_roshnilite_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = []) {
     static $theme;
     if (empty($theme)) {
         $theme = theme_config::load('roshnilite');

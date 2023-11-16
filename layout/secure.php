@@ -41,7 +41,7 @@ $templatecontext = [
     'sidepostblocks' => $blockspost,
     'haspreblocks' => $hassidepre,
     'haspostblocks' => $hassidepost,
-    'bodyattributes' => $bodyattributes
+    'bodyattributes' => $bodyattributes,
 ];
 
 echo $OUTPUT->render_from_template('theme_roshnilite/secure', $templatecontext);

@@ -38,7 +38,7 @@ $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
     'bodyattributes' => $bodyattributes,
-    'favicon' => $favicon
+    'favicon' => $favicon,
 ];
 
 echo $OUTPUT->render_from_template('theme_roshnilite/login', $templatecontext);

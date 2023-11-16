@@ -27,8 +27,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->version = 2023111600;
-$plugin->requires = 2022041900; //moodle 4.0.
+$plugin->requires = 2022041900; // Moodle 4.0.
 $plugin->component = 'theme_roshnilite';
-$plugin->dependencies = array('theme_boost' => 2022041900);
+$plugin->dependencies = ['theme_boost' => 2022041900];
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '3.5.3 (Build: 2023111600)';

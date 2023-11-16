@@ -32,7 +32,7 @@ if (!empty($PAGE->theme->setting_file_url('logo', 'logo'))) {
 } else {
     $imgpath = $CFG->wwwroot."/theme/roshnilite/pix/img/logo.png";
 }
-if (!isloggedin()) { 
+if (!isloggedin()) {
     $login = '    <div class="loginnavbar">
                 <div class="container">
                     <form method="post" action="' . $CFG->wwwroot . '/login/index.php?authldap_skipntlmsso=1">
@@ -44,7 +44,7 @@ if (!isloggedin()) {
                 </div>
             </div>    ';
     $logvar = 0;
-}else{
+} else {
     $login = '';
     $logvar = 1;
 }
@@ -210,8 +210,8 @@ if (!empty($checkaboutsiteimage4)) {
     $aboutsiteimage4 = $CFG->wwwroot."/theme/roshnilite/pix/icon-conts-4.png";
 }
 
-$course = $DB->get_records_sql('SELECT c.* FROM {course} c where id != ? AND visible = ?', array(1, 1));
-$coursedetailsarray = array();
+$course = $DB->get_records_sql('SELECT c.* FROM {course} c where id != ? AND visible = ?', [1, 1]);
+$coursedetailsarray = [];
 if (count($course) > 0) {
     $coursegetstring = get_string('courses');
     $coursedetail = '<div class="divider"></div>
@@ -225,7 +225,7 @@ if (count($course) > 0) {
         $coursedetailsarray[$key]["coursename"] = $coursevalue->fullname;
         $coursecontext = context_course::instance($coursevalue->id);
         $isfile = $DB->get_records_sql("Select * from {files} where contextid = ? and filename != ? and filearea = ?",
-            array($coursecontext->id, ".", "overviewfiles"));
+            [$coursecontext->id, ".", "overviewfiles"]);
         if ( $isfile ) {
             foreach ($isfile as $key1 => $isfilevalue) {
                 $courseimage = $CFG->wwwroot . "/pluginfile.php/" . $isfilevalue->contextid .
@@ -257,8 +257,8 @@ if (count($course) > 0) {
         }
         if ( !empty ($avlcoursearrayvalue["coursename"]) ) {
             $coursedetail .= '<div class="mask"></div>
-            <a class="av-course-item-cont" href="' . 
-                           $avlcoursearrayvalue["courseid"] . '">' . 
+            <a class="av-course-item-cont" href="' .
+                           $avlcoursearrayvalue["courseid"] . '">' .
                            $avlcoursearrayvalue["coursename"] . '</a>';
         }
         $coursedetail .= '</div>
@@ -528,7 +528,7 @@ $templatecontext = [
 
     'categorydetails' => $categorydetails,
     'facultydetails' => $facultydetails,
-    'sliderdetails' => $sliderdetails
+    'sliderdetails' => $sliderdetails,
 
 ];
 
