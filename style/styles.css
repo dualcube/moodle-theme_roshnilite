@@ -1562,3 +1562,22 @@
         margin: 0;
     }
   }
+
+.editmode-switch-form label{
+  color: #f9f8fb !important;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fdedec;
+    border-color: #fdedec;
+    background-color: #fdedec;
+}
+
+.custom-switch .custom-control-input:checked~.custom-control-label::after {
+    background-color: #e74c3c;
+    transform: translateX(0.75rem);
+}
+
+.custom-switch .custom-control-label::after {
+    top: calc(-0.3875rem + 0.635rem);
+}
