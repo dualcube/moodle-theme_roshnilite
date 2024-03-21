@@ -51,6 +51,9 @@ if ($CFG->version >= 2018120300) {
 } else {
     $version18 = '';
 }
+$renderer = $PAGE->get_renderer('core');
+$header = $PAGE->activityheader;
+$headercontent = $header->export_for_template($renderer);
 
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
@@ -63,6 +66,7 @@ $templatecontext = [
     'version18' => $version18,
     'imgpath' => $imgpath,
     'favicon' => $favicon,
+    'headercontent' => $headercontent,
 ];
 
 echo $OUTPUT->render_from_template('theme_roshnilite/columns', $templatecontext);
