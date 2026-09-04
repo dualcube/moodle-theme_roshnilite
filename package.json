@@ -4,7 +4,7 @@
   "private": true,
   "description": "Dev tooling for theme_roshnilite: local Moodle Docker environment, coding-standards checker, and AMD build.",
   "scripts": {
-    "postinstall": "composer install",
+    "postinstall": "[ -f composer.json ] && composer install || true",
     "env:up": "docker compose up -d",
     "env:down": "docker compose down",
     "env:reset": "docker compose down -v && docker compose up -d --build",

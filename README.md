@@ -50,7 +50,8 @@ This builds a Moodle 5.0 container (MariaDB + Apache/PHP), installs Moodle non-i
 |---|---|
 | Site  | http://localhost:8080 |
 | Admin | `admin` / `RoshniliteDev#123` *(change `MOODLE_ADMIN_PASS` in `docker-compose.yml` before exposing this beyond localhost)* |
-| Database | `127.0.0.1:3307`, user/password `moodle` / `moodle`, database `moodle` (root password also `moodle`) — connect any DB client (DBeaver, TablePlus, MySQL Workbench, ...) to inspect data directly. Host port is 3307, not 3306, since 3306 is commonly already taken by a local MySQL/MariaDB — change the host-side number in `docker-compose.yml`'s `db.ports` if 3307 also collides for you. |
+| Database (web UI) | http://localhost:8081 (Adminer) — System: `MySQL`, Server: `db`, Username: `moodle`, Password: `moodle`, Database: `moodle`. Browse/edit tables straight from the browser, no client install needed. |
+| Database (raw port) | `127.0.0.1:3307`, user/password `moodle` / `moodle`, database `moodle` (root password also `moodle`) — for connecting an external DB client (DBeaver, TablePlus, MySQL Workbench, ...) instead of Adminer. Host port is 3307, not 3306, since 3306 is commonly already taken by a local MySQL/MariaDB — change the host-side number in `docker-compose.yml`'s `db.ports` if 3307 also collides for you. |
 
 To test against a different supported branch (5.1, 5.2, 5.3dev), change the `MOODLE_BRANCH` build arg in `docker-compose.yml` and run `docker compose up -d --build`. Branches 5.1 and later serve from a `public/` subdirectory that this setup does not account for.
 
