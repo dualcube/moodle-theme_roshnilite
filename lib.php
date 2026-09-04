@@ -31,8 +31,8 @@
 /**
  * theme_roshnilite_get_pre_scss function for load custom settings.
  *
- * @param string $theme
- * @return $theme->settings->$setting
+ * @param theme_config $theme
+ * @return string
  */
 function theme_roshnilite_get_pre_scss($theme) {
     global $CFG;
@@ -69,8 +69,8 @@ function theme_roshnilite_get_pre_scss($theme) {
 /**
  * theme_roshnilite_get_extra_scss function for load custom settings.
  *
- * @param string $theme
- * @return $theme->settings->$setting
+ * @param theme_config $theme
+ * @return string
  */
 function theme_roshnilite_get_extra_scss($theme) {
     global $CFG;
@@ -183,6 +183,13 @@ function theme_roshnilite_process_css($css, $theme) {
     return $css;
 }
 
+/**
+ * Adds any custom font size to the CSS before it is cached.
+ *
+ * @param string $css The original CSS.
+ * @param string $themefontsize The custom font size to add.
+ * @return string The CSS which now contains our custom font size.
+ */
 function theme_roshnilite_set_fontsize($css, $themefontsize) {
     $tag = '[[setting:fontsize]]';
     $replacement = $themefontsize;
@@ -201,7 +208,7 @@ function theme_roshnilite_set_fontsize($css, $themefontsize) {
  * @return string The parsed CSS
  */
 function theme_roshnilite_set_logo($css, $logo) {
-    GLOBAL $CFG;
+    global $CFG;
     $tag = '[[setting:logo]]';
     $replacement = $logo;
     if (is_null($replacement)) {
@@ -217,7 +224,7 @@ function theme_roshnilite_set_logo($css, $logo) {
  *
  * @param string $setting
  * @param string $format
- * @return $theme->settings->$setting
+ * @return string|bool
  */
 function theme_roshnilite_get_setting($setting, $format = false) {
     global $CFG;
@@ -374,7 +381,6 @@ function theme_roshnilite_set_brandcolor($css, $themecolor) {
     $css = str_replace($tag, $replacement, $css);
     return $css;
 }
-
 
 /**
  * Returns an object containing HTML for the areas affected by settings.

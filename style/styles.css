@@ -630,7 +630,7 @@
       display: block !important;
       overflow-x: auto;
   }
-  .custom-select:focus {
+  .custom-select:focus, .form-select:focus {
       border-color:#ced4da;
       outline: 0;
       -webkit-box-shadow:none;
@@ -819,7 +819,7 @@
       padding: 0.625rem;
       margin-bottom: 0.625rem;
   }
-  .no-gutters>.col, .no-gutters>[class*=col-] {
+  .no-gutters>.col, .no-gutters>[class*=col-], .g-0>.col, .g-0>[class*=col-] {
       padding-right: 0;
       padding-left: 0;
   }
@@ -1493,7 +1493,7 @@
       font-family: [[setting:bodyfont]];
       font-size: [[setting:fontsize]]px ;
   }
-  .custom-select{
+  .custom-select, .form-select{
       font-family: [[setting:bodyfont]];
       font-size: [[setting:fontsize]]px ;
           max-width: 100%;

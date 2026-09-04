@@ -178,42 +178,5 @@
     
     </div>
     {{> theme_roshnilite/frontpagefooter }}
-
-    {{#js}}
-    require(['theme_boost/loader'], function() {
-        require(['jquery', 'core/log'],
-        function($, log) {
-            $(document).ready(function(){
-                $('#courseCarousel').carousel({
-                    interval :5000
-                });
-                
-                $('#categoryCarousel').carousel({
-                    interval :8000
-                })
-                
-                $('#facultyCarousel').carousel({
-                    interval :5000
-                })
-                
-                $('.carouselMultiple .carousel-item').each(function(){
-                    var next = $(this).next();
-                    if (!next.length) {
-                        next = $(this).siblings(':first');
-                    }
-                    next.children(':first-child').clone().appendTo($(this));
-                    
-                    for (var i=0;i<2;i++) {
-                        next=next.next();
-                        if (!next.length) {
-                            next = $(this).siblings(':first');
-                        }
-                        next.children(':first-child').clone().appendTo($(this));
-                    }
-                });
-            });
-        });
-    });
-    {{/js}}
 </body>
 </html>

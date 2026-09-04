@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Roshnilite theme.
+ * Privacy provider for theme_roshnilite.
  *
  * @package    theme_roshnilite
  * @author DualCube <admin@dualcube.com>
@@ -23,18 +23,21 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace theme_roshnilite\privacy;
 
-if ($ADMIN->fulltree) {
-    $settings = new theme_boost_admin_settingspage_tabs('themesettingroshnilite',
-        get_string('configtitle', 'theme_roshnilite'));
-
-    // General settings.
-    include(__DIR__ . '/settings/general.php');
-    // Advanced settings.
-    include(__DIR__ . '/settings/advanced.php');
-    // Font settings.
-    include(__DIR__ . '/settings/font.php');
-    // Faculty settings.
-    include(__DIR__ . '/settings/faculty.php');
+/**
+ * Privacy provider for theme_roshnilite.
+ *
+ * This theme does not store any personal data.
+ */
+class provider implements \core_privacy\local\metadata\null_provider {
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return string
+     */
+    public static function get_reason(): string {
+        return 'privacy:metadata';
+    }
 }

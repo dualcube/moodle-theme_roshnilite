@@ -49,11 +49,11 @@ $navbar-light-hover-color:          rgba($black, .9) !default;
 // Breadcrumbs
 $breadcrumb-padding-y:              .25rem !default;
 $breadcrumb-padding-x:              0 !default;
-$breadcrumb-item-padding:           .5rem !default;
+$breadcrumb-item-padding-x:         .5rem !default;
 $breadcrumb-margin-bottom:          0 !default;
 $breadcrumb-bg:                     transparent !default;
 $breadcrumb-divider: "/" !default;
-$breadcrumb-divider-rtl: "/" !default;
+$breadcrumb-divider-flipped: "/" !default;
 
 // Alerts
 $alert-border-width:                0 !default;

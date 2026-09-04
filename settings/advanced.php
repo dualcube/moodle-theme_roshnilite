@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Roshnilite theme.
+ * Advanced settings for theme_roshnilite.
  *
  * @package    theme_roshnilite
  * @author DualCube <admin@dualcube.com>
@@ -25,16 +25,18 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-if ($ADMIN->fulltree) {
-    $settings = new theme_boost_admin_settingspage_tabs('themesettingroshnilite',
-        get_string('configtitle', 'theme_roshnilite'));
+$page = new admin_settingpage('theme_roshnilite_advanced', get_string('advancedsettings', 'theme_roshnilite'));
 
-    // General settings.
-    include(__DIR__ . '/settings/general.php');
-    // Advanced settings.
-    include(__DIR__ . '/settings/advanced.php');
-    // Font settings.
-    include(__DIR__ . '/settings/font.php');
-    // Faculty settings.
-    include(__DIR__ . '/settings/faculty.php');
-}
+// Raw SCSS to include before the content.
+$setting = new admin_setting_scsscode('theme_roshnilite/scsspre',
+    get_string('rawscsspre', 'theme_roshnilite'), get_string('rawscsspre_desc', 'theme_roshnilite'), '', PARAM_RAW);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+// Raw SCSS to include after the content.
+$setting = new admin_setting_scsscode('theme_roshnilite/scss', get_string('rawscss', 'theme_roshnilite'),
+    get_string('rawscss_desc', 'theme_roshnilite'), '', PARAM_RAW);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+$settings->add($page);

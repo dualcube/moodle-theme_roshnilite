@@ -27,6 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 
 global $DB, $PAGE;
 
+$PAGE->requires->js_call_amd('theme_roshnilite/frontpage', 'init');
+
 if (!empty($PAGE->theme->setting_file_url('logo', 'logo'))) {
     $imgpath = $PAGE->theme->setting_file_url('logo', 'logo');
 } else {
@@ -92,11 +94,11 @@ if (!empty($checkslidercount)) {
         }
         $totalslidercount = (int)$totalslidercount;
         $sliderdetails = '<div class="container-fluid no-padding">
-        <div id="home-slide" class="carousel slide" data-ride="carousel">
+        <div id="home-slide" class="carousel slide" data-bs-ride="carousel">
         <h3></h3>
             <ul class="carousel-indicators">';
         for ($i = 0; $i < $totalslidercount; $i++) {
-            $sliderdetails .= '<li data-target="#home-slide" data-slide-to="' . $i . '"></li>';
+            $sliderdetails .= '<li data-bs-target="#home-slide" data-bs-slide-to="' . $i . '"></li>';
         }
         $sliderdetails .= '</ul><div class="carousel-inner">';
 
@@ -218,7 +220,7 @@ if (count($course) > 0) {
     <div class="container-fluid text-center course-section">
         <div class="heading-large text-center">' . $coursegetstring . '</div>
         <div class="row mx-auto my-auto">
-            <div id="courseCarousel" class="carouselMultiple carousel slide w-100" data-ride="carousel">';
+            <div id="courseCarousel" class="carouselMultiple carousel slide w-100" data-bs-ride="carousel" data-bs-interval="5000">';
 
     foreach ($course as $key => $coursevalue) {
         $coursedetailsarray[$key]["courseid"] = $CFG->wwwroot."/course/view.php?id=".$coursevalue->id;
@@ -266,17 +268,17 @@ if (count($course) > 0) {
     }
     $coursedetail .= '</div>
                     </div>
-                    <a class="carousel-control-prev" href="#courseCarousel" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" href="#courseCarousel" role="button" data-bs-slide="prev">
                     <div class="round-arrow">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     </div>
-                    <span class="sr-only">Previous</span>
+                    <span class="visually-hidden">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#courseCarousel" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#courseCarousel" role="button" data-bs-slide="next">
                     <div class="round-arrow-next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     </div>
-                    <span class="sr-only">Next</span>
+                    <span class="visually-hidden">Next</span>
                 </a>
 
                 </div>
@@ -301,7 +303,7 @@ if (!empty( $categories ) && count($categories) > 1) {
   <div class="heading-large text-center">' . $masonryheading . '</div>
   <div class="header-small text-center">' . $masonrysubheading . '</div>
     <div class="row mx-auto my-auto">
-        <div id="categoryCarousel" class="carouselMultiple carousel slide w-100" data-ride="carousel">
+        <div id="categoryCarousel" class="carouselMultiple carousel slide w-100" data-bs-ride="carousel" data-bs-interval="8000">
             <div class="carousel-inner w-100" role="listbox">';
     $a = 0;
     foreach ($categories as $cat) {
@@ -323,13 +325,13 @@ if (!empty( $categories ) && count($categories) > 1) {
                 </div>';
     }
     $categorydetails .= '</div>
-                <a class="carousel-control-prev" href="#categoryCarousel" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#categoryCarousel" role="button" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
+                    <span class="visually-hidden">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#categoryCarousel" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#categoryCarousel" role="button" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
+                    <span class="visually-hidden">Next</span>
                 </a>
             </div>
         </div>
@@ -358,7 +360,7 @@ if (!empty($checkfacultycount)) {
         $facultydetails = '<div class="container text-center top-faculti">
         <div class="heading-large text-center">' . $facultyheading . '</div>
         <div class="row mx-auto my-auto">
-            <div id="facultyCarousel" class="carouselMultiple carousel slide w-100" data-ride="carousel">
+            <div id="facultyCarousel" class="carouselMultiple carousel slide w-100" data-bs-ride="carousel" data-bs-interval="5000">
 
                 <div class="carousel-inner w-100" role="listbox">';
 
@@ -399,13 +401,13 @@ if (!empty($checkfacultycount)) {
     }
     $facultydetails .= '
           </div>
-          <a class="carousel-control-prev" href="#facultyCarousel" role="button" data-slide="prev">
+          <a class="carousel-control-prev" href="#facultyCarousel" role="button" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
+              <span class="visually-hidden">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#facultyCarousel" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#facultyCarousel" role="button" data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
+              <span class="visually-hidden">Next</span>
             </a>
         </div>
     </div>';

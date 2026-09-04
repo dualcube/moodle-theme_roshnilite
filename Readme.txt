@@ -1,6 +1,6 @@
 Roshni Lite [This block is written by DualCube<admin@dulacube.com>.]
 ===========
-This Moodle Theme is a 100% responsive, feature heavy beautiful Moodle theme. It is compatible with the latest Moodle 4.1.
+This Moodle Theme is a 100% responsive, feature heavy beautiful Moodle theme. It is compatible with Moodle 5.0 to 5.3 (dev).
 It provides customizable sections on the front page which the user may customize through a backend setting panel,
 can add/update/delete content.
 
