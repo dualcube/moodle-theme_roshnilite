@@ -31,7 +31,7 @@ $bodyattributes = $OUTPUT->body_attributes();
 if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
     $favicon = $PAGE->theme->setting_file_url('favicon', 'favicon');
 } else {
-    $favicon = $CFG->wwwroot."/theme/roshnilite/pix/favicon.ico";
+    $favicon = $CFG->wwwroot . "/theme/roshnilite/pix/favicon.ico";
 }
 
 $templatecontext = [

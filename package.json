@@ -1,0 +1,25 @@
+{
+  "name": "theme_roshnilite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dev tooling for theme_roshnilite: local Moodle Docker environment, coding-standards checker, and AMD build.",
+  "scripts": {
+    "postinstall": "composer install",
+    "env:up": "docker compose up -d",
+    "env:down": "docker compose down",
+    "env:reset": "docker compose down -v && docker compose up -d --build",
+    "env:build": "docker compose build",
+    "env:logs": "docker compose logs -f moodle",
+    "env:ps": "docker compose ps",
+    "lint:php": "for f in $(find . -name '*.php' -not -path './vendor/*'); do php -l \"$f\" || exit 1; done",
+    "lint:phpcs": "vendor/bin/phpcs .",
+    "fix:phpcs": "vendor/bin/phpcbf .",
+    "lint": "npm run lint:php && npm run lint:phpcs",
+    "build:amd": "bash docker/build-amd.sh",
+    "check:html": "node docker/check-html.js",
+    "check": "npm run lint"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^23.0.0"
+  }
+}

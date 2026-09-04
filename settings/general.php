@@ -55,8 +55,14 @@ $name = 'theme_roshnilite/presetfiles';
 $title = get_string('presetfiles', 'theme_roshnilite');
 $description = get_string('presetfiles_desc', 'theme_roshnilite');
 
-$setting = new admin_setting_configstoredfile($name, $title, $description, 'preset', 0,
-    ['maxfiles' => 20, 'accepted_types' => ['.scss']]);
+$setting = new admin_setting_configstoredfile(
+    $name,
+    $title,
+    $description,
+    'preset',
+    0,
+    ['maxfiles' => 20, 'accepted_types' => ['.scss']]
+);
 $page->add($setting);
 
 // Background image setting.
@@ -101,44 +107,49 @@ $page->add($setting);
 $name = 'theme_roshnilite/slidercount';
 $title = get_string('slidercount', 'theme_roshnilite');
 $description = get_string('slidercountdesc', 'theme_roshnilite');
-$setting = new admin_setting_configselect($name, $title, $description, 0,
-[
+$setting = new admin_setting_configselect(
+    $name,
+    $title,
+    $description,
+    0,
+    [
         1 => get_string('one', 'theme_roshnilite'),
         2 => get_string('two', 'theme_roshnilite'),
         3 => get_string('three', 'theme_roshnilite'),
         4 => get_string('four', 'theme_roshnilite'),
         5 => get_string('five', 'theme_roshnilite'),
         6 => get_string('six', 'theme_roshnilite'),
-    ]);
+    ]
+);
 $page->add($setting);
 
 for ($slidecounts = 1; $slidecounts <= get_config('theme_roshnilite', 'slidercount'); $slidecounts = $slidecounts + 1) {
-    $name = 'theme_roshnilite/slideimage'.$slidecounts;
-    $title = get_string('slideimage', 'theme_roshnilite').$slidecounts;
-    $description = get_string('slideimagedesc', 'theme_roshnilite').$slidecounts;
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'slideimage'.$slidecounts);
+    $name = 'theme_roshnilite/slideimage' . $slidecounts;
+    $title = get_string('slideimage', 'theme_roshnilite') . $slidecounts;
+    $description = get_string('slideimagedesc', 'theme_roshnilite') . $slidecounts;
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'slideimage' . $slidecounts);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    $name = 'theme_roshnilite/slidertext'.$slidecounts;
-    $title = get_string('slidertext', 'theme_roshnilite').$slidecounts;
-    $description = get_string('slidertextdesc', 'theme_roshnilite').$slidecounts;
+    $name = 'theme_roshnilite/slidertext' . $slidecounts;
+    $title = get_string('slidertext', 'theme_roshnilite') . $slidecounts;
+    $description = get_string('slidertextdesc', 'theme_roshnilite') . $slidecounts;
     $default = get_string('slidertextdefault', 'theme_roshnilite');
     $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    $name = 'theme_roshnilite/sliderbuttontext'.$slidecounts;
-    $title = get_string('sliderbuttontext', 'theme_roshnilite').$slidecounts;
+    $name = 'theme_roshnilite/sliderbuttontext' . $slidecounts;
+    $title = get_string('sliderbuttontext', 'theme_roshnilite') . $slidecounts;
     $description = get_string('sliderbuttontextdesc', 'theme_roshnilite');
     $default = get_string('sliderbuttontextdefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    $name = 'theme_roshnilite/sliderurl'.$slidecounts;
-    $title = get_string('sliderurl', 'theme_roshnilite').$slidecounts;
-    $description = get_string('sliderurldesc', 'theme_roshnilite').$slidecounts;
+    $name = 'theme_roshnilite/sliderurl' . $slidecounts;
+    $title = get_string('sliderurl', 'theme_roshnilite') . $slidecounts;
+    $description = get_string('sliderurldesc', 'theme_roshnilite') . $slidecounts;
     $default = get_string('sliderurldefault', 'theme_roshnilite');
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');

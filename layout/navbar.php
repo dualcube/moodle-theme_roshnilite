@@ -30,7 +30,7 @@ global $PAGE;
 if (!empty($PAGE->theme->setting_file_url('logo', 'logo'))) {
     $imgpath = $PAGE->theme->setting_file_url('logo', 'logo');
 } else {
-    $imgpath = $CFG->wwwroot."/theme/roshnilite/pix/img/logo.png";
+    $imgpath = $CFG->wwwroot . "/theme/roshnilite/pix/img/logo.png";
 }
 
 $templatecontext = [

@@ -35,10 +35,24 @@
         "sitename": "Moodle",
         "output": {
             "doctype": "<!DOCTYPE html>",
+            "htmlattributes": "lang=\"en\"",
             "page_title": "Test page",
-            "favicon": "favicon.ico",
-            "main_content": "<h1>Headings make html validators happier</h1>"
+            "main_content": "<h1>Headings make html validators happier</h1>",
+            "should_display_navbar_logo": true,
+            "get_compact_logo_url": "http://example.com/image.png",
+            "custom_menu": "<li>..</li>",
+            "page_heading_menu": "<li>..</li>",
+            "search_box": "<div><input type='text'></div>",
+            "navbar_plugin_output": "<div class='dropdown'>Messaging</div>",
+            "user_menu": "<div class='dropdown'>John Doe</div>"
          },
+        "config": {
+            "wwwroot": "#"
+        },
+        "favicon": "http://example.com/favicon.ico",
+        "imgpath": "http://example.com/logo.png",
+        "logvar": true,
+        "login": "",
         "bodyattributes":"",
         "sidepreblocks": "<h2>Blocks html goes here</h2>",
         "sidepostblocks": "<h2>Blocks html goes here</h2>",
@@ -69,7 +83,7 @@
                   <div class=" about-item">
                     <div class="about-item-img-wr">
                         <div class="about-item-img">
-                          <a href="{{{ aboutsiteurl1 }}}"><img src={{aboutsiteimage1}}  alt="aboutsiteurl1" /></a>
+                          <a href="{{{ aboutsiteurl1 }}}"><img src="{{aboutsiteimage1}}" alt="aboutsiteurl1" /></a>
                         </div>
                     </div>
                     <a href="{{{ aboutsiteurl1 }}}">{{{ aboutsitename1 }}}</a>
@@ -82,7 +96,7 @@
                   <div class=" about-item">
                     <div class="about-item-img-wr">
                         <div class="about-item-img">
-                          <a href="{{{ aboutsiteurl2 }}}"><img src={{aboutsiteimage2}} alt="aboutsiteurl2" /></a>
+                          <a href="{{{ aboutsiteurl2 }}}"><img src="{{aboutsiteimage2}}" alt="aboutsiteurl2" /></a>
                         </div>
                     </div>
                     <a href="{{{ aboutsiteurl2 }}}">{{{ aboutsitename2 }}}</a>
@@ -95,7 +109,7 @@
                   <div class=" about-item">
                     <div class="about-item-img-wr">
                         <div class="about-item-img">
-                          <a href="{{{ aboutsiteurl3 }}}"><img src={{aboutsiteimage3}}  alt="aboutsiteurl3"/></a>
+                          <a href="{{{ aboutsiteurl3 }}}"><img src="{{aboutsiteimage3}}" alt="aboutsiteurl3" /></a>
                         </div>
                     </div>
                     <a href="{{{ aboutsiteurl3 }}}">{{{ aboutsitename3 }}}</a>
@@ -108,7 +122,7 @@
                   <div class=" about-item">
                     <div class="about-item-img-wr">
                         <div class="about-item-img">
-                          <a href="{{{ aboutsiteurl4 }}}"><img src={{aboutsiteimage4}}  alt="aboutsiteurl4"/></a>
+                          <a href="{{{ aboutsiteurl4 }}}"><img src="{{aboutsiteimage4}}" alt="aboutsiteurl4" /></a>
                         </div>
                     </div>
                     <a href="{{{ aboutsiteurl4 }}}">{{{ aboutsitename4 }}}</a>

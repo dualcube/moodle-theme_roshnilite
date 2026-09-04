@@ -1,0 +1,67 @@
+name: theme-roshnilite-dev
+
+services:
+  db:
+    image: mariadb:11
+    # utf8mb4/utf8mb4_unicode_ci as real mysqld flags: the MARIADB_CHARACTER_SET_SERVER
+    # / MARIADB_COLLATION_SERVER env vars some docs mention are not implemented by this
+    # image's entrypoint (checked its source - it never reads them), so they'd silently
+    # do nothing and leave MariaDB 11's newer utf8mb4_uca1400_ai_ci default in place,
+    # which fails Moodle's unicode environment check.
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    environment:
+      MARIADB_ROOT_PASSWORD: moodle
+      MARIADB_DATABASE: moodle
+      MARIADB_USER: moodle
+      MARIADB_PASSWORD: moodle
+    ports:
+      # Published so an external DB client (DBeaver, TablePlus, MySQL
+      # Workbench, ...) can connect directly - host 127.0.0.1:3307 (3306
+      # itself was already taken by a local MySQL/MariaDB on the host this
+      # was set up on; change the host-side number here if 3307 collides
+      # for you too), user moodle / moodle, database moodle (root password
+      # is also "moodle").
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  moodle:
+    build:
+      context: ./docker
+      args:
+        # Change to test against a different branch, e.g. MOODLE_502_STABLE.
+        # Branches from 5.1 onward serve from a public/ subdirectory that
+        # this simple setup does not account for - see docker/Dockerfile.
+        MOODLE_BRANCH: MOODLE_500_STABLE
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    environment:
+      MOODLE_WWWROOT: http://localhost:8080
+      MOODLE_DB_HOST: db
+      MOODLE_DB_NAME: moodle
+      MOODLE_DB_USER: moodle
+      MOODLE_DB_PASS: moodle
+      MOODLE_SITE_NAME: "Roshni Lite Dev"
+      MOODLE_SITE_SHORTNAME: "roshnilitedev"
+      MOODLE_ADMIN_USER: admin
+      MOODLE_ADMIN_PASS: "RoshniliteDev#123"
+      MOODLE_ADMIN_EMAIL: admin@example.com
+    volumes:
+      - moodle_html:/var/www/html
+      - moodledata:/var/www/moodledata
+      # Live-mount this theme's source over the in-container copy so edits
+      # on the host show up without rebuilding the image.
+      - ./:/var/www/html/theme/roshnilite
+
+volumes:
+  db_data:
+  moodle_html:
+  moodledata:

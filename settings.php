@@ -26,8 +26,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
-    $settings = new theme_boost_admin_settingspage_tabs('themesettingroshnilite',
-        get_string('configtitle', 'theme_roshnilite'));
+    $settings = new theme_boost_admin_settingspage_tabs(
+        'themesettingroshnilite',
+        get_string('configtitle', 'theme_roshnilite')
+    );
 
     // General settings.
     include(__DIR__ . '/settings/general.php');

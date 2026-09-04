@@ -32,7 +32,7 @@ $PAGE->requires->js_call_amd('theme_roshnilite/frontpage', 'init');
 if (!empty($PAGE->theme->setting_file_url('logo', 'logo'))) {
     $imgpath = $PAGE->theme->setting_file_url('logo', 'logo');
 } else {
-    $imgpath = $CFG->wwwroot."/theme/roshnilite/pix/img/logo.png";
+    $imgpath = $CFG->wwwroot . "/theme/roshnilite/pix/img/logo.png";
 }
 if (!isloggedin()) {
     $login = '    <div class="loginnavbar">
@@ -54,7 +54,7 @@ if (!isloggedin()) {
 if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
     $favicon = $PAGE->theme->setting_file_url('favicon', 'favicon');
 } else {
-    $favicon = $CFG->wwwroot."/theme/roshnilite/pix/favicon.ico";
+    $favicon = $CFG->wwwroot . "/theme/roshnilite/pix/favicon.ico";
 }
 
 $bodyattributes = $OUTPUT->body_attributes();
@@ -79,13 +79,11 @@ $context = context_system::instance();
 $checkslidercount = $PAGE->theme->setting_file_url('slidercount', 'slidercount');
 $sliderdetails = '';
 if (!empty($checkslidercount)) {
-
     $slideimagecheck = $PAGE->theme->setting_file_url('slideimage1', 'slideimage1');
     $slidertextcheck = get_config('theme_roshnilite', 'slidertext1');
     $sliderbuttontextcheck = get_config('theme_roshnilite', 'sliderbuttontext1');
     $sliderurlcheck = get_config('theme_roshnilite', 'sliderurl1');
     if (!empty($slideimagecheck) || !empty($slidertextcheck) || !empty($sliderbuttontextcheck) || !empty($sliderurlcheck)) {
-
         $start = strlen($checkslidercount) - 1;
         $totalslidercount = '';
 
@@ -105,7 +103,7 @@ if (!empty($checkslidercount)) {
         for ($i = 1; $i <= $totalslidercount; $i++) {
             $slideimage = $PAGE->theme->setting_file_url('slideimage' . $i, 'slideimage' . $i);
             if ($slideimage == '') {
-                $slideimage = $CFG->wwwroot."/theme/roshnilite/pix/sl-1.jpg";
+                $slideimage = $CFG->wwwroot . "/theme/roshnilite/pix/sl-1.jpg";
             }
             $slidertext = get_config('theme_roshnilite', 'slidertext' . $i);
             $sliderbuttontext = get_config('theme_roshnilite', 'sliderbuttontext' . $i);
@@ -121,7 +119,7 @@ if (!empty($checkslidercount)) {
                     <div class="carousel-caption">
                         ' . $slidertext;
             if ($sliderbuttontext != '') {
-                $sliderdetails .= '<a href="' . $sliderurl . '" class="btn-theme">' . $sliderbuttontext.'</a>';
+                $sliderdetails .= '<a href="' . $sliderurl . '" class="btn-theme">' . $sliderbuttontext . '</a>';
             }
             $sliderdetails .= '</div>
                 </div>';
@@ -135,9 +133,9 @@ if (!empty($checkslidercount)) {
 }
 
 $aboutsiteheading = format_text((!empty($html->aboutsiteheading)) ? $html->aboutsiteheading :
-    get_string('aboutsiteheadingdefault', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('aboutsiteheadingdefault', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 $aboutsitesubheading = format_text((!empty($html->aboutsitesubheading)) ? $html->aboutsitesubheading :
-    get_string('aboutsitesubheadingdefault', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('aboutsitesubheadingdefault', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 
 if ($enablemoodlemaincontent == 1) {
     $maincontent = '<div class="container" style="display:none;">
@@ -146,7 +144,8 @@ if ($enablemoodlemaincontent == 1) {
     if (isloggedin()) {
         if (has_capability('moodle/course:create', $context)) {
             if ($PAGE->user_is_editing() && isset($turneditingoff)) {
-                $maincontent .= '<a class = "turnedit turneditbtn" href="' . $turneditingoff . '">' . get_string('turneditingoff') . '</a>';
+                $maincontent .= '<a class = "turnedit turneditbtn" href="' . $turneditingoff . '">' .
+                    get_string('turneditingoff') . '</a>';
             } else {
                 $maincontent .= '<a class = "turnedit turneditbtn" href="">' . get_string('turneditingon') . '</a>';
             }
@@ -164,52 +163,52 @@ if ($CFG->version >= 2018120300) {
 }
 
 $aboutsitename1 = format_text((!empty($html->aboutsitename1)) ? $html->aboutsitename1 :
-    get_string('aboutsitename1default', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('aboutsitename1default', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 $aboutsitetext1 = format_text((!empty($html->aboutsitetext1)) ? $html->aboutsitetext1 :
-    get_string('aboutsitetext1default', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('aboutsitetext1default', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 $aboutsiteurl1 = (!empty($html->aboutsiteurl1)) ? $html->aboutsiteurl1 : '';
 
 $checkaboutsiteimage1 = $PAGE->theme->setting_file_url('aboutsiteimage1', 'aboutsiteimage1');
 if (!empty($checkaboutsiteimage1)) {
     $aboutsiteimage1 = $PAGE->theme->setting_file_url('aboutsiteimage1', 'aboutsiteimage1');
 } else {
-    $aboutsiteimage1 = $CFG->wwwroot."/theme/roshnilite/pix/icon-conts-1.png";
+    $aboutsiteimage1 = $CFG->wwwroot . "/theme/roshnilite/pix/icon-conts-1.png";
 }
 
 $aboutsitename2 = format_text((!empty($html->aboutsitename2)) ? $html->aboutsitename2 :
-    get_string('aboutsitename2default', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('aboutsitename2default', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 $aboutsitetext2 = format_text((!empty($html->aboutsitetext2)) ? $html->aboutsitetext2 :
-    get_string('aboutsitetext2default', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('aboutsitetext2default', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 $aboutsiteurl2 = (!empty($html->aboutsiteurl2)) ? $html->aboutsiteurl2 : '';
 $checkaboutsiteimage2 = $PAGE->theme->setting_file_url('aboutsiteimage2', 'aboutsiteimage2');
 if (!empty($checkaboutsiteimage2)) {
     $aboutsiteimage2 = $PAGE->theme->setting_file_url('aboutsiteimage2', 'aboutsiteimage2');
 } else {
-    $aboutsiteimage2 = $CFG->wwwroot."/theme/roshnilite/pix/icon-conts-2.png";
+    $aboutsiteimage2 = $CFG->wwwroot . "/theme/roshnilite/pix/icon-conts-2.png";
 }
 
 $aboutsitename3 = format_text((!empty($html->aboutsitename3)) ? $html->aboutsitename3 :
-    get_string('aboutsitename3default', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('aboutsitename3default', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 $aboutsitetext3 = format_text((!empty($html->aboutsitetext3)) ? $html->aboutsitetext3 :
-    get_string('aboutsitetext3default', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('aboutsitetext3default', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 $aboutsiteurl3 = (!empty($html->aboutsiteurl3)) ? $html->aboutsiteurl3 : '';
 $checkaboutsiteimage3 = $PAGE->theme->setting_file_url('aboutsiteimage3', 'aboutsiteimage3');
 if (!empty($checkaboutsiteimage3)) {
     $aboutsiteimage3 = $PAGE->theme->setting_file_url('aboutsiteimage3', 'aboutsiteimage3');
 } else {
-    $aboutsiteimage3 = $CFG->wwwroot."/theme/roshnilite/pix/icon-conts-3.png";
+    $aboutsiteimage3 = $CFG->wwwroot . "/theme/roshnilite/pix/icon-conts-3.png";
 }
 
 $aboutsitename4 = format_text((!empty($html->aboutsitename4)) ? $html->aboutsitename4 :
-    get_string('aboutsitename4default', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('aboutsitename4default', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 $aboutsitetext4 = format_text((!empty($html->aboutsitetext4)) ? $html->aboutsitetext4 :
-    get_string('fraboutsitetextdescdefault', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('fraboutsitetextdescdefault', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 $aboutsiteurl4 = (!empty($html->aboutsiteurl4)) ? $html->aboutsiteurl4 : '';
 $checkaboutsiteimage4 = $PAGE->theme->setting_file_url('aboutsiteimage4', 'aboutsiteimage4');
 if (!empty($checkaboutsiteimage4)) {
     $aboutsiteimage4 = $PAGE->theme->setting_file_url('aboutsiteimage4', 'aboutsiteimage4');
 } else {
-    $aboutsiteimage4 = $CFG->wwwroot."/theme/roshnilite/pix/icon-conts-4.png";
+    $aboutsiteimage4 = $CFG->wwwroot . "/theme/roshnilite/pix/icon-conts-4.png";
 }
 
 $course = $DB->get_records_sql('SELECT c.* FROM {course} c where id != ? AND visible = ?', [1, 1]);
@@ -220,24 +219,27 @@ if (count($course) > 0) {
     <div class="container-fluid text-center course-section">
         <div class="heading-large text-center">' . $coursegetstring . '</div>
         <div class="row mx-auto my-auto">
-            <div id="courseCarousel" class="carouselMultiple carousel slide w-100" data-bs-ride="carousel" data-bs-interval="5000">';
+            <div id="courseCarousel" class="carouselMultiple carousel slide w-100"
+                data-bs-ride="carousel" data-bs-interval="5000">';
 
     foreach ($course as $key => $coursevalue) {
-        $coursedetailsarray[$key]["courseid"] = $CFG->wwwroot."/course/view.php?id=".$coursevalue->id;
+        $coursedetailsarray[$key]["courseid"] = $CFG->wwwroot . "/course/view.php?id=" . $coursevalue->id;
         $coursedetailsarray[$key]["coursename"] = $coursevalue->fullname;
         $coursecontext = context_course::instance($coursevalue->id);
-        $isfile = $DB->get_records_sql("Select * from {files} where contextid = ? and filename != ? and filearea = ?",
-            [$coursecontext->id, ".", "overviewfiles"]);
-        if ( $isfile ) {
+        $isfile = $DB->get_records_sql(
+            "Select * from {files} where contextid = ? and filename != ? and filearea = ?",
+            [$coursecontext->id, ".", "overviewfiles"]
+        );
+        if ($isfile) {
             foreach ($isfile as $key1 => $isfilevalue) {
                 $courseimage = $CFG->wwwroot . "/pluginfile.php/" . $isfilevalue->contextid .
                 "/" . $isfilevalue->component . "/" . $isfilevalue->filearea . "/" . $isfilevalue->filename;
             }
         }
-        if ( !empty( $courseimage ) ) {
+        if (!empty($courseimage)) {
             $coursedetailsarray[$key]["courseimage"] = $courseimage;
         } else {
-            $coursedetailsarray[$key]["courseimage"] = $CFG->wwwroot."/theme/roshnilite/pix/nopic.jpg";
+            $coursedetailsarray[$key]["courseimage"] = $CFG->wwwroot . "/theme/roshnilite/pix/nopic.jpg";
         }
         $courseimage = '';
     }
@@ -253,11 +255,11 @@ if (count($course) > 0) {
         $a++;
         $coursedetail .= '<div class="carousel-item ' . $active . '">
         <div class="course-grid">';
-        if ( !empty ($avlcoursearrayvalue["courseimage"]) ) {
-            $coursedetail .=
-            '<img width="900" height="1200" class="img-fluid" src="' . $avlcoursearrayvalue["courseimage"] . '"  alt="courseimage" />';
+        if (!empty($avlcoursearrayvalue["courseimage"])) {
+            $coursedetail .= '<img width="900" height="1200" class="img-fluid" src="' .
+                $avlcoursearrayvalue["courseimage"] . '"  alt="courseimage" />';
         }
-        if ( !empty ($avlcoursearrayvalue["coursename"]) ) {
+        if (!empty($avlcoursearrayvalue["coursename"])) {
             $coursedetail .= '<div class="mask"></div>
             <a class="av-course-item-cont" href="' .
                            $avlcoursearrayvalue["courseid"] . '">' .
@@ -290,15 +292,15 @@ if (count($course) > 0) {
 $allcourse = get_string('viewallcourses');
 
 $masonryheading = format_text((!empty($html->masonryheading)) ? $html->masonryheading :
-    get_string('masonryheadingdefault', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('masonryheadingdefault', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 
 $masonrysubheading = format_text((!empty($html->masonrysubheading)) ? $html->masonrysubheading :
-    get_string('masonrysubheadingdefault', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    get_string('masonrysubheadingdefault', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 
 $categorydetails = '';
 $categories = $DB->get_records('course_categories');
 
-if (!empty( $categories ) && count($categories) > 1) {
+if (!empty($categories) && count($categories) > 1) {
     $categorydetails .= '<div class="container text-center our-category">
   <div class="heading-large text-center">' . $masonryheading . '</div>
   <div class="header-small text-center">' . $masonrysubheading . '</div>
@@ -343,13 +345,11 @@ $checkfacultycount = $PAGE->theme->setting_file_url('facultycount', 'facultycoun
 
 $facultydetails = '';
 if (!empty($checkfacultycount)) {
-
     $facultyimagecheck = $PAGE->theme->setting_file_url('facultyimage1', 'facultyimage1');
     $facultynamecheck = get_config('theme_roshnilite', 'facultyname1');
     $facultysubtextcheck = get_config('theme_roshnilite', 'facultysubtext1');
     if (!empty($facultyimagecheck) || !empty($facultynamecheck) || !empty($facultysubtextcheck)) {
-
-        $facultyheading = format_text(get_string('facultyheading', 'theme_roshnilite'), "", $roshniliteformatoptions);
+        $facultyheading = format_text(get_string('facultyheading', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
         $start = strlen($checkfacultycount) - 1;
         $str1 = '';
 
@@ -367,7 +367,7 @@ if (!empty($checkfacultycount)) {
         for ($i = 1; $i <= $str1; $i++) {
             $facultyimage = $PAGE->theme->setting_file_url('facultyimage' . $i, 'facultyimage' . $i);
             if ($facultyimage == '') {
-                $facultyimage = $CFG->wwwroot."/theme/roshnilite/pix/nopic.jpg";
+                $facultyimage = $CFG->wwwroot . "/theme/roshnilite/pix/nopic.jpg";
             }
             $facultyname = get_config('theme_roshnilite', 'facultyname' . $i);
             $facultysubtext = get_config('theme_roshnilite', 'facultysubtext' . $i);
@@ -379,7 +379,7 @@ if (!empty($checkfacultycount)) {
             $facultydetails .= '<div class="carousel-item ' . $active . '">
                         <div class="instructor-block col-md-6">
                             <div class="instructor-block-left">
-                                <img src="' . $facultyimage.'" alt="' . $facultyname . '" />
+                                <img src="' . $facultyimage . '" alt="' . $facultyname . '" />
                             </div>
                             <div class="instructor-block-right">
                                 <div class="instroctor-name">' . $facultyname . '</div>
@@ -421,14 +421,16 @@ $phonefontawesomeicon = get_config('theme_roshnilite', 'phonefontawesomeicon');
 $address = get_config('theme_roshnilite', 'address');
 $email = get_config('theme_roshnilite', 'email');
 $phone = get_config('theme_roshnilite', 'phone');
-if (empty($addressfontawesomeicon) || empty($emailfontawesomeicon) || empty($phonefontawesomeicon) ||
-    empty($address) || empty($email) || empty($phone)) {
+if (
+    empty($addressfontawesomeicon) || empty($emailfontawesomeicon) || empty($phonefontawesomeicon) ||
+    empty($address) || empty($email) || empty($phone)
+) {
     $addressfontawesomeicon = '<i class="fa fa-map-marker"></i>';
     $emailfontawesomeicon = '<i class="fa fa-envelope"></i>';
     $phonefontawesomeicon = '<i class="fa fa-phone"></i>';
-    $address = format_text(get_string('addressdefault', 'theme_roshnilite'), "", $roshniliteformatoptions);
-    $email = format_text(get_string('emaildefault', 'theme_roshnilite'), "", $roshniliteformatoptions);
-    $phone = format_text(get_string('phonedefault', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    $address = format_text(get_string('addressdefault', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
+    $email = format_text(get_string('emaildefault', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
+    $phone = format_text(get_string('phonedefault', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
 }
 
 $socialfontawesomeicon1 = get_config('theme_roshnilite', 'socialfontawesomeicon1');
@@ -442,16 +444,22 @@ $socialicon4 = get_config('theme_roshnilite', 'socialicon4');
 
 $socialheading = get_config('theme_roshnilite', 'socialheading');
 
-if (empty($socialfontawesomeicon1) || empty($socialfontawesomeicon2) || empty($socialfontawesomeicon3) ||
-    empty($socialfontawesomeicon4) || empty($socialheading)
-    || empty($socialicon1) || empty($socialicon2) ||
-    empty($socialicon3) || empty($socialicon4)) {
-
+if (
+    empty($socialfontawesomeicon1) ||
+    empty($socialfontawesomeicon2) ||
+    empty($socialfontawesomeicon3) ||
+    empty($socialfontawesomeicon4) ||
+    empty($socialheading) ||
+    empty($socialicon1) ||
+    empty($socialicon2) ||
+    empty($socialicon3) ||
+    empty($socialicon4)
+) {
     $socialfontawesomeicon1 = '<i class="fa fa-facebook"></i>';
     $socialfontawesomeicon2 = '<i class="fa fa-twitter"></i>';
     $socialfontawesomeicon3 = '<i class="fa fa-linkedin"></i>';
     $socialfontawesomeicon4 = '<i class="fa fa-google-plus"></i>';
-    $socialheading = format_text(get_string('socialheadingdefault', 'theme_roshnilite'), "", $roshniliteformatoptions);
+    $socialheading = format_text(get_string('socialheadingdefault', 'theme_roshnilite'), FORMAT_HTML, $roshniliteformatoptions);
     $socialicon1 = 'javascript:void(0);';
     $socialicon2 = 'javascript:void(0);';
     $socialicon3 = 'javascript:void(0);';

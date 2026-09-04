@@ -28,10 +28,17 @@ global $PAGE;
 
 $bodyattributes = $OUTPUT->body_attributes([]);
 
+if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
+    $favicon = $PAGE->theme->setting_file_url('favicon', 'favicon');
+} else {
+    $favicon = $CFG->wwwroot . "/theme/roshnilite/pix/favicon.ico";
+}
+
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
     'bodyattributes' => $bodyattributes,
+    'favicon' => $favicon,
 ];
 
 echo $OUTPUT->render_from_template('theme_roshnilite/contentonly', $templatecontext);

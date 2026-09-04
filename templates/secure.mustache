@@ -34,16 +34,19 @@
         "sitename": "Moodle",
         "output": {
             "doctype": "<!DOCTYPE html>",
+            "htmlattributes": "lang=\"en\"",
             "page_title": "Test page",
-            "favicon": "favicon.ico",
-            "main_content": "<h1>Headings make html validators happier</h1>"
+            "main_content": "<h1>Headings make html validators happier</h1>",
+            "should_display_navbar_logo": true,
+            "get_compact_logo_url": "http://example.com/image.png",
+            "secure_login_info": "Logged in as test user"
          },
+        "favicon": "http://example.com/favicon.ico",
         "bodyattributes":"",
         "sidepreblocks": "<h2>Pre blocks html goes here</h2>",
         "sidepostblocks": "<h2>Post blocks html goes here</h2>",
         "haspreblocks":true,
-        "haspostblocks":true,
-        "bodyattributes": ""
+        "haspostblocks":true
     }
 }}
 {{> theme_roshnilite/head }}
