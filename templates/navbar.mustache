@@ -33,7 +33,8 @@
         "config": {
             "wwwroot": "#"
         },
-        "sitename": "Moodle Site"
+        "sitename": "Moodle Site",
+        "imgpath": "http://example.com/logo.png"
     }
 }}
 <nav class="fixed-top navbar navbar-bootswatch navbar-expand moodle-has-zindex">
@@ -47,7 +48,7 @@
                     <img src="{{output.get_compact_logo_url}}" alt="{{sitename}}">
                 </span>
             {{/ output.should_display_navbar_logo }}
-            <span class="site-name d-none d-md-inline"><img src={{imgpath}} alt="{{sitename}}"></span>
+            <span class="site-name d-none d-md-inline"><img src="{{imgpath}}" alt="{{sitename}}"></span>
         </a>
 
         <ul class="navbar-nav d-none d-md-flex">
@@ -56,8 +57,10 @@
             <!-- page_heading_menu -->
             {{{ output.page_heading_menu }}}
         </ul>
-        <ul class="nav navbar-nav ml-auto">
-            {{{ output.search_box }}}
+        <ul class="nav navbar-nav ms-auto">
+            <li class="nav-item">
+                {{{ output.search_box }}}
+            </li>
             <!-- navbar_plugin_output -->
             <li class="nav-item">
             {{{ output.navbar_plugin_output }}}

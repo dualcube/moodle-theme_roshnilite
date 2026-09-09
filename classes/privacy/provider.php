@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Roshnilite theme.
+ * Privacy provider for theme_roshnilite.
  *
  * @package    theme_roshnilite
  * @author DualCube <admin@dualcube.com>
@@ -23,22 +23,21 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-global $PAGE;
+namespace theme_roshnilite\privacy;
 
-$bodyattributes = $OUTPUT->body_attributes();
-
-if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
-    $favicon = $PAGE->theme->setting_file_url('favicon', 'favicon');
-} else {
-    $favicon = $CFG->wwwroot . "/theme/roshnilite/pix/favicon.ico";
+/**
+ * Privacy provider for theme_roshnilite.
+ *
+ * This theme does not store any personal data.
+ */
+class provider implements \core_privacy\local\metadata\null_provider {
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return string
+     */
+    public static function get_reason(): string {
+        return 'privacy:metadata';
+    }
 }
-
-$templatecontext = [
-    'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
-    'output' => $OUTPUT,
-    'bodyattributes' => $bodyattributes,
-    'favicon' => $favicon,
-];
-
-echo $OUTPUT->render_from_template('theme_roshnilite/login', $templatecontext);

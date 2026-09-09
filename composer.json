@@ -1,0 +1,14 @@
+{
+    "name": "dualcube/moodle-theme_roshnilite",
+    "description": "Dev tooling for theme_roshnilite (not a runtime dependency of the plugin itself).",
+    "type": "project",
+    "license": "GPL-3.0-or-later",
+    "require-dev": {
+        "moodlehq/moodle-cs": "^3.7"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

@@ -40,7 +40,7 @@ Stuart Lamour, Mark Aberdour, Paul Hibbitts, Mary Evans.</p>
 <p>Font setting section of this theme is based upon the Essential theme with the help of:<br>
 Julian Ridden, Gareth J. Barnard, David Bezemer.</p>
 <h3>Theme Credits</h3>
-<p>This theme has now been redeveloped as a child of Boost theme. This theme is compatible with moodle version starting from 3.6.8 to latest 3.8.1</p>
+<p>This theme has now been redeveloped as a child of Boost theme. This theme is compatible with Moodle versions starting from 5.0 to 5.3 (dev).</p>
 <p>Authors: DualCube<br>
 Contact: admin@dualcube.com<br>
 Website: <a href="https://dualcube.com/">https://dualcube.com/</a>
@@ -127,14 +127,6 @@ $string['maincolor'] = 'Choose Main Theme Color';
 $string['maincolordesc'] = 'Choose your own custom Color scheme for the theme.';
 
 $string['masonrycount'] = 'Masonrycount';
-$string['one'] = '1';
-$string['two'] = '2';
-$string['three'] = '3';
-$string['four'] = '4';
-$string['five'] = '5';
-$string['six'] = '6';
-$string['seven'] = '7';
-$string['eight'] = '8';
 $string['masonryimage'] = 'Upload your image for masonry block ';
 $string['masonryimagedesc'] = 'Upload your image for masonry block ';
 $string['masonrytext'] = 'Text for masonry block ';
@@ -143,7 +135,6 @@ $string['masonryurl'] = 'Enter masonry URL ';
 $string['masonrysubtext'] = 'Sub text for masonry block ';
 $string['masonrysubtextdesc'] = 'Enter the sub text for masonry block ';
 $string['masonryurldesc'] = 'Enter the target url for the masonry block ';
-
 
 $string['addressfontawesomeicon'] = 'Enter Font awesome icon tag for address icon';
 $string['addressfontawesomeicondesc'] = 'Just copy and paste &lt; i &gt;&lt; / i &gt; tag';
@@ -181,18 +172,15 @@ $string['faboutsitetextdesc'] = 'Enter the sub text for the first block.';
 $string['aboutsiteurl'] = 'Enter url';
 $string['faboutsiteurldesc'] = 'Enter the target url for the first block.';
 
-
 $string['saboutsiteimagedesc'] = 'Upload image for the second block.';
 $string['saboutsitenamedesc'] = 'Enter the name of second block in about site section.';
 $string['saboutsitetextdesc'] = 'Enter the sub text for the second block.';
 $string['saboutsiteurldesc'] = 'Enter the target url for the second block.';
 
-
 $string['taboutsiteimagedesc'] = 'Upload image for the third block.';
 $string['taboutsitenamedesc'] = 'Enter the name of third block in about site section.';
 $string['taboutsitetextdesc'] = 'Enter the sub text for the third block.';
 $string['taboutsiteurldesc'] = 'Enter the target url for the third block.';
-
 
 $string['fraboutsiteimagedesc'] = 'Upload image for the fourth block.';
 $string['fraboutsitenamedesc'] = 'Enter the name of fourth block in about site section.';
@@ -242,7 +230,6 @@ $string['facultycountdesc'] = 'Select, from dropdown, the number of blocks in th
 
 $string['facultyimage'] = 'Enter URL of your faculty image';
 $string['facultyimagedesc'] = 'Enter URL of your faculty image';
-$string['facultytwitterurldesc'] = 'Enter the twitter url for the faculty block ';
 
 $string['facultyname'] = 'Enter name of faculty ';
 $string['facultynamedesc'] = 'Enter the text for faculty description ';

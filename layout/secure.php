@@ -34,6 +34,12 @@ $blockspost = $OUTPUT->blocks('side-post');
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 
+if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
+    $favicon = $PAGE->theme->setting_file_url('favicon', 'favicon');
+} else {
+    $favicon = $CFG->wwwroot . "/theme/roshnilite/pix/favicon.ico";
+}
+
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
@@ -42,6 +48,7 @@ $templatecontext = [
     'haspreblocks' => $hassidepre,
     'haspostblocks' => $hassidepost,
     'bodyattributes' => $bodyattributes,
+    'favicon' => $favicon,
 ];
 
 echo $OUTPUT->render_from_template('theme_roshnilite/secure', $templatecontext);

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Roshnilite theme.
+ * Advanced settings for theme_roshnilite.
  *
  * @package    theme_roshnilite
  * @author DualCube <admin@dualcube.com>
@@ -24,21 +24,29 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-global $PAGE;
 
-$bodyattributes = $OUTPUT->body_attributes();
+$page = new admin_settingpage('theme_roshnilite_advanced', get_string('advancedsettings', 'theme_roshnilite'));
 
-if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
-    $favicon = $PAGE->theme->setting_file_url('favicon', 'favicon');
-} else {
-    $favicon = $CFG->wwwroot . "/theme/roshnilite/pix/favicon.ico";
-}
+// Raw SCSS to include before the content.
+$setting = new admin_setting_scsscode(
+    'theme_roshnilite/scsspre',
+    get_string('rawscsspre', 'theme_roshnilite'),
+    get_string('rawscsspre_desc', 'theme_roshnilite'),
+    '',
+    PARAM_RAW
+);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
 
-$templatecontext = [
-    'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
-    'output' => $OUTPUT,
-    'bodyattributes' => $bodyattributes,
-    'favicon' => $favicon,
-];
+// Raw SCSS to include after the content.
+$setting = new admin_setting_scsscode(
+    'theme_roshnilite/scss',
+    get_string('rawscss', 'theme_roshnilite'),
+    get_string('rawscss_desc', 'theme_roshnilite'),
+    '',
+    PARAM_RAW
+);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
 
-echo $OUTPUT->render_from_template('theme_roshnilite/login', $templatecontext);
+$settings->add($page);

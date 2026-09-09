@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="theme_roshnilite">
+    <!--
+        Deliberately not excluding docker/: moodle-plugin-ci's install step
+        copies this whole repo into the plugin's location before linting, so
+        CI scans docker/demo-seed.php too - excluding it here would let this
+        local check pass while CI still fails on it.
+    -->
+    <rule ref="moodle"/>
+    <config name="testVersion" value="8.3-"/>
+    <file>.</file>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+</ruleset>

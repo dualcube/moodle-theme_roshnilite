@@ -31,8 +31,8 @@
 /**
  * theme_roshnilite_get_pre_scss function for load custom settings.
  *
- * @param string $theme
- * @return $theme->settings->$setting
+ * @param theme_config $theme
+ * @return string
  */
 function theme_roshnilite_get_pre_scss($theme) {
     global $CFG;
@@ -48,7 +48,7 @@ function theme_roshnilite_get_pre_scss($theme) {
         if (empty($value)) {
             continue;
         }
-        array_map(function($target) use (&$scss, $value) {
+        array_map(function ($target) use (&$scss, $value) {
             $scss .= '$' . $target . ': ' . $value . ";\n";
         }, (array) $targets);
     }
@@ -69,8 +69,8 @@ function theme_roshnilite_get_pre_scss($theme) {
 /**
  * theme_roshnilite_get_extra_scss function for load custom settings.
  *
- * @param string $theme
- * @return $theme->settings->$setting
+ * @param theme_config $theme
+ * @return string
  */
 function theme_roshnilite_get_extra_scss($theme) {
     global $CFG;
@@ -138,7 +138,6 @@ function theme_roshnilite_get_main_scss_content($theme) {
     $post = file_get_contents($CFG->dirroot . '/theme/roshnilite/scss/roshnilite/post.scss');
 
     return $pre . "\n" . $scss . "\n" . $post;
-
 }
 
 /**
@@ -183,6 +182,13 @@ function theme_roshnilite_process_css($css, $theme) {
     return $css;
 }
 
+/**
+ * Adds any custom font size to the CSS before it is cached.
+ *
+ * @param string $css The original CSS.
+ * @param string $themefontsize The custom font size to add.
+ * @return string The CSS which now contains our custom font size.
+ */
 function theme_roshnilite_set_fontsize($css, $themefontsize) {
     $tag = '[[setting:fontsize]]';
     $replacement = $themefontsize;
@@ -201,11 +207,11 @@ function theme_roshnilite_set_fontsize($css, $themefontsize) {
  * @return string The parsed CSS
  */
 function theme_roshnilite_set_logo($css, $logo) {
-    GLOBAL $CFG;
+    global $CFG;
     $tag = '[[setting:logo]]';
     $replacement = $logo;
     if (is_null($replacement)) {
-        $replacement = $CFG->wwwroot.'/theme/roshnilite/pix/img/logo.png';
+        $replacement = $CFG->wwwroot . '/theme/roshnilite/pix/img/logo.png';
     }
 
     $css = str_replace($tag, $replacement, $css);
@@ -217,7 +223,7 @@ function theme_roshnilite_set_logo($css, $logo) {
  *
  * @param string $setting
  * @param string $format
- * @return $theme->settings->$setting
+ * @return string|bool
  */
 function theme_roshnilite_get_setting($setting, $format = false) {
     global $CFG;
@@ -375,7 +381,6 @@ function theme_roshnilite_set_brandcolor($css, $themecolor) {
     return $css;
 }
 
-
 /**
  * Returns an object containing HTML for the areas affected by settings.
  *
@@ -391,7 +396,7 @@ function theme_roshnilite_set_brandcolor($css, $themecolor) {
  */
 function theme_roshnilite_get_html_for_settings(renderer_base $output, moodle_page $page) {
     global $CFG, $USER;
-    $return = new stdClass;
+    $return = new stdClass();
 
     $return->navbarclass = '';
     if (!empty($page->theme->settings->invert)) {
@@ -406,7 +411,7 @@ function theme_roshnilite_get_html_for_settings(renderer_base $output, moodle_pa
 
     $return->footnote = '';
     if (!empty($page->theme->settings->footnote)) {
-        $return->footnote = '<div class="footnote text-center">'.format_text($page->theme->settings->footnote).'</div>';
+        $return->footnote = '<div class="footnote text-center">' . format_text($page->theme->settings->footnote) . '</div>';
     }
     /*-----------------------for contact*--------------------------*/
     if (!empty($page->theme->settings->addressfontawesomeicon)) {
@@ -621,7 +626,7 @@ function theme_roshnilite_get_html_for_settings(renderer_base $output, moodle_pa
     if (!empty($page->theme->settings->aboutsiteurl1)) {
         $return->aboutsiteurl1 = $page->theme->settings->aboutsiteurl1;
     } else {
-        $return->aboutsiteurl1 = $CFG->wwwroot.'/mod/forum/user.php?id='.$USER->id;
+        $return->aboutsiteurl1 = $CFG->wwwroot . '/mod/forum/user.php?id=' . $USER->id;
     }
 
     if (!empty($page->theme->settings->aboutsitename2)) {
@@ -633,7 +638,7 @@ function theme_roshnilite_get_html_for_settings(renderer_base $output, moodle_pa
     if (!empty($page->theme->settings->aboutsiteurl2)) {
         $return->aboutsiteurl2 = $page->theme->settings->aboutsiteurl2;
     } else {
-        $return->aboutsiteurl2 = $CFG->wwwroot.'/course/index.php';
+        $return->aboutsiteurl2 = $CFG->wwwroot . '/course/index.php';
     }
 
     if (!empty($page->theme->settings->aboutsitename3)) {
@@ -645,7 +650,7 @@ function theme_roshnilite_get_html_for_settings(renderer_base $output, moodle_pa
     if (!empty($page->theme->settings->aboutsiteurl3)) {
         $return->aboutsiteurl3 = $page->theme->settings->aboutsiteurl3;
     } else {
-        $return->aboutsiteurl3 = $CFG->wwwroot.'/blog/index.php?userid='.$USER->id;
+        $return->aboutsiteurl3 = $CFG->wwwroot . '/blog/index.php?userid=' . $USER->id;
     }
 
     if (!empty($page->theme->settings->aboutsitename4)) {
@@ -657,7 +662,7 @@ function theme_roshnilite_get_html_for_settings(renderer_base $output, moodle_pa
     if (!empty($page->theme->settings->aboutsiteurl4)) {
         $return->aboutsiteurl4 = $page->theme->settings->aboutsiteurl4;
     } else {
-        $return->aboutsiteurl4 = $CFG->wwwroot.'/calendar/view.php';
+        $return->aboutsiteurl4 = $CFG->wwwroot . '/calendar/view.php';
     }
     return $return;
 }

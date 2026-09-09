@@ -26,9 +26,16 @@
 defined('MOODLE_INTERNAL') || die();
 global $PAGE;
 
+if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
+    $favicon = $PAGE->theme->setting_file_url('favicon', 'favicon');
+} else {
+    $favicon = $CFG->wwwroot . "/theme/roshnilite/pix/favicon.ico";
+}
+
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ["escape" => false]),
     'output' => $OUTPUT,
+    'favicon' => $favicon,
 ];
 
 echo $OUTPUT->render_from_template('theme_roshnilite/maintenance', $templatecontext);
