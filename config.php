@@ -37,7 +37,6 @@ $THEME->haseditswitch = true;
 $THEME->enable_dock = false;
 $THEME->extrascsscallback = 'theme_roshnilite_get_extra_scss';
 $THEME->prescsscallback = 'theme_roshnilite_get_pre_scss';
-$THEME->precompiledcsscallback = 'theme_roshnilite_get_precompiled_css';
 $THEME->yuicssmodules = [];
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
 $THEME->csspostprocess = 'theme_roshnilite_process_css';
