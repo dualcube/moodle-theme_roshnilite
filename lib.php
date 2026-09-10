@@ -98,16 +98,6 @@ function theme_roshnilite_get_extra_scss($theme) {
 }
 
 /**
- * Get compiled css.
- *
- * @return string compiled css
- */
-function theme_roshnilite_get_precompiled_css() {
-    global $CFG;
-    return file_get_contents($CFG->dirroot . '/theme/roshnilite/style/moodle.css');
-}
-
-/**
  * theme_roshnilite_get_main_scss_content function for load custom theme css settings.
  *
  * @param string $theme
