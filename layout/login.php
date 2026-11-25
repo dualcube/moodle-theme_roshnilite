@@ -15,30 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Roshnilite theme.
+ * Login page layout for the Roshni Lite theme.
  *
  * @package    theme_roshnilite
- * @author DualCube <admin@dualcube.com>
  * @copyright  DualCube (https://dualcube.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
-global $PAGE;
-
-$bodyattributes = $OUTPUT->body_attributes();
-
-if (!empty($PAGE->theme->setting_file_url('favicon', 'favicon'))) {
-    $favicon = $PAGE->theme->setting_file_url('favicon', 'favicon');
-} else {
-    $favicon = $CFG->wwwroot . "/theme/roshnilite/pix/favicon.ico";
-}
 
 $templatecontext = [
-    'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
+    'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), 'escape' => false]),
     'output' => $OUTPUT,
-    'bodyattributes' => $bodyattributes,
-    'favicon' => $favicon,
+    'bodyattributes' => $OUTPUT->body_attributes(),
 ];
 
 echo $OUTPUT->render_from_template('theme_roshnilite/login', $templatecontext);

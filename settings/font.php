@@ -64,11 +64,8 @@ $setting = new admin_setting_configtext($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
 if (get_config('theme_roshnilite', 'fontselect') === "2") {
-    if (floatval($CFG->version) >= 2014111005.01) {
-        $woff2 = true;
-    } else {
-        $woff2 = false;
-    }
+    // WOFF2 is supported by every Moodle release this theme supports (4.5+).
+    $woff2 = true;
     // This is the descriptor for the font files.
     $name = 'theme_roshnilite/fontfiles';
     $heading = get_string('fontfiles', 'theme_roshnilite');

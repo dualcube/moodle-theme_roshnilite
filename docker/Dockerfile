@@ -36,6 +36,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN git clone --branch "${MOODLE_BRANCH}" --depth 1 https://github.com/moodle/moodle.git /var/www/html \
     && rm -rf /var/www/html/.git
 
+# Moodle 5.1+ serves from public/ and routes unknown paths through r.php.
+RUN if [ -d /var/www/html/public ]; then \
+        sed -i 's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/public#' /etc/apache2/sites-available/000-default.conf \
+        && printf '<Directory /var/www/html/public>\n    FallbackResource /r.php\n</Directory>\n' > /etc/apache2/conf-available/moodle-router.conf \
+        && a2enconf moodle-router; \
+    fi
+
 # Moodle's environment check requires max_input_vars >= 5000 (its forms can have
 # more fields than PHP's 1000 default allows); the rest are the usual Moodle-
 # recommended minimums so large file uploads and long-running CLI/cron jobs work.

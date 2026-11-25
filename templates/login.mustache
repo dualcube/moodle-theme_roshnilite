@@ -17,7 +17,7 @@
 {{!
     @template theme_roshnilite/login
 
-    Roshnilite login layout template.
+    Roshni Lite login layout template.
 
     Example context (json):
     {
@@ -26,13 +26,13 @@
             "doctype": "<!DOCTYPE html>",
             "htmlattributes": "lang=\"en\"",
             "page_title": "Log in to the site",
+            "favicon": "favicon.ico",
             "main_content": "<h1>Headings make html validators happier</h1>"
         },
-        "bodyattributes": "",
-        "favicon": "http://example.com/favicon.ico"
+        "bodyattributes": ""
     }
 }}
-{{> theme_roshnilite/head }}
+{{> theme_boost/head }}
 
 <body {{{ bodyattributes }}}>
 {{> core/local/toast/wrapper}}
@@ -70,3 +70,9 @@
 
 </body>
 </html>
+{{#js}}
+M.util.js_pending('theme_boost/loader');
+require(['theme_boost/loader'], function() {
+    M.util.js_complete('theme_boost/loader');
+});
+{{/js}}

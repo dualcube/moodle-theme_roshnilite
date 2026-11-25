@@ -27,6 +27,9 @@ CACHE_DIR="${THEME_DIR}/.moodle-core-cache"
 # check expects. "main" is used so a first-time clone always tracks Moodle's
 # current dev toolchain rather than pinning to a specific stable branch.
 CORE_BRANCH="main"
+# Moodle core pins a Node major (see its package.json "engines"); run the build
+# with that version via npx so the host's own Node version does not matter.
+NODE_RUN="npx -y node@22"
 THEME_IN_CORE="${CACHE_DIR}/public/theme/roshnilite"
 
 if [ ! -d "${CACHE_DIR}/.git" ]; then
@@ -37,7 +40,7 @@ fi
 
 if [ ! -d "${CACHE_DIR}/node_modules" ]; then
     echo "Installing Moodle core's npm dependencies (one-time, several minutes)..."
-    (cd "${CACHE_DIR}" && npm ci)
+    (cd "${CACHE_DIR}" && npx -y -p node@22 -p npm@10 npm ci)
 fi
 
 echo "Syncing theme source into the cached core checkout..."
@@ -48,7 +51,7 @@ rsync -a --delete \
     "${THEME_DIR}/" "${THEME_IN_CORE}/"
 
 echo "Running Moodle core's grunt amd task..."
-(cd "${CACHE_DIR}" && npx grunt amd --root=public/theme/roshnilite)
+(cd "${CACHE_DIR}" && ${NODE_RUN} node_modules/grunt/bin/grunt amd --root=public/theme/roshnilite)
 
 echo "Copying the rebuilt amd/build/ back into this repo..."
 rsync -a "${THEME_IN_CORE}/amd/build/" "${THEME_DIR}/amd/build/"

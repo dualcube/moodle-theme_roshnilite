@@ -1,0 +1,97 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/frontpage/hero
+
+    Site home hero: the configured slides (or the site name and summary when
+    there are none) with the quick login card for visitors. Carousel data
+    attributes are given in both Bootstrap 4 (Moodle 4.5) and 5 (Moodle 5.x) form.
+
+    Example context (json):
+    {
+        "hero": {"title": "Mount Orange School", "summary": "Learn anything, anywhere.", "coursesurl": "#"},
+        "slider": {
+            "slides": [
+                {"index": 0, "number": 1, "active": true, "image": "http://example.com/1.jpg",
+                 "text": "<h1>Welcome</h1>", "buttontext": "Start", "url": "#"},
+                {"index": 1, "number": 2, "active": false, "image": "http://example.com/2.jpg",
+                 "text": "", "buttontext": null, "url": ""}
+            ],
+            "multiple": true
+        },
+        "login": {"action": "#", "logintoken": "abc", "forgoturl": "#"}
+    }
+}}
+<section class="rl-hero {{#slider}}rl-hero--slides{{/slider}}{{^slider}}rl-hero--plain{{/slider}}">
+    {{#slider}}
+        <div id="home-slide" class="carousel slide rl-hero__carousel" data-ride="carousel" data-bs-ride="carousel" data-interval="7000" data-bs-interval="7000">
+            <div class="carousel-inner">
+                {{#slides}}
+                    <div class="carousel-item {{#active}}active{{/active}}">
+                        <img class="rl-hero__image" src="{{image}}" alt="" {{^active}}loading="lazy"{{/active}}>
+                        <div class="rl-hero__overlay"></div>
+                        <div class="rl-container rl-hero__inner">
+                            <div class="rl-hero__copy">
+                                {{{text}}}
+                                {{#buttontext}}
+                                    <a href="{{url}}" class="btn btn-primary btn-lg rl-btn">{{buttontext}}</a>
+                                {{/buttontext}}
+                            </div>
+                        </div>
+                    </div>
+                {{/slides}}
+            </div>
+            {{#multiple}}
+                <div class="rl-hero__indicators carousel-indicators">
+                    {{#slides}}
+                        <button type="button" data-target="#home-slide" data-bs-target="#home-slide"
+                            data-slide-to="{{index}}" data-bs-slide-to="{{index}}"
+                            {{#active}}class="active" aria-current="true"{{/active}}
+                            aria-label="{{#str}}slide, theme_roshnilite, {{number}}{{/str}}"></button>
+                    {{/slides}}
+                </div>
+            {{/multiple}}
+        </div>
+    {{/slider}}
+    {{^slider}}
+        {{#hero}}
+            <div class="rl-container rl-hero__inner">
+                <div class="rl-hero__copy">
+                    <h1>{{title}}</h1>
+                    {{#summary}}<p class="rl-hero__lead">{{summary}}</p>{{/summary}}
+                    <a href="{{coursesurl}}" class="btn btn-primary btn-lg rl-btn">{{#str}}herocta, theme_roshnilite{{/str}}</a>
+                </div>
+            </div>
+        {{/hero}}
+    {{/slider}}
+
+    {{#login}}
+        <div class="rl-container rl-hero__login-wrap">
+            <form method="post" action="{{action}}" class="rl-login-card loginnavbar">
+                <h2 class="rl-login-card__title">{{#str}}quicklogin, theme_roshnilite{{/str}}</h2>
+                <p class="rl-login-card__desc">{{#str}}quicklogindesc, theme_roshnilite{{/str}}</p>
+                <input type="hidden" name="logintoken" value="{{logintoken}}">
+                <label for="roshnilite-username" class="rl-label">{{#str}}username{{/str}}</label>
+                <input type="text" id="roshnilite-username" name="username" class="form-control" autocomplete="username">
+                <label for="roshnilite-password" class="rl-label">{{#str}}password{{/str}}</label>
+                <input type="password" id="roshnilite-password" name="password" class="form-control" autocomplete="current-password">
+                <button type="submit" class="btn btn-primary rl-btn w-100">{{#str}}login{{/str}}</button>
+                <a class="rl-login-card__forgot" href="{{forgoturl}}">{{#str}}forgotten{{/str}}</a>
+            </form>
+        </div>
+    {{/login}}
+</section>

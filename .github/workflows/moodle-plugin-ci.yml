@@ -47,13 +47,12 @@ jobs:
 
       matrix:
         include:
-          # Current Moodle development branch (5.3dev), the top of $plugin->supported
-          # in version.php.
-          - moodle-branch: main
+          # Moodle 5.3 LTS, the top of $plugin->supported in version.php.
+          - moodle-branch: MOODLE_503_STABLE
             php: '8.4'
             database: pgsql
 
-          - moodle-branch: main
+          - moodle-branch: MOODLE_503_STABLE
             php: '8.4'
             database: mariadb
 
@@ -75,13 +74,24 @@ jobs:
             php: '8.3'
             database: mariadb
 
-          # Moodle 5.0, the theme's declared minimum (see $plugin->requires in version.php).
+          # Moodle 5.0
           - moodle-branch: MOODLE_500_STABLE
             php: '8.3'
             database: pgsql
 
           - moodle-branch: MOODLE_500_STABLE
             php: '8.3'
+            database: mariadb
+
+          # Moodle 4.5 LTS, the theme's declared minimum (see $plugin->requires in
+          # version.php). 4.5 ships Bootstrap 4.6, so this job guards the BS4
+          # attributes/classes kept alongside the BS5 ones in templates/layouts.
+          - moodle-branch: MOODLE_405_STABLE
+            php: '8.3'
+            database: pgsql
+
+          - moodle-branch: MOODLE_405_STABLE
+            php: '8.1'
             database: mariadb
 
     steps:

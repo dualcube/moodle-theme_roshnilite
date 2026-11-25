@@ -1,4 +1,9 @@
-// General variables for all presets
+// Roshni Lite variables, loaded before the Boost preset. Boost declares its
+// variables with !default, so these win.
 
 // Disable the Boost theme reset styling and fixed width content.
 $allow-reset-style: false;
+
+// Confident headings and a soft ink body colour.
+$headings-font-weight: 700 !default;
+$body-color: #1f2937 !default;

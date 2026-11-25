@@ -1,0 +1,55 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/frontpage/courses
+
+    Course card grid.
+
+    Example context (json):
+    {
+        "items": [
+            {"name": "Course 1", "category": "Science", "url": "#", "image": "http://example.com/c1.jpg"},
+            {"name": "Course 2", "category": "Arts", "url": "#", "image": "http://example.com/c2.jpg"}
+        ],
+        "allcoursesurl": "#"
+    }
+}}
+<section class="rl-section rl-section--tinted course-section">
+    <div class="rl-container">
+        <header class="rl-section__header rl-section__header--split">
+            <div>
+                <p class="rl-eyebrow">{{#str}}eyebrowcourses, theme_roshnilite{{/str}}</p>
+                <h2 class="rl-section__title">{{#str}}coursesheading, theme_roshnilite{{/str}}</h2>
+            </div>
+            <a class="rl-link-arrow btn-view-all" href="{{allcoursesurl}}">{{#str}}viewallcourses{{/str}}</a>
+        </header>
+        <div class="rl-grid rl-grid--4">
+            {{#items}}
+                <article class="rl-card rl-course">
+                    <div class="rl-course__media">
+                        <img src="{{image}}" alt="" loading="lazy">
+                    </div>
+                    <div class="rl-course__body">
+                        {{#category}}<span class="rl-chip">{{category}}</span>{{/category}}
+                        <h3 class="rl-course__title"><a class="rl-stretched av-course-item-cont" href="{{url}}">{{name}}</a></h3>
+                        <span class="rl-course__cta" aria-hidden="true">{{#str}}viewcourse, theme_roshnilite{{/str}}</span>
+                    </div>
+                </article>
+            {{/items}}
+        </div>
+    </div>
+</section>

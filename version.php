@@ -26,10 +26,10 @@
 // This line protects the file from being accessed by a URL directly.
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2026090401;
-$plugin->requires = 2025041400; // Moodle 5.0.
-$plugin->supported = [500, 503]; // Moodle 5.0 to 5.3.
+$plugin->version = 2026112500;
+$plugin->requires = 2024100700; // Moodle 4.5 LTS.
+$plugin->supported = [405, 503]; // Moodle 4.5 LTS to 5.3 LTS.
 $plugin->component = 'theme_roshnilite';
-$plugin->dependencies = ['theme_boost' => 2025041400];
+$plugin->dependencies = ['theme_boost' => 2024100700];
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '4.1.0 (Build: 2026090401)';
+$plugin->release = '4.2.0 (Build: 2026112500)';

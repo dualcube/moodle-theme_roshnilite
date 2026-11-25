@@ -1,0 +1,56 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/frontpage/categories
+
+    Course category tiles.
+
+    Example context (json):
+    {
+        "heading": "Our categories",
+        "subheading": "Find your field",
+        "items": [
+            {"name": "Science", "coursecount": "3 courses", "description": "Physics and more", "url": "#"},
+            {"name": "Arts", "coursecount": "1 course", "description": "", "url": "#"}
+        ],
+        "allcategoriesurl": "#"
+    }
+}}
+<section class="rl-section our-category">
+    <div class="rl-container">
+        <header class="rl-section__header rl-section__header--split">
+            <div>
+                <p class="rl-eyebrow">{{#str}}eyebrowcategories, theme_roshnilite{{/str}}</p>
+                <div class="rl-section__title">{{{heading}}}</div>
+                <div class="rl-section__lead">{{{subheading}}}</div>
+            </div>
+            <a class="rl-link-arrow" href="{{allcategoriesurl}}">{{#str}}categoriesall, theme_roshnilite{{/str}}</a>
+        </header>
+        <div class="rl-grid rl-grid--4">
+            {{#items}}
+                <a class="rl-card rl-category" href="{{url}}">
+                    <span class="rl-category__icon" aria-hidden="true"><i class="fa fa-folder-open"></i></span>
+                    <span class="rl-category__body">
+                        <span class="rl-category__name">{{name}}</span>
+                        <span class="rl-category__count">{{coursecount}}</span>
+                        {{#description}}<span class="rl-category__desc">{{description}}</span>{{/description}}
+                    </span>
+                </a>
+            {{/items}}
+        </div>
+    </div>
+</section>

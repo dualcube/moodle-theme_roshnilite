@@ -2,7 +2,33 @@
 
 *This block is written by DualCube \<admin@dualcube.com\>.*
 
-This Moodle theme is a 100% responsive, feature-heavy Moodle theme. It is compatible with Moodle 5.0 to 5.3 (dev). It provides customizable sections on the front page which the user may customize through a backend setting panel, and can add/update/delete content.
+This Moodle theme is a 100% responsive, feature-heavy Moodle theme. It is compatible with Moodle 4.5 LTS through Moodle 5.3 LTS. It provides customizable sections on the front page which the user may customize through a backend setting panel, and can add/update/delete content.
+
+## Compatibility
+
+| Moodle | Bootstrap | Status |
+|---|---|---|
+| 4.5 LTS | 4.6 | Supported |
+| 5.0, 5.1, 5.2 | 5 | Supported |
+| 5.3 LTS | 5 | Supported |
+
+One build works on every supported release:
+
+- Inner pages use Boost's own drawer layout (`drawers.php`, inherited from the parent theme), so the primary navigation, secondary navigation, course index and block drawer are exactly what each Moodle release ships.
+- The site home and login page use Boost's `head`, `navbar` and `footer` templates around the theme's own sections.
+- The theme's own templates carry both the Bootstrap 4 and Bootstrap 5 forms of carousel data attributes and helper classes (`data-ride` with `data-bs-ride`, `sr-only` with `visually-hidden`).
+
+## Code layout
+
+| Path | What it does |
+|---|---|
+| `config.php` | Layouts. Everything except `frontpage` and `login` resolves to Boost's layout files. |
+| `classes/output/core_renderer.php` | Feeds the theme's logo and favicon settings into Boost's navbar and page head. |
+| `classes/output/frontpage.php` | Builds the site home data (hero, features, courses, categories, faculty, contact). No HTML is built in PHP. |
+| `templates/frontpage.mustache`, `templates/frontpage/*.mustache` | Site home page and one partial per section. |
+| `lib.php` | SCSS callbacks, CSS post-processing for colour/font settings, and file serving for theme settings. |
+| `style/styles.css` | The Roshni Lite design layer: tokens, navbar, site home, dashboard and blocks, login. `[[setting:...]]` placeholders are filled from the theme settings. |
+| `tests/` | PHPUnit tests for the output class and `lib.php`, and a Behat feature for the site home and navigation. |
 
 ## Installation
 
@@ -44,7 +70,7 @@ Run this from the repo root:
 docker compose up -d
 ```
 
-This builds a Moodle 5.0 container (MariaDB + Apache/PHP), installs Moodle non-interactively on first run, sets Roshni Lite as the active theme, and live-mounts this repo into the container so edits show up without rebuilding.
+This builds a Moodle 5.3 LTS container (MariaDB + Apache/PHP), installs Moodle non-interactively on first run, sets Roshni Lite as the active theme, seeds demo content, and live-mounts this repo into the container so edits show up without rebuilding. On 5.3 it also turns on the site home and turns off forced login, which new 5.3 sites disable by default.
 
 | | |
 |---|---|
@@ -53,6 +79,13 @@ This builds a Moodle 5.0 container (MariaDB + Apache/PHP), installs Moodle non-i
 | Database (web UI) | http://localhost:8081 (Adminer) — System: `MySQL`, Server: `db`, Username: `moodle`, Password: `moodle`, Database: `moodle`. Browse/edit tables straight from the browser, no client install needed. |
 | Database (raw port) | `127.0.0.1:3307`, user/password `moodle` / `moodle`, database `moodle` (root password also `moodle`) — for connecting an external DB client (DBeaver, TablePlus, MySQL Workbench, ...) instead of Adminer. Host port is 3307, not 3306, since 3306 is commonly already taken by a local MySQL/MariaDB — change the host-side number in `docker-compose.yml`'s `db.ports` if 3307 also collides for you. |
 
-To test against a different supported branch (5.1, 5.2, 5.3dev), change the `MOODLE_BRANCH` build arg in `docker-compose.yml` and run `docker compose up -d --build`. Branches 5.1 and later serve from a `public/` subdirectory that this setup does not account for.
+To test another supported branch, wipe the current install and pass the branch:
+
+```
+docker compose down -v
+MOODLE_BRANCH=MOODLE_405_STABLE docker compose up -d --build
+```
+
+Any of `MOODLE_405_STABLE`, `MOODLE_500_STABLE` … `MOODLE_503_STABLE` works, including 5.1+ which serve from `public/`.
 
 `docker compose down` stops it; add `-v` to also wipe the database and Moodle install for a clean re-run.
