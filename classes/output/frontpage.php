@@ -248,18 +248,18 @@ class frontpage implements renderable, templatable {
             return null;
         }
 
-        $fallbackimage = $output->image_url('nopic', 'theme_roshnilite')->out(false);
         $items = [];
         foreach (array_values($courses) as $index => $course) {
             $context = \context_course::instance($course->id);
-            $image = course_summary_exporter::get_course_image($course);
+            // Courses without an image get Moodle's generated pattern, as on the Dashboard.
+            $image = course_summary_exporter::get_course_image($course) ?: $output->get_generated_image_for_id($course->id);
             $category = core_course_category::get($course->category, IGNORE_MISSING);
             $items[] = [
                 'active' => $index === 0,
                 'category' => $category ? $category->get_formatted_name() : '',
                 'name' => format_string($course->fullname, true, ['context' => $context]),
                 'url' => (new url('/course/view.php', ['id' => $course->id]))->out(false),
-                'image' => $image ?: $fallbackimage,
+                'image' => $image,
             ];
         }
 
@@ -335,7 +335,7 @@ class frontpage implements renderable, templatable {
             'facultylnkdnurl' => ['icon' => 'fa-brands fa-linkedin-in', 'label' => 'sociallinkedin', 'class' => 'icoLinkedin'],
         ];
 
-        $fallbackimage = $output->image_url('nopic', 'theme_roshnilite')->out(false);
+        $fallbackimage = $output->image_url('u/f1')->out(false);
         $members = [];
         for ($i = 1; $i <= $count; $i++) {
             $links = [];

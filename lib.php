@@ -137,7 +137,8 @@ function theme_roshnilite_process_css($css, $theme) {
 
     $css = theme_roshnilite_set_customcss($css, $settings->customcss ?? null);
     $css = theme_roshnilite_set_maincolor($css, $settings->maincolor ?? null);
-    $css = theme_roshnilite_set_brandcolor($css, $settings->brandcolor ?? null);
+    // The accent follows the main colour unless a separate brand colour is set.
+    $css = theme_roshnilite_set_brandcolor($css, ($settings->brandcolor ?? '') ?: ($settings->maincolor ?? null));
     $css = theme_roshnilite_set_fontsize($css, $settings->fontsize ?? null);
     return $css;
 }
