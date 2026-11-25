@@ -77,6 +77,22 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * The page header. On the Dashboard, the personal Roshni Lite header
+     * (greeting, learning stats, quick actions, courses to continue) comes first.
+     *
+     * @return string HTML
+     */
+    public function full_header() {
+        global $USER;
+        $header = parent::full_header();
+        if ($this->page->pagelayout !== 'mydashboard' || !isloggedin() || isguestuser()) {
+            return $header;
+        }
+        $dashboard = new dashboard($USER);
+        return $this->render_from_template('theme_roshnilite/dashboard', $dashboard->export_for_template($this)) . $header;
+    }
+
+    /**
      * The favicon, from the theme setting when one is uploaded.
      *
      * @return url

@@ -24,8 +24,8 @@
         "heading": "Nobody does it like us",
         "subheading": "Learn something new",
         "items": [
-            {"name": "Forum", "text": "Discuss", "url": "#", "image": "http://example.com/1.png"},
-            {"name": "Courses", "text": "Browse", "url": "#", "image": "http://example.com/2.png"}
+            {"name": "Forum", "text": "Discuss", "url": "#", "image": "http://example.com/1.png", "icon": "fa-pen-nib"},
+            {"name": "Courses", "text": "Browse", "url": "#", "image": null, "icon": "fa-graduation-cap"}
         ]
     }
 }}
@@ -39,7 +39,10 @@
         <div class="rl-grid rl-grid--4">
             {{#items}}
                 <a class="rl-card rl-feature" href="{{url}}">
-                    <span class="rl-feature__icon"><img src="{{image}}" alt="" loading="lazy"></span>
+                    <span class="rl-feature__icon">
+                        {{#image}}<img src="{{image}}" alt="" loading="lazy">{{/image}}
+                        {{^image}}<i class="fa {{icon}}" aria-hidden="true"></i>{{/image}}
+                    </span>
                     <span class="rl-feature__title">{{name}}</span>
                     <span class="rl-feature__text">{{{text}}}</span>
                 </a>

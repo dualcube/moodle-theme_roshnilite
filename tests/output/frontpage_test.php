@@ -52,6 +52,8 @@ final class frontpage_test extends \advanced_testcase {
         $this->assertNull($data['faculty']);
         $this->assertNull($data['courses']);
         $this->assertCount(frontpage::ABOUT_ITEMS, $data['about']['items']);
+        $this->assertNull($data['about']['items'][0]['image'], 'Without an upload, the feature uses an icon.');
+        $this->assertNotEmpty($data['about']['items'][0]['icon']);
         $this->assertSame(get_string('aboutsitename2default', 'theme_roshnilite'), $data['about']['items'][1]['name']);
         $this->assertCount(3, $data['contact']['items']);
         $this->assertCount(frontpage::SOCIAL_LINKS, $data['social']['links']);
@@ -59,16 +61,34 @@ final class frontpage_test extends \advanced_testcase {
     }
 
     /**
-     * Visitors who are not logged in get the quick login form.
+     * Visitors who are not logged in get a log in button, and sign up only when self-registration is on.
      */
-    public function test_login_form_for_visitors(): void {
+    public function test_login_and_signup_for_visitors(): void {
         $this->resetAfterTest();
         $this->setUser(null);
 
         $data = $this->export();
+        $this->assertStringContainsString('/login/index.php', $data['login']['url']);
+        $this->assertNull($data['cta']['signupurl']);
 
-        $this->assertNotEmpty($data['login']['logintoken']);
-        $this->assertStringEndsWith('/login/index.php', $data['login']['action']);
+        set_config('registerauth', 'email');
+        $data = $this->export();
+        $this->assertStringEndsWith('/login/signup.php', $data['cta']['signupurl']);
+    }
+
+    /**
+     * The hero numbers count visible courses and categories.
+     */
+    public function test_stats(): void {
+        $this->resetAfterTest();
+        $this->setAdminUser();
+        $this->getDataGenerator()->create_course();
+        $this->getDataGenerator()->create_course(['visible' => 0]);
+
+        $stats = $this->export()['stats'];
+
+        $this->assertEquals(1, $stats[0]['value']);
+        $this->assertEquals(1, $stats[1]['value']);
     }
 
     /**
@@ -87,6 +107,8 @@ final class frontpage_test extends \advanced_testcase {
         $this->assertCount(1, $names);
         $this->assertStringNotContainsString('<b>', $names[0]);
         $this->assertTrue($data['courses']['items'][0]['active']);
+        $this->assertNotEmpty($data['courses']['items'][0]['category']);
+        $this->assertNotEmpty($data['courses']['items'][0]['image'], 'Courses without an image get a generated one.');
     }
 
     /**
@@ -104,6 +126,8 @@ final class frontpage_test extends \advanced_testcase {
         $this->assertCount(2, $data['categories']['items']);
         $this->assertContains('Science', array_column($data['categories']['items'], 'name'));
         $this->assertContains('Physics', array_column($data['categories']['items'], 'description'));
+        $science = array_values(array_filter($data['categories']['items'], fn($item) => $item['name'] === 'Science'))[0];
+        $this->assertSame(get_string('coursecount', 'theme_roshnilite', 0), $science['coursecount']);
     }
 
     /**
@@ -126,6 +150,9 @@ final class frontpage_test extends \advanced_testcase {
         $this->assertSame('Start', $data['slider']['slides'][0]['buttontext']);
         $this->assertNull($data['slider']['slides'][1]['buttontext']);
         $this->assertSame('Jane Doe', $data['faculty']['members'][0]['name']);
+        $this->assertSame('JD', $data['faculty']['members'][0]['initials']);
+        $this->assertNull($data['faculty']['members'][0]['image'], 'No photo uploaded, so the initials avatar is used.');
+        $this->assertTrue($data['slider']['multiple'], 'Two slides show the indicators.');
         $this->assertCount(1, $data['faculty']['members'][0]['links']);
     }
 }

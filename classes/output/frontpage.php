@@ -68,7 +68,9 @@ class frontpage implements renderable, templatable {
     public function export_for_template(renderer_base $output): array {
         return [
             'login' => $this->export_login(),
-            'hero' => $this->export_hero(),
+            'hero' => $this->export_hero($output),
+            'stats' => $this->export_stats(),
+            'cta' => $this->export_cta(),
             'slider' => $this->export_slider($output),
             'about' => $this->export_about($output),
             'courses' => $this->export_courses($output),
@@ -124,7 +126,7 @@ class frontpage implements renderable, templatable {
     }
 
     /**
-     * The quick login form shown to visitors who are not logged in.
+     * The log in button shown to visitors who are not logged in.
      *
      * @return array|null
      */
@@ -132,25 +134,59 @@ class frontpage implements renderable, templatable {
         if (isloggedin() && !isguestuser()) {
             return null;
         }
+        return ['url' => get_login_url()];
+    }
+
+    /**
+     * Headline numbers for the hero: courses, categories and learners.
+     *
+     * @return array
+     */
+    protected function export_stats(): array {
+        global $DB, $CFG;
+        $courses = $DB->count_records_select('course', 'id <> :siteid AND visible = 1', ['siteid' => SITEID]);
+        $categories = $DB->count_records('course_categories', ['visible' => 1]);
+        $learners = $DB->count_records_select(
+            'user',
+            'deleted = 0 AND suspended = 0 AND confirmed = 1 AND id <> :guestid',
+            ['guestid' => $CFG->siteguest]
+        );
         return [
-            'action' => (new url('/login/index.php'))->out(false),
-            'logintoken' => \core\session\manager::get_login_token(),
-            'forgoturl' => (new url('/login/forgot_password.php'))->out(false),
+            ['value' => $courses, 'label' => get_string('courses')],
+            ['value' => $categories, 'label' => get_string('categories')],
+            ['value' => $learners, 'label' => get_string('statlearners', 'theme_roshnilite')],
+        ];
+    }
+
+    /**
+     * The closing call to action: browse courses, and sign up when self-registration is on.
+     *
+     * @return array
+     */
+    protected function export_cta(): array {
+        global $CFG;
+        require_once($CFG->libdir . '/authlib.php');
+        $signup = (!isloggedin() || isguestuser()) && signup_is_enabled();
+        return [
+            'coursesurl' => (new url('/course/index.php'))->out(false),
+            'signupurl' => $signup ? (new url('/login/signup.php'))->out(false) : null,
         ];
     }
 
     /**
      * The hero shown when no slides are configured: the site name and summary.
      *
+     * @param renderer_base $output
      * @return array
      */
-    protected function export_hero(): array {
+    protected function export_hero(renderer_base $output): array {
         global $SITE;
         $summary = format_text($SITE->summary ?? '', $SITE->summaryformat ?? FORMAT_HTML, ['context' => $this->context]);
         return [
             'title' => format_string($SITE->fullname, true, ['context' => $this->context]),
             'summary' => trim(shorten_text(html_to_text($summary, 0, false), 220)),
             'coursesurl' => (new url('/course/index.php'))->out(false),
+            'image' => $output->image_url('sl-1', 'theme_roshnilite')->out(false),
         ];
     }
 
@@ -209,6 +245,7 @@ class frontpage implements renderable, templatable {
             4 => 'fraboutsitetextdescdefault',
         ];
 
+        $icons = [1 => 'fa-pen-nib', 2 => 'fa-graduation-cap', 3 => 'fa-newspaper', 4 => 'fa-calendar-days'];
         $items = [];
         for ($i = 1; $i <= self::ABOUT_ITEMS; $i++) {
             $name = $this->setting('aboutsitename' . $i) ?: get_string('aboutsitename' . $i . 'default', 'theme_roshnilite');
@@ -218,8 +255,9 @@ class frontpage implements renderable, templatable {
                 'name' => format_string($name, true, ['context' => $this->context]),
                 'text' => $this->format_html($text),
                 'url' => $url,
-                'image' => $this->file_url('aboutsiteimage' . $i)
-                    ?? $output->image_url('icon-conts-' . $i, 'theme_roshnilite')->out(false),
+                // An uploaded image wins; otherwise a Font Awesome icon.
+                'image' => $this->file_url('aboutsiteimage' . $i),
+                'icon' => $icons[$i],
             ];
         }
 
@@ -292,7 +330,9 @@ class frontpage implements renderable, templatable {
                 $category->descriptionformat ?? FORMAT_HTML,
                 ['context' => $category->get_context()]
             );
+            $tones = ['primary', 'amber', 'emerald', 'sky', 'violet', 'pink'];
             $items[] = [
+                'tone' => $tones[$index % count($tones)],
                 'active' => $index++ === 0,
                 'name' => $category->get_formatted_name(),
                 'coursecount' => $this->course_count($category->get_courses_count()),
@@ -335,7 +375,6 @@ class frontpage implements renderable, templatable {
             'facultylnkdnurl' => ['icon' => 'fa-brands fa-linkedin-in', 'label' => 'sociallinkedin', 'class' => 'icoLinkedin'],
         ];
 
-        $fallbackimage = $output->image_url('u/f1')->out(false);
         $members = [];
         for ($i = 1; $i <= $count; $i++) {
             $links = [];
@@ -351,11 +390,13 @@ class frontpage implements renderable, templatable {
                     'label' => get_string($network['label'], 'theme_roshnilite'),
                 ];
             }
+            $name = format_string($this->setting('facultyname' . $i), true, ['context' => $this->context]);
             $members[] = [
                 'active' => $i === 1,
-                'name' => format_string($this->setting('facultyname' . $i), true, ['context' => $this->context]),
+                'name' => $name,
+                'initials' => $this->initials($name),
                 'text' => $this->format_html($this->setting('facultysubtext' . $i)),
-                'image' => $this->file_url('facultyimage' . $i) ?? $fallbackimage,
+                'image' => $this->file_url('facultyimage' . $i),
                 'links' => $links,
                 'haslinks' => !empty($links),
             ];
@@ -365,6 +406,21 @@ class frontpage implements renderable, templatable {
             'heading' => get_string('facultyheading', 'theme_roshnilite'),
             'members' => $members,
         ];
+    }
+
+    /**
+     * Up to two initials for an avatar, e.g. "JD" for "Jane Doe".
+     *
+     * @param string $name
+     * @return string
+     */
+    protected function initials(string $name): string {
+        $words = preg_split('/\s+/u', trim(html_entity_decode(strip_tags($name))), -1, PREG_SPLIT_NO_EMPTY);
+        $initials = '';
+        foreach (array_slice($words, 0, 2) as $word) {
+            $initials .= \core_text::substr($word, 0, 1);
+        }
+        return \core_text::strtoupper($initials);
     }
 
     /**

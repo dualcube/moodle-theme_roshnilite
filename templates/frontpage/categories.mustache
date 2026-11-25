@@ -24,8 +24,8 @@
         "heading": "Our categories",
         "subheading": "Find your field",
         "items": [
-            {"name": "Science", "coursecount": "3 courses", "description": "Physics and more", "url": "#"},
-            {"name": "Arts", "coursecount": "1 course", "description": "", "url": "#"}
+            {"name": "Science", "tone": "primary", "coursecount": "3 courses", "description": "Physics and more", "url": "#"},
+            {"name": "Arts", "tone": "amber", "coursecount": "1 course", "description": "", "url": "#"}
         ],
         "allcategoriesurl": "#"
     }
@@ -42,7 +42,7 @@
         </header>
         <div class="rl-grid rl-grid--4">
             {{#items}}
-                <a class="rl-card rl-category" href="{{url}}">
+                <a class="rl-card rl-category rl-tone--{{tone}}" href="{{url}}">
                     <span class="rl-category__icon" aria-hidden="true"><i class="fa fa-folder-open"></i></span>
                     <span class="rl-category__body">
                         <span class="rl-category__name">{{name}}</span>

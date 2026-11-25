@@ -1,0 +1,36 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/frontpage/hero_badge
+
+    Floating badges on the hero image.
+
+    Example context (json):
+    {
+        "stats": [{"value": 12, "label": "Courses"}]
+    }
+}}
+<div class="rl-hero__badge rl-hero__badge--top" aria-hidden="true">
+    <span class="rl-hero__badge-icon"><i class="fa fa-bolt"></i></span>
+    <span>{{#str}}herobadgepace, theme_roshnilite{{/str}}</span>
+</div>
+{{#stats.0}}
+    <div class="rl-hero__badge rl-hero__badge--bottom" aria-hidden="true">
+        <span class="rl-hero__badge-icon rl-hero__badge-icon--alt"><i class="fa fa-book-open"></i></span>
+        <span><strong>{{value}}</strong> {{label}}</span>
+    </div>
+{{/stats.0}}

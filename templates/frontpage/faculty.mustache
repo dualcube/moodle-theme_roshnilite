@@ -24,7 +24,7 @@
         "heading": "Top faculty",
         "members": [
             {
-                "name": "Jane Doe", "text": "<p>Professor</p>",
+                "name": "Jane Doe", "initials": "JD", "text": "<p>Professor</p>",
                 "image": "http://example.com/jane.jpg", "haslinks": true,
                 "links": [{"url": "#", "icon": "fa-brands fa-facebook-f", "class": "icoFacebook", "label": "Facebook"}]
             }
@@ -40,7 +40,8 @@
         <div class="rl-grid rl-grid--faculty">
             {{#members}}
                 <article class="rl-card rl-person">
-                    <img class="rl-person__photo" src="{{image}}" alt="" loading="lazy">
+                    {{#image}}<img class="rl-person__photo" src="{{image}}" alt="" loading="lazy">{{/image}}
+                    {{^image}}<span class="rl-person__photo rl-person__initials" aria-hidden="true">{{initials}}</span>{{/image}}
                     <h3 class="rl-person__name">{{name}}</h3>
                     <div class="rl-person__bio">{{{text}}}</div>
                     {{#haslinks}}

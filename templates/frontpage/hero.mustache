@@ -17,46 +17,61 @@
 {{!
     @template theme_roshnilite/frontpage/hero
 
-    Site home hero: the configured slides (or the site name and summary when
-    there are none) with the quick login card for visitors. Carousel data
-    attributes are given in both Bootstrap 4 (Moodle 4.5) and 5 (Moodle 5.x) form.
+    Split hero: copy and calls to action on the left, the slide image on the
+    right, headline numbers below. Each configured slide keeps its own text
+    and image; with none, the site name and summary are shown. Carousel data
+    attributes are given in Bootstrap 4 (Moodle 4.5) and 5 (Moodle 5.x) form.
 
     Example context (json):
     {
-        "hero": {"title": "Mount Orange School", "summary": "Learn anything, anywhere.", "coursesurl": "#"},
+        "hero": {"title": "Mount Orange School", "summary": "Learn anything.", "coursesurl": "#",
+                 "image": "http://example.com/hero.jpg"},
         "slider": {
             "slides": [
                 {"index": 0, "number": 1, "active": true, "image": "http://example.com/1.jpg",
                  "text": "<h1>Welcome</h1>", "buttontext": "Start", "url": "#"},
                 {"index": 1, "number": 2, "active": false, "image": "http://example.com/2.jpg",
-                 "text": "", "buttontext": null, "url": ""}
+                 "text": "<h1>Learn</h1>", "buttontext": null, "url": ""}
             ],
             "multiple": true
         },
-        "login": {"action": "#", "logintoken": "abc", "forgoturl": "#"}
+        "login": {"url": "#"},
+        "stats": [{"value": 12, "label": "Courses"}, {"value": 4, "label": "Categories"}]
     }
 }}
-<section class="rl-hero {{#slider}}rl-hero--slides{{/slider}}{{^slider}}rl-hero--plain{{/slider}}">
+<section class="rl-hero">
+    <div class="rl-hero__glow" aria-hidden="true"></div>
     {{#slider}}
-        <div id="home-slide" class="carousel slide rl-hero__carousel" data-ride="carousel" data-bs-ride="carousel" data-interval="7000" data-bs-interval="7000">
+        <div id="home-slide" class="carousel slide carousel-fade rl-hero__carousel" data-ride="carousel" data-bs-ride="carousel"
+            data-interval="8000" data-bs-interval="8000">
             <div class="carousel-inner">
                 {{#slides}}
                     <div class="carousel-item {{#active}}active{{/active}}">
-                        <img class="rl-hero__image" src="{{image}}" alt="" {{^active}}loading="lazy"{{/active}}>
-                        <div class="rl-hero__overlay"></div>
-                        <div class="rl-container rl-hero__inner">
+                        <div class="rl-container rl-hero__grid">
                             <div class="rl-hero__copy">
                                 {{{text}}}
-                                {{#buttontext}}
-                                    <a href="{{url}}" class="btn btn-primary btn-lg rl-btn">{{buttontext}}</a>
-                                {{/buttontext}}
+                                <div class="rl-hero__actions">
+                                    {{#buttontext}}
+                                        <a href="{{url}}" class="btn btn-primary btn-lg rl-btn">{{buttontext}}</a>
+                                    {{/buttontext}}
+                                    {{^buttontext}}
+                                        <a href="{{hero.coursesurl}}" class="btn btn-primary btn-lg rl-btn">{{#str}}herocta, theme_roshnilite{{/str}}</a>
+                                    {{/buttontext}}
+                                    {{#login}}
+                                        <a href="{{url}}" class="btn btn-lg rl-btn rl-btn--ghost">{{#str}}login{{/str}}</a>
+                                    {{/login}}
+                                </div>
+                            </div>
+                            <div class="rl-hero__visual">
+                                <img class="rl-hero__image" src="{{image}}" alt="" {{^active}}loading="lazy"{{/active}}>
+                                {{> theme_roshnilite/frontpage/hero_badge }}
                             </div>
                         </div>
                     </div>
                 {{/slides}}
             </div>
             {{#multiple}}
-                <div class="rl-hero__indicators carousel-indicators">
+                <div class="rl-container rl-hero__indicators carousel-indicators">
                     {{#slides}}
                         <button type="button" data-target="#home-slide" data-bs-target="#home-slide"
                             data-slide-to="{{index}}" data-bs-slide-to="{{index}}"
@@ -69,29 +84,32 @@
     {{/slider}}
     {{^slider}}
         {{#hero}}
-            <div class="rl-container rl-hero__inner">
+            <div class="rl-container rl-hero__grid">
                 <div class="rl-hero__copy">
                     <h1>{{title}}</h1>
                     {{#summary}}<p class="rl-hero__lead">{{summary}}</p>{{/summary}}
-                    <a href="{{coursesurl}}" class="btn btn-primary btn-lg rl-btn">{{#str}}herocta, theme_roshnilite{{/str}}</a>
+                    <div class="rl-hero__actions">
+                        <a href="{{coursesurl}}" class="btn btn-primary btn-lg rl-btn">{{#str}}herocta, theme_roshnilite{{/str}}</a>
+                        {{#login}}
+                            <a href="{{url}}" class="btn btn-lg rl-btn rl-btn--ghost">{{#str}}login{{/str}}</a>
+                        {{/login}}
+                    </div>
+                </div>
+                <div class="rl-hero__visual">
+                    <img class="rl-hero__image" src="{{image}}" alt="">
+                    {{> theme_roshnilite/frontpage/hero_badge }}
                 </div>
             </div>
         {{/hero}}
     {{/slider}}
 
-    {{#login}}
-        <div class="rl-container rl-hero__login-wrap">
-            <form method="post" action="{{action}}" class="rl-login-card loginnavbar">
-                <h2 class="rl-login-card__title">{{#str}}quicklogin, theme_roshnilite{{/str}}</h2>
-                <p class="rl-login-card__desc">{{#str}}quicklogindesc, theme_roshnilite{{/str}}</p>
-                <input type="hidden" name="logintoken" value="{{logintoken}}">
-                <label for="roshnilite-username" class="rl-label">{{#str}}username{{/str}}</label>
-                <input type="text" id="roshnilite-username" name="username" class="form-control" autocomplete="username">
-                <label for="roshnilite-password" class="rl-label">{{#str}}password{{/str}}</label>
-                <input type="password" id="roshnilite-password" name="password" class="form-control" autocomplete="current-password">
-                <button type="submit" class="btn btn-primary rl-btn w-100">{{#str}}login{{/str}}</button>
-                <a class="rl-login-card__forgot" href="{{forgoturl}}">{{#str}}forgotten{{/str}}</a>
-            </form>
+    {{#stats.0}}
+        <div class="rl-container">
+            <ul class="rl-hero__stats">
+                {{#stats}}
+                    <li><strong>{{value}}</strong><span>{{label}}</span></li>
+                {{/stats}}
+            </ul>
         </div>
-    {{/login}}
+    {{/stats.0}}
 </section>
