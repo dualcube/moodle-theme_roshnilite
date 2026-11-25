@@ -17,15 +17,16 @@
 {{!
     @template theme_roshnilite/frontpage/hero
 
-    Split hero: copy and calls to action on the left, the slide image on the
-    right, headline numbers below. Each configured slide keeps its own text
-    and image; with none, the site name and summary are shown. Carousel data
-    attributes are given in Bootstrap 4 (Moodle 4.5) and 5 (Moodle 5.x) form.
+    The site home hero: the slide text, a course search, and the visual (the
+    slide image, or the site's courses as a deck). Each configured slide keeps
+    its own text and image; with none, the site name and summary are shown.
+    Carousel data attributes are given in Bootstrap 4 (Moodle 4.5) and 5
+    (Moodle 5.x) form.
 
     Example context (json):
     {
         "hero": {"title": "Mount Orange School", "summary": "Learn anything.", "coursesurl": "#",
-                 "image": "http://example.com/hero.jpg"},
+                 "image": null, "defaultimage": "http://example.com/hero.jpg"},
         "slider": {
             "slides": [
                 {"index": 0, "number": 1, "active": true, "image": "http://example.com/1.jpg",
@@ -35,37 +36,27 @@
             ],
             "multiple": true
         },
-        "login": {"url": "#"},
+        "search": {"action": "#"},
+        "featured": {"name": "Biology", "category": "Science", "url": "#", "image": "http://example.com/b.jpg"},
         "stats": [{"value": 12, "label": "Courses"}, {"value": 4, "label": "Categories"}]
     }
 }}
 <section class="rl-hero">
-    <div class="rl-hero__glow" aria-hidden="true"></div>
     {{#slider}}
         <div id="home-slide" class="carousel slide carousel-fade rl-hero__carousel" data-ride="carousel" data-bs-ride="carousel"
-            data-interval="8000" data-bs-interval="8000">
+            data-interval="9000" data-bs-interval="9000">
             <div class="carousel-inner">
                 {{#slides}}
                     <div class="carousel-item {{#active}}active{{/active}}">
                         <div class="rl-container rl-hero__grid">
                             <div class="rl-hero__copy">
                                 {{{text}}}
-                                <div class="rl-hero__actions">
-                                    {{#buttontext}}
-                                        <a href="{{url}}" class="btn btn-primary btn-lg rl-btn">{{buttontext}}</a>
-                                    {{/buttontext}}
-                                    {{^buttontext}}
-                                        <a href="{{hero.coursesurl}}" class="btn btn-primary btn-lg rl-btn">{{#str}}herocta, theme_roshnilite{{/str}}</a>
-                                    {{/buttontext}}
-                                    {{#login}}
-                                        <a href="{{url}}" class="btn btn-lg rl-btn rl-btn--ghost">{{#str}}login{{/str}}</a>
-                                    {{/login}}
-                                </div>
+                                {{> theme_roshnilite/frontpage/hero_search }}
+                                {{#buttontext}}
+                                    <a href="{{url}}" class="rl-link-arrow rl-hero__more">{{buttontext}}</a>
+                                {{/buttontext}}
                             </div>
-                            <div class="rl-hero__visual">
-                                <img class="rl-hero__image" src="{{image}}" alt="" {{^active}}loading="lazy"{{/active}}>
-                                {{> theme_roshnilite/frontpage/hero_badge }}
-                            </div>
+                            {{> theme_roshnilite/frontpage/hero_visual }}
                         </div>
                     </div>
                 {{/slides}}
@@ -87,18 +78,10 @@
             <div class="rl-container rl-hero__grid">
                 <div class="rl-hero__copy">
                     <h1>{{title}}</h1>
-                    {{#summary}}<p class="rl-hero__lead">{{summary}}</p>{{/summary}}
-                    <div class="rl-hero__actions">
-                        <a href="{{coursesurl}}" class="btn btn-primary btn-lg rl-btn">{{#str}}herocta, theme_roshnilite{{/str}}</a>
-                        {{#login}}
-                            <a href="{{url}}" class="btn btn-lg rl-btn rl-btn--ghost">{{#str}}login{{/str}}</a>
-                        {{/login}}
-                    </div>
+                    {{#summary}}<p>{{summary}}</p>{{/summary}}
+                    {{> theme_roshnilite/frontpage/hero_search }}
                 </div>
-                <div class="rl-hero__visual">
-                    <img class="rl-hero__image" src="{{image}}" alt="">
-                    {{> theme_roshnilite/frontpage/hero_badge }}
-                </div>
+                {{> theme_roshnilite/frontpage/hero_visual }}
             </div>
         {{/hero}}
     {{/slider}}
@@ -107,7 +90,10 @@
         <div class="rl-container">
             <ul class="rl-hero__stats">
                 {{#stats}}
-                    <li><strong>{{value}}</strong><span>{{label}}</span></li>
+                    <li>
+                        <strong class="rl-count" style="--rl-to: {{value}}"><span class="rl-count__value">{{value}}</span></strong>
+                        <span>{{label}}</span>
+                    </li>
                 {{/stats}}
             </ul>
         </div>

@@ -21,7 +21,6 @@ use core\output\renderer_base;
 use core\output\templatable;
 use core\url;
 use core_course_category;
-use core_course\external\course_summary_exporter;
 
 /**
  * Data for the sections of the Roshni Lite site home.
@@ -42,6 +41,15 @@ class frontpage implements renderable, templatable {
 
     /** @var int Number of social links in the footer band. */
     const SOCIAL_LINKS = 4;
+
+    /** @var int Courses fanned out as the hero visual. */
+    const DECK_COURSES = 3;
+
+    /**
+     * @var int[] The smallest number worth showing for each headline stat. Small
+     * numbers make a new site look empty, so a stat below its minimum is left out.
+     */
+    const STAT_MINIMUMS = ['courses' => 6, 'categories' => 3, 'learners' => 50];
 
     /** @var \theme_config The theme whose settings are shown. */
     protected \theme_config $theme;
@@ -66,20 +74,77 @@ class frontpage implements renderable, templatable {
      * @return array
      */
     public function export_for_template(renderer_base $output): array {
+        $courses = $this->export_courses($output);
+        $categories = $this->export_categories();
+        $showmaincontent = !empty($this->setting('moodlemaincontentinfrontpage'));
         return [
-            'login' => $this->export_login(),
             'hero' => $this->export_hero($output),
+            'search' => ['action' => (new url('/course/search.php'))->out(false)],
+            'featured' => $courses['items'][0] ?? null,
+            'deck' => $this->pick_deck($courses['items'] ?? []),
             'stats' => $this->export_stats(),
             'cta' => $this->export_cta(),
             'slider' => $this->export_slider($output),
             'about' => $this->export_about($output),
-            'courses' => $this->export_courses($output),
-            'categories' => $this->export_categories(),
+            // Moodle's own course list, when the site home shows it, replaces the grid.
+            'courses' => $showmaincontent && $this->core_lists_all_courses() ? null : $courses,
+            'categories' => $categories,
             'faculty' => $this->export_faculty($output),
             'contact' => $this->export_contact(),
             'social' => $this->export_social(),
-            'showmaincontent' => !empty($this->setting('moodlemaincontentinfrontpage')),
+            'showmaincontent' => $showmaincontent,
         ];
+    }
+
+    /**
+     * The courses fanned out in the hero: the first course, then courses from
+     * other subjects where there are any, so the deck shows the range on offer.
+     *
+     * @param array $items Exported course items, in catalogue order.
+     * @return array
+     */
+    protected function pick_deck(array $items): array {
+        $deck = [];
+        $subjects = [];
+        foreach ($items as $item) {
+            if (count($deck) < self::DECK_COURSES && !isset($subjects[$item['category']])) {
+                $deck[] = $item;
+                $subjects[$item['category']] = true;
+            }
+        }
+        foreach ($items as $item) {
+            if (count($deck) < self::DECK_COURSES && !in_array($item, $deck, true)) {
+                $deck[] = $item;
+            }
+        }
+        return $deck;
+    }
+
+    /**
+     * Whether Moodle's own site home content lists every course for this user.
+     *
+     * @return bool
+     */
+    protected function core_lists_all_courses(): bool {
+        global $CFG;
+        $items = isloggedin() && !isguestuser() ? ($CFG->frontpageloggedin ?? '') : ($CFG->frontpage ?? '');
+        return in_array(FRONTPAGEALLCOURSELIST, explode(',', (string) $items), true);
+    }
+
+    /**
+     * Formatted HTML as a short single line of plain text for cards.
+     *
+     * Unlike html_to_text(), emphasis is not turned into capitals.
+     *
+     * @param string $html
+     * @param int $length The maximum length.
+     * @return string
+     */
+    public static function plain_text(string $html, int $length): string {
+        // Keep words apart where blocks and line breaks end.
+        $html = preg_replace('~<(br|/p|/div|/li|/h[1-6]|/td)\b[^>]*>~i', '$0 ', $html);
+        $text = html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        return shorten_text(trim(preg_replace('/\s+/u', ' ', $text)), $length);
     }
 
     /**
@@ -126,19 +191,8 @@ class frontpage implements renderable, templatable {
     }
 
     /**
-     * The log in button shown to visitors who are not logged in.
-     *
-     * @return array|null
-     */
-    protected function export_login(): ?array {
-        if (isloggedin() && !isguestuser()) {
-            return null;
-        }
-        return ['url' => get_login_url()];
-    }
-
-    /**
-     * Headline numbers for the hero: courses, categories and learners.
+     * Headline numbers for the hero: courses, categories and learners, each
+     * only once it is big enough to be worth showing.
      *
      * @return array
      */
@@ -151,11 +205,16 @@ class frontpage implements renderable, templatable {
             'deleted = 0 AND suspended = 0 AND confirmed = 1 AND id <> :guestid',
             ['guestid' => $CFG->siteguest]
         );
-        return [
-            ['value' => $courses, 'label' => get_string('courses')],
-            ['value' => $categories, 'label' => get_string('categories')],
-            ['value' => $learners, 'label' => get_string('statlearners', 'theme_roshnilite')],
+        $stats = [
+            'courses' => ['value' => $courses, 'label' => get_string('courses')],
+            'categories' => ['value' => $categories, 'label' => get_string('categories')],
+            'learners' => ['value' => $learners, 'label' => get_string('statlearners', 'theme_roshnilite')],
         ];
+        $stats = array_filter($stats, function (array $stat, string $key): bool {
+            return $stat['value'] >= self::STAT_MINIMUMS[$key];
+        }, ARRAY_FILTER_USE_BOTH);
+        // One number on its own reads as a boast; show the strip only with two or more.
+        return count($stats) >= 2 ? array_values($stats) : [];
     }
 
     /**
@@ -183,10 +242,12 @@ class frontpage implements renderable, templatable {
         global $SITE;
         $summary = format_text($SITE->summary ?? '', $SITE->summaryformat ?? FORMAT_HTML, ['context' => $this->context]);
         return [
-            'title' => format_string($SITE->fullname, true, ['context' => $this->context]),
-            'summary' => trim(shorten_text(html_to_text($summary, 0, false), 220)),
+            'title' => format_string($SITE->fullname, true, ['context' => $this->context, 'escape' => false]),
+            'summary' => self::plain_text($summary, 220),
             'coursesurl' => (new url('/course/index.php'))->out(false),
-            'image' => $output->image_url('sl-1', 'theme_roshnilite')->out(false),
+            // Without an uploaded slide image the hero shows real courses instead of a stock photo.
+            'image' => null,
+            'defaultimage' => $output->image_url('sl-1', 'theme_roshnilite')->out(false),
         ];
     }
 
@@ -214,9 +275,10 @@ class frontpage implements renderable, templatable {
                 'index' => $i - 1,
                 'number' => $i,
                 'active' => $i === 1,
-                'image' => $this->file_url('slideimage' . $i) ?? $output->image_url('sl-1', 'theme_roshnilite')->out(false),
+                'image' => $this->file_url('slideimage' . $i),
                 'text' => $this->format_html($this->setting('slidertext' . $i)),
-                'buttontext' => $buttontext === '' ? null : format_string($buttontext, true, ['context' => $this->context]),
+                'buttontext' => $buttontext === '' ? null
+                    : format_string($buttontext, true, ['context' => $this->context, 'escape' => false]),
                 'url' => $this->setting('sliderurl' . $i),
             ];
         }
@@ -252,7 +314,7 @@ class frontpage implements renderable, templatable {
             $text = $this->setting('aboutsitetext' . $i) ?: get_string($defaulttexts[$i], 'theme_roshnilite');
             $url = $this->setting('aboutsiteurl' . $i) ?: $defaulturls[$i]->out(false);
             $items[] = [
-                'name' => format_string($name, true, ['context' => $this->context]),
+                'name' => format_string($name, true, ['context' => $this->context, 'escape' => false]),
                 'text' => $this->format_html($text),
                 'url' => $url,
                 // An uploaded image wins; otherwise a Font Awesome icon.
@@ -281,6 +343,8 @@ class frontpage implements renderable, templatable {
             'recursive' => true,
             'sort' => ['sortorder' => 1],
             'limit' => self::MAX_COURSES,
+            'summary' => true,
+            'coursecontacts' => true,
         ]);
         if (empty($courses)) {
             return null;
@@ -289,15 +353,25 @@ class frontpage implements renderable, templatable {
         $items = [];
         foreach (array_values($courses) as $index => $course) {
             $context = \context_course::instance($course->id);
-            // Courses without an image get Moodle's generated pattern, as on the Dashboard.
-            $image = course_summary_exporter::get_course_image($course) ?: $output->get_generated_image_for_id($course->id);
+            $name = format_string($course->fullname, true, ['context' => $context, 'escape' => false]);
             $category = core_course_category::get($course->category, IGNORE_MISSING);
-            $items[] = [
+            $summary = $course->has_summary() ? format_text(
+                file_rewrite_pluginfile_urls($course->summary, 'pluginfile.php', $context->id, 'course', 'summary', null),
+                $course->summaryformat,
+                ['context' => $context]
+            ) : '';
+            $contacts = $course->get_course_contacts();
+            $teacher = $contacts ? reset($contacts) : null;
+            $items[] = course_cover::export($course, $name) + [
                 'active' => $index === 0,
-                'category' => $category ? $category->get_formatted_name() : '',
-                'name' => format_string($course->fullname, true, ['context' => $context]),
+                'category' => $category ? $category->get_formatted_name(['escape' => false]) : '',
+                'name' => $name,
+                'summary' => self::plain_text($summary, 120),
+                'teacher' => $teacher ? [
+                    'name' => $teacher['username'],
+                    'initials' => $this->initials($teacher['username']),
+                ] : null,
                 'url' => (new url('/course/view.php', ['id' => $course->id]))->out(false),
-                'image' => $image,
             ];
         }
 
@@ -320,9 +394,14 @@ class frontpage implements renderable, templatable {
 
         $items = [];
         $index = 0;
-        foreach (array_slice(array_keys($list), 0, self::MAX_CATEGORIES) as $id) {
+        foreach (array_keys($list) as $id) {
+            if (count($items) >= self::MAX_CATEGORIES) {
+                break;
+            }
             $category = core_course_category::get($id, IGNORE_MISSING);
-            if (!$category) {
+            // Empty subjects are left out: "0 courses" only makes a catalogue look thin.
+            $count = $category ? $category->get_courses_count(['recursive' => true]) : 0;
+            if (!$count) {
                 continue;
             }
             $description = format_text(
@@ -330,15 +409,18 @@ class frontpage implements renderable, templatable {
                 $category->descriptionformat ?? FORMAT_HTML,
                 ['context' => $category->get_context()]
             );
-            $tones = ['primary', 'amber', 'emerald', 'sky', 'violet', 'pink'];
             $items[] = [
-                'tone' => $tones[$index % count($tones)],
+                'tone' => course_cover::tone((int) $id),
                 'active' => $index++ === 0,
-                'name' => $category->get_formatted_name(),
-                'coursecount' => $this->course_count($category->get_courses_count()),
-                'description' => trim(shorten_text(html_to_text($description, 0, false), 160)),
+                'name' => $category->get_formatted_name(['escape' => false]),
+                'coursecount' => $this->course_count($count),
+                'description' => self::plain_text($description, 160),
                 'url' => (new url('/course/index.php', ['categoryid' => $id]))->out(false),
             ];
+        }
+
+        if (count($items) < 2) {
+            return null;
         }
 
         return [
@@ -390,7 +472,7 @@ class frontpage implements renderable, templatable {
                     'label' => get_string($network['label'], 'theme_roshnilite'),
                 ];
             }
-            $name = format_string($this->setting('facultyname' . $i), true, ['context' => $this->context]);
+            $name = format_string($this->setting('facultyname' . $i), true, ['context' => $this->context, 'escape' => false]);
             $members[] = [
                 'active' => $i === 1,
                 'name' => $name,

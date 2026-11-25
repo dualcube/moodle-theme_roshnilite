@@ -43,7 +43,7 @@
                     {"name": "Forum", "text": "Discuss", "url": "#", "image": "http://example.com/1.png"}
                 ]
             },
-            "hero": {"title": "Mount Orange School", "summary": "Learn anything.", "coursesurl": "#"},
+            "hero": {"title": "Mount Orange School", "summary": "Learn anything.", "coursesurl": "#", "image": "http://example.com/hero.png"},
             "contact": {"items": [{"icon": "", "text": "Address"}]},
             "social": {"heading": "Stay connected", "links": [{"url": "#", "icon": "", "label": "Social link 1"}]},
             "showmaincontent": false
@@ -65,10 +65,6 @@
             {{> theme_roshnilite/frontpage/hero }}
 
             <main class="rl-main">
-                {{#about}}
-                    {{> theme_roshnilite/frontpage/about }}
-                {{/about}}
-
                 {{#courses}}
                     {{> theme_roshnilite/frontpage/courses }}
                 {{/courses}}
@@ -76,6 +72,10 @@
                 {{#categories}}
                     {{> theme_roshnilite/frontpage/categories }}
                 {{/categories}}
+
+                {{#about}}
+                    {{> theme_roshnilite/frontpage/about }}
+                {{/about}}
 
                 {{#faculty}}
                     {{> theme_roshnilite/frontpage/faculty }}

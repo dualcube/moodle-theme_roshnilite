@@ -1,0 +1,36 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/frontpage/hero_search
+
+    The hero course search.
+
+    Example context (json):
+    {
+        "uniqid": "abc",
+        "search": {"action": "#"}
+    }
+}}
+{{#search}}
+    <form class="rl-search" action="{{action}}" method="get" role="search">
+        <label class="visually-hidden sr-only" for="rl-search-{{uniqid}}{{index}}">{{#str}}searchcourses, theme_roshnilite{{/str}}</label>
+        <i class="fa fa-magnifying-glass rl-search__icon" aria-hidden="true"></i>
+        <input class="rl-search__input" type="search" name="search" id="rl-search-{{uniqid}}{{index}}"
+            placeholder="{{#str}}searchplaceholder, theme_roshnilite{{/str}}" autocomplete="off">
+        <button class="btn btn-primary rl-search__button" type="submit">{{#str}}search{{/str}}</button>
+    </form>
+{{/search}}

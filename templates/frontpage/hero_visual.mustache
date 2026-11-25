@@ -1,0 +1,68 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/frontpage/hero_visual
+
+    The hero's visual. An image the admin uploaded for the slide is shown in
+    an arch; otherwise the site's own courses are fanned out as a deck, so the
+    first thing a visitor sees is what they can actually learn here. Only
+    the front card names its course; the others are cover art, so names are
+    not repeated from the course list further down. A site
+    with no courses yet falls back to the bundled image.
+
+    Example context (json):
+    {
+        "image": null,
+        "hero": {"defaultimage": "http://example.com/hero.jpg"},
+        "deck": [
+            {"name": "Biology", "category": "Science", "url": "#", "image": null, "tone": "emerald",
+             "monogram": "B", "active": true, "teacher": {"name": "Jane Doe", "initials": "JD"} }
+        ],
+        "stats": []
+    }
+}}
+<div class="rl-hero__visual">
+    {{#image}}
+        <div class="rl-hero__arch"><img src="{{image}}" alt=""></div>
+        {{> theme_roshnilite/frontpage/hero_badge }}
+    {{/image}}
+    {{^image}}
+        {{#deck.0}}
+            <div class="rl-deck">
+                {{#deck}}
+                    {{#active}}
+                        <a class="rl-deck__card" href="{{url}}">
+                            <span class="rl-deck__cover">{{> theme_roshnilite/course_cover }}</span>
+                            <span class="rl-deck__body">
+                                <span class="rl-deck__label">{{#str}}featuredcourse, theme_roshnilite{{/str}}</span>
+                                <span class="rl-deck__title">{{name}}</span>
+                                {{#teacher}}<span class="rl-deck__teacher"><span class="rl-avatar" aria-hidden="true">{{initials}}</span>{{name}}</span>{{/teacher}}
+                            </span>
+                        </a>
+                    {{/active}}
+                    {{^active}}
+                        <span class="rl-deck__card rl-deck__card--art" aria-hidden="true">{{> theme_roshnilite/course_cover }}</span>
+                    {{/active}}
+                {{/deck}}
+            </div>
+        {{/deck.0}}
+        {{^deck.0}}
+            <div class="rl-hero__arch"><img src="{{hero.defaultimage}}" alt=""></div>
+            {{> theme_roshnilite/frontpage/hero_badge }}
+        {{/deck.0}}
+    {{/image}}
+</div>

@@ -22,10 +22,12 @@ One build works on every supported release:
 
 | Path | What it does |
 |---|---|
-| `config.php` | Layouts. Everything except `frontpage` and `login` resolves to Boost's layout files. |
+| `config.php` | Layouts. Everything except `frontpage` resolves to Boost's layout files, so the login page follows each Moodle release's own design. |
 | `classes/output/core_renderer.php` | Feeds the theme's logo and favicon settings into Boost's navbar and page head. |
 | `classes/output/frontpage.php` | Builds the site home data (hero, features, courses, categories, faculty, contact). No HTML is built in PHP. |
 | `templates/frontpage.mustache`, `templates/frontpage/*.mustache` | Site home page and one partial per section. |
+| `classes/output/dashboard.php`, `templates/dashboard.mustache` | The personal header above the Dashboard blocks. |
+| `templates/core/login_panel.mustache` | The branded left panel of the Moodle 5.3+ split-screen login. |
 | `lib.php` | SCSS callbacks, CSS post-processing for colour/font settings, and file serving for theme settings. |
 | `style/styles.css` | The Roshni Lite design layer: tokens, navbar, site home, dashboard and blocks, login. `[[setting:...]]` placeholders are filled from the theme settings. |
 | `tests/` | PHPUnit tests for the output class and `lib.php`, and a Behat feature for the site home and navigation. |
@@ -48,6 +50,28 @@ To install manually, place all downloaded files in `/theme/roshnilite` and visit
 8. Full-fledged slider!
 9. Unique login page.
 10. Provision to display default "Main Page content" for Moodle.
+
+## Design
+
+Roshni means *light*, and the design is built around it: a warm paper canvas,
+a sunrise accent next to your brand colour, and a soft serif display face
+(Fraunces, bundled in `fonts/` under the SIL Open Font License, so no font is
+loaded from a third-party server). Set a heading font name in the theme's font
+settings to replace it.
+
+- **Site home**: a course search; the site's own courses fanned out as the
+  hero visual (an image uploaded for the slide takes its place); subject tiles;
+  a grid of features; faculty; a call to action; and Moodle's own course list
+  styled as a numbered index. When that list is shown, the theme's course grid
+  steps aside so courses are not listed twice. Put the highlighted phrase of a
+  slide headline in `<em>` to give it the accent colour and brush underline.
+- **Honest by default**: headline numbers appear only once they are big enough
+  to be worth showing, and subjects without courses are left out.
+- **Course covers**: a course without an uploaded image gets a typographic
+  cover - its monogram on a gradient in its subject's colour.
+- **Dashboard**: a greeting under a sky that follows the learner's time of day,
+  their numbers, the course to jump back into and shortcuts, above the
+  standard blocks (which keep the full course list and the deadlines).
 
 ## Setting panel
 

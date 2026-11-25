@@ -50,13 +50,14 @@ final class dashboard_test extends \advanced_testcase {
 
         $this->assertStringContainsString('Sam', $data['greeting']);
         $this->assertFalse($data['hascourses']);
-        $this->assertSame([], $data['continue']);
+        $this->assertNull($data['featured']);
+        $this->assertContains($data['daypart'], ['morning', 'afternoon', 'evening']);
         $this->assertSame([0, 0, 0, 0], array_column($data['stats'], 'value'));
         $this->assertCount(4, $data['actions']);
     }
 
     /**
-     * Enrolled courses are counted and offered under "Continue learning", most recently accessed first.
+     * Enrolled courses are counted, and the most recently accessed one is offered to jump back into.
      */
     public function test_enrolled_courses(): void {
         global $DB;
@@ -80,8 +81,28 @@ final class dashboard_test extends \advanced_testcase {
         $this->assertTrue($data['hascourses']);
         $this->assertEquals(4, $data['stats'][0]['value']);
         $this->assertEquals(4, $data['stats'][1]['value']);
-        $this->assertCount(dashboard::CONTINUE_COURSES, $data['continue']);
-        $this->assertSame('Gamma', $data['continue'][0]['name']);
-        $this->assertNotEmpty($data['continue'][0]['image']);
+        $this->assertSame('Gamma', $data['featured']['name']);
+        $this->assertNull($data['featured']['image'], 'Without an upload the course gets a typographic cover.');
+        $this->assertSame('G', $data['featured']['monogram']);
+        $this->assertArrayNotHasKey('others', $data, 'The course list is left to the Course overview block.');
+    }
+
+    /**
+     * Activities due in the next week are counted; later ones are not.
+     */
+    public function test_deadlines(): void {
+        $this->resetAfterTest();
+        $generator = $this->getDataGenerator();
+        $user = $generator->create_user();
+        $course = $generator->create_course(['fullname' => 'Biology']);
+        $generator->enrol_user($user->id, $course->id, 'student');
+        $generator->create_module('assign', ['course' => $course->id, 'name' => 'Later essay', 'duedate' => time() + 3 * DAYSECS]);
+        $generator->create_module('assign', ['course' => $course->id, 'name' => 'Soon essay', 'duedate' => time() + DAYSECS]);
+        $generator->create_module('assign', ['course' => $course->id, 'name' => 'Far essay', 'duedate' => time() + 30 * DAYSECS]);
+
+        $data = $this->export($user);
+
+        $this->assertEquals(2, $data['stats'][3]['value']);
+        $this->assertArrayNotHasKey('deadlines', $data, 'The list is left to the Timeline block.');
     }
 }

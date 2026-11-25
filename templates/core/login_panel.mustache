@@ -1,0 +1,41 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template core/login_panel
+
+    Roshni Lite's left panel for the split-screen login layout (Moodle 5.3+):
+    the site name and a welcome under a rising sun, in place of the default
+    Moodle welcome copy and statistics. Custom authentication instructions,
+    when the site has them, replace the welcome as they do in core.
+
+    Example context (json):
+    {
+        "sitename": "Mount Orange",
+        "leftinstructions": null
+    }
+}}
+<div class="login-layout-left-content rl-loginpanel">
+    {{^leftinstructions}}
+        <p class="rl-eyebrow">{{sitename}}</p>
+        <h2 class="rl-loginpanel__title">{{#str}}loginpaneltitle, theme_roshnilite{{/str}}</h2>
+        <p class="rl-loginpanel__text">{{#str}}loginpaneltext, theme_roshnilite{{/str}}</p>
+    {{/leftinstructions}}
+    {{#leftinstructions}}
+        <div class="rl-loginpanel__custom">{{{leftinstructions}}}</div>
+    {{/leftinstructions}}
+</div>
+<span class="rl-loginpanel__sun" aria-hidden="true"></span>

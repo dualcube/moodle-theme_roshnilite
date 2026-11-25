@@ -57,18 +57,18 @@ final class frontpage_test extends \advanced_testcase {
         $this->assertSame(get_string('aboutsitename2default', 'theme_roshnilite'), $data['about']['items'][1]['name']);
         $this->assertCount(3, $data['contact']['items']);
         $this->assertCount(frontpage::SOCIAL_LINKS, $data['social']['links']);
-        $this->assertNull($data['login'], 'Logged-in users get no quick login form.');
+        $this->assertNull($data['featured']);
+        $this->assertStringEndsWith('/course/search.php', $data['search']['action']);
     }
 
     /**
-     * Visitors who are not logged in get a log in button, and sign up only when self-registration is on.
+     * Visitors are offered sign up only when self-registration is on.
      */
-    public function test_login_and_signup_for_visitors(): void {
+    public function test_signup_for_visitors(): void {
         $this->resetAfterTest();
         $this->setUser(null);
 
         $data = $this->export();
-        $this->assertStringContainsString('/login/index.php', $data['login']['url']);
         $this->assertNull($data['cta']['signupurl']);
 
         set_config('registerauth', 'email');
@@ -77,18 +77,28 @@ final class frontpage_test extends \advanced_testcase {
     }
 
     /**
-     * The hero numbers count visible courses and categories.
+     * The hero numbers count visible courses and categories, and are only shown once big enough.
      */
     public function test_stats(): void {
         $this->resetAfterTest();
         $this->setAdminUser();
-        $this->getDataGenerator()->create_course();
-        $this->getDataGenerator()->create_course(['visible' => 0]);
+        $generator = $this->getDataGenerator();
+        $generator->create_course();
+        $generator->create_course(['visible' => 0]);
 
+        $this->assertSame([], $this->export()['stats'], 'One course and one category make the site look empty.');
+
+        for ($i = 0; $i < frontpage::STAT_MINIMUMS['courses']; $i++) {
+            $generator->create_course();
+        }
+        for ($i = 1; $i < frontpage::STAT_MINIMUMS['categories']; $i++) {
+            $generator->create_category();
+        }
         $stats = $this->export()['stats'];
 
-        $this->assertEquals(1, $stats[0]['value']);
-        $this->assertEquals(1, $stats[1]['value']);
+        $this->assertCount(2, $stats, 'Learners stay hidden below their minimum.');
+        $this->assertEquals(frontpage::STAT_MINIMUMS['courses'] + 1, $stats[0]['value']);
+        $this->assertEquals(frontpage::STAT_MINIMUMS['categories'], $stats[1]['value']);
     }
 
     /**
@@ -97,9 +107,13 @@ final class frontpage_test extends \advanced_testcase {
     public function test_courses_respect_visibility(): void {
         $this->resetAfterTest();
         $generator = $this->getDataGenerator();
-        $generator->create_course(['fullname' => 'Visible <b>course</b>']);
+        $course = $generator->create_course(['fullname' => 'Visible <b>course</b>',
+            'summary' => '<p>Learn <strong>everything</strong>.</p>']);
         $generator->create_course(['fullname' => 'Hidden course', 'visible' => 0]);
+        $teacher = $generator->create_user(['firstname' => 'Jane', 'lastname' => 'Doe']);
+        $generator->enrol_user($teacher->id, $course->id, 'editingteacher');
         $this->setUser($generator->create_user());
+        set_config('moodlemaincontentinfrontpage', 0, 'theme_roshnilite');
 
         $data = $this->export();
 
@@ -108,26 +122,59 @@ final class frontpage_test extends \advanced_testcase {
         $this->assertStringNotContainsString('<b>', $names[0]);
         $this->assertTrue($data['courses']['items'][0]['active']);
         $this->assertNotEmpty($data['courses']['items'][0]['category']);
-        $this->assertNotEmpty($data['courses']['items'][0]['image'], 'Courses without an image get a generated one.');
+        $this->assertNull($data['courses']['items'][0]['image'], 'Without an upload the course gets a typographic cover.');
+        $this->assertSame('VC', $data['courses']['items'][0]['monogram']);
+        $this->assertContains($data['courses']['items'][0]['tone'], course_cover::TONES);
+        $this->assertSame([$data['courses']['items'][0]], $data['deck']);
+        $this->assertSame('Learn everything.', $data['courses']['items'][0]['summary']);
+        $this->assertSame('Jane Doe', $data['courses']['items'][0]['teacher']['name']);
+        $this->assertSame('JD', $data['courses']['items'][0]['teacher']['initials']);
+        $this->assertSame($data['courses']['items'][0], $data['featured'], 'The first course is featured in the hero.');
     }
 
     /**
-     * The category carousel needs at least two categories.
+     * Subjects need at least one course to be listed, and the section needs two such subjects.
      */
     public function test_categories(): void {
         $this->resetAfterTest();
         $this->setAdminUser();
+        $generator = $this->getDataGenerator();
+        $science = $generator->create_category(['name' => 'Science & Maths', 'description' => '<p>Physics</p>']);
+        $arts = $generator->create_category(['name' => 'Arts']);
+        $generator->create_course(['category' => $science->id]);
 
-        $this->assertNull($this->export()['categories']);
+        $this->assertNull($this->export()['categories'], 'Only one subject has courses.');
 
-        $this->getDataGenerator()->create_category(['name' => 'Science', 'description' => '<p>Physics</p>']);
+        $generator->create_course(['category' => $arts->id]);
+        $generator->create_course(['category' => $arts->id]);
         $data = $this->export();
 
-        $this->assertCount(2, $data['categories']['items']);
-        $this->assertContains('Science', array_column($data['categories']['items'], 'name'));
-        $this->assertContains('Physics', array_column($data['categories']['items'], 'description'));
-        $science = array_values(array_filter($data['categories']['items'], fn($item) => $item['name'] === 'Science'))[0];
-        $this->assertSame(get_string('coursecount', 'theme_roshnilite', 0), $science['coursecount']);
+        $names = array_column($data['categories']['items'], 'name');
+        $this->assertSame(['Science & Maths', 'Arts'], $names, 'Empty subjects are left out; names are not escaped twice.');
+        $this->assertSame('Physics', $data['categories']['items'][0]['description']);
+        $this->assertSame(get_string('coursecountone', 'theme_roshnilite'), $data['categories']['items'][0]['coursecount']);
+        $this->assertSame(get_string('coursecount', 'theme_roshnilite', 2), $data['categories']['items'][1]['coursecount']);
+        $this->assertSame(course_cover::tone($science->id), $data['categories']['items'][0]['tone']);
+    }
+
+    /**
+     * When Moodle's own site home content lists every course, the theme's course grid steps aside.
+     */
+    public function test_course_grid_not_duplicated(): void {
+        global $CFG;
+        $this->resetAfterTest();
+        $this->setAdminUser();
+        $this->getDataGenerator()->create_course();
+        $CFG->frontpageloggedin = FRONTPAGEALLCOURSELIST;
+        set_config('moodlemaincontentinfrontpage', 0, 'theme_roshnilite');
+
+        $this->assertNotNull($this->export()['courses']);
+
+        set_config('moodlemaincontentinfrontpage', 1, 'theme_roshnilite');
+        $data = $this->export();
+
+        $this->assertNull($data['courses']);
+        $this->assertNotEmpty($data['deck'], 'The hero still shows the courses.');
     }
 
     /**

@@ -17,18 +17,21 @@
 {{!
     @template theme_roshnilite/frontpage/courses
 
-    Course card grid.
+    Course cards: image with the subject, title, a short summary and the teacher.
+    A grid on wide screens and a swipeable row on phones.
 
     Example context (json):
     {
         "items": [
-            {"name": "Course 1", "category": "Science", "url": "#", "image": "http://example.com/c1.jpg"},
-            {"name": "Course 2", "category": "Arts", "url": "#", "image": "http://example.com/c2.jpg"}
+            {"name": "Course 1", "category": "Science", "url": "#", "image": "http://example.com/c1.jpg", "tone": "sky", "monogram": "C1",
+             "summary": "An introduction.", "teacher": {"name": "Jane Doe", "initials": "JD"} },
+            {"name": "Course 2", "category": "Arts", "url": "#", "image": null, "tone": "amber", "monogram": "C2",
+             "summary": "", "teacher": null}
         ],
         "allcoursesurl": "#"
     }
 }}
-<section class="rl-section rl-section--tinted course-section">
+<section class="rl-section course-section">
     <div class="rl-container">
         <header class="rl-section__header rl-section__header--split">
             <div>
@@ -37,16 +40,25 @@
             </div>
             <a class="rl-link-arrow btn-view-all" href="{{allcoursesurl}}">{{#str}}viewallcourses{{/str}}</a>
         </header>
-        <div class="rl-grid rl-grid--4">
+        <div class="rl-grid rl-grid--4 rl-grid--swipe">
             {{#items}}
                 <article class="rl-card rl-course">
                     <div class="rl-course__media">
-                        <img src="{{image}}" alt="" loading="lazy">
+                        {{> theme_roshnilite/course_cover }}
+                        {{#category}}<span class="rl-chip rl-chip--onmedia">{{category}}</span>{{/category}}
                     </div>
                     <div class="rl-course__body">
-                        {{#category}}<span class="rl-chip">{{category}}</span>{{/category}}
                         <h3 class="rl-course__title"><a class="rl-stretched av-course-item-cont" href="{{url}}">{{name}}</a></h3>
-                        <span class="rl-course__cta" aria-hidden="true">{{#str}}viewcourse, theme_roshnilite{{/str}}</span>
+                        {{#summary}}<p class="rl-course__summary">{{summary}}</p>{{/summary}}
+                        <div class="rl-course__foot">
+                            {{#teacher}}
+                                <span class="rl-course__teacher">
+                                    <span class="rl-avatar" aria-hidden="true">{{initials}}</span>
+                                    {{#str}}teacherby, theme_roshnilite, {{name}}{{/str}}
+                                </span>
+                            {{/teacher}}
+                            <span class="rl-course__go" aria-hidden="true"><i class="fa fa-arrow-right"></i></span>
+                        </div>
                     </div>
                 </article>
             {{/items}}

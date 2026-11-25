@@ -20,20 +20,16 @@ use core\output\renderable;
 use core\output\renderer_base;
 use core\output\templatable;
 use core\url;
-use core_course\external\course_summary_exporter;
 
 /**
  * The personal header shown above the Dashboard blocks: greeting, learning
- * stats, quick actions and the courses to continue.
+ * stats, the course to jump back into and shortcuts.
  *
  * @package    theme_roshnilite
  * @copyright  DualCube (https://dualcube.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class dashboard implements renderable, templatable {
-    /** @var int How many courses are offered under "Continue learning". */
-    const CONTINUE_COURSES = 3;
-
     /** @var int Days ahead counted as upcoming deadlines. */
     const DEADLINE_DAYS = 7;
 
@@ -59,7 +55,7 @@ class dashboard implements renderable, templatable {
         global $CFG, $PAGE;
         require_once($CFG->dirroot . '/course/lib.php');
 
-        $courses = enrol_get_all_users_courses($this->user->id, true, null);
+        $courses = enrol_get_all_users_courses($this->user->id, true, 'summary, summaryformat, enablecompletion');
         $inprogress = 0;
         $completed = 0;
         $progress = [];
@@ -76,8 +72,13 @@ class dashboard implements renderable, templatable {
         $userpicture = new \core\output\user_picture($this->user);
         $userpicture->size = 100;
 
+        $daypart = $this->daypart();
+        $deadlines = $this->get_deadlines();
+
         return [
-            'greeting' => get_string($this->greeting_key(), 'theme_roshnilite', s($this->user->firstname)),
+            'daypart' => $daypart,
+            'dayparticon' => ['morning' => 'fa-sun', 'afternoon' => 'fa-cloud-sun', 'evening' => 'fa-moon'][$daypart],
+            'greeting' => get_string('greeting' . $daypart, 'theme_roshnilite', s($this->user->firstname)),
             'date' => userdate(time(), get_string('strftimedaydate', 'langconfig')),
             'avatar' => $userpicture->get_url($PAGE, $output)->out(false),
             'stats' => [
@@ -87,47 +88,57 @@ class dashboard implements renderable, templatable {
                     'icon' => 'fa-person-running', 'tone' => 'amber'],
                 ['value' => $completed, 'label' => get_string('statcompleted', 'theme_roshnilite'),
                     'icon' => 'fa-circle-check', 'tone' => 'emerald'],
-                ['value' => $this->count_deadlines(), 'label' => get_string('statdeadlines', 'theme_roshnilite'),
+                ['value' => count($deadlines), 'label' => get_string('statdeadlines', 'theme_roshnilite'),
                     'icon' => 'fa-calendar-day', 'tone' => 'sky'],
             ],
             'actions' => $this->export_actions(),
-            'continue' => $this->export_continue($courses, $progress, $output),
+            // One course to pick up. The full list and the deadlines are the
+            // Course overview and Timeline blocks' job, so they are not repeated here.
+            'featured' => $this->export_featured($courses, $progress),
             'hascourses' => !empty($courses),
             'browseurl' => (new url('/course/index.php'))->out(false),
         ];
     }
 
     /**
-     * The greeting string for the time of day in the user's timezone.
+     * The part of the day in the user's timezone: morning, afternoon or evening.
      *
      * @return string
      */
-    protected function greeting_key(): string {
-        $hour = (int) userdate(time(), '%H', \core_date::get_user_timezone($this->user), false);
-        if ($hour < 12) {
-            return 'greetingmorning';
+    protected function daypart(): string {
+        $hour = (int) userdate(time(), '%H', $this->timezone(), false);
+        if ($hour >= 5 && $hour < 12) {
+            return 'morning';
         }
-        return $hour < 18 ? 'greetingafternoon' : 'greetingevening';
+        return $hour >= 12 && $hour < 18 ? 'afternoon' : 'evening';
+    }
+
+    /**
+     * The dashboard owner's timezone, as userdate() expects it.
+     *
+     * @return string
+     */
+    protected function timezone(): string {
+        return \core_date::get_user_timezone($this->user->timezone ?? 99);
     }
 
     /**
      * Activities with a due date in the next week, from the calendar's action events.
      *
-     * @return int
+     * @return \core_calendar\local\event\entities\action_event_interface[]
      */
-    protected function count_deadlines(): int {
+    protected function get_deadlines(): array {
         try {
-            $events = \core_calendar\local\api::get_action_events_by_timesort(
+            return array_values(\core_calendar\local\api::get_action_events_by_timesort(
                 time(),
                 time() + DAYSECS * self::DEADLINE_DAYS,
                 null,
                 50,
-                false,
+                true,
                 $this->user
-            );
-            return count($events);
+            ));
         } catch (\Throwable $e) {
-            return 0;
+            return [];
         }
     }
 
@@ -151,41 +162,45 @@ class dashboard implements renderable, templatable {
     }
 
     /**
-     * The courses to continue: recently accessed first, then other current enrolments.
+     * The course to jump back into: the most recently accessed one, or else the first enrolment.
      *
      * @param array $courses The user's enrolled courses, keyed by id.
      * @param array $progress Completion percentage (or null) per course id.
-     * @param renderer_base $output
-     * @return array
+     * @return array|null
      */
-    protected function export_continue(array $courses, array $progress, renderer_base $output): array {
-        $ordered = [];
-        foreach (course_get_recent_courses($this->user->id, self::CONTINUE_COURSES) as $recent) {
-            if (isset($courses[$recent->id])) {
-                $ordered[$recent->id] = $courses[$recent->id];
-            }
+    protected function export_featured(array $courses, array $progress): ?array {
+        if (!$courses) {
+            return null;
         }
-        foreach ($courses as $id => $course) {
-            if (count($ordered) >= self::CONTINUE_COURSES) {
-                break;
-            }
-            $ordered[$id] = $ordered[$id] ?? $course;
+        $course = reset($courses);
+        foreach (course_get_recent_courses($this->user->id, 1) as $recent) {
+            $course = $courses[$recent->id] ?? $course;
         }
 
-        $items = [];
-        foreach ($ordered as $course) {
-            $context = \context_course::instance($course->id);
-            $category = \core_course_category::get($course->category, IGNORE_MISSING);
-            $percentage = $progress[$course->id] ?? null;
-            $items[] = [
-                'name' => format_string($course->fullname, true, ['context' => $context]),
-                'category' => $category ? $category->get_formatted_name() : '',
-                'url' => (new url('/course/view.php', ['id' => $course->id]))->out(false),
-                'image' => course_summary_exporter::get_course_image($course) ?: $output->get_generated_image_for_id($course->id),
-                'hasprogress' => $percentage !== null,
-                'progress' => $percentage === null ? 0 : (int) floor($percentage),
-            ];
-        }
-        return $items;
+        $context = \context_course::instance($course->id);
+        $category = \core_course_category::get($course->category, IGNORE_MISSING);
+        $percentage = $progress[$course->id] ?? null;
+        $name = format_string($course->fullname, true, ['context' => $context, 'escape' => false]);
+        return course_cover::export($course, $name) + [
+            'name' => $name,
+            'summary' => $this->summary($course, $context),
+            'category' => $category ? $category->get_formatted_name(['escape' => false]) : '',
+            'url' => (new url('/course/view.php', ['id' => $course->id]))->out(false),
+            'hasprogress' => $percentage !== null,
+            'progress' => $percentage === null ? 0 : (int) floor($percentage),
+        ];
+    }
+
+    /**
+     * A short plain-text course summary.
+     *
+     * @param \stdClass $course
+     * @param \context_course $context
+     * @return string
+     */
+    protected function summary(\stdClass $course, \context_course $context): string {
+        $summary = file_rewrite_pluginfile_urls($course->summary ?? '', 'pluginfile.php', $context->id, 'course', 'summary', null);
+        $summary = format_text($summary, $course->summaryformat ?? FORMAT_HTML, ['context' => $context]);
+        return frontpage::plain_text($summary, 140);
     }
 }

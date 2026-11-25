@@ -17,10 +17,15 @@
 {{!
     @template theme_roshnilite/dashboard
 
-    The personal header above the Dashboard blocks.
+    The personal header above the Dashboard blocks: a greeting under a sky
+    that follows the time of day, the learner's numbers, the course to jump
+    back into and shortcuts. The full course list and the deadlines are left
+    to the Course overview and Timeline blocks below, so nothing is repeated.
 
     Example context (json):
     {
+        "daypart": "morning",
+        "dayparticon": "fa-sun",
         "greeting": "Good morning, Sam",
         "date": "Wednesday, 25 November 2026",
         "avatar": "http://example.com/sam.png",
@@ -29,73 +34,82 @@
             {"value": 2, "label": "Due this week", "icon": "fa-calendar-day", "tone": "sky"}
         ],
         "actions": [{"url": "#", "label": "My courses", "icon": "fa-graduation-cap"}],
-        "continue": [
-            {"name": "Biology", "category": "Science", "url": "#", "image": "http://example.com/b.jpg",
-             "hasprogress": true, "progress": 40}
-        ],
+        "featured": {"name": "Biology", "category": "Science", "url": "#", "image": "http://example.com/b.jpg",
+                     "summary": "Cells and life.", "hasprogress": true, "progress": 40,
+                     "tone": "emerald", "monogram": "B"},
         "hascourses": true,
         "browseurl": "#"
     }
 }}
 <section class="rl-dash" aria-label="{{#str}}dashboardoverview, theme_roshnilite{{/str}}">
-    <div class="rl-dash__welcome">
-        <img class="rl-dash__avatar" src="{{avatar}}" alt="">
-        <div class="rl-dash__hello">
-            <p class="rl-dash__date">{{date}}</p>
-            <h2 class="rl-dash__greeting">{{greeting}}</h2>
-            <p class="rl-dash__sub">{{#str}}dashboardsub, theme_roshnilite{{/str}}</p>
+    <div class="rl-dash__sky rl-dash__sky--{{daypart}}">
+        <span class="rl-dash__orb" aria-hidden="true"></span>
+        <div class="rl-dash__top">
+            <img class="rl-dash__avatar" src="{{avatar}}" alt="">
+            <div class="rl-dash__hello">
+                <p class="rl-dash__date"><i class="fa {{dayparticon}}" aria-hidden="true"></i> {{date}}</p>
+                <h2 class="rl-dash__greeting">{{greeting}}</h2>
+                <p class="rl-dash__sub">{{#str}}dashboardsub, theme_roshnilite{{/str}}</p>
+            </div>
         </div>
-        <nav class="rl-dash__actions" aria-label="{{#str}}quickactions, theme_roshnilite{{/str}}">
-            {{#actions}}
-                <a class="rl-dash__action" href="{{url}}"><i class="fa {{icon}}" aria-hidden="true"></i><span>{{label}}</span></a>
-            {{/actions}}
-        </nav>
+        <ul class="rl-dash__stats">
+            {{#stats}}
+                <li class="rl-stat rl-stat--{{tone}}">
+                    <span class="rl-stat__icon" aria-hidden="true"><i class="fa {{icon}}"></i></span>
+                    <span class="rl-stat__value rl-count" style="--rl-to: {{value}}"><span class="rl-count__value">{{value}}</span></span>
+                    <span class="rl-stat__label">{{label}}</span>
+                </li>
+            {{/stats}}
+        </ul>
     </div>
 
-    <ul class="rl-dash__stats">
-        {{#stats}}
-            <li class="rl-stat rl-stat--{{tone}}">
-                <span class="rl-stat__icon" aria-hidden="true"><i class="fa {{icon}}"></i></span>
-                <span class="rl-stat__value">{{value}}</span>
-                <span class="rl-stat__label">{{label}}</span>
-            </li>
-        {{/stats}}
-    </ul>
-
-    <div class="rl-dash__continue">
-        <div class="rl-dash__heading">
-            <h3>{{#str}}continuelearning, theme_roshnilite{{/str}}</h3>
-            <a class="rl-link-arrow" href="{{browseurl}}">{{#str}}herocta, theme_roshnilite{{/str}}</a>
-        </div>
-        {{#hascourses}}
-            <div class="rl-grid rl-grid--3">
-                {{#continue}}
-                    <article class="rl-card rl-course rl-course--compact">
-                        <div class="rl-course__media"><img src="{{image}}" alt="" loading="lazy"></div>
-                        <div class="rl-course__body">
+    <div class="rl-dash__grid">
+        <div class="rl-panel rl-dash__continue">
+            <div class="rl-dash__heading">
+                <h3>{{#str}}jumpbackin, theme_roshnilite{{/str}}</h3>
+                <a class="rl-link-arrow" href="{{browseurl}}">{{#str}}herocta, theme_roshnilite{{/str}}</a>
+            </div>
+            {{#hascourses}}
+                {{#featured}}
+                    <article class="rl-resume">
+                        <div class="rl-resume__media">{{> theme_roshnilite/course_cover }}</div>
+                        <div class="rl-resume__body">
                             {{#category}}<span class="rl-chip">{{category}}</span>{{/category}}
-                            <h4 class="rl-course__title"><a class="rl-stretched" href="{{url}}">{{name}}</a></h4>
-                            {{#hasprogress}}
-                                <div class="rl-progress" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100"
-                                    aria-label="{{#str}}progresslabel, theme_roshnilite, {{progress}}{{/str}}">
-                                    <span class="rl-progress__bar" style="width: {{progress}}%"></span>
-                                </div>
-                                <span class="rl-progress__text">{{#str}}progresslabel, theme_roshnilite, {{progress}}{{/str}}</span>
-                            {{/hasprogress}}
+                            <h4 class="rl-resume__title"><a class="rl-stretched" href="{{url}}">{{name}}</a></h4>
+                            {{#summary}}<p class="rl-resume__summary">{{summary}}</p>{{/summary}}
+                            <div class="rl-resume__foot">
+                                {{#hasprogress}}
+                                    <span class="rl-ring" style="--rl-p: {{progress}}" role="img"
+                                        aria-label="{{#str}}progresslabel, theme_roshnilite, {{progress}}{{/str}}">
+                                        <span>{{progress}}%</span>
+                                    </span>
+                                {{/hasprogress}}
+                                <span class="btn btn-primary rl-btn rl-resume__btn" aria-hidden="true">
+                                    {{#str}}resume, theme_roshnilite{{/str}} <i class="fa fa-arrow-right"></i>
+                                </span>
+                            </div>
                         </div>
                     </article>
-                {{/continue}}
-            </div>
-        {{/hascourses}}
-        {{^hascourses}}
-            <div class="rl-empty">
-                <span class="rl-empty__icon" aria-hidden="true"><i class="fa fa-compass"></i></span>
-                <div>
-                    <h4 class="rl-empty__title">{{#str}}emptytitle, theme_roshnilite{{/str}}</h4>
-                    <p class="rl-empty__text">{{#str}}emptytext, theme_roshnilite{{/str}}</p>
+                {{/featured}}
+            {{/hascourses}}
+            {{^hascourses}}
+                <div class="rl-empty">
+                    <span class="rl-empty__icon" aria-hidden="true"><i class="fa fa-compass"></i></span>
+                    <div>
+                        <h4 class="rl-empty__title">{{#str}}emptytitle, theme_roshnilite{{/str}}</h4>
+                        <p class="rl-empty__text">{{#str}}emptytext, theme_roshnilite{{/str}}</p>
+                    </div>
+                    <a class="btn btn-primary rl-btn" href="{{browseurl}}">{{#str}}herocta, theme_roshnilite{{/str}}</a>
                 </div>
-                <a class="btn btn-primary rl-btn" href="{{browseurl}}">{{#str}}herocta, theme_roshnilite{{/str}}</a>
-            </div>
-        {{/hascourses}}
+            {{/hascourses}}
+        </div>
+
+        <aside class="rl-dash__side">
+            <nav class="rl-shortcuts" aria-label="{{#str}}quickactions, theme_roshnilite{{/str}}">
+                {{#actions}}
+                    <a class="rl-shortcut" href="{{url}}"><i class="fa {{icon}}" aria-hidden="true"></i><span>{{label}}</span></a>
+                {{/actions}}
+            </nav>
+        </aside>
     </div>
 </section>

@@ -17,20 +17,27 @@
 {{!
     @template theme_roshnilite/frontpage/hero_badge
 
-    Floating badges on the hero image.
+    Cards floating over the hero image: the featured course and the size of
+    the catalogue.
 
     Example context (json):
     {
+        "featured": {"name": "Biology", "category": "Science", "url": "#", "image": null, "tone": "emerald", "monogram": "B"},
         "stats": [{"value": 12, "label": "Courses"}]
     }
 }}
-<div class="rl-hero__badge rl-hero__badge--top" aria-hidden="true">
-    <span class="rl-hero__badge-icon"><i class="fa fa-bolt"></i></span>
-    <span>{{#str}}herobadgepace, theme_roshnilite{{/str}}</span>
-</div>
+{{#featured}}
+    <a class="rl-hero__featured" href="{{url}}">
+        <span class="rl-hero__featured-thumb">{{> theme_roshnilite/course_cover }}</span>
+        <span>
+            <span class="rl-hero__featured-label">{{#str}}featuredcourse, theme_roshnilite{{/str}}</span>
+            <span class="rl-hero__featured-name">{{name}}</span>
+        </span>
+    </a>
+{{/featured}}
 {{#stats.0}}
-    <div class="rl-hero__badge rl-hero__badge--bottom" aria-hidden="true">
-        <span class="rl-hero__badge-icon rl-hero__badge-icon--alt"><i class="fa fa-book-open"></i></span>
+    <div class="rl-hero__badge" aria-hidden="true">
+        <span class="rl-hero__badge-icon"><i class="fa fa-book-open"></i></span>
         <span><strong>{{value}}</strong> {{label}}</span>
     </div>
 {{/stats.0}}

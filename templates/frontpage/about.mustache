@@ -36,7 +36,7 @@
             <div class="rl-section__title">{{{heading}}}</div>
             <div class="rl-section__lead">{{{subheading}}}</div>
         </header>
-        <div class="rl-grid rl-grid--4">
+        <div class="rl-bento">
             {{#items}}
                 <a class="rl-card rl-feature" href="{{url}}">
                     <span class="rl-feature__icon">
@@ -45,6 +45,7 @@
                     </span>
                     <span class="rl-feature__title">{{name}}</span>
                     <span class="rl-feature__text">{{{text}}}</span>
+                    <span class="rl-feature__go" aria-hidden="true"><i class="fa fa-arrow-right"></i></span>
                 </a>
             {{/items}}
         </div>

@@ -246,9 +246,11 @@ function theme_roshnilite_set_brandcolor($css, $themecolor) {
  */
 function theme_roshnilite_get_font_css($theme) {
     $fallback = 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+    // The body font applies to body text; the heading font replaces the theme's
+    // display face (Fraunces) wherever the design uses it.
     $selectors = [
         'body' => 'body',
-        'heading' => 'h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .rl-section__title',
+        'heading' => ':root',
     ];
     $custom = ($theme->settings->fontselect ?? '') === '2';
     $formats = [
@@ -281,7 +283,8 @@ function theme_roshnilite_get_font_css($theme) {
                     implode(', ', $sources) . "; }\n";
             }
         }
-        $css .= $selector . ' { font-family: "' . $name . '", ' . $fallback . "; }\n";
+        $property = $type === 'heading' ? '--rl-font-display' : 'font-family';
+        $css .= $selector . ' { ' . $property . ': "' . $name . '", ' . $fallback . "; }\n";
     }
     return $css;
 }
