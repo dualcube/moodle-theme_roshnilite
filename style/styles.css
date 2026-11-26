@@ -940,8 +940,7 @@ table th a:hover {
     min-width: 14rem;
 }
 
-/* A white surface with a thin border: the base of every card and UI panel. */
-.rl-card,
+/* A white surface with a thin border: the base of every UI panel. */
 .rl-ui {
     position: relative;
     background-color: var(--rl-surface);
@@ -949,12 +948,6 @@ table th a:hover {
     border-radius: var(--rl-radius-lg);
     box-shadow: var(--rl-shadow);
     color: inherit;
-}
-
-.rl-card {
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
 }
 
 .rl-chip {
@@ -3777,18 +3770,6 @@ body.pagelayout-login #page .login-layout-left::after {
     background: transparent;
     color: var(--rl-ink);
     text-align: left;
-}
-
-.rl-loginpanel__site {
-    display: inline-block;
-    margin: 0 0 1.5rem;
-    padding: 0.375rem 0.875rem;
-    border: 1px solid var(--rl-line);
-    border-radius: 999px;
-    background-color: var(--rl-surface);
-    box-shadow: var(--rl-shadow);
-    font-size: 0.875rem;
-    font-weight: 600;
 }
 
 .rl-loginpanel__title {

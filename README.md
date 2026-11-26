@@ -40,16 +40,14 @@ To install manually, place all downloaded files in `/theme/roshnilite` and visit
 
 ## Overview
 
-1. Truckloads of customization options!
-2. Exclusive frontpage with high-resolution graphics.
-3. Beautifully crafted dynamic Masonry blocks.
-4. Two graphical and one contextual information sections.
-5. Automatic display of courses on the front page.
-6. Set your own custom theme color with the color picker.
-7. Customizable social icons and custom font support.
-8. Full-fledged slider!
-9. Unique login page.
-10. Provision to display default "Main Page content" for Moodle.
+1. A site home built from the site's own courses, subjects, teachers and events.
+2. A course catalogue with one tab per subject and drawn covers for courses without an image.
+3. A personal Dashboard header: greeting, learning numbers and the course to continue.
+4. Optional site home sections: how it works, testimonials, questions and answers.
+5. Your own brand colour, logo, favicon, background image and fonts.
+6. Social and contact links in the footer.
+7. A branded login page on Moodle 5.3.
+8. Inner pages, navigation and drawers exactly as each Moodle release ships them.
 
 ## Design
 
@@ -89,12 +87,13 @@ font name in the theme's font settings to replace Figtree in headings.
 
 ## Setting panel
 
-In **Site administration > Appearance > Themes > Roshni Lite** you get 4 panels to fully customize the theme:
+In **Site administration > Appearance > Themes > Roshni Lite** you get 5 tabs to customize the theme:
 
-1. **General Settings** — whole theme color (Brand colour, Main Theme Color), Background image, Favicon, Logo, Heading style, About site text, social handles and their icons.
-2. **Advanced settings** — Raw SCSS, which can change the whole theme visualization (powerful — use with care).
-3. **Font Settings** — your site's default font.
-4. **Faculty Settings** — add faculty display settings shown on the site home page.
+1. **General Settings** — brand and main colours, preset, background image, favicon, logo, hero slides, about-site items, contact details and social links.
+2. **Advanced settings** — raw SCSS, which can change the whole theme (powerful — use with care).
+3. **Font Settings** — the body and heading fonts, from a name or uploaded font files.
+4. **Faculty Settings** — the faculty shown on the site home.
+5. **Site home sections** — how it works, testimonials, and questions and answers.
 
 ## Uninstall
 
@@ -127,3 +126,5 @@ MOODLE_BRANCH=MOODLE_405_STABLE docker compose up -d --build
 Any of `MOODLE_405_STABLE`, `MOODLE_500_STABLE` … `MOODLE_503_STABLE` works, including 5.1+ which serve from `public/`.
 
 `docker compose down` stops it; add `-v` to also wipe the database and Moodle install for a clean re-run.
+
+The dev tooling uses [pnpm](https://pnpm.io). `pnpm install` also installs the Moodle coding-standards checker through Composer; then `pnpm run check` lints the PHP and checks it against the Moodle coding style, and `pnpm run env:up` / `pnpm run env:down` start and stop the Docker site.

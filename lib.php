@@ -161,30 +161,6 @@ function theme_roshnilite_set_fontsize($css, $themefontsize) {
 }
 
 /**
- * theme_roshnilite_get_setting function for load custom settings.
- *
- * @param string $setting
- * @param string $format
- * @return string|bool
- */
-function theme_roshnilite_get_setting($setting, $format = false) {
-    static $theme;
-    if (empty($theme)) {
-        $theme = theme_config::load('roshnilite');
-    }
-    if (empty($theme->settings->$setting)) {
-        return false;
-    } else if (!$format) {
-        return $theme->settings->$setting;
-    } else if ($format === 'format_text') {
-        return format_text($theme->settings->$setting, FORMAT_PLAIN);
-    } else if ($format === 'format_html') {
-        return format_text($theme->settings->$setting, FORMAT_HTML, ['trusted' => true, 'noclean' => true]);
-    } else {
-        return format_string($theme->settings->$setting);
-    }
-}
-/**
  * Adds any custom CSS to the CSS before it is cached.
  *
  * @param string $css The original CSS.
@@ -202,6 +178,7 @@ function theme_roshnilite_set_customcss($css, $customcss) {
 
     return $css;
 }
+
 /**
  * Adds any custom color to the CSS before it is cached.
  *
