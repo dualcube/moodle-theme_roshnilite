@@ -17,52 +17,89 @@
 {{!
     @template theme_roshnilite/frontpage/hero_visual
 
-    The hero's visual. An image the admin uploaded for the slide is shown in
-    an arch; otherwise the site's own courses are fanned out as a deck, so the
-    first thing a visitor sees is what they can actually learn here. Only
-    the front card names its course; the others are cover art, so names are
-    not repeated from the course list further down. A site
-    with no courses yet falls back to the bundled image.
+    The hero's visual. An image the admin uploaded for the slide is shown as
+    it is. Otherwise the visitor sees a preview of the product itself: the
+    site's courses as a list, with the next site event (or, without one, the
+    featured course) floating beside it.
+    A site with no courses yet falls back to the bundled image.
 
     Example context (json):
     {
         "image": null,
         "hero": {"defaultimage": "http://example.com/hero.jpg"},
-        "deck": [
-            {"name": "Biology", "category": "Science", "url": "#", "image": null, "tone": "emerald",
-             "monogram": "B", "active": true, "teacher": {"name": "Jane Doe", "initials": "JD"} }
-        ],
-        "stats": []
+        "preview": {
+            "url": "#",
+            "courses": [
+                {"name": "Biology", "url": "#", "image": null, "tone": "emerald", "monogram": "B",
+                 "subject": "Science", "subjecttone": "emerald", "price": "Free", "highlight": false,
+                 "teacher": {"name": "Jane Doe", "initials": "JD"} }
+            ],
+            "event": {"name": "Open day", "day": "04", "month": "Dec", "when": "Friday, 10:00", "url": "#"}
+        }
     }
 }}
 <div class="rl-hero__visual">
     {{#image}}
-        <div class="rl-hero__arch"><img src="{{image}}" alt=""></div>
-        {{> theme_roshnilite/frontpage/hero_badge }}
+        <div class="rl-hero__photo"><img src="{{image}}" alt=""></div>
     {{/image}}
     {{^image}}
-        {{#deck.0}}
-            <div class="rl-deck">
-                {{#deck}}
-                    {{#active}}
-                        <a class="rl-deck__card" href="{{url}}">
-                            <span class="rl-deck__cover">{{> theme_roshnilite/course_cover }}</span>
-                            <span class="rl-deck__body">
-                                <span class="rl-deck__label">{{#str}}featuredcourse, theme_roshnilite{{/str}}</span>
-                                <span class="rl-deck__title">{{name}}</span>
-                                {{#teacher}}<span class="rl-deck__teacher"><span class="rl-avatar" aria-hidden="true">{{initials}}</span>{{name}}</span>{{/teacher}}
+        {{#preview}}
+            <div class="rl-preview">
+                <div class="rl-ui rl-preview__table">
+                    <div class="rl-ui__head">
+                        <p class="rl-ui__title">{{#str}}previewheading, theme_roshnilite{{/str}}</p>
+                        <a class="rl-ui__link" href="{{url}}">{{#str}}viewall, theme_roshnilite{{/str}}</a>
+                    </div>
+                    <table class="rl-ptable table-reboot">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{#str}}previewcourse, theme_roshnilite{{/str}}</th>
+                                <th scope="col" class="rl-ptable__subject">{{#str}}previewsubject, theme_roshnilite{{/str}}</th>
+                                <th scope="col" class="rl-ptable__price">{{#str}}previewprice, theme_roshnilite{{/str}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#courses}}
+                                <tr class="{{#highlight}}rl-ptable__row--lift{{/highlight}}">
+                                    <td>
+                                        <a class="rl-ptable__course" href="{{url}}">
+                                            <span class="rl-ptable__thumb">{{> theme_roshnilite/course_cover }}</span>
+                                            <span class="rl-ptable__name">{{name}}</span>
+                                        </a>
+                                    </td>
+                                    <td class="rl-ptable__subject"><span class="rl-chip rl-tone--{{subjecttone}}">{{subject}}</span></td>
+                                    <td class="rl-ptable__price">{{price}}</td>
+                                </tr>
+                            {{/courses}}
+                        </tbody>
+                    </table>
+                </div>
+                {{#event}}
+                    <a class="rl-ui rl-preview__event" href="{{url}}">
+                        <span class="rl-ui__label"><span class="rl-dot" aria-hidden="true"></span>{{#str}}nextevent, theme_roshnilite{{/str}}</span>
+                        <span class="rl-preview__event-row">
+                            <span class="rl-date" aria-hidden="true"><strong>{{day}}</strong>{{month}}</span>
+                            <span>
+                                <span class="rl-preview__event-name">{{name}}</span>
+                                <span class="rl-preview__event-when">{{when}}</span>
                             </span>
-                        </a>
-                    {{/active}}
-                    {{^active}}
-                        <span class="rl-deck__card rl-deck__card--art" aria-hidden="true">{{> theme_roshnilite/course_cover }}</span>
-                    {{/active}}
-                {{/deck}}
+                        </span>
+                    </a>
+                {{/event}}
+                {{^event}}{{#courses.0}}
+                    <a class="rl-ui rl-preview__course" href="{{url}}">
+                        <span class="rl-preview__course-cover">{{> theme_roshnilite/course_cover }}</span>
+                        <span class="rl-preview__course-body">
+                            <span class="rl-ui__label">{{#str}}featuredcourse, theme_roshnilite{{/str}}</span>
+                            <span class="rl-preview__course-name">{{name}}</span>
+                            {{#teacher}}<span class="rl-preview__course-teacher">{{name}}</span>{{/teacher}}
+                        </span>
+                    </a>
+                {{/courses.0}}{{/event}}
             </div>
-        {{/deck.0}}
-        {{^deck.0}}
-            <div class="rl-hero__arch"><img src="{{hero.defaultimage}}" alt=""></div>
-            {{> theme_roshnilite/frontpage/hero_badge }}
-        {{/deck.0}}
+        {{/preview}}
+        {{^preview}}
+            <div class="rl-hero__photo"><img src="{{hero.defaultimage}}" alt=""></div>
+        {{/preview}}
     {{/image}}
 </div>

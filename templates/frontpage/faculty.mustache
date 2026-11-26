@@ -31,31 +31,32 @@
         ]
     }
 }}
-<section class="rl-section rl-section--tinted top-faculti">
+<section class="rl-section top-faculti" aria-labelledby="rl-faculty-heading">
     <div class="rl-container">
-        <header class="rl-section__header rl-section__header--center">
-            <p class="rl-eyebrow">{{#str}}eyebrowfaculty, theme_roshnilite{{/str}}</p>
-            <h2 class="rl-section__title">{{heading}}</h2>
+        <header class="rl-head">
+            <h2 class="rl-head__title" id="rl-faculty-heading">{{heading}}</h2>
         </header>
         <div class="rl-grid rl-grid--faculty">
             {{#members}}
-                <article class="rl-card rl-person">
+                <article class="rl-person">
                     {{#image}}<img class="rl-person__photo" src="{{image}}" alt="" loading="lazy">{{/image}}
                     {{^image}}<span class="rl-person__photo rl-person__initials" aria-hidden="true">{{initials}}</span>{{/image}}
-                    <h3 class="rl-person__name">{{name}}</h3>
-                    <div class="rl-person__bio">{{{text}}}</div>
-                    {{#haslinks}}
-                        <ul class="rl-socials rl-socials--outline">
-                            {{#links}}
-                                <li>
-                                    <a href="{{url}}" class="{{class}}" title="{{label}}">
-                                        <i class="{{icon}}" aria-hidden="true"></i>
-                                        <span class="sr-only visually-hidden">{{label}}</span>
-                                    </a>
-                                </li>
-                            {{/links}}
-                        </ul>
-                    {{/haslinks}}
+                    <div class="rl-person__body">
+                        <h3 class="rl-person__name">{{name}}</h3>
+                        <div class="rl-person__bio">{{{text}}}</div>
+                        {{#haslinks}}
+                            <ul class="rl-socials">
+                                {{#links}}
+                                    <li>
+                                        <a href="{{url}}" class="{{class}}" title="{{label}}">
+                                            <i class="{{icon}}" aria-hidden="true"></i>
+                                            <span class="sr-only visually-hidden">{{label}}</span>
+                                        </a>
+                                    </li>
+                                {{/links}}
+                            </ul>
+                        {{/haslinks}}
+                    </div>
                 </article>
             {{/members}}
         </div>

@@ -30,11 +30,20 @@ use core_course_category;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class frontpage implements renderable, templatable {
-    /** @var int Most courses shown in the course grid. */
+    /** @var int Most courses shown for each subject in the catalogue. */
     const MAX_COURSES = 8;
 
-    /** @var int Most categories shown in the category grid. */
-    const MAX_CATEGORIES = 8;
+    /** @var int Most subjects offered as catalogue tabs. */
+    const MAX_SUBJECTS = 6;
+
+    /** @var int Courses read for the catalogue, across all subjects. */
+    const CATALOGUE_LIMIT = 60;
+
+    /** @var int A course's learner count is shown from this number up. */
+    const MIN_LEARNERS_SHOWN = 10;
+
+    /** @var int Days for which a course is badged as new. */
+    const NEW_DAYS = 30;
 
     /** @var int Number of "about the site" items. */
     const ABOUT_ITEMS = 4;
@@ -42,8 +51,23 @@ class frontpage implements renderable, templatable {
     /** @var int Number of social links in the footer band. */
     const SOCIAL_LINKS = 4;
 
-    /** @var int Courses fanned out as the hero visual. */
-    const DECK_COURSES = 3;
+    /** @var int Steps in "How it works". */
+    const STEPS = 3;
+
+    /** @var int Site events listed under "Upcoming events". */
+    const EVENTS = 3;
+
+    /** @var int Testimonials that can be set. */
+    const TESTIMONIALS = 3;
+
+    /** @var int Questions that can be set. */
+    const QUESTIONS = 4;
+
+    /** @var int Courses listed in the hero's course preview. */
+    const PREVIEW_COURSES = 4;
+
+    /** @var int Teachers shown as avatars in the hero. */
+    const TEACHER_AVATARS = 4;
 
     /**
      * @var int[] The smallest number worth showing for each headline stat. Small
@@ -74,61 +98,123 @@ class frontpage implements renderable, templatable {
      * @return array
      */
     public function export_for_template(renderer_base $output): array {
-        $courses = $this->export_courses($output);
-        $categories = $this->export_categories();
-        $showmaincontent = !empty($this->setting('moodlemaincontentinfrontpage'));
+        $catalogue = $this->export_catalogue();
+        // Moodle's own site home content: its full course list (and course search) would
+        // repeat the catalogue and the hero search, so they give way; anything else stays.
+        $coreitems = $this->core_frontpage_items();
+        $othercore = array_diff($coreitems, [FRONTPAGEALLCOURSELIST, FRONTPAGECOURSESEARCH]);
+        $showmaincontent = !empty($this->setting('moodlemaincontentinfrontpage')) && ($catalogue === null || $othercore);
+        $events = $this->export_events();
+        $preview = $this->pick_preview($catalogue);
         return [
             'hero' => $this->export_hero($output),
             'search' => ['action' => (new url('/course/search.php'))->out(false)],
-            'featured' => $courses['items'][0] ?? null,
-            'deck' => $this->pick_deck($courses['items'] ?? []),
+            'featured' => $catalogue['subjects'][0]['courses'][0] ?? null,
+            'announcement' => $this->pick_announcement($catalogue),
+            'preview' => $preview ? [
+                'courses' => $preview,
+                'url' => (new url('/course/index.php'))->out(false),
+                'event' => $events['items'][0] ?? null,
+            ] : null,
+            'teachers' => $this->export_teachers($catalogue),
             'stats' => $this->export_stats(),
             'cta' => $this->export_cta(),
             'slider' => $this->export_slider($output),
             'about' => $this->export_about($output),
-            // Moodle's own course list, when the site home shows it, replaces the grid.
-            'courses' => $showmaincontent && $this->core_lists_all_courses() ? null : $courses,
-            'categories' => $categories,
+            'catalogue' => $catalogue,
             'faculty' => $this->export_faculty($output),
+            'steps' => $this->export_steps(),
+            'events' => $events,
+            'testimonials' => $this->export_testimonials(),
+            'faq' => $this->export_faq(),
             'contact' => $this->export_contact(),
             'social' => $this->export_social(),
+            'footer' => $this->export_footer(),
             'showmaincontent' => $showmaincontent,
+            'hidecorecourselist' => $catalogue !== null && in_array(FRONTPAGEALLCOURSELIST, $coreitems, true),
         ];
     }
 
     /**
-     * The courses fanned out in the hero: the first course, then courses from
-     * other subjects where there are any, so the deck shows the range on offer.
+     * The courses listed in the hero's course preview: the first course of each
+     * subject, so the preview shows the range on offer, topped up from the first
+     * subject. Each row carries its subject's name and colour.
      *
-     * @param array $items Exported course items, in catalogue order.
+     * @param array|null $catalogue
      * @return array
      */
-    protected function pick_deck(array $items): array {
-        $deck = [];
-        $subjects = [];
-        foreach ($items as $item) {
-            if (count($deck) < self::DECK_COURSES && !isset($subjects[$item['category']])) {
-                $deck[] = $item;
-                $subjects[$item['category']] = true;
+    protected function pick_preview(?array $catalogue): array {
+        $rows = [];
+        $add = function (array $course, array $subject) use (&$rows): void {
+            $rows[] = $course + ['subject' => $subject['name'], 'subjecttone' => $subject['tone']];
+        };
+        foreach ($catalogue['subjects'] ?? [] as $subject) {
+            $add($subject['courses'][0], $subject);
+        }
+        if (!empty($catalogue['subjects'])) {
+            foreach (array_slice($catalogue['subjects'][0]['courses'], 1) as $course) {
+                $add($course, $catalogue['subjects'][0]);
             }
         }
-        foreach ($items as $item) {
-            if (count($deck) < self::DECK_COURSES && !in_array($item, $deck, true)) {
-                $deck[] = $item;
-            }
+        $rows = array_slice($rows, 0, self::PREVIEW_COURSES);
+        foreach ($rows as $index => $row) {
+            $rows[$index]['highlight'] = $index === 1;
         }
-        return $deck;
+        return $rows;
     }
 
     /**
-     * Whether Moodle's own site home content lists every course for this user.
+     * The newest course still badged as new, announced above the hero headline.
      *
-     * @return bool
+     * @param array|null $catalogue
+     * @return array|null
      */
-    protected function core_lists_all_courses(): bool {
+    protected function pick_announcement(?array $catalogue): ?array {
+        $newest = null;
+        foreach ($catalogue['subjects'] ?? [] as $subject) {
+            foreach ($subject['courses'] as $course) {
+                if ($course['isnew'] && ($newest === null || $course['created'] > $newest['created'])) {
+                    $newest = $course;
+                }
+            }
+        }
+        return $newest ? ['name' => $newest['name'], 'url' => $newest['url']] : null;
+    }
+
+    /**
+     * The people teaching the catalogue's courses, shown as avatars in the hero;
+     * null with fewer than two, since one name is not a faculty.
+     *
+     * @param array|null $catalogue
+     * @return array|null
+     */
+    protected function export_teachers(?array $catalogue): ?array {
+        $teachers = [];
+        foreach ($catalogue['subjects'] ?? [] as $subject) {
+            foreach ($subject['courses'] as $course) {
+                if ($course['teacher']) {
+                    $teachers[$course['teacher']['name']] = $course['teacher'];
+                }
+            }
+        }
+        if (count($teachers) < 2) {
+            return null;
+        }
+        return [
+            'avatars' => array_slice(array_values($teachers), 0, self::TEACHER_AVATARS),
+            'label' => get_string('teacherscount', 'theme_roshnilite', count($teachers)),
+        ];
+    }
+
+    /**
+     * The items Moodle's own site home content shows to this user (Site home settings).
+     *
+     * @return string[]
+     */
+    protected function core_frontpage_items(): array {
         global $CFG;
         $items = isloggedin() && !isguestuser() ? ($CFG->frontpageloggedin ?? '') : ($CFG->frontpage ?? '');
-        return in_array(FRONTPAGEALLCOURSELIST, explode(',', (string) $items), true);
+        return array_values(array_diff(explode(',', (string) $items), ['', 'none']));
     }
 
     /**
@@ -155,6 +241,18 @@ class frontpage implements renderable, templatable {
      */
     protected function setting(string $name): string {
         return (string) ($this->theme->settings->{$name} ?? '');
+    }
+
+    /**
+     * A web address from a setting, or null when it is empty or a placeholder
+     * such as "#" or "javascript:void(0);" that leads nowhere.
+     *
+     * @param string $name
+     * @return string|null
+     */
+    protected function link_setting(string $name): ?string {
+        $url = trim($this->setting($name));
+        return preg_match('~^(https?:)?//~i', $url) ? $url : null;
     }
 
     /**
@@ -298,7 +396,7 @@ class frontpage implements renderable, templatable {
             1 => new url('/mod/forum/user.php', ['id' => $USER->id]),
             2 => new url('/course/index.php'),
             3 => new url('/blog/index.php', ['userid' => $USER->id]),
-            4 => new url('/calendar/view.php'),
+            4 => new url('/message/index.php'),
         ];
         $defaulttexts = [
             1 => 'aboutsitetext1default',
@@ -307,7 +405,7 @@ class frontpage implements renderable, templatable {
             4 => 'fraboutsitetextdescdefault',
         ];
 
-        $icons = [1 => 'fa-pen-nib', 2 => 'fa-graduation-cap', 3 => 'fa-newspaper', 4 => 'fa-calendar-days'];
+        $icons = [1 => 'fa-pen-nib', 2 => 'fa-graduation-cap', 3 => 'fa-newspaper', 4 => 'fa-comments'];
         $items = [];
         for ($i = 1; $i <= self::ABOUT_ITEMS; $i++) {
             $name = $this->setting('aboutsitename' . $i) ?: get_string('aboutsitename' . $i . 'default', 'theme_roshnilite');
@@ -333,16 +431,18 @@ class frontpage implements renderable, templatable {
     }
 
     /**
-     * The course grid. Only courses the current user can see are listed.
+     * The course catalogue: subjects with courses, each with its course cards.
      *
-     * @param renderer_base $output
-     * @return array|null
+     * Subjects are the course categories that hold visible courses, in category
+     * order; a site with courses in several subjects gets one tab per subject.
+     *
+     * @return array|null Null when there are no courses to show.
      */
-    protected function export_courses(renderer_base $output): ?array {
+    protected function export_catalogue(): ?array {
         $courses = core_course_category::top()->get_courses([
             'recursive' => true,
             'sort' => ['sortorder' => 1],
-            'limit' => self::MAX_COURSES,
+            'limit' => self::CATALOGUE_LIMIT,
             'summary' => true,
             'coursecontacts' => true,
         ]);
@@ -350,76 +450,44 @@ class frontpage implements renderable, templatable {
             return null;
         }
 
-        $items = [];
-        foreach (array_values($courses) as $index => $course) {
-            $context = \context_course::instance($course->id);
-            $name = format_string($course->fullname, true, ['context' => $context, 'escape' => false]);
-            $category = core_course_category::get($course->category, IGNORE_MISSING);
-            $summary = $course->has_summary() ? format_text(
-                file_rewrite_pluginfile_urls($course->summary, 'pluginfile.php', $context->id, 'course', 'summary', null),
-                $course->summaryformat,
-                ['context' => $context]
-            ) : '';
-            $contacts = $course->get_course_contacts();
-            $teacher = $contacts ? reset($contacts) : null;
-            $items[] = course_cover::export($course, $name) + [
-                'active' => $index === 0,
-                'category' => $category ? $category->get_formatted_name(['escape' => false]) : '',
-                'name' => $name,
-                'summary' => self::plain_text($summary, 120),
-                'teacher' => $teacher ? [
-                    'name' => $teacher['username'],
-                    'initials' => $this->initials($teacher['username']),
-                ] : null,
-                'url' => (new url('/course/view.php', ['id' => $course->id]))->out(false),
-            ];
+        $bysubject = [];
+        foreach ($courses as $course) {
+            $bysubject[$course->category][] = $course;
         }
+        $learners = $this->count_learners(array_keys($courses));
+        $access = $this->course_access(array_keys($courses));
 
-        return [
-            'items' => $items,
-            'allcoursesurl' => (new url('/course/index.php'))->out(false),
-        ];
-    }
-
-    /**
-     * The course category grid.
-     *
-     * @return array|null
-     */
-    protected function export_categories(): ?array {
-        $list = core_course_category::make_categories_list();
-        if (count($list) < 2) {
-            return null;
-        }
-
-        $items = [];
-        $index = 0;
-        foreach (array_keys($list) as $id) {
-            if (count($items) >= self::MAX_CATEGORIES) {
-                break;
+        $subjects = [];
+        foreach (array_keys(core_course_category::make_categories_list()) as $id) {
+            if (empty($bysubject[$id]) || count($subjects) >= self::MAX_SUBJECTS) {
+                continue;
             }
             $category = core_course_category::get($id, IGNORE_MISSING);
-            // Empty subjects are left out: "0 courses" only makes a catalogue look thin.
-            $count = $category ? $category->get_courses_count(['recursive' => true]) : 0;
-            if (!$count) {
+            if (!$category) {
                 continue;
+            }
+            $total = $category->get_courses_count();
+            $cards = [];
+            foreach (array_slice($bysubject[$id], 0, self::MAX_COURSES) as $course) {
+                $cards[] = $this->export_course_card($course, $learners[$course->id] ?? 0, $access[$course->id] ?? null);
             }
             $description = format_text(
                 $category->description ?? '',
                 $category->descriptionformat ?? FORMAT_HTML,
                 ['context' => $category->get_context()]
             );
-            $items[] = [
-                'tone' => course_cover::tone((int) $id),
-                'active' => $index++ === 0,
+            $subjects[] = [
+                'id' => (int) $id,
+                'active' => !$subjects,
                 'name' => $category->get_formatted_name(['escape' => false]),
-                'coursecount' => $this->course_count($count),
-                'description' => self::plain_text($description, 160),
+                'tone' => course_cover::tone((int) $id),
+                'description' => self::plain_text($description, 180),
+                'coursecount' => $this->course_count($total),
                 'url' => (new url('/course/index.php', ['categoryid' => $id]))->out(false),
+                'courses' => $cards,
             ];
         }
-
-        if (count($items) < 2) {
+        if (!$subjects) {
             return null;
         }
 
@@ -428,9 +496,233 @@ class frontpage implements renderable, templatable {
                 ?: get_string('masonryheadingdefault', 'theme_roshnilite')),
             'subheading' => $this->format_html($this->setting('masonrysubheading')
                 ?: get_string('masonrysubheadingdefault', 'theme_roshnilite')),
-            'items' => $items,
-            'allcategoriesurl' => (new url('/course/index.php'))->out(false),
+            'subjects' => $subjects,
+            'hastabs' => count($subjects) > 1,
+            'allcoursesurl' => (new url('/course/index.php'))->out(false),
         ];
+    }
+
+    /**
+     * A course card: cover, title, teacher, and the facts that are true for it.
+     *
+     * @param \core_course_list_element $course
+     * @param int $learners Number of learners enrolled.
+     * @param string|null $price How the course can be joined: a price, "Free", or null when unknown.
+     * @return array
+     */
+    protected function export_course_card(\core_course_list_element $course, int $learners, ?string $price): array {
+        $context = \context_course::instance($course->id);
+        $name = format_string($course->fullname, true, ['context' => $context, 'escape' => false]);
+        $summary = $course->has_summary() ? format_text(
+            file_rewrite_pluginfile_urls($course->summary, 'pluginfile.php', $context->id, 'course', 'summary', null),
+            $course->summaryformat,
+            ['context' => $context]
+        ) : '';
+        $contacts = $course->get_course_contacts();
+        $teacher = $contacts ? reset($contacts) : null;
+        return course_cover::export($course, $name) + [
+            'name' => $name,
+            'summary' => self::plain_text($summary, 160),
+            'teacher' => $teacher ? [
+                'name' => $teacher['username'],
+                'initials' => $this->initials($teacher['username']),
+            ] : null,
+            'learners' => $learners >= self::MIN_LEARNERS_SHOWN
+                ? get_string('learnerscount', 'theme_roshnilite', $learners) : null,
+            'price' => $price,
+            'isnew' => $course->timecreated > time() - self::NEW_DAYS * DAYSECS,
+            'created' => (int) $course->timecreated,
+            'url' => (new url('/course/view.php', ['id' => $course->id]))->out(false),
+        ];
+    }
+
+    /**
+     * Learners (users with a student role) per course, in one query.
+     *
+     * @param int[] $courseids
+     * @return int[] Count per course id.
+     */
+    protected function count_learners(array $courseids): array {
+        global $DB;
+        $roleids = array_keys(get_archetype_roles('student'));
+        if (!$courseids || !$roleids) {
+            return [];
+        }
+        [$coursesql, $courseparams] = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED, 'c');
+        [$rolesql, $roleparams] = $DB->get_in_or_equal($roleids, SQL_PARAMS_NAMED, 'r');
+        $sql = "SELECT ctx.instanceid, COUNT(DISTINCT ra.userid)
+                  FROM {role_assignments} ra
+                  JOIN {context} ctx ON ctx.id = ra.contextid AND ctx.contextlevel = :level
+                 WHERE ctx.instanceid $coursesql AND ra.roleid $rolesql
+              GROUP BY ctx.instanceid";
+        return array_map('intval', $DB->get_records_sql_menu($sql, ['level' => CONTEXT_COURSE] + $courseparams + $roleparams));
+    }
+
+    /**
+     * How each course can be joined, from its enrolment methods: the fee of a
+     * payment enrolment, or "Free" when learners can enrol themselves without
+     * a key. Courses joined any other way get no label.
+     *
+     * @param int[] $courseids
+     * @return string[] Label per course id.
+     */
+    protected function course_access(array $courseids): array {
+        global $DB;
+        $methods = array_values(array_filter(['fee', 'self'], 'enrol_is_enabled'));
+        if (!$courseids || !$methods) {
+            return [];
+        }
+        [$coursesql, $courseparams] = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED, 'c');
+        [$methodsql, $methodparams] = $DB->get_in_or_equal($methods, SQL_PARAMS_NAMED, 'm');
+        $instances = $DB->get_records_select(
+            'enrol',
+            "courseid $coursesql AND enrol $methodsql AND status = :enabled",
+            $courseparams + $methodparams + ['enabled' => ENROL_INSTANCE_ENABLED],
+            'enrol ASC, sortorder ASC'
+        );
+        $access = [];
+        foreach ($instances as $instance) {
+            if ($instance->enrol === 'fee' && (float) $instance->cost > 0) {
+                // A price wins over a free route only if there is no free route.
+                $access[$instance->courseid] ??= \core_payment\helper::get_cost_as_string(
+                    (float) $instance->cost,
+                    (string) $instance->currency
+                );
+            } else if ($instance->enrol === 'self' && !empty($instance->customint6) && (string) $instance->password === '') {
+                $access[$instance->courseid] = get_string('pricefree', 'theme_roshnilite');
+            }
+        }
+        return $access;
+    }
+
+    /**
+     * Whether a site home section's on/off setting is on (on unless switched off).
+     *
+     * @param string $name
+     * @return bool
+     */
+    protected function section_enabled(string $name): bool {
+        return ($this->theme->settings->{$name} ?? '1') !== '0';
+    }
+
+    /**
+     * "How it works": the numbered steps.
+     *
+     * @return array|null
+     */
+    protected function export_steps(): ?array {
+        if (!$this->section_enabled('showhowitworks')) {
+            return null;
+        }
+        $icons = [1 => 'fa-magnifying-glass', 2 => 'fa-laptop', 3 => 'fa-chart-line'];
+        $visuals = [1 => 'find', 2 => 'learn', 3 => 'track'];
+        $steps = [];
+        for ($i = 1; $i <= self::STEPS; $i++) {
+            $title = $this->setting('steptitle' . $i) ?: get_string('steptitle' . $i . 'default', 'theme_roshnilite');
+            $text = $this->setting('steptext' . $i) ?: get_string('steptext' . $i . 'default', 'theme_roshnilite');
+            $steps[] = [
+                'number' => $i,
+                'icon' => $icons[$i],
+                'visual' => [$visuals[$i] => true],
+                'title' => format_string($title, true, ['context' => $this->context, 'escape' => false]),
+                'text' => format_string($text, true, ['context' => $this->context, 'escape' => false]),
+            ];
+        }
+        return ['items' => $steps];
+    }
+
+    /**
+     * The next site events from the calendar; null when there are none.
+     *
+     * @return array|null
+     */
+    protected function export_events(): ?array {
+        global $DB;
+        if (!$this->section_enabled('showevents')) {
+            return null;
+        }
+        $events = $DB->get_records_select(
+            'event',
+            "eventtype = :type AND visible = 1 AND timestart >= :now",
+            ['type' => 'site', 'now' => time()],
+            'timestart ASC',
+            'id, name, timestart, timeduration, location',
+            0,
+            self::EVENTS
+        );
+        if (!$events) {
+            return null;
+        }
+        $items = [];
+        foreach ($events as $event) {
+            $items[] = [
+                'name' => format_string($event->name, true, ['context' => $this->context, 'escape' => false]),
+                'day' => userdate($event->timestart, '%d'),
+                'month' => userdate($event->timestart, '%b'),
+                'when' => userdate($event->timestart, get_string('strftimedaytime', 'langconfig')),
+                'location' => format_string((string) $event->location, true, ['context' => $this->context, 'escape' => false]),
+                'url' => (new url('/calendar/view.php', ['view' => 'day', 'time' => $event->timestart]))->out(false)
+                    . '#event_' . $event->id,
+            ];
+        }
+        return [
+            'items' => $items,
+            'calendarurl' => (new url('/calendar/view.php', ['view' => 'upcoming']))->out(false),
+        ];
+    }
+
+    /**
+     * Testimonials the admin has entered; null when there are none.
+     *
+     * @return array|null
+     */
+    protected function export_testimonials(): ?array {
+        $items = [];
+        for ($i = 1; $i <= self::TESTIMONIALS; $i++) {
+            $quote = trim($this->setting('testimonialquote' . $i));
+            if ($quote === '') {
+                continue;
+            }
+            $name = format_string($this->setting('testimonialname' . $i), true, ['context' => $this->context, 'escape' => false]);
+            $items[] = [
+                'quote' => format_string($quote, true, ['context' => $this->context, 'escape' => false]),
+                'name' => $name,
+                'initials' => $this->initials($name),
+                'role' => format_string(
+                    $this->setting('testimonialrole' . $i),
+                    true,
+                    ['context' => $this->context, 'escape' => false]
+                ),
+            ];
+        }
+        return $items ? ['items' => $items] : null;
+    }
+
+    /**
+     * Questions and answers; null when switched off or all empty.
+     *
+     * @return array|null
+     */
+    protected function export_faq(): ?array {
+        if (!$this->section_enabled('showfaq')) {
+            return null;
+        }
+        $items = [];
+        for ($i = 1; $i <= self::QUESTIONS; $i++) {
+            // An unset setting takes its default; one an admin cleared stays empty and is skipped.
+            $question = $this->theme->settings->{'faqquestion' . $i}
+                ?? get_string('faqquestion' . $i . 'default', 'theme_roshnilite');
+            $answer = $this->theme->settings->{'faqanswer' . $i}
+                ?? get_string('faqanswer' . $i . 'default', 'theme_roshnilite');
+            if (trim((string) $question) === '') {
+                continue;
+            }
+            $items[] = [
+                'question' => format_string($question, true, ['context' => $this->context, 'escape' => false]),
+                'answer' => $this->format_html((string) $answer),
+            ];
+        }
+        return $items ? ['items' => $items] : null;
     }
 
     /**
@@ -461,8 +753,8 @@ class frontpage implements renderable, templatable {
         for ($i = 1; $i <= $count; $i++) {
             $links = [];
             foreach ($networks as $setting => $network) {
-                $url = $this->setting($setting . $i);
-                if ($url === '') {
+                $url = $this->link_setting($setting . $i);
+                if ($url === null) {
                     continue;
                 }
                 $links[] = [
@@ -506,34 +798,37 @@ class frontpage implements renderable, templatable {
     }
 
     /**
-     * The contact details band.
+     * The contact details in the footer: only those the admin has filled in.
      *
-     * @return array
+     * @return array|null Null when none are set.
      */
-    protected function export_contact(): array {
+    protected function export_contact(): ?array {
         $items = [];
         $fields = [
-            'address' => '<i class="fa fa-map-marker" aria-hidden="true"></i>',
+            'address' => '<i class="fa fa-location-dot" aria-hidden="true"></i>',
             'email' => '<i class="fa fa-envelope" aria-hidden="true"></i>',
             'phone' => '<i class="fa fa-phone" aria-hidden="true"></i>',
         ];
         foreach ($fields as $field => $defaulticon) {
-            $value = $this->setting($field) ?: get_string($field . 'default', 'theme_roshnilite');
+            $value = $this->setting($field);
+            if (trim(strip_tags($value)) === '') {
+                continue;
+            }
             $icon = $this->setting($field . 'fontawesomeicon') ?: $defaulticon;
             $items[] = [
                 'icon' => $this->format_html($icon),
                 'text' => $this->format_html($value),
             ];
         }
-        return ['items' => $items];
+        return $items ? ['items' => $items] : null;
     }
 
     /**
-     * The "stay connected" social links band.
+     * The social links in the footer: only those with a real address.
      *
-     * @return array
+     * @return array|null Null when none are set.
      */
-    protected function export_social(): array {
+    protected function export_social(): ?array {
         $defaulticons = [
             1 => '<i class="fa fa-facebook" aria-hidden="true"></i>',
             2 => '<i class="fa fa-twitter" aria-hidden="true"></i>',
@@ -542,8 +837,12 @@ class frontpage implements renderable, templatable {
         ];
         $links = [];
         for ($i = 1; $i <= self::SOCIAL_LINKS; $i++) {
+            $url = $this->link_setting('socialicon' . $i);
+            if ($url === null) {
+                continue;
+            }
             $links[] = [
-                'url' => $this->setting('socialicon' . $i) ?: '#',
+                'url' => $url,
                 'icon' => $this->format_html($this->setting('socialfontawesomeicon' . $i) ?: $defaulticons[$i]),
                 'label' => get_string('socialiconlabel', 'theme_roshnilite', $i),
             ];
@@ -552,6 +851,39 @@ class frontpage implements renderable, templatable {
             'heading' => $this->format_html($this->setting('socialheading')
                 ?: get_string('socialheadingdefault', 'theme_roshnilite')),
             'links' => $links,
+        ];
+    }
+
+    /**
+     * The footer: the site's name and summary, quick links, and the contact
+     * details and social links that are set.
+     *
+     * @return array
+     */
+    protected function export_footer(): array {
+        global $SITE;
+        $summary = format_text($SITE->summary ?? '', $SITE->summaryformat ?? FORMAT_HTML, ['context' => $this->context]);
+        $links = [
+            ['url' => (new url('/course/index.php'))->out(false), 'text' => get_string('courses')],
+            [
+                'url' => (new url('/calendar/view.php', ['view' => 'upcoming']))->out(false),
+                'text' => get_string('calendar', 'calendar'),
+            ],
+        ];
+        if (isloggedin() && !isguestuser()) {
+            $links[] = ['url' => (new url('/my/'))->out(false), 'text' => get_string('myhome')];
+        } else {
+            $links[] = ['url' => get_login_url(), 'text' => get_string('login')];
+        }
+        $sitename = format_string($SITE->fullname, true, ['context' => $this->context, 'escape' => false]);
+        return [
+            'sitename' => $sitename,
+            'summary' => self::plain_text($summary, 160),
+            'links' => $links,
+            'copyright' => get_string('footercopyright', 'theme_roshnilite', [
+                'year' => userdate(time(), '%Y'),
+                'site' => $sitename,
+            ]),
         ];
     }
 }

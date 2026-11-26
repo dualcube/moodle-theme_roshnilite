@@ -85,7 +85,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function full_header() {
         global $USER;
         $header = parent::full_header();
-        if ($this->page->pagelayout !== 'mydashboard' || !isloggedin() || isguestuser()) {
+        // Only the Dashboard itself: other pages (Messages, for one) share its layout.
+        if ($this->page->pagetype !== 'my-index' || !isloggedin() || isguestuser()) {
             return $header;
         }
         $dashboard = new dashboard($USER);

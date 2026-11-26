@@ -2,14 +2,14 @@
 <libraries>
   <library>
     <location>fonts</location>
-    <name>Fraunces</name>
-    <description>Variable display typeface used for headings.</description>
+    <name>Figtree</name>
+    <description>Variable sans-serif typeface used on the site home, Dashboard and login page.</description>
     <version>5.3.0</version>
     <license>OFL</license>
     <licenseversion>1.1</licenseversion>
-    <repository>https://github.com/undercasetype/Fraunces</repository>
+    <repository>https://github.com/erikdkennedy/figtree</repository>
     <copyrights>
-      <copyright>2020 The Fraunces Project Authors</copyright>
+      <copyright>2022 The Figtree Project Authors</copyright>
     </copyrights>
   </library>
 </libraries>

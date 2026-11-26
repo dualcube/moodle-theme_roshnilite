@@ -39,4 +39,6 @@ if ($ADMIN->fulltree) {
     include(__DIR__ . '/settings/font.php');
     // Faculty settings.
     include(__DIR__ . '/settings/faculty.php');
+    // Site home sections: how it works, events, testimonials and questions.
+    include(__DIR__ . '/settings/sections.php');
 }

@@ -17,37 +17,42 @@
 {{!
     @template theme_roshnilite/frontpage/about
 
-    "About the site" feature cards.
+    What the site offers: the heading and a way in on a tinted panel, beside
+    the four feature cards.
 
     Example context (json):
     {
-        "heading": "Nobody does it like us",
+        "heading": "Everything you need",
         "subheading": "Learn something new",
         "items": [
             {"name": "Forum", "text": "Discuss", "url": "#", "image": "http://example.com/1.png", "icon": "fa-pen-nib"},
             {"name": "Courses", "text": "Browse", "url": "#", "image": null, "icon": "fa-graduation-cap"}
-        ]
+        ],
+        "coursesurl": "#"
     }
 }}
 <section class="rl-section rl-features describe-usp">
     <div class="rl-container">
-        <header class="rl-section__header rl-section__header--center">
-            <p class="rl-eyebrow">{{#str}}eyebrowabout, theme_roshnilite{{/str}}</p>
-            <div class="rl-section__title">{{{heading}}}</div>
-            <div class="rl-section__lead">{{{subheading}}}</div>
-        </header>
-        <div class="rl-bento">
-            {{#items}}
-                <a class="rl-card rl-feature" href="{{url}}">
-                    <span class="rl-feature__icon">
-                        {{#image}}<img src="{{image}}" alt="" loading="lazy">{{/image}}
-                        {{^image}}<i class="fa {{icon}}" aria-hidden="true"></i>{{/image}}
-                    </span>
-                    <span class="rl-feature__title">{{name}}</span>
-                    <span class="rl-feature__text">{{{text}}}</span>
-                    <span class="rl-feature__go" aria-hidden="true"><i class="fa fa-arrow-right"></i></span>
-                </a>
-            {{/items}}
+        <div class="rl-showcase">
+            <div class="rl-showcase__intro rl-contours">
+                <div class="rl-head__title">{{{heading}}}</div>
+                <div class="rl-head__lead">{{{subheading}}}</div>
+                {{#cta}}
+                    <a class="btn rl-btn rl-btn--primary" href="{{coursesurl}}">{{#str}}herocta, theme_roshnilite{{/str}} <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                {{/cta}}
+            </div>
+            <div class="rl-values">
+                {{#items}}
+                    <a class="rl-feature" href="{{url}}">
+                        <span class="rl-feature__icon">
+                            {{#image}}<img src="{{image}}" alt="" loading="lazy">{{/image}}
+                            {{^image}}<i class="fa {{icon}}" aria-hidden="true"></i>{{/image}}
+                        </span>
+                        <span class="rl-feature__title">{{name}}</span>
+                        <span class="rl-feature__text">{{{text}}}</span>
+                    </a>
+                {{/items}}
+            </div>
         </div>
     </div>
 </section>

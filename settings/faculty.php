@@ -76,7 +76,7 @@ for ($facultycounts = 1; $facultycounts <= get_config('theme_roshnilite', 'facul
     $name = 'theme_roshnilite/facultyfburl' . $facultycounts;
     $title = get_string('facultyfburl', 'theme_roshnilite') . $facultycounts;
     $description = get_string('facultyfburldesc', 'theme_roshnilite') . $facultycounts;
-    $default = get_string('sliderurldefault', 'theme_roshnilite');
+    $default = '';
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -84,7 +84,7 @@ for ($facultycounts = 1; $facultycounts <= get_config('theme_roshnilite', 'facul
     $name = 'theme_roshnilite/facultylnkdnurl' . $facultycounts;
     $title = get_string('facultylnkdnurl', 'theme_roshnilite') . $facultycounts;
     $description = get_string('facultylnkdnurldesc', 'theme_roshnilite') . $facultycounts;
-    $default = get_string('sliderurldefault', 'theme_roshnilite');
+    $default = '';
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -92,7 +92,7 @@ for ($facultycounts = 1; $facultycounts <= get_config('theme_roshnilite', 'facul
     $name = 'theme_roshnilite/facultygoogleurl' . $facultycounts;
     $title = get_string('facultygoogleurl', 'theme_roshnilite') . $facultycounts;
     $description = get_string('facultygoogleurldesc', 'theme_roshnilite') . $facultycounts;
-    $default = get_string('sliderurldefault', 'theme_roshnilite');
+    $default = '';
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -100,7 +100,7 @@ for ($facultycounts = 1; $facultycounts <= get_config('theme_roshnilite', 'facul
     $name = 'theme_roshnilite/facultytwitterurl' . $facultycounts;
     $title = get_string('facultytwitterurl', 'theme_roshnilite') . $facultycounts;
     $description = get_string('facultytwitterurldesc', 'theme_roshnilite') . $facultycounts;
-    $default = get_string('sliderurldefault', 'theme_roshnilite');
+    $default = '';
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);

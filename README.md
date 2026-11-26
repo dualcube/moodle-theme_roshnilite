@@ -53,25 +53,39 @@ To install manually, place all downloaded files in `/theme/roshnilite` and visit
 
 ## Design
 
-Roshni means *light*, and the design is built around it: a warm paper canvas,
-a sunrise accent next to your brand colour, and a soft serif display face
-(Fraunces, bundled in `fonts/` under the SIL Open Font License, so no font is
-loaded from a third-party server). Set a heading font name in the theme's font
-settings to replace it.
+A clean product look: white surfaces, one geometric sans-serif (Figtree,
+bundled in `fonts/` under the SIL Open Font License, so no font is loaded from
+a third-party server), one accent from your brand colour, thin borders and soft
+shadows. The site's own content takes the place of decoration. Set a heading
+font name in the theme's font settings to replace Figtree in headings.
 
-- **Site home**: a course search; the site's own courses fanned out as the
-  hero visual (an image uploaded for the slide takes its place); subject tiles;
-  a grid of features; faculty; a call to action; and Moodle's own course list
-  styled as a numbered index. When that list is shown, the theme's course grid
-  steps aside so courses are not listed twice. Put the highlighted phrase of a
-  slide headline in `<em>` to give it the accent colour and brush underline.
-- **Honest by default**: headline numbers appear only once they are big enough
-  to be worth showing, and subjects without courses are left out.
-- **Course covers**: a course without an uploaded image gets a typographic
-  cover - its monogram on a gradient in its subject's colour.
-- **Dashboard**: a greeting under a sky that follows the learner's time of day,
-  their numbers, the course to jump back into and shortcuts, above the
-  standard blocks (which keep the full course list and the deadlines).
+- **Site home**, top to bottom: the hero, with an announcement of the newest
+  course, the slide headline, a course search and the people who teach here,
+  beside a preview of the site's courses as a list with the next site event
+  (an image uploaded for the slide takes their place); the course catalogue,
+  one tab per subject, with course cards that show the teacher, learner count,
+  price or "Free" and a "New" badge, and a summary on hover; what the site
+  offers; how it works; upcoming site events; faculty; what learners say; the
+  site's numbers; questions and answers; a call to action; and a footer with
+  quick links and the contact details that are set. Moodle's own full course
+  list and course search give way to the catalogue and hero search, so nothing
+  is listed twice. In a slide headline, words in `<em>` or `<strong>` are set
+  bold against the light headline, and a heading before the `<h1>` becomes
+  its kicker. Sections are set under *Site home sections* in the theme
+  settings.
+- **Honest by default**: headline numbers and learner counts appear only once
+  they are big enough to be worth showing, subjects without courses are left
+  out, prices come from the courses' enrolment methods, events from the site
+  calendar, testimonials only once an admin enters real ones, and contact
+  details and social links only once they are set.
+- **Course covers**: a course without an uploaded image gets a drawn cover - a
+  pattern in its subject's colour, varied by course, with its monogram.
+- **Course listings**: All courses, each category and course search show
+  Moodle's own lists as the same cards.
+- **Dashboard**: a greeting for the time of day, the learner's numbers, the
+  course to jump back into and shortcuts, above the standard blocks (which
+  keep the full course list and the deadlines).
+- **Login**: on Moodle 5.3, a welcome on a tinted panel beside the form.
 
 ## Setting panel
 

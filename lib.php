@@ -247,7 +247,7 @@ function theme_roshnilite_set_brandcolor($css, $themecolor) {
 function theme_roshnilite_get_font_css($theme) {
     $fallback = 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
     // The body font applies to body text; the heading font replaces the theme's
-    // display face (Fraunces) wherever the design uses it.
+    // display face (Figtree) wherever the design uses it.
     $selectors = [
         'body' => 'body',
         'heading' => ':root',

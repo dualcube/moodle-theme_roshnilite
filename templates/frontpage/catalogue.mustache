@@ -1,0 +1,80 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/frontpage/catalogue
+
+    The course catalogue: one tab per subject, each with its course cards.
+    A site with a single subject gets its cards without tabs. Tab data
+    attributes are given in Bootstrap 4 (Moodle 4.5) and 5 (Moodle 5.x) form.
+
+    Example context (json):
+    {
+        "heading": "Find your next course",
+        "subheading": "Pick a subject to see what you can learn.",
+        "hastabs": true,
+        "allcoursesurl": "#",
+        "subjects": [
+            {"id": 1, "active": true, "name": "Science", "tone": "sky", "description": "Physics and more.",
+             "coursecount": "2 courses", "url": "#", "courses": [
+                {"name": "Astronomy", "url": "#", "image": null, "tone": "sky", "monogram": "A",
+                 "summary": "The night sky.", "teacher": {"name": "Mei Chen", "initials": "MC"},
+                 "learners": "120 learners", "price": "Free", "isnew": true}
+            ]},
+            {"id": 2, "active": false, "name": "History", "tone": "amber", "description": "",
+             "coursecount": "1 course", "url": "#", "courses": []}
+        ]
+    }
+}}
+<section class="rl-section rl-catalogue course-section" aria-labelledby="rl-catalogue-heading">
+    <div class="rl-container">
+        <header class="rl-head">
+            <div class="rl-head__title" id="rl-catalogue-heading">{{{heading}}}</div>
+            <div class="rl-head__lead">{{{subheading}}}</div>
+        </header>
+
+        {{#hastabs}}
+            <div class="rl-tabs-wrap">
+                <div class="rl-tabs nav" role="tablist">
+                    {{#subjects}}
+                        <button type="button" class="rl-tab {{#active}}active{{/active}}" role="tab"
+                            id="rl-subject-tab-{{id}}" aria-controls="rl-subject-{{id}}"
+                            aria-selected="{{#active}}true{{/active}}{{^active}}false{{/active}}"
+                            data-toggle="tab" data-bs-toggle="tab" data-target="#rl-subject-{{id}}" data-bs-target="#rl-subject-{{id}}"
+                            {{^active}}tabindex="-1"{{/active}}>{{name}}</button>
+                    {{/subjects}}
+                </div>
+            </div>
+        {{/hastabs}}
+
+        <div class="tab-content">
+            {{#subjects}}
+                <div class="tab-pane fade {{#active}}show active{{/active}}" id="rl-subject-{{id}}"
+                    {{#hastabs}}role="tabpanel" aria-labelledby="rl-subject-tab-{{id}}"{{/hastabs}}>
+                    <div class="rl-grid rl-grid--cards rl-grid--swipe">
+                        {{#courses}}
+                            {{> theme_roshnilite/frontpage/course_card }}
+                        {{/courses}}
+                    </div>
+                    <div class="rl-subject">
+                        {{#description}}<p class="rl-subject__text">{{description}}</p>{{/description}}
+                        <a class="btn rl-btn rl-btn--outline" href="{{url}}">{{#str}}subjectviewall, theme_roshnilite, {{coursecount}}{{/str}} <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            {{/subjects}}
+        </div>
+    </div>
+</section>

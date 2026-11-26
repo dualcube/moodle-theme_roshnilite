@@ -17,15 +17,16 @@
 {{!
     @template theme_roshnilite/course_cover
 
-    A course's cover: its uploaded image, or a typographic cover - the course
-    monogram on a gradient in its subject's colour.
+    A course's cover: its uploaded image, or a pattern in its subject's colour
+    with the course monogram as a small badge.
 
     Example context (json):
     {
         "image": null,
         "tone": "sky",
+        "pattern": "rings",
         "monogram": "WH"
     }
 }}
 {{#image}}<img class="rl-cover__img" src="{{image}}" alt="" loading="lazy">{{/image}}
-{{^image}}<span class="rl-cover rl-tone--{{tone}}" aria-hidden="true"><span class="rl-cover__mono">{{monogram}}</span></span>{{/image}}
+{{^image}}<span class="rl-cover rl-tone--{{tone}} rl-cover--{{pattern}}" aria-hidden="true"><span class="rl-cover__mono">{{monogram}}</span></span>{{/image}}

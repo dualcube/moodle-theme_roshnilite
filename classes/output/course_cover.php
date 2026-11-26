@@ -22,8 +22,9 @@ use core_course\external\course_summary_exporter;
  * The cover shown for a course on the site home and the Dashboard.
  *
  * A course image uploaded by the teacher is used as it is. Without one, the
- * theme draws a typographic cover: the course's monogram on a gradient in its
- * subject's colour, so a catalogue of new courses still looks intentional.
+ * theme draws a cover: a geometric pattern in its subject's colour, varied by
+ * course, with the course's monogram as a small badge, so a catalogue of new
+ * courses still looks intentional.
  *
  * @package    theme_roshnilite
  * @copyright  DualCube (https://dualcube.com)
@@ -32,6 +33,9 @@ use core_course\external\course_summary_exporter;
 class course_cover {
     /** @var string[] Colour tones, picked per subject so a subject keeps its colour everywhere. */
     const TONES = ['primary', 'amber', 'emerald', 'sky', 'violet', 'pink'];
+
+    /** @var string[] Cover patterns, picked per course so courses in a subject differ. */
+    const PATTERNS = ['rings', 'grid', 'arcs', 'stripes', 'dots'];
 
     /**
      * The colour tone of a course category.
@@ -68,13 +72,14 @@ class course_cover {
      *
      * @param \stdClass|\core_course_list_element $course
      * @param string $name The course's formatted full name.
-     * @return array image (URL or null), tone and monogram.
+     * @return array image (URL or null), tone, pattern and monogram.
      */
     public static function export($course, string $name): array {
         $image = course_summary_exporter::get_course_image($course);
         return [
             'image' => $image ?: null,
             'tone' => self::tone((int) $course->category),
+            'pattern' => self::PATTERNS[(int) $course->id % count(self::PATTERNS)],
             'monogram' => self::monogram($name),
         ];
     }

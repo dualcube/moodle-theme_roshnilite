@@ -1,0 +1,79 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/frontpage/steps
+
+    "How it works": three step cards, each with a small picture of that part
+    of the site above its text. The pictures are drawn in HTML and CSS and
+    hidden from assistive technology; the course names in the first are the
+    site's own.
+
+    Example context (json):
+    {
+        "items": [
+            {"number": 1, "icon": "fa-magnifying-glass", "title": "Find a course", "text": "Search the catalogue.",
+             "visual": {"find": true} },
+            {"number": 2, "icon": "fa-laptop", "title": "Learn", "text": "At your own pace.", "visual": {"learn": true} },
+            {"number": 3, "icon": "fa-chart-line", "title": "Track", "text": "See your progress.", "visual": {"track": true} }
+        ],
+        "preview": {"courses": [{"name": "Astronomy", "subject": "Science", "subjecttone": "sky"}]}
+    }
+}}
+<section class="rl-section rl-steps-section" aria-labelledby="rl-steps-heading">
+    <div class="rl-container">
+        <header class="rl-head">
+            <h2 class="rl-head__title" id="rl-steps-heading">{{#str}}howitworksheading, theme_roshnilite{{/str}}</h2>
+            <p class="rl-head__lead">{{#str}}howitworkslead, theme_roshnilite{{/str}}</p>
+        </header>
+        <ol class="rl-steps">
+            {{#items}}
+                <li class="rl-step">
+                    <div class="rl-step__art" aria-hidden="true">
+                        {{#visual.find}}
+                            <div class="rl-ui rl-art-find">
+                                <span class="rl-art-find__search"><i class="fa fa-magnifying-glass"></i><span class="rl-art-caret"></span></span>
+                                {{#preview.courses}}
+                                    <span class="rl-art-find__row"><span class="rl-art-find__name">{{name}}</span><span class="rl-chip rl-tone--{{subjecttone}}">{{subject}}</span></span>
+                                {{/preview.courses}}
+                            </div>
+                        {{/visual.find}}
+                        {{#visual.learn}}
+                            <div class="rl-ui rl-art-learn">
+                                <span class="rl-art-learn__row rl-art-learn__row--done"><i class="fa fa-check"></i><span class="rl-art-bar" style="--w: 70%"></span></span>
+                                <span class="rl-art-learn__row rl-art-learn__row--done"><i class="fa fa-check"></i><span class="rl-art-bar" style="--w: 55%"></span></span>
+                                <span class="rl-art-learn__row rl-art-learn__row--now"><i class="fa fa-play"></i><span class="rl-art-bar" style="--w: 80%"></span></span>
+                                <span class="rl-art-learn__row"><i class="fa fa-lock"></i><span class="rl-art-bar" style="--w: 45%"></span></span>
+                            </div>
+                        {{/visual.learn}}
+                        {{#visual.track}}
+                            <div class="rl-ui rl-art-track">
+                                <span class="rl-art-track__ring"><i class="fa fa-check"></i></span>
+                                <span class="rl-art-track__bars">
+                                    <span style="--h: 40%"></span><span style="--h: 65%"></span><span style="--h: 50%"></span>
+                                    <span style="--h: 85%"></span><span style="--h: 70%"></span><span style="--h: 95%"></span>
+                                </span>
+                            </div>
+                        {{/visual.track}}
+                    </div>
+                    <span class="rl-step__badge">{{#str}}stepbadge, theme_roshnilite, {{number}}{{/str}}</span>
+                    <h3 class="rl-step__title">{{title}}</h3>
+                    <p class="rl-step__text">{{text}}</p>
+                </li>
+            {{/items}}
+        </ol>
+    </div>
+</section>

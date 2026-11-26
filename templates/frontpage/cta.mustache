@@ -17,7 +17,7 @@
 {{!
     @template theme_roshnilite/frontpage/cta
 
-    Closing call to action before the contact band.
+    Closing call to action: a soft panel with contour lines.
 
     Example context (json):
     {
@@ -27,15 +27,15 @@
 }}
 <section class="rl-section rl-cta-section">
     <div class="rl-container">
-        <div class="rl-cta">
+        <div class="rl-cta rl-contours">
             <div class="rl-cta__copy">
                 <h2 class="rl-cta__title">{{#str}}ctatitle, theme_roshnilite{{/str}}</h2>
                 <p class="rl-cta__text">{{#str}}ctatext, theme_roshnilite{{/str}}</p>
             </div>
             <div class="rl-cta__actions">
-                <a class="btn btn-lg rl-btn rl-btn--light" href="{{coursesurl}}">{{#str}}herocta, theme_roshnilite{{/str}}</a>
+                <a class="btn rl-btn rl-btn--primary" href="{{coursesurl}}">{{#str}}herocta, theme_roshnilite{{/str}} <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                 {{#signupurl}}
-                    <a class="btn btn-lg rl-btn rl-btn--outline-light" href="{{signupurl}}">{{#str}}createaccount{{/str}}</a>
+                    <a class="btn rl-btn rl-btn--outline" href="{{signupurl}}">{{#str}}createaccount{{/str}}</a>
                 {{/signupurl}}
             </div>
         </div>

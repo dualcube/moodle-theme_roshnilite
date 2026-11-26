@@ -17,28 +17,20 @@
 {{!
     @template theme_roshnilite/frontpage/hero
 
-    The site home hero: the slide text, a course search, and the visual (the
-    slide image, or the site's courses as a deck). Each configured slide keeps
-    its own text and image; with none, the site name and summary are shown.
-    Carousel data attributes are given in Bootstrap 4 (Moodle 4.5) and 5
-    (Moodle 5.x) form.
+    The site home hero: an announcement of the newest course, the slide text
+    (or the site name and summary), a course search and who teaches here, next
+    to a preview of the site's courses (or the slide image). Carousel data
+    attributes are given in Bootstrap 4 (Moodle 4.5) and 5 (Moodle 5.x) form.
 
     Example context (json):
     {
         "hero": {"title": "Mount Orange School", "summary": "Learn anything.", "coursesurl": "#",
                  "image": null, "defaultimage": "http://example.com/hero.jpg"},
-        "slider": {
-            "slides": [
-                {"index": 0, "number": 1, "active": true, "image": "http://example.com/1.jpg",
-                 "text": "<h1>Welcome</h1>", "buttontext": "Start", "url": "#"},
-                {"index": 1, "number": 2, "active": false, "image": "http://example.com/2.jpg",
-                 "text": "<h1>Learn</h1>", "buttontext": null, "url": ""}
-            ],
-            "multiple": true
-        },
+        "slider": null,
         "search": {"action": "#"},
-        "featured": {"name": "Biology", "category": "Science", "url": "#", "image": "http://example.com/b.jpg"},
-        "stats": [{"value": 12, "label": "Courses"}, {"value": 4, "label": "Categories"}]
+        "announcement": {"name": "Astronomy", "url": "#"},
+        "teachers": {"label": "Learn from 3 teachers", "avatars": [{"name": "Mei Chen", "initials": "MC"}]},
+        "preview": null
     }
 }}
 <section class="rl-hero">
@@ -50,11 +42,13 @@
                     <div class="carousel-item {{#active}}active{{/active}}">
                         <div class="rl-container rl-hero__grid">
                             <div class="rl-hero__copy">
+                                {{> theme_roshnilite/frontpage/hero_announcement }}
                                 {{{text}}}
                                 {{> theme_roshnilite/frontpage/hero_search }}
                                 {{#buttontext}}
                                     <a href="{{url}}" class="rl-link-arrow rl-hero__more">{{buttontext}}</a>
                                 {{/buttontext}}
+                                {{> theme_roshnilite/frontpage/hero_proof }}
                             </div>
                             {{> theme_roshnilite/frontpage/hero_visual }}
                         </div>
@@ -77,25 +71,14 @@
         {{#hero}}
             <div class="rl-container rl-hero__grid">
                 <div class="rl-hero__copy">
+                    {{> theme_roshnilite/frontpage/hero_announcement }}
                     <h1>{{title}}</h1>
                     {{#summary}}<p>{{summary}}</p>{{/summary}}
                     {{> theme_roshnilite/frontpage/hero_search }}
+                    {{> theme_roshnilite/frontpage/hero_proof }}
                 </div>
                 {{> theme_roshnilite/frontpage/hero_visual }}
             </div>
         {{/hero}}
     {{/slider}}
-
-    {{#stats.0}}
-        <div class="rl-container">
-            <ul class="rl-hero__stats">
-                {{#stats}}
-                    <li>
-                        <strong class="rl-count" style="--rl-to: {{value}}"><span class="rl-count__value">{{value}}</span></strong>
-                        <span>{{label}}</span>
-                    </li>
-                {{/stats}}
-            </ul>
-        </div>
-    {{/stats.0}}
 </section>

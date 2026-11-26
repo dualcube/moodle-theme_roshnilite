@@ -18,7 +18,7 @@
     @template core/login_panel
 
     Roshni Lite's left panel for the split-screen login layout (Moodle 5.3+):
-    the site name and a welcome under a rising sun, in place of the default
+    a welcome on a tinted panel, in place of the default
     Moodle welcome copy and statistics. Custom authentication instructions,
     when the site has them, replace the welcome as they do in core.
 
@@ -30,7 +30,6 @@
 }}
 <div class="login-layout-left-content rl-loginpanel">
     {{^leftinstructions}}
-        <p class="rl-eyebrow">{{sitename}}</p>
         <h2 class="rl-loginpanel__title">{{#str}}loginpaneltitle, theme_roshnilite{{/str}}</h2>
         <p class="rl-loginpanel__text">{{#str}}loginpaneltext, theme_roshnilite{{/str}}</p>
     {{/leftinstructions}}
@@ -38,4 +37,3 @@
         <div class="rl-loginpanel__custom">{{{leftinstructions}}}</div>
     {{/leftinstructions}}
 </div>
-<span class="rl-loginpanel__sun" aria-hidden="true"></span>

@@ -17,8 +17,8 @@
 {{!
     @template theme_roshnilite/dashboard
 
-    The personal header above the Dashboard blocks: a greeting under a sky
-    that follows the time of day, the learner's numbers, the course to jump
+    The personal header above the Dashboard blocks: a greeting for the time
+    of day, the learner's numbers, the course to jump
     back into and shortcuts. The full course list and the deadlines are left
     to the Course overview and Timeline blocks below, so nothing is repeated.
 
@@ -43,7 +43,6 @@
 }}
 <section class="rl-dash" aria-label="{{#str}}dashboardoverview, theme_roshnilite{{/str}}">
     <div class="rl-dash__sky rl-dash__sky--{{daypart}}">
-        <span class="rl-dash__orb" aria-hidden="true"></span>
         <div class="rl-dash__top">
             <img class="rl-dash__avatar" src="{{avatar}}" alt="">
             <div class="rl-dash__hello">

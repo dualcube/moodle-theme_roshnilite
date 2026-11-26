@@ -45,6 +45,7 @@
             },
             "hero": {"title": "Mount Orange School", "summary": "Learn anything.", "coursesurl": "#", "image": "http://example.com/hero.png"},
             "contact": {"items": [{"icon": "", "text": "Address"}]},
+            "footer": {"sitename": "Moodle", "summary": "", "links": []},
             "social": {"heading": "Stay connected", "links": [{"url": "#", "icon": "", "label": "Social link 1"}]},
             "showmaincontent": false
         }
@@ -65,27 +66,39 @@
             {{> theme_roshnilite/frontpage/hero }}
 
             <main class="rl-main">
-                {{#courses}}
-                    {{> theme_roshnilite/frontpage/courses }}
-                {{/courses}}
-
-                {{#categories}}
-                    {{> theme_roshnilite/frontpage/categories }}
-                {{/categories}}
+                {{#catalogue}}
+                    {{> theme_roshnilite/frontpage/catalogue }}
+                {{/catalogue}}
 
                 {{#about}}
                     {{> theme_roshnilite/frontpage/about }}
                 {{/about}}
 
+                {{#steps}}
+                    {{> theme_roshnilite/frontpage/steps }}
+                {{/steps}}
+
+                {{#events}}
+                    {{> theme_roshnilite/frontpage/events }}
+                {{/events}}
+
                 {{#faculty}}
                     {{> theme_roshnilite/frontpage/faculty }}
                 {{/faculty}}
+
+                {{#testimonials}}
+                    {{> theme_roshnilite/frontpage/testimonials }}
+                {{/testimonials}}
+
+                {{#faq}}
+                    {{> theme_roshnilite/frontpage/faq }}
+                {{/faq}}
 
                 {{#cta}}
                     {{> theme_roshnilite/frontpage/cta }}
                 {{/cta}}
 
-                <div id="topofscroll" class="main-inner rl-section rl-sitecontent {{^showmaincontent}}d-none{{/showmaincontent}}">
+                <div id="topofscroll" class="main-inner rl-section rl-sitecontent {{#hidecorecourselist}}rl-sitecontent--catalogued{{/hidecorecourselist}} {{^showmaincontent}}d-none{{/showmaincontent}}">
                     <div id="page-content" class="rl-container">
                         <div id="region-main-box">
                             <section id="region-main" aria-label="{{#str}}content{{/str}}">

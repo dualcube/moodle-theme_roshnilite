@@ -17,10 +17,13 @@
 {{!
     @template theme_roshnilite/frontpage/contact
 
-    Contact details and social links band above the page footer.
+    The site home footer: the site's name and summary, quick links, and the
+    contact details and social links the admin has set (none are invented).
 
     Example context (json):
     {
+        "footer": {"sitename": "Mount Orange", "summary": "Learn anything.", "copyright": "© 2026 Mount Orange",
+                   "links": [{"url": "#", "text": "Courses"}]},
         "contact": {"items": [{"icon": "<i class=\"fa fa-phone\"></i>", "text": "+1 555 0100"}]},
         "social": {
             "heading": "Stay connected",
@@ -28,33 +31,51 @@
         }
     }
 }}
-<section class="rl-band stay-connected" aria-labelledby="rl-contact-heading">
-    <div class="rl-container rl-band__inner">
-        <div class="rl-band__intro">
-            <h2 id="rl-contact-heading" class="rl-band__title">{{#str}}contactheading, theme_roshnilite{{/str}}</h2>
-            {{#social}}
-                <div class="rl-band__lead">{{{heading}}}</div>
-                <ul class="rl-socials">
-                    {{#links}}
+<section class="rl-foot stay-connected" aria-labelledby="rl-contact-heading">
+    <div class="rl-container rl-foot__inner">
+        <div class="rl-foot__brand">
+            {{#footer}}
+                <h2 id="rl-contact-heading" class="rl-foot__name">{{sitename}}</h2>
+                {{#summary}}<p class="rl-foot__summary">{{summary}}</p>{{/summary}}
+            {{/footer}}
+            {{#social.links.0}}
+                <ul class="rl-socials" aria-label="{{#str}}footerfollow, theme_roshnilite{{/str}}">
+                    {{#social.links}}
                         <li>
                             <a href="{{url}}">
                                 {{{icon}}}
                                 <span class="sr-only visually-hidden">{{label}}</span>
                             </a>
                         </li>
-                    {{/links}}
+                    {{/social.links}}
                 </ul>
-            {{/social}}
+            {{/social.links.0}}
         </div>
+        {{#footer}}
+            <nav class="rl-foot__col" aria-label="{{#str}}footerexplore, theme_roshnilite{{/str}}">
+                <p class="rl-foot__heading">{{#str}}footerexplore, theme_roshnilite{{/str}}</p>
+                <ul class="rl-foot__links">
+                    {{#links}}<li><a href="{{url}}">{{text}}</a></li>{{/links}}
+                </ul>
+            </nav>
+        {{/footer}}
         {{#contact}}
-            <ul class="rl-contact">
-                {{#items}}
-                    <li class="rl-contact__item">
-                        <span class="rl-contact__icon">{{{icon}}}</span>
-                        <span class="rl-contact__text">{{{text}}}</span>
-                    </li>
-                {{/items}}
-            </ul>
+            <div class="rl-foot__col">
+                <p class="rl-foot__heading">{{#str}}footercontact, theme_roshnilite{{/str}}</p>
+                <ul class="rl-contact">
+                    {{#items}}
+                        <li class="rl-contact__item">
+                            <span class="rl-contact__icon">{{{icon}}}</span>
+                            <span class="rl-contact__text">{{{text}}}</span>
+                        </li>
+                    {{/items}}
+                </ul>
+            </div>
         {{/contact}}
     </div>
+    {{#footer}}
+        <div class="rl-container">
+            <div class="rl-foot__bottom"><p>{{copyright}}</p></div>
+        </div>
+    {{/footer}}
 </section>
