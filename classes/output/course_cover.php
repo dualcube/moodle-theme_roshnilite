@@ -32,10 +32,10 @@ use core_course\external\course_summary_exporter;
  */
 class course_cover {
     /** @var string[] Colour tones, picked per subject so a subject keeps its colour everywhere. */
-    const TONES = ['primary', 'amber', 'emerald', 'sky', 'violet', 'pink'];
+    public const TONES = ['primary', 'amber', 'emerald', 'sky', 'violet', 'pink'];
 
     /** @var string[] Cover patterns, picked per course so courses in a subject differ. */
-    const PATTERNS = ['rings', 'grid', 'arcs', 'stripes', 'dots'];
+    public const PATTERNS = ['rings', 'grid', 'arcs', 'stripes', 'dots'];
 
     /**
      * The colour tone of a course category.

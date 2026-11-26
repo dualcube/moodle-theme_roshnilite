@@ -31,49 +31,49 @@ use core_course_category;
  */
 class frontpage implements renderable, templatable {
     /** @var int Most courses shown for each subject in the catalogue. */
-    const MAX_COURSES = 8;
+    private const MAX_COURSES = 8;
 
     /** @var int Most subjects offered as catalogue tabs. */
-    const MAX_SUBJECTS = 6;
+    private const MAX_SUBJECTS = 6;
 
     /** @var int Courses read for the catalogue, across all subjects. */
-    const CATALOGUE_LIMIT = 60;
+    private const CATALOGUE_LIMIT = 60;
 
     /** @var int A course's learner count is shown from this number up. */
-    const MIN_LEARNERS_SHOWN = 10;
+    public const MIN_LEARNERS_SHOWN = 10;
 
     /** @var int Days for which a course is badged as new. */
-    const NEW_DAYS = 30;
+    private const NEW_DAYS = 30;
 
     /** @var int Number of "about the site" items. */
-    const ABOUT_ITEMS = 4;
+    public const ABOUT_ITEMS = 4;
 
     /** @var int Number of social links in the footer band. */
-    const SOCIAL_LINKS = 4;
+    private const SOCIAL_LINKS = 4;
 
     /** @var int Steps in "How it works". */
-    const STEPS = 3;
+    public const STEPS = 3;
 
     /** @var int Site events listed under "Upcoming events". */
-    const EVENTS = 3;
+    private const EVENTS = 3;
 
     /** @var int Testimonials that can be set. */
-    const TESTIMONIALS = 3;
+    public const TESTIMONIALS = 3;
 
     /** @var int Questions that can be set. */
-    const QUESTIONS = 4;
+    public const QUESTIONS = 4;
 
     /** @var int Courses listed in the hero's course preview. */
-    const PREVIEW_COURSES = 4;
+    private const PREVIEW_COURSES = 4;
 
     /** @var int Teachers shown as avatars in the hero. */
-    const TEACHER_AVATARS = 4;
+    private const TEACHER_AVATARS = 4;
 
     /**
      * @var int[] The smallest number worth showing for each headline stat. Small
      * numbers make a new site look empty, so a stat below its minimum is left out.
      */
-    const STAT_MINIMUMS = ['courses' => 6, 'categories' => 3, 'learners' => 50];
+    public const STAT_MINIMUMS = ['courses' => 6, 'categories' => 3, 'learners' => 50];
 
     /** @var \theme_config The theme whose settings are shown. */
     protected \theme_config $theme;

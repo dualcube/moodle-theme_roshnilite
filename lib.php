@@ -272,8 +272,10 @@ function theme_roshnilite_get_font_css($theme) {
         if ($custom) {
             $sources = [];
             foreach ($formats as $suffix => $format) {
-                $area = 'fontfile' . $suffix . $type;
-                $url = $theme->setting_file_url($area, $area);
+                $setting = 'fontfile' . $suffix . $type;
+                // The EOT files have always been stored in the "fontfileweot" file areas.
+                $filearea = $suffix === 'eot' ? 'fontfileweot' . $type : $setting;
+                $url = $theme->setting_file_url($setting, $filearea);
                 if (!empty($url)) {
                     $sources[] = "url('{$url}') format('{$format}')";
                 }
@@ -307,7 +309,7 @@ function theme_roshnilite_pluginfile($course, $cm, $context, $filearea, $args, $
     }
 
     $allowed = '/^(logo|favicon|backgroundimage|preset|slideimage[1-6]|aboutsiteimage[1-4]|facultyimage[1-8]|' .
-        'fontfile(eot|otf|svg|ttf|woff|wofftwo)(heading|body))$/';
+        'fontfile(weot|otf|svg|ttf|woff|wofftwo)(heading|body))$/';
     if (!preg_match($allowed, $filearea)) {
         send_file_not_found();
     }

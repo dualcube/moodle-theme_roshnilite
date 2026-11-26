@@ -1,3 +1,4 @@
 /vendor/
 /node_modules/
 /.moodle-core-cache/
+.DS_Store

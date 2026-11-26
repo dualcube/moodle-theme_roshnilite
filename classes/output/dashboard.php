@@ -31,7 +31,7 @@ use core\url;
  */
 class dashboard implements renderable, templatable {
     /** @var int Days ahead counted as upcoming deadlines. */
-    const DEADLINE_DAYS = 7;
+    private const DEADLINE_DAYS = 7;
 
     /** @var \stdClass The user the dashboard belongs to. */
     protected \stdClass $user;

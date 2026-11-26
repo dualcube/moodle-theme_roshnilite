@@ -25,9 +25,11 @@ namespace theme_roshnilite;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     ::theme_roshnilite_process_css
  * @covers     ::theme_roshnilite_get_extra_scss
+ * @covers     ::theme_roshnilite_get_font_css
  */
 #[\PHPUnit\Framework\Attributes\CoversFunction('theme_roshnilite_process_css')]
 #[\PHPUnit\Framework\Attributes\CoversFunction('theme_roshnilite_get_extra_scss')]
+#[\PHPUnit\Framework\Attributes\CoversFunction('theme_roshnilite_get_font_css')]
 final class lib_test extends \advanced_testcase {
     /**
      * Load the theme library.
@@ -76,5 +78,42 @@ final class lib_test extends \advanced_testcase {
         $theme = \theme_config::load('roshnilite');
 
         $this->assertSame('.y{color:red}', theme_roshnilite_get_extra_scss($theme));
+    }
+
+    /**
+     * An uploaded font is served from the file area its setting stores it in,
+     * including the EOT files, which live in the "fontfileweot" areas.
+     */
+    public function test_get_font_css_uploaded_fonts(): void {
+        $this->resetAfterTest();
+        $fs = get_file_storage();
+        $context = \context_system::instance();
+        foreach (['fontfileweotheading' => 'brand.eot', 'fontfilewofftwoheading' => 'brand.woff2'] as $area => $filename) {
+            $fs->create_file_from_string([
+                'contextid' => $context->id,
+                'component' => 'theme_roshnilite',
+                'filearea' => $area,
+                'itemid' => 0,
+                'filepath' => '/',
+                'filename' => $filename,
+            ], 'font');
+        }
+        set_config('fontselect', '2', 'theme_roshnilite');
+        set_config('fontnameheading', 'Brand', 'theme_roshnilite');
+        set_config('fontfileeotheading', '/brand.eot', 'theme_roshnilite');
+        set_config('fontfilewofftwoheading', '/brand.woff2', 'theme_roshnilite');
+        $theme = \theme_config::load('roshnilite');
+
+        $css = theme_roshnilite_get_font_css($theme);
+
+        $this->assertMatchesRegularExpression(
+            '#/theme_roshnilite/fontfileweotheading/[^)]*/brand\.eot\'\) format\(\'embedded-opentype\'\)#',
+            $css
+        );
+        $this->assertMatchesRegularExpression(
+            '#/theme_roshnilite/fontfilewofftwoheading/[^)]*/brand\.woff2\'\) format\(\'woff2\'\)#',
+            $css
+        );
+        $this->assertStringContainsString(':root { --rl-font-display: "Brand"', $css);
     }
 }
