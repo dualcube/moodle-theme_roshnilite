@@ -828,7 +828,7 @@ class frontpage implements renderable, templatable {
      *
      * @return array|null Null when none are set.
      */
-    protected function export_social(): ?array {
+    public function export_social(): ?array {
         $defaulticons = [
             1 => '<i class="fa fa-facebook" aria-hidden="true"></i>',
             2 => '<i class="fa fa-twitter" aria-hidden="true"></i>',
@@ -858,11 +858,16 @@ class frontpage implements renderable, templatable {
      * The footer: the site's name and summary, quick links, and the contact
      * details and social links that are set.
      *
+     * Without a site summary, the footer uses the theme's own tagline (the one
+     * the default hero shows), so the brand block never stands empty.
+     *
      * @return array
      */
-    protected function export_footer(): array {
-        global $SITE;
+    public function export_footer(): array {
+        global $CFG, $SITE;
+        require_once($CFG->libdir . '/authlib.php');
         $summary = format_text($SITE->summary ?? '', $SITE->summaryformat ?? FORMAT_HTML, ['context' => $this->context]);
+        $summary = self::plain_text($summary, 160) ?: get_string('footersummarydefault', 'theme_roshnilite');
         $links = [
             ['url' => (new url('/course/index.php'))->out(false), 'text' => get_string('courses')],
             [
@@ -874,11 +879,20 @@ class frontpage implements renderable, templatable {
             $links[] = ['url' => (new url('/my/'))->out(false), 'text' => get_string('myhome')];
         } else {
             $links[] = ['url' => get_login_url(), 'text' => get_string('login')];
+            if (signup_is_enabled()) {
+                $links[] = [
+                    'url' => (new url('/login/signup.php'))->out(false),
+                    'text' => get_string('footersignup', 'theme_roshnilite'),
+                ];
+            }
         }
         $sitename = format_string($SITE->fullname, true, ['context' => $this->context, 'escape' => false]);
         return [
             'sitename' => $sitename,
-            'summary' => self::plain_text($summary, 160),
+            // The first letter of the site name, for the footer's brand mark.
+            'initial' => \core_text::strtoupper(\core_text::substr(trim($sitename), 0, 1)),
+            'summary' => $summary,
+            'coursesurl' => (new url('/course/index.php'))->out(false),
             'links' => $links,
             'copyright' => get_string('footercopyright', 'theme_roshnilite', [
                 'year' => userdate(time(), '%Y'),

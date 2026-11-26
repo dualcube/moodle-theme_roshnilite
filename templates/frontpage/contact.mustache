@@ -17,13 +17,17 @@
 {{!
     @template theme_roshnilite/frontpage/contact
 
-    The site home footer: the site's name and summary, quick links, and the
-    contact details and social links the admin has set (none are invented).
+    The site home footer: the site's name, summary and headline numbers, a
+    course search, quick links, the catalogue's subjects, and the contact details and social links
+    the admin has set (none are invented).
 
     Example context (json):
     {
-        "footer": {"sitename": "Mount Orange", "summary": "Learn anything.", "copyright": "© 2026 Mount Orange",
-                   "links": [{"url": "#", "text": "Courses"}]},
+        "footer": {"sitename": "Mount Orange", "initial": "M", "summary": "Learn anything.",
+                   "copyright": "© 2026 Mount Orange", "coursesurl": "#", "links": [{"url": "#", "text": "Courses"}]},
+        "stats": [{"value": 12, "label": "Courses"}, {"value": 4, "label": "Categories"}],
+        "search": {"action": "#"},
+        "catalogue": {"subjects": [{"name": "Science", "url": "#"}]},
         "contact": {"items": [{"icon": "<i class=\"fa fa-phone\"></i>", "text": "+1 555 0100"}]},
         "social": {
             "heading": "Stay connected",
@@ -35,9 +39,26 @@
     <div class="rl-container rl-foot__inner">
         <div class="rl-foot__brand">
             {{#footer}}
-                <h2 id="rl-contact-heading" class="rl-foot__name">{{sitename}}</h2>
+                <h2 id="rl-contact-heading" class="rl-foot__name">
+                    <span class="rl-foot__mark" aria-hidden="true">{{initial}}</span>
+                    <span>{{sitename}}</span>
+                </h2>
                 {{#summary}}<p class="rl-foot__summary">{{summary}}</p>{{/summary}}
             {{/footer}}
+            {{#stats.0}}
+                <ul class="rl-foot__stats">
+                    {{#stats}}<li><strong>{{value}}</strong> {{label}}</li>{{/stats}}
+                </ul>
+            {{/stats.0}}
+            {{#search}}
+                <form class="rl-foot__search" action="{{action}}" method="get" role="search">
+                    <label class="visually-hidden sr-only" for="rl-foot-search-{{uniqid}}">{{#str}}searchcourses, theme_roshnilite{{/str}}</label>
+                    <i class="fa fa-magnifying-glass rl-foot__search-icon" aria-hidden="true"></i>
+                    <input class="rl-foot__search-input" type="search" name="search" id="rl-foot-search-{{uniqid}}"
+                        placeholder="{{#str}}footersearch, theme_roshnilite{{/str}}" autocomplete="off">
+                    <button class="btn btn-primary rl-foot__search-button" type="submit">{{#str}}search{{/str}}</button>
+                </form>
+            {{/search}}
             {{#social.links.0}}
                 <ul class="rl-socials" aria-label="{{#str}}footerfollow, theme_roshnilite{{/str}}">
                     {{#social.links}}
@@ -59,6 +80,20 @@
                 </ul>
             </nav>
         {{/footer}}
+        {{#catalogue.subjects.0}}
+            <nav class="rl-foot__col" aria-label="{{#str}}footersubjects, theme_roshnilite{{/str}}">
+                <p class="rl-foot__heading">{{#str}}footersubjects, theme_roshnilite{{/str}}</p>
+                <ul class="rl-foot__links">
+                    {{#catalogue.subjects}}<li><a href="{{url}}">{{name}}</a></li>{{/catalogue.subjects}}
+                    {{#footer.coursesurl}}
+                        <li>
+                            <a class="rl-foot__more" href="{{.}}">{{#str}}footerallsubjects, theme_roshnilite{{/str}}
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                        </li>
+                    {{/footer.coursesurl}}
+                </ul>
+            </nav>
+        {{/catalogue.subjects.0}}
         {{#contact}}
             <div class="rl-foot__col">
                 <p class="rl-foot__heading">{{#str}}footercontact, theme_roshnilite{{/str}}</p>
@@ -75,7 +110,10 @@
     </div>
     {{#footer}}
         <div class="rl-container">
-            <div class="rl-foot__bottom"><p>{{copyright}}</p></div>
+            <div class="rl-foot__bottom">
+                <p>{{copyright}}</p>
+                <a class="rl-foot__totop" href="#page">{{#str}}footertotop, theme_roshnilite{{/str}} <i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+            </div>
         </div>
     {{/footer}}
 </section>

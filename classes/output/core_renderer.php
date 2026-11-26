@@ -94,11 +94,47 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * The body classes. The course page and its settings drop Moodle's narrow
+     * reading column, so they share the full-width layout and docked course
+     * index of the course's other pages (Participants, Grades, Activities).
+     *
+     * @param array $additionalclasses Extra classes for the body.
+     * @return string
+     */
+    public function body_css_classes(array $additionalclasses = []) {
+        $classes = parent::body_css_classes($additionalclasses);
+        $pagetype = $this->page->pagetype;
+        if ($pagetype === 'course-edit' || str_starts_with($pagetype, 'course-view-')) {
+            $classes = trim(preg_replace('/(^|\s)limitedwidth(?=\s|$)/', ' ', $classes));
+        }
+        return $classes;
+    }
+
+    /**
      * The favicon, from the theme setting when one is uploaded.
      *
      * @return url
      */
     public function favicon() {
         return $this->get_theme_setting_file_url('favicon') ?? parent::favicon();
+    }
+
+    /**
+     * Roshni Lite's site footer, shown above Boost's footer on inner pages: the
+     * site name, quick links and the social links that are set. The site home
+     * has its own footer, and pages without the full chrome get none.
+     *
+     * @return string HTML
+     */
+    public function roshnilite_footer(): string {
+        $layouts = ['frontpage', 'login', 'embedded', 'popup', 'frametop', 'print', 'redirect', 'maintenance'];
+        if (in_array($this->page->pagelayout, $layouts, true) || during_initial_install()) {
+            return '';
+        }
+        $frontpage = new frontpage($this->page->theme);
+        return $this->render_from_template('theme_roshnilite/site_footer', [
+            'footer' => $frontpage->export_footer(),
+            'social' => $frontpage->export_social(),
+        ]);
     }
 }

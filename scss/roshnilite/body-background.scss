@@ -4,7 +4,8 @@ body {
 }
 .region-main .region-main-content {
     padding: 0.875rem;
-    background-color: $body-bg;
+    // The custom property follows the colour mode on 5.3+; Bootstrap 4 (4.5 LTS) has none, so it falls back.
+    background-color: var(--bs-body-bg, #{$body-bg});
     border: $card-border-width solid $card-border-color;
     @include border-radius($card-border-radius);
 }

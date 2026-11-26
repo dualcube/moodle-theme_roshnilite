@@ -59,10 +59,37 @@
     --rl-canvas: #f7f7f8;
     --rl-canvas-2: #eeeff2;
 
-    --rl-radius-sm: 0.375rem;
-    --rl-radius: 0.5rem;
-    --rl-radius-lg: 0.75rem;
-    --rl-radius-xl: 1rem;
+    /* Colour-mode aware roles. Light mode values match the tokens they stand
+       in for; the dark set below re-points them. */
+    --rl-accent-text: var(--rl-accent-strong);
+    --rl-primary-text: var(--rl-primary-strong);
+    /* What tints are mixed into, and what text on a tint is darkened with. */
+    --rl-mix-base: #fff;
+    --rl-mix-ink: #000;
+    /* Solid "selected" chips: active pills, tabs, the current page. */
+    --rl-inverse: var(--rl-ink);
+    --rl-on-inverse: #fff;
+    --rl-foot-bg: #000;
+    --rl-glass: rgba(255, 255, 255, 0.86);
+
+    /* A tight radius scale: crisp, product-like corners. */
+    --rl-radius-sm: 0.25rem;
+    --rl-radius: 0.375rem;
+    --rl-radius-lg: 0.5rem;
+    --rl-radius-xl: 0.625rem;
+
+    /* Moodle 5.3+ Design System and Bootstrap radii follow the same scale. */
+    --mds-border-radius-xs: 0.1875rem;
+    --mds-border-radius-sm: 0.25rem;
+    --mds-border-radius-md: 0.375rem;
+    --mds-border-radius-lg: 0.5rem;
+    --mds-border-radius-xl: 0.625rem;
+    --mds-border-radius-xxl: 1rem;
+    --bs-border-radius-sm: 0.25rem;
+    --bs-border-radius: 0.375rem;
+    --bs-border-radius-lg: 0.5rem;
+    --bs-border-radius-xl: 0.625rem;
+    --bs-border-radius-xxl: 1rem;
     --rl-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
     --rl-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 12px 32px -8px rgba(16, 24, 40, 0.1);
     --rl-shadow-lg: 0 2px 4px rgba(16, 24, 40, 0.04), 0 32px 64px -16px rgba(16, 24, 40, 0.18);
@@ -90,6 +117,82 @@
     --mds-border-interactive-primary-active: var(--rl-primary-strong);
     --mds-bg-feedback-primary-default: var(--rl-primary);
     --mds-bg-nav-pill-selected: var(--rl-primary-tint);
+}
+
+/* Dark colour mode. Moodle 5.3+ sets data-bs-theme="dark" on the html tag
+   when a user picks dark (or auto on a dark device) in the navbar's colour
+   mode menu, once a site admin turns colour modes on in the Boost theme's
+   Experimental settings. Older releases never set it, so they stay light.
+   Raised surfaces are lighter than the page, as in core's dark palette. */
+[data-bs-theme="dark"] {
+    color-scheme: dark;
+
+    --rl-ink: #f3f4f6;
+    --rl-ink-2: #c9ccd2;
+    --rl-muted: #9aa0a9;
+    --rl-line: #2c3038;
+    --rl-line-2: #23262d;
+    --rl-surface: #181b21;
+    --rl-canvas: #111317;
+    --rl-canvas-2: #1f232a;
+
+    /* Darkening the brand colour makes it vanish on a dark page, so text in it
+       is lightened instead, and tints are mixed into the surface, not white. */
+    --rl-accent-text: color-mix(in srgb, var(--rl-accent) 62%, #fff);
+    --rl-primary-text: color-mix(in srgb, var(--rl-primary) 62%, #fff);
+    --rl-primary-tint: color-mix(in srgb, var(--rl-primary) 14%, var(--rl-surface));
+    --rl-primary-tint-2: color-mix(in srgb, var(--rl-primary) 24%, var(--rl-surface));
+    --rl-tint: color-mix(in srgb, var(--rl-accent) 12%, var(--rl-surface));
+    --rl-tint-2: color-mix(in srgb, var(--rl-accent) 22%, var(--rl-surface));
+    --rl-mix-base: var(--rl-surface);
+    --rl-mix-ink: #fff;
+
+    --rl-inverse: #eceef1;
+    --rl-on-inverse: #111317;
+    --rl-foot-bg: #000;
+    --rl-glass: rgba(17, 19, 23, 0.86);
+
+    --rl-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --rl-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -8px rgba(0, 0, 0, 0.5);
+    --rl-shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.3), 0 32px 64px -16px rgba(0, 0, 0, 0.65);
+    --rl-glow: 0 8px 20px -6px color-mix(in srgb, var(--rl-accent) 40%, transparent);
+
+    /* The same contour lines, faint enough not to glare on a dark tint. */
+    --rl-contours: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300' fill='none' stroke='%23fff' stroke-opacity='.07' stroke-width='1.5'%3E%3Cpath d='M-20 60c80-40 160 30 240 0s150-70 240-30 120 50 160 20'/%3E%3Cpath d='M-20 100c80-40 160 30 240 0s150-70 240-30 120 50 160 20'/%3E%3Cpath d='M-20 140c90-30 150 40 250 10s140-60 230-20 120 40 160 10'/%3E%3Cpath d='M-20 180c90-30 150 40 250 10s140-60 230-20 120 40 160 10'/%3E%3Cpath d='M-20 220c100-50 170 20 260-5s130-50 220-15 110 45 160 15'/%3E%3Cpath d='M-20 260c100-50 170 20 260-5s130-50 220-15 110 45 160 15'/%3E%3Cpath d='M-20 300c100-50 170 20 260-5s130-50 220-15 110 45 160 15'/%3E%3C/svg%3E");
+}
+
+/* The bundled logo is dark lettering on transparency; flip it for dark mode.
+   Only the bundled file (theme image URL ending in img/logo) - a logo
+   uploaded in the settings is served from pluginfile.php and keeps its colours. */
+[data-bs-theme="dark"] img[src*="/theme_roshnilite/"][src$="/img/logo"] {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+/* The few fixed pastels: deep fills with light text in dark mode. */
+[data-bs-theme="dark"] .rl-proof__avatars .rl-avatar:nth-child(2) {
+    background-color: #1e3a8a;
+    color: #bfdbfe;
+}
+
+[data-bs-theme="dark"] .rl-proof__avatars .rl-avatar:nth-child(3) {
+    background-color: #064e3b;
+    color: #a7f3d0;
+}
+
+[data-bs-theme="dark"] .rl-proof__avatars .rl-avatar:nth-child(4) {
+    background-color: #4c1d95;
+    color: #ddd6fe;
+}
+
+[data-bs-theme="dark"] .rl-art-learn__row--done .fa {
+    background-color: #14532d;
+    color: #bbf7d0;
+}
+
+[data-bs-theme="dark"] .rl-preview::before {
+    background:
+        radial-gradient(closest-side, var(--rl-tint-2), transparent),
+        radial-gradient(closest-side at 80% 70%, #1e2a44, transparent);
 }
 
 [[setting:fontrules]]
@@ -163,15 +266,23 @@ summary:focus-visible,
 /* --------------------------------------------------------------------------
    3. Controls
    -------------------------------------------------------------------------- */
+/* Buttons everywhere share the theme's look: a solid accent with a soft
+   glow for the main action, a white outlined button for the rest. Icon-only
+   and link buttons keep Moodle's own styling. */
 .btn {
-    border-radius: var(--rl-radius-sm);
+    border-radius: var(--rl-radius);
     font-weight: 600;
+}
+
+.btn-sm {
+    border-radius: var(--rl-radius-sm);
 }
 
 .btn-primary,
 input[type="submit"].btn-primary {
     background-color: var(--rl-accent);
     border-color: var(--rl-accent);
+    box-shadow: 0 4px 12px -4px color-mix(in srgb, var(--rl-accent) 55%, transparent);
     color: #fff;
 }
 
@@ -183,8 +294,55 @@ input[type="submit"].btn-primary {
     color: #fff;
 }
 
+.btn-secondary,
+.btn-outline-secondary,
+.btn-light,
+input[type="submit"].btn-secondary,
+input[type="button"].btn-secondary {
+    background-color: var(--rl-surface);
+    border-color: var(--rl-line);
+    box-shadow: var(--rl-shadow-sm);
+    color: var(--rl-ink);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-light:hover,
+.btn-light:focus,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-outline-secondary:not(:disabled):not(.disabled):active,
+.btn-outline-secondary.active,
+.btn-outline-secondary.selected {
+    background-color: var(--rl-canvas);
+    border-color: color-mix(in srgb, var(--rl-ink) 25%, var(--rl-line));
+    color: var(--rl-ink);
+}
+
+.btn-outline-primary {
+    background-color: var(--rl-surface);
+    border-color: color-mix(in srgb, var(--rl-accent) 45%, var(--rl-line));
+    color: var(--rl-accent-text);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:not(:disabled):not(.disabled):active {
+    background-color: var(--rl-tint);
+    border-color: var(--rl-accent);
+    color: var(--rl-accent-text);
+}
+
+.btn-secondary:focus-visible,
+.btn-outline-secondary:focus-visible,
+.btn-outline-primary:focus-visible,
+.btn-primary:focus-visible {
+    box-shadow: 0 0 0 4px var(--rl-tint-2);
+}
+
 .btn-lg {
-    border-radius: var(--rl-radius-sm);
+    border-radius: var(--rl-radius);
 }
 
 .form-control,
@@ -278,7 +436,7 @@ input[type="submit"].btn-primary {
    4. Navbar - Boost's navbar on a light, blurred surface.
    -------------------------------------------------------------------------- */
 .navbar.fixed-top {
-    background-color: rgba(255, 255, 255, 0.86) !important;
+    background-color: var(--rl-glass) !important;
     -webkit-backdrop-filter: saturate(180%) blur(14px);
     backdrop-filter: saturate(180%) blur(14px);
     border-bottom: 1px solid var(--rl-line);
@@ -319,24 +477,261 @@ input[type="submit"].btn-primary {
     border-bottom-color: var(--rl-accent);
 }
 
+/* Moodle 5.3+ primary navigation: plain labels in the theme face; the
+   current page is marked by an accent bar on the navbar's bottom edge, as
+   the tabs below are. Each item fills the navbar's height, so the bar sits
+   on the item without changing the widths Moodle measures for "More". */
+.navbar.fixed-top {
+    font-family: var(--rl-font);
+}
+
+.navbar.fixed-top .primary-navigation .nav-item {
+    position: relative;
+}
+
+.navbar.fixed-top .primary-navigation .nav-item::after {
+    content: "";
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0;
+    left: 0.75rem;
+    height: 2px;
+    border-radius: 2px 2px 0 0;
+    background-color: transparent;
+    transition: background-color var(--rl-speed) var(--rl-ease);
+}
+
+.navbar.fixed-top .primary-navigation .nav-item:has(> .mds-nav-pill--selected)::after,
+.navbar.fixed-top .primary-navigation .nav-item:has(> .mds-nav-pill.active)::after {
+    background-color: var(--rl-accent);
+}
+
 .navbar.fixed-top .mds-nav-pill {
-    color: var(--rl-ink-2);
+    padding-inline: 0.75rem;
+    color: var(--rl-muted);
+}
+
+.navbar.fixed-top .mds-nav-pill .mds-nav-pill__label {
+    font-family: var(--rl-font);
+    font-size: 0.9375rem;
     font-weight: 500;
 }
 
-.navbar.fixed-top .mds-nav-pill:hover {
+.navbar.fixed-top .mds-nav-pill:hover:not(.mds-nav-pill--selected) {
     background-color: var(--rl-canvas);
     color: var(--rl-ink);
 }
 
 .navbar.fixed-top .mds-nav-pill.mds-nav-pill--selected,
+.navbar.fixed-top .mds-nav-pill.mds-nav-pill--selected:visited,
+.navbar.fixed-top .primary-navigation .navigation.primarynav-navbar .mds-nav-pill--selected:visited {
+    background-color: transparent;
+    color: var(--rl-ink);
+}
+
 .navbar.fixed-top .mds-nav-pill.mds-nav-pill--selected .mds-nav-pill__label {
+    color: var(--rl-ink);
+    font-weight: 600;
+}
+
+/* The current page is shown by its bar alone, without Moodle's dot. */
+.navbar.fixed-top .mds-nav-pill__indicator {
+    display: none;
+}
+
+/* --------------------------------------------------------------------------
+   4b. Tabs - secondary navigation and in-page tabs, as underlined tabs:
+   muted labels on a hairline, the active one in ink over an accent bar.
+   -------------------------------------------------------------------------- */
+/* Moodle 5.3+ secondary navigation (pills drawn by the Moodle Design System). */
+/* The hairline sits on the wrapper: Moodle measures the list itself to
+   decide which items move into "More". */
+.secondary-navigation nav:has(> .more-nav) {
+    border-bottom: 1px solid var(--rl-line);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill {
+    position: relative;
+    padding: 0.75rem 0.875rem;
+    border-radius: 0;
+    background-color: transparent !important;
+    color: var(--rl-muted);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill:not(.dropdown-toggle)::after {
+    content: "";
+    position: absolute;
+    right: 0.875rem;
+    bottom: -1px;
+    left: 0.875rem;
+    height: 2px;
+    border-radius: 2px 2px 0 0;
+    background-color: transparent;
+    transition: background-color var(--rl-speed) var(--rl-ease);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill:hover {
+    color: var(--rl-ink);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill:not(.dropdown-toggle):hover::after {
+    background-color: var(--rl-line);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.active,
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.mds-nav-pill--selected {
+    color: var(--rl-ink);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.active .mds-nav-pill__label,
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.mds-nav-pill--selected .mds-nav-pill__label {
+    font-weight: 600;
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.active:not(.dropdown-toggle)::after,
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.mds-nav-pill--selected:not(.dropdown-toggle)::after {
+    background-color: var(--rl-accent);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.active::before,
+.secondary-navigation .mds-nav-pill__indicator {
+    display: none;
+}
+
+/* Bootstrap tabs: Moodle 4.5 - 5.2 secondary navigation, theme and plugin
+   settings pages, and any other tabbed page. */
+.nav-tabs {
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--rl-line);
+}
+
+.nav-tabs .nav-link {
+    margin-bottom: -1px;
+    padding: 0.75rem 0.875rem;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--rl-muted);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+    border-bottom-color: var(--rl-line);
+    color: var(--rl-ink);
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    border-bottom-color: var(--rl-accent);
+    background-color: transparent;
+    color: var(--rl-ink);
+    font-weight: 600;
+}
+
+.secondary-navigation .moremenu .nav-link {
+    color: var(--rl-muted);
+}
+
+.secondary-navigation .moremenu .nav-link.active {
+    border-bottom-color: var(--rl-accent);
+    color: var(--rl-ink);
+    font-weight: 600;
+}
+
+/* Bootstrap pills: the active one in solid ink, like the catalogue's tabs. */
+.nav-pills .nav-link {
+    border-radius: var(--rl-radius);
+    color: var(--rl-ink-2);
+    font-weight: 500;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background-color: var(--rl-inverse);
+    color: var(--rl-on-inverse);
+}
+
+/* Pagination */
+.pagination .page-link {
+    margin-inline: 0.125rem;
+    border-color: var(--rl-line);
+    border-radius: var(--rl-radius-sm) !important;
+    color: var(--rl-ink-2);
+}
+
+.pagination .page-link:hover {
     background-color: var(--rl-canvas);
     color: var(--rl-ink);
 }
 
-.navbar.fixed-top .mds-nav-pill--selected .mds-nav-pill__indicator {
-    background-color: var(--rl-accent);
+.pagination .page-item.active .page-link {
+    border-color: var(--rl-inverse);
+    background-color: var(--rl-inverse);
+    color: var(--rl-on-inverse);
+}
+
+/* Sortable table headings read as headings, not as a row of red links. */
+table th a,
+table th a:visited {
+    color: var(--rl-ink);
+}
+
+table th a:hover {
+    color: var(--rl-accent-text);
+}
+
+.alert {
+    border-radius: var(--rl-radius-lg);
+}
+
+.badge {
+    border-radius: var(--rl-radius-sm);
+    font-weight: 600;
+}
+
+/* Site administration index: categories in ink, their pages as quiet links. */
+#page-admin-search .tab-pane > .container-fluid > .row,
+#page-admin-category #region-main .container-fluid > .row {
+    padding-block: 0.25rem;
+}
+
+#page-admin-search .tab-pane h4,
+#page-admin-category #region-main h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+}
+
+#page-admin-search .tab-pane h4 a,
+#page-admin-category #region-main h4 a {
+    color: var(--rl-ink);
+}
+
+#page-admin-search .tab-pane .list-unstyled li,
+#page-admin-category #region-main .list-unstyled li {
+    padding-block: 0.1875rem;
+}
+
+#page-admin-search .tab-pane .list-unstyled a,
+#page-admin-category #region-main .list-unstyled a {
+    color: var(--rl-ink-2);
+}
+
+#page-admin-search .tab-pane h4 a:hover,
+#page-admin-search .tab-pane .list-unstyled a:hover,
+#page-admin-category #region-main h4 a:hover,
+#page-admin-category #region-main .list-unstyled a:hover {
+    color: var(--rl-accent-text);
+    text-decoration: underline;
+}
+
+#page-admin-search .tab-pane hr,
+#page-admin-category #region-main hr {
+    border-color: var(--rl-line);
+    opacity: 1;
 }
 
 /* "Log in" for visitors becomes the navbar's call to action. */
@@ -361,6 +756,8 @@ input[type="submit"].btn-primary {
 /* --------------------------------------------------------------------------
    5. Dashboard, My courses and every page with blocks
    -------------------------------------------------------------------------- */
+.pagelayout-mydashboard,
+.pagelayout-mycourses,
 .pagelayout-mydashboard #page,
 .pagelayout-mycourses #page {
     background-color: var(--rl-canvas);
@@ -408,6 +805,44 @@ input[type="submit"].btn-primary {
 .dashboard-card .card-img-top,
 .dashboard-card .card-img {
     border-radius: 0;
+}
+
+/* Drawers (course index, blocks) and their items: Boost sets these radii
+   as fixed values, so they are matched to the theme's scale here. */
+.drawer.drawer-left,
+.drawer.drawer-right,
+.drawers .main-inner,
+.drawers .footer-popover {
+    border-radius: var(--rl-radius-lg);
+}
+
+.courseindex .courseindex-item,
+.drawer .list-group-item,
+.block .list-group-item {
+    border-radius: var(--rl-radius);
+}
+
+.card {
+    border-radius: var(--rl-radius-lg);
+}
+
+/* Course content: sections, activities and notes, set at 1rem by core. */
+.course-section .section-item,
+.course-section .section-item .course-section-header,
+.single-section > ul > .course-section .delegated-section .section-item,
+.single-section > ul > .course-section .delegated-section .section-item .course-section-header,
+.activity-item,
+.course-section .availabilityinfo,
+#course-addsection .btn-add-content,
+#page-report-outline-user .section,
+.qbank_managecategories-categorylist,
+.qbank_managecategories-item.draghandle > .container {
+    border-radius: var(--rl-radius-lg);
+}
+
+.course-section .summarytext img,
+.activity-item .activity-altcontent img {
+    border-radius: var(--rl-radius);
 }
 
 /* --------------------------------------------------------------------------
@@ -481,7 +916,7 @@ input[type="submit"].btn-primary {
 }
 
 .rl-link-arrow:hover {
-    color: var(--rl-accent-strong);
+    color: var(--rl-accent-text);
     text-decoration: none;
 }
 
@@ -528,8 +963,8 @@ input[type="submit"].btn-primary {
     display: inline-block;
     padding: 0.1875rem 0.5rem;
     border-radius: var(--rl-radius-sm);
-    background-color: color-mix(in srgb, var(--rl-tone) 11%, #fff);
-    color: color-mix(in srgb, var(--rl-tone) 80%, #000);
+    background-color: color-mix(in srgb, var(--rl-tone) 11%, var(--rl-mix-base));
+    color: color-mix(in srgb, var(--rl-tone) 80%, var(--rl-mix-ink));
     font-size: 0.75rem;
     font-weight: 600;
     line-height: 1.4;
@@ -544,7 +979,7 @@ input[type="submit"].btn-primary {
     height: 1.75rem;
     border-radius: 50%;
     background-color: var(--rl-tint-2);
-    color: var(--rl-accent-strong);
+    color: var(--rl-accent-text);
     font-size: 0.6875rem;
     font-weight: 700;
 }
@@ -575,7 +1010,7 @@ input[type="submit"].btn-primary {
     height: 3.25rem;
     border-radius: var(--rl-radius);
     background-color: var(--rl-tint);
-    color: var(--rl-accent-strong);
+    color: var(--rl-accent-text);
     font-size: 0.6875rem;
     font-weight: 600;
     line-height: 1.1;
@@ -626,7 +1061,7 @@ input[type="submit"].btn-primary {
     --rl-c-line: color-mix(in srgb, var(--rl-c) 28%, transparent);
     position: relative;
     overflow: hidden;
-    background-color: color-mix(in srgb, var(--rl-c) 10%, #fff);
+    background-color: color-mix(in srgb, var(--rl-c) 10%, var(--rl-mix-base));
 }
 
 .rl-cover::before {
@@ -637,7 +1072,7 @@ input[type="submit"].btn-primary {
     width: 72%;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: linear-gradient(140deg, color-mix(in srgb, var(--rl-c) 55%, #fff), var(--rl-c));
+    background: linear-gradient(140deg, color-mix(in srgb, var(--rl-c) 55%, var(--rl-mix-base)), var(--rl-c));
     opacity: 0.9;
 }
 
@@ -704,9 +1139,9 @@ input[type="submit"].btn-primary {
     height: 2.25rem;
     padding-inline: 0.375rem;
     border-radius: var(--rl-radius);
-    background-color: #fff;
+    background-color: var(--rl-surface);
     box-shadow: var(--rl-shadow-sm);
-    color: color-mix(in srgb, var(--rl-c) 85%, #000);
+    color: color-mix(in srgb, var(--rl-c) 85%, var(--rl-mix-ink));
     font-family: var(--rl-font);
     font-size: 0.8125rem;
     font-weight: 700;
@@ -784,7 +1219,7 @@ input[type="submit"].btn-primary {
 .rl-hero__copy h2:has(+ h1),
 .rl-hero__copy h3:has(+ h1) {
     margin: 0 0 1rem;
-    color: var(--rl-accent-strong);
+    color: var(--rl-accent-text);
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0;
@@ -836,7 +1271,7 @@ input[type="submit"].btn-primary {
     padding: 0.25rem 0.625rem;
     border-radius: 999px;
     background-color: var(--rl-tint);
-    color: var(--rl-accent-strong);
+    color: var(--rl-accent-text);
     font-size: 0.8125rem;
     font-weight: 600;
 }
@@ -962,7 +1397,7 @@ input[type="submit"].btn-primary {
     width: 2rem;
     height: 2rem;
     margin-left: -0.5rem;
-    border: 2px solid #fff;
+    border: 2px solid var(--rl-surface);
     font-size: 0.6875rem;
 }
 
@@ -1147,7 +1582,7 @@ input[type="submit"].btn-primary {
 }
 
 .rl-ptable__course:hover {
-    color: var(--rl-accent-strong);
+    color: var(--rl-accent-text);
 }
 
 .rl-ptable__thumb {
@@ -1311,8 +1746,8 @@ input[type="submit"].btn-primary {
 }
 
 .rl-tab.active {
-    background-color: var(--rl-ink);
-    color: #fff;
+    background-color: var(--rl-inverse);
+    color: var(--rl-on-inverse);
 }
 
 /* Few courses sit centred rather than leaving empty columns. */
@@ -1368,9 +1803,9 @@ input[type="submit"].btn-primary {
     left: 0.75rem;
     padding: 0.1875rem 0.5rem;
     border-radius: var(--rl-radius-sm);
-    background-color: #fff;
+    background-color: var(--rl-surface);
     box-shadow: var(--rl-shadow-sm);
-    color: var(--rl-accent-strong);
+    color: var(--rl-accent-text);
     font-size: 0.75rem;
     font-weight: 700;
 }
@@ -1658,7 +2093,7 @@ input[type="submit"].btn-primary {
     padding: 0.25rem 0.625rem;
     border-radius: var(--rl-radius-sm);
     background-color: var(--rl-tint);
-    color: var(--rl-accent-strong);
+    color: var(--rl-accent-text);
     font-size: 0.8125rem;
     font-weight: 600;
 }
@@ -1814,7 +2249,7 @@ input[type="submit"].btn-primary {
     width: 3.25rem;
     height: 3.25rem;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: var(--rl-surface);
     color: var(--rl-accent);
 }
 
@@ -1879,7 +2314,7 @@ input[type="submit"].btn-primary {
 }
 
 .rl-event__name:hover {
-    color: var(--rl-accent-strong);
+    color: var(--rl-accent-text);
 }
 
 .rl-event__meta {
@@ -1923,7 +2358,7 @@ input[type="submit"].btn-primary {
     place-items: center;
     background-color: var(--rl-tint);
     background-image: var(--rl-contours);
-    color: var(--rl-accent-strong);
+    color: var(--rl-accent-text);
     font-size: 2.25rem;
     font-weight: 700;
 }
@@ -2164,51 +2599,194 @@ input[type="submit"].btn-primary {
     gap: 0.75rem;
 }
 
-/* Footer: the site, quick links and the contact details that are set. */
+/* --------------------------------------------------------------------------
+   Site home footer.
+   A black band in both colour modes. It re-points the colour tokens for
+   everything inside it, so text, links, social buttons and dividers read
+   light on black without per-rule overrides.
+
+   Layout: the brand block (name, summary, numbers, search, socials) on the
+   left carries the weight; the link columns sit together on the right and
+   only take the width they need. A faint glow of the brand colour keeps the
+   black warm rather than flat.
+   -------------------------------------------------------------------------- */
 .rl-foot {
-    padding-block: clamp(3rem, 6vw, 4.5rem);
-    border-top: 1px solid var(--rl-line);
-    background-color: var(--rl-surface);
+    --rl-ink: #f3f4f6;
+    --rl-ink-2: #c9ccd2;
+    --rl-muted: #9aa0a9;
+    --rl-line: rgba(255, 255, 255, 0.12);
+    --rl-line-2: rgba(255, 255, 255, 0.08);
+    --rl-surface: rgba(255, 255, 255, 0.06);
+    --rl-accent-text: color-mix(in srgb, var(--rl-accent) 62%, #fff);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color-scheme: dark;
+    padding-block: 3rem 1.5rem;
+    background-color: var(--rl-foot-bg);
+    color: var(--rl-ink-2);
+}
+
+.rl-foot::before {
+    content: "";
+    position: absolute;
+    top: -14rem;
+    left: -10rem;
+    z-index: -1;
+    width: 32rem;
+    height: 32rem;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--rl-accent) 22%, transparent), transparent);
+    pointer-events: none;
+}
+
+.rl-foot a:focus-visible,
+.rl-foot button:focus-visible {
+    outline: 2px solid var(--rl-accent-text);
+    outline-offset: 3px;
+    border-radius: var(--rl-radius-sm);
+    box-shadow: none;
 }
 
 .rl-foot__inner {
-    display: grid;
-    gap: 2.5rem;
-    grid-template-columns: minmax(0, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 2rem 3.5rem;
 }
 
-@media (min-width: 768px) {
-    .rl-foot__inner {
-        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1.25fr);
-    }
+.rl-foot__brand {
+    flex: 1 1 18rem;
+    max-width: 26rem;
+    margin-right: auto;
 }
 
+.rl-foot__col {
+    flex: 0 1 auto;
+    min-width: 8.5rem;
+    max-width: 16rem;
+}
+
+/* Brand */
 .rl-foot__name {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
     margin: 0 0 0.75rem;
-    font-size: 1.25rem;
-    font-weight: 700;
     color: var(--rl-ink);
+    font-family: var(--rl-font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.rl-foot__mark {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--rl-radius);
+    background: linear-gradient(140deg, var(--rl-accent), var(--rl-accent-strong));
+    box-shadow: var(--rl-glow);
+    color: #fff;
+    font-size: 0.9375rem;
+    line-height: 1;
 }
 
 .rl-foot__summary {
-    max-width: 26rem;
-    margin: 0 0 1.25rem;
+    margin: 0 0 1rem;
     color: var(--rl-muted);
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     line-height: 1.6;
 }
 
-.rl-foot__heading {
-    margin: 0 0 1rem;
+.rl-foot__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem 1.25rem;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    list-style: none;
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+}
+
+.rl-foot__stats strong {
+    margin-right: 0.125rem;
     color: var(--rl-ink);
     font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+/* Course search */
+.rl-foot__search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 1.25rem;
+    padding: 0.25rem 0.25rem 0.25rem 0.875rem;
+    border: 1px solid var(--rl-line);
+    border-radius: 999px;
+    background-color: var(--rl-surface);
+    transition: border-color var(--rl-speed) var(--rl-ease), background-color var(--rl-speed) var(--rl-ease);
+}
+
+.rl-foot__search:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.rl-foot__search:focus-within {
+    border-color: color-mix(in srgb, var(--rl-accent) 70%, transparent);
+    background-color: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--rl-accent) 25%, transparent);
+}
+
+.rl-foot__search-icon {
+    flex: none;
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+}
+
+.rl-foot__search-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0.375rem 0;
+    border: 0;
+    background: transparent;
+    color: var(--rl-ink);
+    font-size: 0.875rem;
+}
+
+.rl-foot__search-input:focus {
+    outline: 0;
+}
+
+.rl-foot__search-input::placeholder {
+    color: var(--rl-muted);
+}
+
+.rl-foot__search-button.btn {
+    flex: none;
+    padding: 0.375rem 0.875rem;
+    border-radius: 999px;
+    font-size: 0.8125rem;
+}
+
+/* Link columns */
+.rl-foot__heading {
+    margin: 0 0 0.75rem;
+    color: var(--rl-ink);
+    font-size: 0.75rem;
     font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
 }
 
 .rl-foot__links,
 .rl-contact {
     display: grid;
-    gap: 0.75rem;
+    gap: 0.5rem;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -2216,25 +2794,45 @@ input[type="submit"].btn-primary {
 
 .rl-foot__links a {
     color: var(--rl-muted);
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color var(--rl-speed) var(--rl-ease);
 }
 
 .rl-foot__links a:hover {
     color: var(--rl-ink);
 }
 
+.rl-foot__links .rl-foot__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--rl-accent-text);
+    font-weight: 600;
+}
+
+.rl-foot__links .rl-foot__more .fa {
+    font-size: 0.6875rem;
+    transition: transform var(--rl-speed) var(--rl-ease);
+}
+
+.rl-foot__links .rl-foot__more:hover .fa {
+    transform: translateX(2px);
+}
+
 .rl-contact__item {
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 0.5rem;
     color: var(--rl-muted);
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
+    line-height: 1.45;
 }
 
 .rl-contact__icon {
     flex: none;
     width: 1rem;
-    color: var(--rl-accent);
+    color: var(--rl-accent-text);
     text-align: center;
 }
 
@@ -2246,16 +2844,89 @@ input[type="submit"].btn-primary {
     color: inherit;
 }
 
+/* Bottom row */
 .rl-foot__bottom {
-    margin-top: clamp(2.5rem, 5vw, 3.5rem);
-    padding-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    margin-top: 2.25rem;
+    padding-top: 1.125rem;
     border-top: 1px solid var(--rl-line-2);
     color: var(--rl-muted);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
 }
 
 .rl-foot__bottom p {
     margin: 0;
+}
+
+.rl-foot__totop {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--rl-muted);
+    text-decoration: none;
+}
+
+.rl-foot__totop:hover {
+    color: var(--rl-ink);
+}
+
+.rl-foot__totop .fa {
+    font-size: 0.6875rem;
+    transition: transform var(--rl-speed) var(--rl-ease);
+}
+
+.rl-foot__totop:hover .fa {
+    transform: translateY(-2px);
+}
+
+/* Phones: link columns side by side, with tap targets at a comfortable size. */
+@media (max-width: 575.98px) {
+    .rl-foot {
+        padding-top: 2.5rem;
+    }
+
+    .rl-foot__inner {
+        gap: 2rem 1.5rem;
+    }
+
+    .rl-foot__brand {
+        flex-basis: 100%;
+        max-width: none;
+    }
+
+    .rl-foot__col {
+        flex: 1 1 8.5rem;
+    }
+
+    .rl-foot__links,
+    .rl-contact {
+        gap: 0;
+    }
+
+    .rl-foot__links a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.5rem;
+    }
+
+    .rl-contact__item {
+        padding-block: 0.5rem;
+    }
+
+    .rl-foot__bottom {
+        margin-top: 1.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rl-foot__links .rl-foot__more .fa,
+    .rl-foot__totop .fa {
+        transition: none;
+    }
 }
 
 
@@ -2446,7 +3117,7 @@ input[type="submit"].btn-primary {
     height: 1.5rem;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--rl-sun-soft), var(--rl-primary-tint-2));
-    color: var(--rl-primary-strong);
+    color: var(--rl-primary-text);
     font-family: "Font Awesome 6 Free", "FontAwesome";
     font-size: 0.625rem;
     font-weight: 900;
@@ -2466,7 +3137,7 @@ input[type="submit"].btn-primary {
 }
 
 #page .rl-sitecontent .coursebox .teachers a:hover {
-    color: var(--rl-primary-strong);
+    color: var(--rl-primary-text);
 }
 
 /* An uploaded course image shows as a rounded thumbnail. */
@@ -2547,8 +3218,8 @@ input[type="submit"].btn-primary {
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
     border-radius: var(--rl-radius-sm);
-    background-color: var(--rl-ink);
-    color: #fff;
+    background-color: var(--rl-inverse);
+    color: var(--rl-on-inverse);
     font-weight: 600;
     text-decoration: none;
 }
@@ -2670,11 +3341,41 @@ input[type="submit"].btn-primary {
     max-width: min(100%, calc(var(--rl-container) + 2 * var(--rl-gutter))) !important;
 }
 
+/* Moodle 5.3+ floats the block drawer beside an 830px content column. The
+   Dashboard and course listings are wider than that, so their drawer and its
+   toggle sit at the right edge instead, in the space Moodle already keeps
+   free for the drawer, rather than over the content. */
+body.pagelayout-mydashboard:has(.mds-nav-pill) .drawer.drawer-right,
+body.pagelayout-mydashboard:has(.mds-nav-pill) .drawer.drawer-right.show,
+body.pagelayout-coursecategory:has(.mds-nav-pill) .drawer.drawer-right,
+body.pagelayout-coursecategory:has(.mds-nav-pill) .drawer.drawer-right.show {
+    right: 1rem !important;
+    left: auto !important;
+}
+
+body.pagelayout-mydashboard .drawer.drawer-right,
+body.pagelayout-mycourses .drawer.drawer-right {
+    background-color: var(--rl-canvas);
+}
+
+body.pagelayout-mydashboard:has(.mds-nav-pill) .drawer-toggles .drawer-right-toggle,
+body.pagelayout-coursecategory:has(.mds-nav-pill) .drawer-toggles .drawer-right-toggle {
+    right: 1rem !important;
+    left: auto !important;
+}
+
 .rl-dash {
     display: grid;
     gap: 1.5rem;
-    margin-bottom: 2rem;
+    margin: 0 0 2rem;
     color: var(--rl-ink);
+}
+
+/* Lines up with the blocks below, which Moodle insets by 15px from 768px. */
+@media (min-width: 768px) {
+    .rl-dash {
+        margin-inline: 15px;
+    }
 }
 
 /* Moodle 5.3+ floats the block drawer toggle over the top of the content. */
@@ -2719,7 +3420,7 @@ body:has(.mds-nav-pill) .rl-dash {
 .rl-dash__avatar {
     width: 4rem;
     height: 4rem;
-    border: 3px solid #fff;
+    border: 3px solid var(--rl-surface);
     border-radius: 50%;
     box-shadow: var(--rl-shadow);
     object-fit: cover;
@@ -2785,7 +3486,7 @@ body:has(.mds-nav-pill) .rl-dash {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: var(--rl-radius);
-    background-color: color-mix(in srgb, var(--rl-tone) 11%, #fff);
+    background-color: color-mix(in srgb, var(--rl-tone) 11%, var(--rl-mix-base));
     color: var(--rl-tone);
     grid-row: span 2;
 }
@@ -3109,7 +3810,7 @@ body.pagelayout-login #page .login-layout-left::after {
 .rl-loginpanel__custom {
     padding: 1.5rem;
     border-radius: var(--rl-radius-lg);
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: color-mix(in srgb, var(--rl-surface) 75%, transparent);
 }
 
 .pagelayout-login .login-layout-right {
@@ -3123,6 +3824,401 @@ body.pagelayout-login #page .login-layout-left::after {
 .pagelayout-coursecategory div#topofscroll {
     max-width: calc(var(--rl-container) + 2 * var(--rl-gutter)) !important;
     margin-inline: auto;
+}
+
+/* Page headings wrap between words on small screens, never inside one. */
+@media (max-width: 575.98px) {
+    #page-header h1,
+    .page-header-headings h1 {
+        font-size: 1.5rem;
+        word-break: normal;
+        overflow-wrap: break-word;
+    }
+}
+
+/* Upgrade, install and "new settings" pages (the maintenance layout, which
+   has no navbar): the page as a centred white card. */
+.pagelayout-maintenance #page-wrapper {
+    min-height: 100vh;
+    background:
+        radial-gradient(50rem 24rem at 100% 0%, var(--rl-tint), transparent 60%),
+        var(--rl-canvas);
+}
+
+.pagelayout-maintenance #page {
+    max-width: 56rem;
+    margin-block: clamp(2rem, 6vh, 4rem);
+    padding: clamp(1.5rem, 4vw, 2.5rem) !important;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-xl);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-lg);
+}
+
+.pagelayout-maintenance #page-content,
+.pagelayout-maintenance #page-content #region-main {
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.pagelayout-maintenance #page > .row:first-child > .page-header-headings {
+    padding-top: 0 !important;
+    background: transparent;
+}
+
+.pagelayout-maintenance #page .row {
+    background: transparent;
+}
+
+.pagelayout-maintenance #page .page-header-headings h1 {
+    margin: 0;
+    font-family: var(--rl-font);
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+}
+
+.pagelayout-maintenance #region-main h2,
+.pagelayout-maintenance #region-main h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.pagelayout-maintenance #region-main .generalbox {
+    color: var(--rl-muted);
+}
+
+/* The slim site footer on inner pages. It has the same width and place on
+   every page: the site's container, as on the site home, centred. */
+.rl-sitefoot {
+    margin-top: 2rem;
+    /* The bottom padding keeps the links clear of Moodle's floating help button. */
+    padding: 0 var(--rl-gutter) 4.75rem;
+    font-family: var(--rl-font);
+}
+
+@media (min-width: 768px) {
+    .rl-sitefoot__inner {
+        /* Capped by the viewport too, as Moodle pads some layouts' pages less. */
+        max-width: min(var(--rl-container), calc(100vw - 7.25rem - 2 * var(--rl-gutter)));
+        margin-inline: auto;
+    }
+}
+
+/* Pages with a sticky save bar keep the end of the page clear of it. */
+.hasstickyfooter #page-footer {
+    padding-bottom: var(--sticky-footer-total-height, 4rem);
+}
+
+.rl-sitefoot__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rl-line);
+}
+
+.rl-sitefoot__copy {
+    margin: 0 auto 0 0;
+    color: var(--rl-muted);
+    font-size: 0.875rem;
+    line-height: 2rem;
+}
+
+.rl-sitefoot__nav {
+    display: flex;
+    align-items: center;
+}
+
+.rl-sitefoot__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.rl-sitefoot__links a {
+    color: var(--rl-ink-2);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.rl-sitefoot__links a:hover {
+    color: var(--rl-accent-text);
+}
+
+.rl-sitefoot__social {
+    margin: 0;
+}
+
+.rl-sitefoot__social a {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* On small screens the footer lines up with the page content. */
+@media (max-width: 767.98px) {
+    .rl-sitefoot {
+        padding-inline: 0.5rem;
+    }
+}
+
+/* On phones the copyright, links and socials stack, left aligned. */
+@media (max-width: 575.98px) {
+    .rl-sitefoot__inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .rl-sitefoot__copy {
+        margin: 0;
+    }
+}
+
+/* Moodle's developer debugging output (only on sites with debugging on)
+   takes the site footer's width on every page, instead of the content
+   column's, which is full width on admin pages. */
+#page.drawers #page-footer.footer-popover {
+    width: auto;
+    max-width: none;
+    margin-inline: 0;
+    background-color: transparent !important;
+}
+
+#page-footer .footer-content-debugging {
+    width: auto;
+    max-width: min(var(--rl-container), calc(100vw - 7.25rem - 2 * var(--rl-gutter)));
+    margin: 0 auto 2rem;
+    border-radius: var(--rl-radius-lg);
+    font-size: 0.875rem;
+}
+
+#page-footer .footer-content-debugging .footer-dark-inner {
+    max-width: none;
+    padding: 0.75rem 1rem;
+}
+
+@media (min-width: 768px) {
+    #page.drawers #page-footer.footer-popover {
+        padding-inline: var(--rl-gutter);
+    }
+}
+
+@media (max-width: 767.98px) {
+    #page-footer .footer-content-debugging {
+        max-width: none;
+        margin-inline: 0.5rem;
+    }
+}
+
+/* Site home: Moodle's page footer sits right under the black footer band,
+   so it continues the band (core's bg-white is !important, hence the same
+   here) and the debugging output reads as a quiet row under a divider,
+   not a separate grey panel. */
+.roshnilite-frontpage #page-footer {
+    --rl-ink: #f3f4f6;
+    --rl-muted: #9aa0a9;
+    --rl-line-2: rgba(255, 255, 255, 0.08);
+    color-scheme: dark;
+    background-color: var(--rl-foot-bg) !important;
+    color: var(--rl-muted);
+}
+
+.roshnilite-frontpage #page-footer .footer-content-debugging {
+    width: 100%;
+    max-width: calc(var(--rl-container) + 2 * var(--rl-gutter));
+    margin: 0 auto;
+    padding-inline: var(--rl-gutter);
+    border-radius: 0;
+    background-color: transparent !important;
+    color: var(--rl-muted) !important;
+    font-size: 0.8125rem;
+}
+
+.roshnilite-frontpage #page-footer .footer-content-debugging .footer-dark-inner {
+    padding: 1rem 0 1.5rem;
+    border-top: 1px solid var(--rl-line-2);
+}
+
+/* Moodle prints the box even when there is no debugging output; an empty
+   one would leave a stray divider under the footer. */
+.roshnilite-frontpage #page-footer .footer-content-debugging:not(:has(.footer-dark-inner *)) {
+    display: none;
+}
+
+.roshnilite-frontpage #page-footer .footer-content-debugging a {
+    color: var(--rl-ink);
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.3);
+    text-underline-offset: 0.2em;
+}
+
+.roshnilite-frontpage #page-footer .footer-content-debugging a:hover {
+    text-decoration-color: currentcolor;
+}
+
+/* --------------------------------------------------------------------------
+   10b. Forms - Moodle's settings forms (course settings, activities, admin).
+   Core markup throughout; only the look changes.
+   -------------------------------------------------------------------------- */
+/* Fields are white on the grey page, so they stand out from it. The border
+   keeps Moodle's 3:1 contrast. */
+.mform .form-control:not([readonly]):not(:disabled),
+.mform .form-select:not(:disabled),
+.mform .custom-select:not(:disabled) {
+    background-color: var(--rl-surface);
+}
+
+.mform .form-control,
+.mform .form-select,
+.mform .custom-select {
+    min-height: 2.5rem;
+    border-radius: var(--rl-radius);
+}
+
+/* Section headings: a quiet chevron and a heading sized for a form, with
+   the heading text lined up with the field labels below it (core indents
+   the labels 2.5rem). */
+.mform fieldset.collapsible {
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--rl-line);
+}
+
+.mform fieldset.collapsible > legend {
+    margin-bottom: 0;
+}
+
+.mform .ftoggler {
+    min-height: 3rem;
+}
+
+.mform .ftoggler h3 {
+    color: var(--rl-ink);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.mform .ftoggler .btn-icon.icons-collapse-expand {
+    width: 1.5rem;
+    height: 1.5rem;
+    /* With the 1.5rem button, the heading starts where the labels do. */
+    margin-right: 0.25rem !important;
+    border: 0;
+    border-radius: var(--rl-radius);
+    background-color: transparent;
+    color: var(--rl-muted);
+}
+
+.mform .ftoggler:hover .btn-icon.icons-collapse-expand {
+    background-color: var(--rl-tint);
+    color: var(--rl-accent-strong);
+}
+
+.mform fieldset.collapsible .fcontainer {
+    padding-bottom: 1rem;
+}
+
+.mform .collapsible-actions {
+    margin-bottom: 0.25rem;
+}
+
+.mform .collapsible-actions .btn-link,
+.mform .collapsible-actions a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+/* Labels, with the required and help icons kept in one column at the
+   label's edge and lined up with its first line. */
+.mform .col-form-label {
+    color: var(--rl-ink-2);
+}
+
+.mform .col-form-label .form-label-addon {
+    align-self: flex-start;
+    white-space: nowrap;
+}
+
+/* Autocomplete (course category, tags): the chosen items are soft chips.
+   Core rings the active chip at all times, which reads as an error; the ring
+   now shows only while the list has keyboard focus. */
+.form-autocomplete-selection [role="option"].badge {
+    border: 1px solid var(--rl-tint-2);
+    border-radius: var(--rl-radius);
+    background-color: var(--rl-tint) !important;
+    color: var(--rl-accent-strong) !important;
+    font-weight: 500;
+}
+
+.form-autocomplete-selection [data-active-selection="true"] {
+    box-shadow: none;
+}
+
+.form-autocomplete-selection:focus [data-active-selection="true"],
+.form-autocomplete-selection.focus [data-active-selection="true"] {
+    box-shadow: 0 0 0 3px var(--rl-tint-2);
+}
+
+.form-autocomplete-downarrow {
+    color: var(--rl-muted);
+    font-size: 0.6875rem;
+    line-height: 2rem;
+}
+
+/* File picker and drop zone. */
+.mform .filemanager,
+.mform .filepicker-filelist {
+    border-radius: var(--rl-radius-lg);
+}
+
+.mform .filemanager-container,
+.mform .filepicker-container {
+    border-color: var(--rl-line) !important;
+    border-radius: var(--rl-radius);
+    background-color: var(--rl-surface);
+}
+
+.mform .fp-navbar,
+.mform .filemanager .fp-navbar {
+    border-color: var(--rl-line) !important;
+    border-radius: var(--rl-radius-lg) var(--rl-radius-lg) 0 0;
+    background-color: var(--rl-surface);
+}
+
+.mform .dndupload-message {
+    color: var(--rl-muted);
+}
+
+/* The editor sits in the same frame as the other fields. */
+.mform .tox.tox-tinymce {
+    border-color: var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+}
+
+/* The save bar: a light bar with a soft shadow, instead of a hard line. */
+.stickyfooter.bg-white {
+    border-top-color: var(--rl-line) !important;
+    background-color: color-mix(in srgb, var(--rl-surface) 92%, transparent) !important;
+    box-shadow: 0 -4px 16px rgba(16, 24, 40, 0.06);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+/* Moodle 5.3+ floats the course index as a panel: it is a white card like
+   the blocks, instead of a grey box. */
+body:has(.mds-nav-pill) .drawer.drawer-left {
+    border: 1px solid var(--rl-line);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
 }
 
 /* --------------------------------------------------------------------------
@@ -3177,7 +4273,7 @@ body.pagelayout-login #page .login-layout-left::after {
     width: 2.75rem;
     height: 2.75rem;
     border-radius: var(--rl-radius);
-    background-color: color-mix(in srgb, var(--rl-tone) 11%, #fff);
+    background-color: color-mix(in srgb, var(--rl-tone) 11%, var(--rl-mix-base));
     color: var(--rl-tone);
     font-family: "Font Awesome 6 Free", "FontAwesome";
     font-size: 1rem;

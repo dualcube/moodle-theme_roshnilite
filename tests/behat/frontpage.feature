@@ -33,6 +33,7 @@ Feature: Roshni Lite site home and navigation
     And I set the field "Search courses" to "Roshni"
     And I press "Search"
     And I should see "Roshni course 1"
+    And ".rl-sitefoot" "css_element" should exist
 
   Scenario: Visitors learn how the site works and find answers to common questions
     When I am on site homepage
@@ -54,3 +55,4 @@ Feature: Roshni Lite site home and navigation
     And I should see "Enrolled courses" in the ".rl-dash__stats" "css_element"
     And I visit "/message/index.php"
     And ".rl-dash" "css_element" should not exist
+    And I should see "Calendar" in the ".rl-sitefoot" "css_element"
