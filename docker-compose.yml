@@ -46,10 +46,11 @@ services:
     build:
       context: ./docker
       args:
-        # Change to test against a different branch, e.g. MOODLE_502_STABLE.
-        # Branches from 5.1 onward serve from a public/ subdirectory that
-        # this simple setup does not account for - see docker/Dockerfile.
-        MOODLE_BRANCH: MOODLE_500_STABLE
+        # Any supported branch works (MOODLE_405_STABLE ... MOODLE_503_STABLE),
+        # including 5.1+ which serve from public/. Override without editing:
+        #   MOODLE_BRANCH=MOODLE_405_STABLE docker compose up -d --build
+        # Switching branch needs a fresh install: docker compose down -v first.
+        MOODLE_BRANCH: ${MOODLE_BRANCH:-MOODLE_503_STABLE}
     depends_on:
       db:
         condition: service_healthy
@@ -71,7 +72,7 @@ services:
       - moodledata:/var/www/moodledata
       # Live-mount this theme's source over the in-container copy so edits
       # on the host show up without rebuilding the image.
-      - ./:/var/www/html/theme/roshnilite
+      - ./:/opt/theme_roshnilite
 
 volumes:
   db_data:

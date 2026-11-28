@@ -3,10 +3,16 @@ theme_roshnilite/.github/*
 theme_roshnilite/composer.json
 theme_roshnilite/composer.lock
 theme_roshnilite/package.json
-theme_roshnilite/package-lock.json
+theme_roshnilite/pnpm-lock.yaml
 theme_roshnilite/node_modules/*
 theme_roshnilite/vendor/*
 theme_roshnilite/phpunit.xml
 theme_roshnilite/tests/*
 theme_roshnilite/release/*
 theme_roshnilite/exclude.lst
+theme_roshnilite/docker/*
+theme_roshnilite/docker-compose.yml
+theme_roshnilite/phpcs.xml.dist
+theme_roshnilite/.gitignore
+theme_roshnilite/build/*
+*.DS_Store

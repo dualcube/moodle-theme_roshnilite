@@ -47,13 +47,12 @@ jobs:
 
       matrix:
         include:
-          # Current Moodle development branch (5.3dev), the top of $plugin->supported
-          # in version.php.
-          - moodle-branch: main
+          # Moodle 5.3 LTS, the top of $plugin->supported in version.php.
+          - moodle-branch: MOODLE_503_STABLE
             php: '8.4'
             database: pgsql
 
-          - moodle-branch: main
+          - moodle-branch: MOODLE_503_STABLE
             php: '8.4'
             database: mariadb
 
@@ -75,13 +74,24 @@ jobs:
             php: '8.3'
             database: mariadb
 
-          # Moodle 5.0, the theme's declared minimum (see $plugin->requires in version.php).
+          # Moodle 5.0
           - moodle-branch: MOODLE_500_STABLE
             php: '8.3'
             database: pgsql
 
           - moodle-branch: MOODLE_500_STABLE
             php: '8.3'
+            database: mariadb
+
+          # Moodle 4.5 LTS, the theme's declared minimum (see $plugin->requires in
+          # version.php). 4.5 ships Bootstrap 4.6, so this job guards the BS4
+          # attributes/classes kept alongside the BS5 ones in templates/layouts.
+          - moodle-branch: MOODLE_405_STABLE
+            php: '8.3'
+            database: pgsql
+
+          - moodle-branch: MOODLE_405_STABLE
+            php: '8.1'
             database: mariadb
 
     steps:
@@ -308,17 +318,18 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-      - name: Prepare Release Folder
-        run: |
-          rm -rf "$PLUGIN_SLUG/.git"
-          mkdir -p release
-
       - name: Verify exclude list
         run: |
           if [ ! -f "$PLUGIN_SLUG/exclude.lst" ]; then
             echo "ERROR: $PLUGIN_SLUG/exclude.lst not found"
             exit 1
           fi
+
+      # pnpm's version comes from package.json's "packageManager" field.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: ${{ env.PLUGIN_SLUG }}/package.json
 
       # version.php's $plugin->version is what Moodle itself treats as this
       # plugin's authoritative version - it's bumped on every real release.
@@ -336,26 +347,29 @@ jobs:
           echo "Plugin version: $VERSION"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
+      # The same command as a local build: it zips the theme in a folder named
+      # after the plugin ("roshnilite", not "theme_roshnilite"), which is what
+      # Moodle's plugin installer requires, leaving out what exclude.lst lists.
       - name: Build ZIP
-        run: |
-          zip -r "release/$PLUGIN_SLUG.zip" "$PLUGIN_SLUG" \
-            -x@"$PLUGIN_SLUG/exclude.lst"
+        working-directory: ${{ env.PLUGIN_SLUG }}
+        run: pnpm run build:zip
 
-      # Guards against a bad exclude.lst silently shipping a broken or empty
-      # zip: confirms the archive itself isn't corrupt, and that the plugin's
-      # own version.php - the file Moodle reads to identify and install it -
-      # actually made it in at the expected component path.
+      # Guards against a bad build silently shipping a broken zip: confirms the
+      # archive isn't corrupt and that version.php - the file Moodle reads to
+      # identify the plugin - sits at the top of the plugin's own folder.
       - name: Verify Release ZIP
         run: |
-          ZIP="release/$PLUGIN_SLUG.zip"
+          ZIP="$PLUGIN_SLUG/build/roshnilite.zip"
 
           unzip -t "$ZIP"
 
-          unzip -l "$ZIP" | grep -q "$PLUGIN_SLUG/version.php" || {
-            echo "ERROR: version.php missing from release ZIP"
+          unzip -Z1 "$ZIP" | grep -qx "roshnilite/version.php" || {
+            echo "ERROR: roshnilite/version.php missing from release ZIP"
             exit 1
           }
 
+          mkdir -p release
+          cp "$ZIP" "release/$PLUGIN_SLUG.zip"
           echo "Release ZIP verified successfully."
 
       - name: Determine release date

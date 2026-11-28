@@ -1,0 +1,48 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/site_footer
+
+    The slim site footer on inner pages: the copyright line, quick links and
+    the social links that are set.
+
+    Example context (json):
+    {
+        "footer": {"sitename": "Mount Orange", "copyright": "© 2026 Mount Orange",
+                   "links": [{"url": "#", "text": "Courses"}]},
+        "social": {"links": [{"url": "#", "icon": "<i class=\"fa fa-facebook\"></i>", "label": "Social link 1"}]}
+    }
+}}
+<div class="rl-sitefoot d-print-none">
+    <div class="rl-sitefoot__inner">
+        {{#footer}}
+            <p class="rl-sitefoot__copy">{{copyright}}</p>
+            <nav class="rl-sitefoot__nav" aria-label="{{#str}}footerexplore, theme_roshnilite{{/str}}">
+                <ul class="rl-sitefoot__links">
+                    {{#links}}<li><a href="{{url}}">{{text}}</a></li>{{/links}}
+                </ul>
+            </nav>
+        {{/footer}}
+        {{#social.links.0}}
+            <ul class="rl-socials rl-sitefoot__social" aria-label="{{#str}}footerfollow, theme_roshnilite{{/str}}">
+                {{#social.links}}
+                    <li><a href="{{url}}">{{{icon}}}<span class="sr-only visually-hidden">{{label}}</span></a></li>
+                {{/social.links}}
+            </ul>
+        {{/social.links.0}}
+    </div>
+</div>

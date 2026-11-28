@@ -15,6 +15,18 @@ set -euo pipefail
 
 MOODLE_DIR=/var/www/html
 DATA_DIR=/var/www/moodledata
+# Moodle 5.1+ keeps its web files (admin/, theme/, ...) in public/.
+if [ -d "${MOODLE_DIR}/public" ]; then
+    WEB_DIR="${MOODLE_DIR}/public"
+else
+    WEB_DIR="${MOODLE_DIR}"
+fi
+
+# The repo is bind-mounted at /opt/theme_roshnilite; link it into the theme
+# folder of whichever Moodle layout this image has.
+if [ ! -e "${WEB_DIR}/theme/roshnilite" ]; then
+    ln -s /opt/theme_roshnilite "${WEB_DIR}/theme/roshnilite"
+fi
 
 echo "Waiting for database at ${MOODLE_DB_HOST}..."
 until php -r "new mysqli('${MOODLE_DB_HOST}', '${MOODLE_DB_USER}', '${MOODLE_DB_PASS}', '${MOODLE_DB_NAME}');" 2>/dev/null; do
@@ -51,6 +63,12 @@ if [ ! -f "${MOODLE_DIR}/config.php" ]; then
         --adminpass="${MOODLE_ADMIN_PASS}" \
         --adminemail="${MOODLE_ADMIN_EMAIL}"
     echo "Moodle installed."
+
+    # Moodle 5.3+ installs with the site home disabled and login forced; the
+    # theme's main feature is its site home, so show it to visitors too.
+    # cfg.php refuses unknown settings, so the 4.5-5.2 installs skip this one.
+    run_as_www php "${MOODLE_DIR}/admin/cli/cfg.php" --name=enablemyhome --set=1 || true
+    run_as_www php "${MOODLE_DIR}/admin/cli/cfg.php" --name=forcelogin --set=0
 
     echo "Activating theme_roshnilite..."
     run_as_www php "${MOODLE_DIR}/admin/cli/cfg.php" --name=theme --set=roshnilite

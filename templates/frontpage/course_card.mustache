@@ -1,0 +1,45 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/frontpage/course_card
+
+    A catalogue course card: cover, title, teacher, and only the facts that
+    are true for the course (learner count once worth showing, the price or
+    "Free" from its enrolment methods, "New" for recent courses). On devices
+    with a pointer, the summary slides up over the cover on hover.
+
+    Example context (json):
+    {
+        "name": "Astronomy", "url": "#", "image": null, "tone": "sky", "monogram": "A",
+        "summary": "The night sky.", "teacher": {"name": "Mei Chen", "initials": "MC"},
+        "learners": "120 learners", "price": "Free", "isnew": true
+    }
+}}
+<article class="rl-mcard">
+    <div class="rl-mcard__media">
+        {{> theme_roshnilite/course_cover }}
+        {{#isnew}}<span class="rl-badge">{{#str}}badgenew, theme_roshnilite{{/str}}</span>{{/isnew}}
+        {{#summary}}<p class="rl-mcard__peek">{{summary}}</p>{{/summary}}
+    </div>
+    <div class="rl-mcard__body">
+        <h3 class="rl-mcard__title"><a class="rl-stretched" href="{{url}}">{{name}}</a></h3>
+        {{#teacher}}
+            <p class="rl-mcard__teacher"><span class="rl-avatar rl-avatar--xs" aria-hidden="true">{{initials}}</span>{{name}}</p>
+        {{/teacher}}
+        <div class="rl-mcard__foot">{{#learners}}<span class="rl-mcard__meta"><i class="fa fa-user-group" aria-hidden="true"></i> {{learners}}</span>{{/learners}}{{#price}}<span class="rl-mcard__price">{{price}}</span>{{/price}}</div>
+    </div>
+</article>

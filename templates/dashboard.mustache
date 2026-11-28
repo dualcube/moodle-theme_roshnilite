@@ -1,0 +1,114 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/dashboard
+
+    The personal header above the Dashboard blocks: a greeting for the time
+    of day, the learner's numbers, the course to jump
+    back into and shortcuts. The full course list and the deadlines are left
+    to the Course overview and Timeline blocks below, so nothing is repeated.
+
+    Example context (json):
+    {
+        "daypart": "morning",
+        "dayparticon": "fa-sun",
+        "greeting": "Good morning, Sam",
+        "date": "Wednesday, 25 November 2026",
+        "avatar": "http://example.com/sam.png",
+        "stats": [
+            {"value": 4, "label": "Enrolled courses", "icon": "fa-book-open", "tone": "primary"},
+            {"value": 2, "label": "Due this week", "icon": "fa-calendar-day", "tone": "sky"}
+        ],
+        "actions": [{"url": "#", "label": "My courses", "icon": "fa-graduation-cap"}],
+        "featured": {"name": "Biology", "category": "Science", "url": "#", "image": "http://example.com/b.jpg",
+                     "summary": "Cells and life.", "hasprogress": true, "progress": 40,
+                     "tone": "emerald", "monogram": "B"},
+        "hascourses": true,
+        "browseurl": "#"
+    }
+}}
+<section class="rl-dash" aria-label="{{#str}}dashboardoverview, theme_roshnilite{{/str}}">
+    <div class="rl-dash__sky rl-dash__sky--{{daypart}}">
+        <div class="rl-dash__top">
+            <img class="rl-dash__avatar" src="{{avatar}}" alt="">
+            <div class="rl-dash__hello">
+                <p class="rl-dash__date"><i class="fa {{dayparticon}}" aria-hidden="true"></i> {{date}}</p>
+                <h2 class="rl-dash__greeting">{{greeting}}</h2>
+                <p class="rl-dash__sub">{{#str}}dashboardsub, theme_roshnilite{{/str}}</p>
+            </div>
+        </div>
+        <ul class="rl-dash__stats">
+            {{#stats}}
+                <li class="rl-stat rl-stat--{{tone}}">
+                    <span class="rl-stat__icon" aria-hidden="true"><i class="fa {{icon}}"></i></span>
+                    <span class="rl-stat__value rl-count" style="--rl-to: {{value}}"><span class="rl-count__value">{{value}}</span></span>
+                    <span class="rl-stat__label">{{label}}</span>
+                </li>
+            {{/stats}}
+        </ul>
+    </div>
+
+    <div class="rl-dash__grid">
+        <div class="rl-panel rl-dash__continue">
+            <div class="rl-dash__heading">
+                <h3>{{#str}}jumpbackin, theme_roshnilite{{/str}}</h3>
+                <a class="rl-link-arrow" href="{{browseurl}}">{{#str}}herocta, theme_roshnilite{{/str}}</a>
+            </div>
+            {{#hascourses}}
+                {{#featured}}
+                    <article class="rl-resume">
+                        <div class="rl-resume__media">{{> theme_roshnilite/course_cover }}</div>
+                        <div class="rl-resume__body">
+                            {{#category}}<span class="rl-chip">{{category}}</span>{{/category}}
+                            <h4 class="rl-resume__title"><a class="rl-stretched" href="{{url}}">{{name}}</a></h4>
+                            {{#summary}}<p class="rl-resume__summary">{{summary}}</p>{{/summary}}
+                            <div class="rl-resume__foot">
+                                {{#hasprogress}}
+                                    <span class="rl-ring" style="--rl-p: {{progress}}" role="img"
+                                        aria-label="{{#str}}progresslabel, theme_roshnilite, {{progress}}{{/str}}">
+                                        <span>{{progress}}%</span>
+                                    </span>
+                                {{/hasprogress}}
+                                <span class="btn btn-primary rl-btn rl-resume__btn" aria-hidden="true">
+                                    {{#str}}resume, theme_roshnilite{{/str}} <i class="fa fa-arrow-right"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                {{/featured}}
+            {{/hascourses}}
+            {{^hascourses}}
+                <div class="rl-empty">
+                    <span class="rl-empty__icon" aria-hidden="true"><i class="fa fa-compass"></i></span>
+                    <div>
+                        <h4 class="rl-empty__title">{{#str}}emptytitle, theme_roshnilite{{/str}}</h4>
+                        <p class="rl-empty__text">{{#str}}emptytext, theme_roshnilite{{/str}}</p>
+                    </div>
+                    <a class="btn btn-primary rl-btn" href="{{browseurl}}">{{#str}}herocta, theme_roshnilite{{/str}}</a>
+                </div>
+            {{/hascourses}}
+        </div>
+
+        <aside class="rl-dash__side">
+            <nav class="rl-shortcuts" aria-label="{{#str}}quickactions, theme_roshnilite{{/str}}">
+                {{#actions}}
+                    <a class="rl-shortcut" href="{{url}}"><i class="fa {{icon}}" aria-hidden="true"></i><span>{{label}}</span></a>
+                {{/actions}}
+            </nav>
+        </aside>
+    </div>
+</section>

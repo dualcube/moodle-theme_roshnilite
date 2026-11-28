@@ -1,0 +1,64 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/frontpage/faculty
+
+    Faculty profile cards.
+
+    Example context (json):
+    {
+        "heading": "Top faculty",
+        "members": [
+            {
+                "name": "Jane Doe", "initials": "JD", "text": "<p>Professor</p>",
+                "image": "http://example.com/jane.jpg", "haslinks": true,
+                "links": [{"url": "#", "icon": "fa-brands fa-facebook-f", "class": "icoFacebook", "label": "Facebook"}]
+            }
+        ]
+    }
+}}
+<section class="rl-section top-faculti" aria-labelledby="rl-faculty-heading">
+    <div class="rl-container">
+        <header class="rl-head">
+            <h2 class="rl-head__title" id="rl-faculty-heading">{{heading}}</h2>
+        </header>
+        <div class="rl-grid rl-grid--faculty">
+            {{#members}}
+                <article class="rl-person">
+                    {{#image}}<img class="rl-person__photo" src="{{image}}" alt="" loading="lazy">{{/image}}
+                    {{^image}}<span class="rl-person__photo rl-person__initials" aria-hidden="true">{{initials}}</span>{{/image}}
+                    <div class="rl-person__body">
+                        <h3 class="rl-person__name">{{name}}</h3>
+                        <div class="rl-person__bio">{{{text}}}</div>
+                        {{#haslinks}}
+                            <ul class="rl-socials">
+                                {{#links}}
+                                    <li>
+                                        <a href="{{url}}" class="{{class}}" title="{{label}}">
+                                            <i class="{{icon}}" aria-hidden="true"></i>
+                                            <span class="sr-only visually-hidden">{{label}}</span>
+                                        </a>
+                                    </li>
+                                {{/links}}
+                            </ul>
+                        {{/haslinks}}
+                    </div>
+                </article>
+            {{/members}}
+        </div>
+    </div>
+</section>

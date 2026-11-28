@@ -1,1583 +1,4717 @@
+/* ==========================================================================
+   Roshni Lite design layer.
+
+   A clean product look: white surfaces, one geometric sans-serif (Figtree),
+   one accent colour from the theme settings, thin borders, soft shadows and
+   the site's own content in place of decoration.
+
+   Loaded after Boost's compiled SCSS on Moodle 4.5 LTS - 5.3 LTS.
+   The font files are [[font:...]] references, which Moodle resolves. The
+   theme settings (colours, fonts, custom CSS) are written in at the two
+   [[setting:...]] comment markers by theme_roshnilite_process_css().
+   Everything theme-specific uses the rl- prefix, so it never collides with
+   Moodle or Bootstrap class names.
+   ========================================================================== */
+
 @font-face {
-    font-family: [[setting:bodyfont]];
-    src: url([[setting:fontname]]);
-  }
-  body{font-family: [[setting:bodyfont]];overflow-x: hidden;}
-  [[setting:customcss]]
-  .contains_branch p.tree_item a {
-      color: [[setting:brandcolor]];
-  }
-  .base-color{
-      color: [[setting:maincolor]] ;
-  }
-  .a.dimmed_text, a.dimmed_text:link, a.dimmed_text:visited, .dimmed_text{
-      color: [[setting:brandcolor]] !important;
-  }
-  .card-title {
-      position: relative;
-      display: block !important;
-      /*d-inline are written*/
-      font-size: 1.063rem;
-      font-weight: 600;
-      line-height: 1.25rem;
-      word-wrap: break-word;
-      color: [[setting:maincolor]];
-      text-transform: uppercase;
-  }
-  .card{
-      border: 0;
-  }
-  .block {
-      background-color: transparent;
-  }
-  .columnleft{
-      border-right: 0.06rem solid [[setting:maincolor]];
-  }
-  .columnleft .card-title:before {
-      position: absolute;
-      content: "";
-      width: 0.938rem;
-      height: 0.938rem;
-      border-radius: 50%;
-      border:0.06rem solid [[setting:maincolor]];
-      top: 0.25rem;
-      right: -2.5rem;
-      background: #fff;
-  }
-  .region-main {
-      border-right: 0.06rem solid [[setting:maincolor]];
-  }
-  .columnright .card-title:before {
-      position: absolute;
-      content: "";
-      width: 0.938rem;
-      height: 0.938rem;
-      border-radius: 50%;
-      border: 0.06rem solid [[setting:maincolor]];
-      top: 0.25rem;
-      left: -2.5rem;
-      background: #fff;
-  }
-  input[type="submit"]{
-      background: [[setting:brandcolor]];
-      border: 0.06rem solid [[setting:brandcolor]];
-      color: #fff;
-  }
-  input[type="submit"]:hover, .btn-primary:not(:disabled):not(.disabled):active{
-      background: [[setting:brandcolor]];
-      border: 0.06rem solid [[setting:brandcolor]];
-  }
-  .container-fluid {
-      padding-right: 0rem;
-      padding-left: 0rem;
-  }
-  .container{ margin: 0 auto; }
-  .blocks-pre {
-      position: relative;
-  }
-  .region-main-content {
-      padding: 1.875rem 0.625rem !important;
-      /*boost*/
-  }
-  #page-header{
-      /* border-bottom: 10px solid #e84c3d; */
-      padding-top: 1rem;
-  }
-  /* div#page-navbar {
-      padding: 0 2rem 1rem 0;
-  } */
-  .navbar-bootswatch {
-      background-color: [[setting:maincolor]];
-  }
-  .wrap-width {
-      /* max-width: 1170px; */
-      margin: 0 auto;
-      /* width: 1170px; */
-  }
-  .navbar-bootswatch .navbar-nav .nav-link {
-      color: #e6e6e6;
-      /*static*/
-  }
-  .usermenu {
-      /*static*/
-      padding: 0.438rem 1.063rem;
-  }
-  img.userpicture {
-      margin-right: 0;
-      border-radius: 0;
-      margin-left: 0.313rem;
-  }
-  .singlebutton .btn.btn-secondary{
-      background: [[setting:brandcolor]];
-      border: 0;
-      color: #fff;
-      /*static*/
-      border-radius: 0;    
-      margin: 0;
-  }
-  .singlebutton .btn.btn-secondary:hover{
-  }
-  .btn-primary{
-      background: [[setting:brandcolor]];
-      border:0.06rem solid [[setting:brandcolor]];
-  }
-  .btn-primary:hover{
-  }
-  .block_navigation .block_tree .tree_item.branch span{
-      color: [[setting:brandcolor]];
-  }
-  .block_navigation .block_tree .active_tree_node {
-      font-weight: 400;
-  }
-  .block_tree.list a{
-      color: [[setting:brandcolor]] !important;
-      /* For moodle css */
-  }
-  .item-content-wrap{
-      position: relative;
-  }
-  .block_navigation .block_tree [aria-expanded="true"]:before, .type_course.depth_2.contains_branch .item-content-wrap:before {
-    
-  }
-  .block_settings .block_tree [aria-expanded="false"]:before, .block_navigation .block_tree [aria-expanded="false"]:before {
-      content: "\f105";
-      margin-right: 0;
-      font: normal normal normal 0.875rem/1 FontAwesome;
-      font-size: inherit;
-      font-size: 0.875rem;
-      text-rendering: auto;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      width: 0.875rem;
-      background: #000;
-      border-radius: 0.625rem;
-      color: #fff;
-      /* Static */
-      margin-right: 0.313rem;
-      margin-left: -0.313rem;
-      text-align: center;
-      font-weight: 700;
-      position: absolute;
-      opacity: 0;
-  }
-  #label_3_10 .item-content-wrap:before{
-      display: none;
-  }
-  h1 {
-      font-size: 2rem !important;
-  }
-  h2 {
-      font-size: 1.6rem !important;
-  }
-  h3 {
-      font-size: 1.3rem !important;
-  }
-  h4 {
-      font-size: 1rem !important;
-  }
-  i.icon.fa.fa-bell.fa-fw {
-      padding-top: 0.188rem;
-  }
-  .context-header-settings-menu,
-  .region-main-settings-menu {
-    margin-right: 1.875rem;
-  }
-  body, select, div.completionprogress, #page-footer .logininfo, .btn, section div.card-body, li.breadcrumb-item, li.breadcrumb-item a, .nav-tabs, .form-item .form-label label, .form-item .form-label p, .form-item .form-select select, .form-item .form-description p , a, span, .form-item .form-setting .form-defaultinfo, .form-control{
-      font-family: [[setting:bodyfont]];
-      font-size: [[setting:fontsize]]px !important;
-  }
-  .text-info, .highlight {
-      color: [[setting:brandcolor]] !important;
-  }
-  a:hover {
-      color: [[setting:brandcolor]];
-      text-decoration: none;
-  }
-   #page-footer a {
-      color: [[setting:brandcolor]];
-      text-decoration: none;
-  }
-  a.navbar-brand {
-      margin-left: 1.25rem;
-      padding: 0;
-  }
-  .dropdown-item.active, .dropdown-item:active {, span
-      text-decoration: none;
-  }
-  .dropdown-item, .select-menu ul[role="group"] li:first-child{
-    font-size: 1rem;
-  }
-  .block_tree.list .active_tree_node a {
-  }
-  #tag-search-box {
-      text-align: left;
-      margin: 0.625rem auto;
-  }
-  #tag-search-box input[type="text"]{
-      display:inline-block;
-      height: calc(1.5em + .75rem + 2px);
-      padding:0.625rem 0.938rem;
-      font-size:0.75rem;
-      font-weight: 400;
-      line-height: 1.5;
-      color: #495057;
-      background-color: #fff;
-      border: 0.06rem solid #ced4da;
-      border-radius: 0.313rem 0 0 0.313rem;
-      min-height: 2.5rem;
-  }
-  #tag-search-box input[type="submit"] {
-      background: [[setting:brandcolor]];
-      border: 0.06rem solid [[setting:brandcolor]];
-      min-height: 2.5rem;
-      border-radius: 0 0.313rem 0.313rem 0;
-      padding: 0 0.625rem;
-  }
-  p.tree_item.hasicon.tree_item.leaf {
-      position: relative;
-  }
-  p.tree_item.hasicon.tree_item.leaf i{ display: none; }
-  p.tree_item.hasicon.tree_item.leaf:before{
-      content: "\f105";
-      margin-right: 0;
-      display: inline-block;
-      font: normal normal normal 0.875rem/1 FontAwesome;
-      font-size: inherit;
-      font-size: 0.875rem;
-      text-rendering: auto;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      width: 0.875rem;
-      /* background: #000; */
-      border-radius: 0.625rem;
-      color: #e74c3c;
-      /* Static */
-      margin-right: 0.313rem;
-      margin-left: -0.313rem;
-      text-align: center;
-      font-weight: 700;
-     display: none;
-  }
-  p.tree_item.hasicon.active_tree_node.tree_item.leaf:before {
-  }
-  
-  .about {
-      text-align: center;
-      padding: 5rem 0 0;
-  }
-  .tool_dataprivacy{
-      display: none;
-  }
-  .about h3 {
-      font-size: 1.25rem;
-      line-height: 1.5rem;
-      margin: 2.5rem 2.75rem 0;
-  }
-  
-  .about-items {
-      padding: 2.875rem 0 0;
-      clear: both;
-      margin: 1.875rem -0.938rem 0;
-      text-align: center;
-  }
-  .about-item .about-item-img-wr {
-      border: 0.06rem solid #eeeeee;
-      border-radius: 50%;
-      overflow: hidden;
-      padding: 0.125rem;
-      display: inline-block;
-      width: 5.125rem;
-      height: 5.125rem;
-      margin: 2.75rem 0 0.625rem;
-  }
-  .about-item .about-item-img {
-      background: #FFFFFF;
-      color: #000000;
-      border-radius: 50%;
-      overflow: hidden;
-      transition: color 0.5s, background 0.5s;
-      width: 100%;
-      height: 100%;
-  }
-  
-  .about-item .text_to_html{
-      font-size: 0.875rem;
-      line-height: 1.438rem;
-      font-weight: 400;
-      color: #868686;
-      padding: 1.063rem 0.813rem 0;
-      box-sizing: border-box;
-      overflow: hidden;
-      font-family: [[setting:bodyfont]];
-  }
-  .about-item:hover {
-      background: [[setting:brandcolor]];
-  }
-  
-  .about-item {
-      display: inline-block;
-      float: left;
-      margin: 0 0.5rem 0.938rem;
-      padding: 0 0 1.875rem;
-      width: 16.75rem;
-      height: 22.5rem;
-      box-sizing: border-box;
-      overflow: hidden;
-      text-align: center;
-      border: 0.06rem solid #eeeeee;
-      transition: color 0.5s, background 0.5s;
-  
-  }
-  .about-item:hover, .about-item:hover .text_to_html{
-      color: #FFF;
-  }
-  .about-item-img img{ width: 100%; }
-  h1, h2, h3, h4, h5, h6, p, input[type="text"], input[type="url"], textarea, input[type="submit"], input.srch-fld, select, input[type="file"], html {
-      font-family: [[setting:headingfont]];
-      font-style: normal;
-      font-weight: 400;
-  }
-  
-  .contact-items {
-      text-align: center;
-      clear: both;
-  }
-  .contact-item {
-      display: inline-block;
-      width: auto;
-      height: 7.5rem;
-      margin: 2.375rem 0.875rem 0;
-      padding: 3rem 0 0;
-      font-size: 1rem;
-      line-height: 1.563rem;
-      border-top:0.06rem solid [[setting:maincolor]];
-      font-family: [[setting:bodyfont]];
-  }
-  
-  /* ******* .stay-connected ********* */
-  .stay-connected {
-      text-align: center;
-      padding:3.75rem 0;
-      width: 100%;
-  }
-  
-  .stay-connected a {
-      display: inline-block;
-      margin: 0 0.25rem 0.625rem;
-  }
-  #myBtn {
+    font-family: "Roshni Figtree";
+    font-style: normal;
+    font-weight: 300 900;
+    font-display: swap;
+    src: url([[font:theme|figtree-latin.woff2]]) format("woff2");
+    unicode-range:
+        U+0000-00FF,
+        U+0131,
+        U+0152-0153,
+        U+02BB-02BC,
+        U+02C6,
+        U+02DA,
+        U+02DC,
+        U+0304,
+        U+0308,
+        U+0329,
+        U+2000-206F,
+        U+20AC,
+        U+2122,
+        U+2191,
+        U+2193,
+        U+2212,
+        U+2215,
+        U+FEFF,
+        U+FFFD;
+}
+
+@font-face {
+    font-family: "Roshni Figtree";
+    font-style: normal;
+    font-weight: 300 900;
+    font-display: swap;
+    src: url([[font:theme|figtree-latin-ext.woff2]]) format("woff2");
+    unicode-range:
+        U+0100-02BA,
+        U+02BD-02C5,
+        U+02C7-02CC,
+        U+02CE-02D7,
+        U+02DD-02FF,
+        U+1D00-1DBF,
+        U+1E00-1E9F,
+        U+1EF2-1EFF,
+        U+2020,
+        U+20A0-20AB,
+        U+20AD-20C0,
+        U+2113,
+        U+2C60-2C7F,
+        U+A720-A7FF;
+}
+
+/* --------------------------------------------------------------------------
+   1. Design tokens
+   -------------------------------------------------------------------------- */
+:root {
+    --rl-font: "Roshni Figtree", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --rl-font-display: var(--rl-font);
+
+    /* Defaults; the theme settings override them (see the settings marker below). */
+    --rl-primary: #e74c3c;
+    --rl-accent: #e74c3c;
+    --rl-primary-strong: color-mix(in srgb, var(--rl-primary) 82%, #000);
+    --rl-accent-strong: color-mix(in srgb, var(--rl-accent) 82%, #000);
+    --rl-primary-tint: color-mix(in srgb, var(--rl-primary) 8%, #fff);
+    --rl-primary-tint-2: color-mix(in srgb, var(--rl-primary) 16%, #fff);
+    --rl-tint: color-mix(in srgb, var(--rl-accent) 7%, #fff);
+    --rl-tint-2: color-mix(in srgb, var(--rl-accent) 14%, #fff);
+    /* Kept for Moodle's own site home lists, styled further down. */
+    --rl-sun: var(--rl-accent);
+    --rl-sun-soft: var(--rl-tint-2);
+
+    --rl-ink: #0f1115;
+    --rl-ink-2: #3a3f47;
+    --rl-muted: #646a73;
+    --rl-line: #e7e8ec;
+    --rl-line-2: #f0f1f3;
+    --rl-surface: #fff;
+    --rl-canvas: #f7f7f8;
+    --rl-canvas-2: #eeeff2;
+
+    /* Colour-mode aware roles. Light mode values match the tokens they stand
+       in for; the dark set below re-points them. */
+    --rl-accent-text: var(--rl-accent-strong);
+    --rl-primary-text: var(--rl-primary-strong);
+    /* What tints are mixed into, and what text on a tint is darkened with. */
+    --rl-mix-base: #fff;
+    --rl-mix-ink: #000;
+    /* Solid "selected" chips: active pills, tabs, the current page. */
+    --rl-inverse: var(--rl-ink);
+    --rl-on-inverse: #fff;
+    --rl-foot-bg: #000;
+    --rl-glass: rgba(255, 255, 255, 0.86);
+
+    /* A tight radius scale: crisp, product-like corners. */
+    --rl-radius-sm: 0.25rem;
+    --rl-radius: 0.375rem;
+    --rl-radius-lg: 0.5rem;
+    --rl-radius-xl: 0.625rem;
+
+    /* Moodle 5.3+ Design System and Bootstrap radii follow the same scale. */
+    --mds-border-radius-xs: 0.1875rem;
+    --mds-border-radius-sm: 0.25rem;
+    --mds-border-radius-md: 0.375rem;
+    --mds-border-radius-lg: 0.5rem;
+    --mds-border-radius-xl: 0.625rem;
+    --mds-border-radius-xxl: 1rem;
+    --bs-border-radius-sm: 0.25rem;
+    --bs-border-radius: 0.375rem;
+    --bs-border-radius-lg: 0.5rem;
+    --bs-border-radius-xl: 0.625rem;
+    --bs-border-radius-xxl: 1rem;
+    --rl-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
+    --rl-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 12px 32px -8px rgba(16, 24, 40, 0.1);
+    --rl-shadow-lg: 0 2px 4px rgba(16, 24, 40, 0.04), 0 32px 64px -16px rgba(16, 24, 40, 0.18);
+    --rl-glow: 0 8px 20px -6px color-mix(in srgb, var(--rl-accent) 60%, transparent);
+
+    --rl-ease: cubic-bezier(0.2, 0, 0, 1);
+    --rl-speed: 0.2s;
+    --rl-container: 1200px;
+    --rl-gutter: 1.5rem;
+    --rl-navbar-height: 60px;
+
+    /* Contour lines for tinted panels. */
+    --rl-contours: url([[pix:theme|contours]]);
+}
+
+/* Moodle 5.3+ Design System: its interactive "primary" is a fixed Moodle
+   blue. Point it at the theme colour so pills, tabs and switches match.
+   Dark mode keeps core's own tuned values. */
+:root:not([data-bs-theme="dark"]) {
+    --mds-bg-interactive-primary-default: var(--rl-primary);
+    --mds-bg-interactive-primary-hover: var(--rl-primary-strong);
+    --mds-bg-interactive-primary-active: var(--rl-primary-strong);
+    --mds-bg-interactive-primary-default-light: var(--rl-primary-tint);
+    --mds-border-interactive-primary-default: var(--rl-primary);
+    --mds-border-interactive-primary-active: var(--rl-primary-strong);
+    --mds-bg-feedback-primary-default: var(--rl-primary);
+    --mds-bg-nav-pill-selected: var(--rl-primary-tint);
+}
+
+/* Dark colour mode. Moodle 5.3+ sets data-bs-theme="dark" on the html tag
+   when a user picks dark (or auto on a dark device) in the navbar's colour
+   mode menu, once a site admin turns colour modes on in the Boost theme's
+   Experimental settings. Older releases never set it, so they stay light.
+   Raised surfaces are lighter than the page, as in core's dark palette. */
+[data-bs-theme="dark"] {
+    color-scheme: dark;
+
+    --rl-ink: #f3f4f6;
+    --rl-ink-2: #c9ccd2;
+    --rl-muted: #9aa0a9;
+    --rl-line: #2c3038;
+    --rl-line-2: #23262d;
+    --rl-surface: #181b21;
+    --rl-canvas: #111317;
+    --rl-canvas-2: #1f232a;
+
+    /* Darkening the brand colour makes it vanish on a dark page, so text in it
+       is lightened instead, and tints are mixed into the surface, not white. */
+    --rl-accent-text: color-mix(in srgb, var(--rl-accent) 62%, #fff);
+    --rl-primary-text: color-mix(in srgb, var(--rl-primary) 62%, #fff);
+    --rl-primary-tint: color-mix(in srgb, var(--rl-primary) 14%, var(--rl-surface));
+    --rl-primary-tint-2: color-mix(in srgb, var(--rl-primary) 24%, var(--rl-surface));
+    --rl-tint: color-mix(in srgb, var(--rl-accent) 12%, var(--rl-surface));
+    --rl-tint-2: color-mix(in srgb, var(--rl-accent) 22%, var(--rl-surface));
+    --rl-mix-base: var(--rl-surface);
+    --rl-mix-ink: #fff;
+
+    --rl-inverse: #eceef1;
+    --rl-on-inverse: #111317;
+    --rl-foot-bg: #000;
+    --rl-glass: rgba(17, 19, 23, 0.86);
+
+    --rl-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --rl-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -8px rgba(0, 0, 0, 0.5);
+    --rl-shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.3), 0 32px 64px -16px rgba(0, 0, 0, 0.65);
+    --rl-glow: 0 8px 20px -6px color-mix(in srgb, var(--rl-accent) 40%, transparent);
+
+    /* The same contour lines, faint enough not to glare on a dark tint. */
+    --rl-contours: url([[pix:theme|contours-dark]]);
+}
+
+/* Colour mode menu (Moodle 5.3+, core's and the visitor version): a round
+   icon button like the navbar's other controls, and a compact menu. The
+   sun and moon are drawn from pix/mode-*.svg, because Font Awesome's sun
+   reads as a settings cog at this size. The toggle shows the moon in light
+   mode and the sun in dark mode; screen readers keep core's label. */
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: transparent;
+    color: var(--rl-ink-2);
+    transition:
+        background-color var(--rl-speed) var(--rl-ease),
+        color var(--rl-speed) var(--rl-ease);
+}
+
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn::after,
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn .icon,
+.colourmodemenu .dropdown-item[data-colourmode="light"] .icon,
+.colourmodemenu .dropdown-item[data-colourmode="dark"] .icon {
     display: none;
-    position: fixed;
-    bottom: 1.25rem;
-    right: 1.875rem;
-    z-index: 99;
-    font-size: 1.125rem;
-    border: none;
-    outline: none;
-    background-color: red;
-    color: white;
-    cursor: pointer;
-    padding: 0.938rem;
-    border-radius: 0.25rem;
-  }
-  #myBtn:hover {
-    background-color: #555;
-  }
-  
-  .btn-view-all {
-      text-transform: uppercase;
-      color: #868686;
-      font-size: 0.875rem;
-      line-height: 1.063rem;
-      margin: 0 auto 0;
-      display: block;
-      text-align: center;
-      border-bottom: 0.06rem solid [[setting:maincolor]];
-      padding-bottom: 3.125rem;
-      padding-top: 3.125rem;
-      width: 100%;
-      font-family: [[setting:bodyfont]];
-  }
-  .coursebox .info {
-      padding: 0 0 1.313rem;
-  }
-  .coursebox>.info>.coursename a {
-      display: block;
-      padding-left: 0;
-      background-image: none;
-      background-position: 0;
-      background-repeat: no-repeat;
-      font-size: 1.125rem;
-      line-height: 1.25rem;
-      padding: 0 0 0;
-      font-weight: 400;
-      color: #e84c3d;
-      text-transform: uppercase;
-  }
-  .turneditbtn {
-      background: #e84c3d;
-      border: 0.06rem solid #e84c3d;
-      border-radius: 0;
-      box-sizing: border-box;
-      margin: 3.125rem 0 0;
-      padding: 0 0.938rem;
-      height: auto;
-      width: auto;
-      color: #FFFFFF;
-      font-size: 0.875rem;
-      line-height: 1.875rem;
-      font-weight: 600;
-      display: inline-block;
-  }
-  .coursebox > .info > h3.coursename {
-      margin: 0;
-  }
-  .coursebox {
-      padding: 0 0.625rem;
-      margin: 1.25rem 0 0;
-  }
-  .buttons {
-      margin-top: 1.25rem;
-  }
-  .turnedit.turneditbtn:hover{ color: #fff; background:#e84c3dc7; border: 0.06rem solid #e84c3dc7; }
-  li.view.fourth-effect:hover .mask {
-      background: #000000a3;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-  }
-  .view.fourth-effect:hover .av-course-item-cont {
-      display: block;
-      position: absolute;
-      bottom: 0.625rem;
-      background: #e84c3d;
-      width: 100%;
-      padding: 0.625rem 1.25rem;
-      z-index: 999;
-      color: #fff;
-  }
-  .bots-slide:hover .mask {
-      background: #000000a3;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-  }
-  .bots-slide:hover .av-course-item-cont {
-      display: block;
-      position: absolute;
-      bottom: 0.625rem;
-      background: #e84c3d;
-      width: 100%;
-      padding: 0.625rem 1.25rem;
-      z-index: 999;
-      color: #fff;
-  }
-  .av-course-item-cont{ display: none; }
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  textarea:-webkit-autofill,
-  textarea:-webkit-autofill:hover,
-  textarea:-webkit-autofill:focus,
-  select:-webkit-autofill,
-  select:-webkit-autofill:hover,
-  select:-webkit-autofill:focus {
-    border: 0.06rem solid #7e7d7d;
-    -webkit-text-fill-color: #7e7d7d;
-    -webkit-box-shadow: 0 0 0rem 1000px transparent inset;
-    transition: background-color 5000s ease-in-out 0s;
-  }
-  .av-course-item-cont a{ color: #fff; }
-  .av-course-item-cont h2 a {
-      text-transform: uppercase;
-      color: #fff;
-      font-size: 1.125rem;
-      font-weight: 500;
-      padding: 0 1.25rem;
-  }
-  .avcoursesslider img {
-      display: block;
-      height: 21.875rem;
-      width: 100%;
-      object-fit: cover;
-  }
-  .editor_atto_content {
-      word-break: break-word;
-  }
-  .progress-bar{ background-color: [[setting:brandcolor]];}
-  
-  footer#page-footer {
-      text-align: center;
-      display: block;
-      width: 100%;
-      background: #fff;
-      float: left;
-      clear: both;
-      margin-bottom: 2.5rem;
-      border-top: 0.06rem solid [[setting:maincolor]];
-  }
-  body#page-login-index footer#page-footer {
-    background: #eee;
+}
+
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn::before,
+.colourmodemenu .dropdown-item[data-colourmode="light"]::before,
+.colourmodemenu .dropdown-item[data-colourmode="dark"]::before {
+    content: "";
+    flex: none;
+    width: 1.125rem;
+    height: 1.125rem;
+    background-color: currentcolor;
+    -webkit-mask: url([[pix:theme|mode-moon]]) center / contain no-repeat;
+    mask: url([[pix:theme|mode-moon]]) center / contain no-repeat;
+}
+
+[data-bs-theme="dark"] .navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn::before,
+.colourmodemenu .dropdown-item[data-colourmode="light"]::before {
+    -webkit-mask-image: url([[pix:theme|mode-sun]]);
+    mask-image: url([[pix:theme|mode-sun]]);
+}
+
+.colourmodemenu .dropdown-item[data-colourmode="light"]::before,
+.colourmodemenu .dropdown-item[data-colourmode="dark"]::before {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    color: var(--rl-muted);
+}
+
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn:hover,
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn[aria-expanded="true"] {
+    background-color: var(--rl-canvas-2);
+    color: var(--rl-ink);
+}
+
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn:focus-visible {
+    outline: 2px solid var(--rl-accent);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
+.colourmodemenu .dropdown-menu {
+    min-width: 10rem;
+    margin-top: 0.5rem;
+    padding: 0.375rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-lg);
+}
+
+.colourmodemenu .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.625rem;
+    border-radius: var(--rl-radius);
+    color: var(--rl-ink-2);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.colourmodemenu .dropdown-item .icon {
+    color: var(--rl-muted);
+}
+
+.colourmodemenu .dropdown-item:hover,
+.colourmodemenu .dropdown-item:focus {
+    background-color: var(--rl-canvas-2);
+    color: var(--rl-ink);
+}
+
+.colourmodemenu .dropdown-item.active,
+.colourmodemenu .dropdown-item.active:hover {
+    background-color: var(--rl-tint);
+    color: var(--rl-accent-text);
+}
+
+.colourmodemenu .dropdown-item.active .icon,
+.colourmodemenu .dropdown-item.active::before {
+    color: inherit;
+}
+
+/* A check mark on the chosen mode. */
+.colourmodemenu .dropdown-item.active::after {
+    content: "\f00c";
+    margin-left: auto;
+    padding-left: 0.75rem;
+    font-family: "Font Awesome 6 Free";
+    font-size: 0.75rem;
+    font-weight: 900;
+}
+
+/* The bundled logo is dark lettering on transparency; flip it for dark mode.
+   Only the bundled file (theme image URL ending in img/logo) - a logo
+   uploaded in the settings is served from pluginfile.php and keeps its colours. */
+[data-bs-theme="dark"] img[src*="/theme_roshnilite/"][src$="/img/logo"] {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+/* The few fixed pastels: deep fills with light text in dark mode. */
+[data-bs-theme="dark"] .rl-proof__avatars .rl-avatar:nth-child(2) {
+    background-color: #1e3a8a;
+    color: #bfdbfe;
+}
+
+[data-bs-theme="dark"] .rl-proof__avatars .rl-avatar:nth-child(3) {
+    background-color: #064e3b;
+    color: #a7f3d0;
+}
+
+[data-bs-theme="dark"] .rl-proof__avatars .rl-avatar:nth-child(4) {
+    background-color: #4c1d95;
+    color: #ddd6fe;
+}
+
+[data-bs-theme="dark"] .rl-art-learn__row--done .fa {
+    background-color: #14532d;
+    color: #bbf7d0;
+}
+
+[data-bs-theme="dark"] .rl-preview::before {
+    background:
+        radial-gradient(closest-side, var(--rl-tint-2), transparent),
+        radial-gradient(closest-side at 80% 70%, #1e2a44, transparent);
+}
+
+/* Theme settings: colour tokens and font rules, filled in by Moodle. */
+/* [[setting:settingsrules]] */
+
+/* --------------------------------------------------------------------------
+   2. Base
+   -------------------------------------------------------------------------- */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+.h1,
+.h2,
+.h3,
+.h4 {
+    letter-spacing: -0.015em;
+}
+
+/* The theme's own surfaces - site home, Dashboard header, login - use the
+   theme face throughout. Working pages (courses, activities, admin) keep
+   Moodle's text face, so headings match their content. */
+.roshnilite-home,
+.rl-dash,
+.pagelayout-login #page {
+    font-family: var(--rl-font);
+}
+
+.roshnilite-home h1,
+.roshnilite-home h2,
+.roshnilite-home h3,
+.rl-head__title,
+.rl-cta__title,
+.rl-dash__greeting,
+.rl-loginpanel__title,
+.pagelayout-login .login-heading {
+    font-family: var(--rl-font-display);
+    letter-spacing: -0.025em;
+}
+
+::selection {
+    background-color: var(--rl-accent);
+    color: #fff;
+}
+
+a,
+.btn,
+.form-control,
+.custom-select,
+.form-select {
+    transition:
+        color var(--rl-speed) var(--rl-ease),
+        background-color var(--rl-speed) var(--rl-ease),
+        border-color var(--rl-speed) var(--rl-ease),
+        box-shadow var(--rl-speed) var(--rl-ease);
+}
+
+/* Visible keyboard focus everywhere (WCAG 2.2 2.4.7 / 2.4.11). */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+.btn:focus-visible,
+[role="button"]:focus-visible,
+[role="menuitem"]:focus-visible,
+.dropdown-item:focus-visible {
+    outline: 2px solid var(--rl-primary);
+    outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Controls
+   -------------------------------------------------------------------------- */
+/* Buttons everywhere share the theme's look: a solid accent with a soft
+   glow for the main action, a white outlined button for the rest. Icon-only
+   and link buttons keep Moodle's own styling. */
+.btn {
+    border-radius: var(--rl-radius);
+    font-weight: 600;
+}
+
+.btn-sm {
+    border-radius: var(--rl-radius-sm);
+}
+
+.btn-primary,
+input[type="submit"].btn-primary {
+    background-color: var(--rl-accent);
+    border-color: var(--rl-accent);
+    box-shadow: 0 4px 12px -4px color-mix(in srgb, var(--rl-accent) 55%, transparent);
+    color: #fff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:not(:disabled):not(.disabled):active {
+    background-color: var(--rl-accent-strong);
+    border-color: var(--rl-accent-strong);
+    color: #fff;
+}
+
+.btn-secondary,
+.btn-outline-secondary,
+.btn-light,
+input[type="submit"].btn-secondary,
+input[type="button"].btn-secondary {
+    background-color: var(--rl-surface);
+    border-color: var(--rl-line);
+    box-shadow: var(--rl-shadow-sm);
+    color: var(--rl-ink);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-light:hover,
+.btn-light:focus,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-outline-secondary:not(:disabled):not(.disabled):active,
+.btn-outline-secondary.active,
+.btn-outline-secondary.selected {
+    background-color: var(--rl-canvas);
+    border-color: color-mix(in srgb, var(--rl-ink) 25%, var(--rl-line));
+    color: var(--rl-ink);
+}
+
+.btn-outline-primary {
+    background-color: var(--rl-surface);
+    border-color: color-mix(in srgb, var(--rl-accent) 45%, var(--rl-line));
+    color: var(--rl-accent-text);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:not(:disabled):not(.disabled):active {
+    background-color: var(--rl-tint);
+    border-color: var(--rl-accent);
+    color: var(--rl-accent-text);
+}
+
+.btn-secondary:focus-visible,
+.btn-outline-secondary:focus-visible,
+.btn-outline-primary:focus-visible,
+.btn-primary:focus-visible {
+    box-shadow: 0 0 0 4px var(--rl-tint-2);
+}
+
+.btn-lg {
+    border-radius: var(--rl-radius);
+}
+
+.form-control,
+.custom-select,
+.form-select,
+.input-group-text {
+    border-radius: var(--rl-radius-sm);
+}
+
+.form-control:focus,
+.custom-select:focus,
+.form-select:focus {
+    border-color: var(--rl-primary);
+    box-shadow: 0 0 0 4px var(--rl-primary-tint-2);
+}
+
+.progress-bar {
+    background-color: var(--rl-primary);
+}
+
+.dropdown-menu {
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius);
+    box-shadow: var(--rl-shadow);
+    padding: 0.375rem;
+}
+
+.dropdown-menu .dropdown-item {
+    border-radius: var(--rl-radius-sm);
+}
+
+.modal-content {
+    border: 0;
+    border-radius: var(--rl-radius-lg);
+    box-shadow: var(--rl-shadow-lg);
+}
+
+/* The theme's buttons: a solid accent with a soft glow, or a quiet outline. */
+.rl-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid transparent;
+    border-radius: var(--rl-radius);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.rl-btn .fa {
+    font-size: 0.8125em;
+    transition: transform var(--rl-speed) var(--rl-ease);
+}
+
+.rl-btn:hover .fa-arrow-right {
+    transform: translateX(3px);
+}
+
+.rl-btn--primary {
+    background-color: var(--rl-accent);
+    border-color: var(--rl-accent);
+    box-shadow: var(--rl-glow);
+    color: #fff;
+}
+
+.rl-btn--primary:hover,
+.rl-btn--primary:focus {
+    background-color: var(--rl-accent-strong);
+    border-color: var(--rl-accent-strong);
+    color: #fff;
+}
+
+.rl-btn--outline {
+    background-color: var(--rl-surface);
+    border-color: var(--rl-line);
+    box-shadow: var(--rl-shadow-sm);
+    color: var(--rl-ink);
+}
+
+.rl-btn--outline:hover,
+.rl-btn--outline:focus {
+    border-color: color-mix(in srgb, var(--rl-ink) 30%, var(--rl-line));
+    color: var(--rl-ink);
+}
+
+/* --------------------------------------------------------------------------
+   4. Navbar - Boost's navbar on a light, blurred surface.
+   -------------------------------------------------------------------------- */
+.navbar.fixed-top {
+    background-color: var(--rl-glass) !important; /* stylelint-disable-line declaration-no-important */
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--rl-line);
+    box-shadow: none;
+}
+
+.navbar.fixed-top .navbar-brand .logo {
+    max-height: 2.25rem;
+    width: auto;
+}
+
+/* Pages without side drawers (site home, Dashboard, My courses) centre their
+   content; the navbar follows the same grid, so the logo lines up with it. */
+.pagelayout-frontpage .navbar.fixed-top > .container-fluid,
+.pagelayout-mydashboard .navbar.fixed-top > .container-fluid,
+.pagelayout-mycourses .navbar.fixed-top > .container-fluid {
+    max-width: calc(var(--rl-container) + 2 * var(--rl-gutter));
+    margin-inline: auto;
+    padding-inline: var(--rl-gutter);
+}
+
+.pagelayout-frontpage .navbar.fixed-top {
+    font-family: var(--rl-font);
+}
+
+/* Moodle 4.5 - 5.2 primary navigation. */
+.navbar.fixed-top .primary-navigation .navigation .nav-link {
+    color: var(--rl-ink-2);
+    font-weight: 500;
+}
+
+.navbar.fixed-top .primary-navigation .navigation .nav-link:hover {
+    color: var(--rl-ink);
+}
+
+.navbar.fixed-top .primary-navigation .navigation .nav-link.active {
+    color: var(--rl-ink);
+    border-bottom-color: var(--rl-accent);
+}
+
+/* Moodle 5.3+ primary navigation: plain labels in the theme face; the
+   current page is marked by an accent bar on the navbar's bottom edge, as
+   the tabs below are. Each item fills the navbar's height, so the bar sits
+   on the item without changing the widths Moodle measures for "More". */
+.navbar.fixed-top {
+    font-family: var(--rl-font);
+}
+
+.navbar.fixed-top .primary-navigation .nav-item {
+    position: relative;
+}
+
+.navbar.fixed-top .primary-navigation .nav-item::after {
+    content: "";
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0;
+    left: 0.75rem;
+    height: 2px;
+    border-radius: 2px 2px 0 0;
+    background-color: transparent;
+    transition: background-color var(--rl-speed) var(--rl-ease);
+}
+
+.navbar.fixed-top .primary-navigation .nav-item:has(> .mds-nav-pill--selected)::after,
+.navbar.fixed-top .primary-navigation .nav-item:has(> .mds-nav-pill.active)::after {
+    background-color: var(--rl-accent);
+}
+
+.navbar.fixed-top .mds-nav-pill {
+    padding-inline: 0.75rem;
+    color: var(--rl-muted);
+}
+
+.navbar.fixed-top .mds-nav-pill .mds-nav-pill__label {
+    font-family: var(--rl-font);
+    font-size: 0.9375rem;
+    font-weight: 500;
+}
+
+.navbar.fixed-top .mds-nav-pill:hover:not(.mds-nav-pill--selected) {
+    background-color: var(--rl-canvas);
+    color: var(--rl-ink);
+}
+
+.navbar.fixed-top .mds-nav-pill.mds-nav-pill--selected,
+.navbar.fixed-top .mds-nav-pill.mds-nav-pill--selected:visited,
+.navbar.fixed-top .primary-navigation .navigation.primarynav-navbar .mds-nav-pill--selected:visited {
+    background-color: transparent;
+    color: var(--rl-ink);
+}
+
+.navbar.fixed-top .mds-nav-pill.mds-nav-pill--selected .mds-nav-pill__label {
+    color: var(--rl-ink);
+    font-weight: 600;
+}
+
+/* The current page is shown by its bar alone, without Moodle's dot. */
+.navbar.fixed-top .mds-nav-pill__indicator {
+    display: none;
+}
+
+/* --------------------------------------------------------------------------
+   4b. Tabs - secondary navigation and in-page tabs, as underlined tabs:
+   muted labels on a hairline, the active one in ink over an accent bar.
+   -------------------------------------------------------------------------- */
+/* Moodle 5.3+ secondary navigation (pills drawn by the Moodle Design System). */
+/* The hairline sits on the wrapper: Moodle measures the list itself to
+   decide which items move into "More". */
+.secondary-navigation nav:has(> .more-nav) {
+    border-bottom: 1px solid var(--rl-line);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill {
+    position: relative;
+    padding: 0.75rem 0.875rem;
+    border-radius: 0;
+    background-color: transparent !important; /* stylelint-disable-line declaration-no-important */
+    color: var(--rl-muted);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill:not(.dropdown-toggle)::after {
+    content: "";
+    position: absolute;
+    right: 0.875rem;
+    bottom: -1px;
+    left: 0.875rem;
+    height: 2px;
+    border-radius: 2px 2px 0 0;
+    background-color: transparent;
+    transition: background-color var(--rl-speed) var(--rl-ease);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill:hover {
+    color: var(--rl-ink);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill:not(.dropdown-toggle):hover::after {
+    background-color: var(--rl-line);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.active,
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.mds-nav-pill--selected {
+    color: var(--rl-ink);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.active .mds-nav-pill__label,
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.mds-nav-pill--selected .mds-nav-pill__label {
+    font-weight: 600;
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.active:not(.dropdown-toggle)::after,
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.mds-nav-pill--selected:not(.dropdown-toggle)::after {
+    background-color: var(--rl-accent);
+}
+
+.secondary-navigation .more-nav .nav-item .mds-nav-pill.active::before,
+.secondary-navigation .mds-nav-pill__indicator {
+    display: none;
+}
+
+/* Bootstrap tabs: Moodle 4.5 - 5.2 secondary navigation, theme and plugin
+   settings pages, and any other tabbed page. */
+.nav-tabs {
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--rl-line);
+}
+
+.nav-tabs .nav-link {
+    margin-bottom: -1px;
+    padding: 0.75rem 0.875rem;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--rl-muted);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+    border-bottom-color: var(--rl-line);
+    color: var(--rl-ink);
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    border-bottom-color: var(--rl-accent);
+    background-color: transparent;
+    color: var(--rl-ink);
+    font-weight: 600;
+}
+
+.secondary-navigation .moremenu .nav-link {
+    color: var(--rl-muted);
+}
+
+.secondary-navigation .moremenu .nav-link.active {
+    border-bottom-color: var(--rl-accent);
+    color: var(--rl-ink);
+    font-weight: 600;
+}
+
+/* Bootstrap pills: the active one in solid ink, like the catalogue's tabs. */
+.nav-pills .nav-link {
+    border-radius: var(--rl-radius);
+    color: var(--rl-ink-2);
+    font-weight: 500;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background-color: var(--rl-inverse);
+    color: var(--rl-on-inverse);
+}
+
+/* Pagination */
+.pagination .page-link {
+    margin-inline: 0.125rem;
+    border-color: var(--rl-line);
+    border-radius: var(--rl-radius-sm) !important; /* stylelint-disable-line declaration-no-important */
+    color: var(--rl-ink-2);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--rl-canvas);
+    color: var(--rl-ink);
+}
+
+.pagination .page-item.active .page-link {
+    border-color: var(--rl-inverse);
+    background-color: var(--rl-inverse);
+    color: var(--rl-on-inverse);
+}
+
+/* Sortable table headings read as headings, not as a row of red links. */
+table th a,
+table th a:visited {
+    color: var(--rl-ink);
+}
+
+table th a:hover {
+    color: var(--rl-accent-text);
+}
+
+.alert {
+    border-radius: var(--rl-radius-lg);
+}
+
+.badge {
+    border-radius: var(--rl-radius-sm);
+    font-weight: 600;
+}
+
+/* Site administration index: categories in ink, their pages as quiet links. */
+#page-admin-search .tab-pane > .container-fluid > .row,
+#page-admin-category #region-main .container-fluid > .row {
+    padding-block: 0.25rem;
+}
+
+#page-admin-search .tab-pane h4,
+#page-admin-category #region-main h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+}
+
+#page-admin-search .tab-pane h4 a,
+#page-admin-category #region-main h4 a {
+    color: var(--rl-ink);
+}
+
+#page-admin-search .tab-pane .list-unstyled li,
+#page-admin-category #region-main .list-unstyled li {
+    padding-block: 0.1875rem;
+}
+
+#page-admin-search .tab-pane .list-unstyled a,
+#page-admin-category #region-main .list-unstyled a {
+    color: var(--rl-ink-2);
+}
+
+#page-admin-search .tab-pane h4 a:hover,
+#page-admin-search .tab-pane .list-unstyled a:hover,
+#page-admin-category #region-main h4 a:hover,
+#page-admin-category #region-main .list-unstyled a:hover {
+    color: var(--rl-accent-text);
+    text-decoration: underline;
+}
+
+#page-admin-search .tab-pane hr,
+#page-admin-category #region-main hr {
+    border-color: var(--rl-line);
+    opacity: 1;
+}
+
+/* "Log in" for visitors becomes the navbar's call to action. */
+.navbar.fixed-top .usermenu .login a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: var(--rl-radius);
+    background-color: var(--rl-accent);
+    box-shadow: var(--rl-glow);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.navbar.fixed-top .usermenu .login a:hover,
+.navbar.fixed-top .usermenu .login a:focus {
+    background-color: var(--rl-accent-strong);
+    color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   5. Dashboard, My courses and every page with blocks
+   -------------------------------------------------------------------------- */
+.pagelayout-mydashboard,
+.pagelayout-mycourses,
+.pagelayout-mydashboard #page,
+.pagelayout-mycourses #page {
+    background-color: var(--rl-canvas);
+}
+
+.pagelayout-mydashboard #page .main-inner,
+.pagelayout-mycourses #page .main-inner {
+    background-color: transparent;
+}
+
+.block.card {
+    background-color: var(--rl-surface);
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    box-shadow: var(--rl-shadow-sm);
+}
+
+.block.card > .card-body {
+    padding: 1.25rem 1.5rem;
+}
+
+.block .card-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--rl-ink);
+    text-transform: none;
+    letter-spacing: -0.01em;
+}
+
+/* Course cards in the Course overview and Recently accessed courses blocks. */
+.dashboard-card {
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--rl-shadow-sm);
+    transition: box-shadow var(--rl-speed) var(--rl-ease), transform var(--rl-speed) var(--rl-ease);
+}
+
+.dashboard-card:hover {
+    box-shadow: var(--rl-shadow);
+    transform: translateY(-2px);
+}
+
+.dashboard-card .card-img-top,
+.dashboard-card .card-img {
+    border-radius: 0;
+}
+
+/* Drawers (course index, blocks) and their items: Boost sets these radii
+   as fixed values, so they are matched to the theme's scale here. */
+.drawer.drawer-left,
+.drawer.drawer-right,
+.drawers .main-inner,
+.drawers .footer-popover {
+    border-radius: var(--rl-radius-lg);
+}
+
+.courseindex .courseindex-item,
+.drawer .list-group-item,
+.block .list-group-item {
+    border-radius: var(--rl-radius);
+}
+
+.card {
+    border-radius: var(--rl-radius-lg);
+}
+
+/* Course content: sections, activities and notes, set at 1rem by core. */
+.course-section .section-item,
+.course-section .section-item .course-section-header,
+.single-section > ul > .course-section .delegated-section .section-item,
+.single-section > ul > .course-section .delegated-section .section-item .course-section-header,
+.activity-item,
+.course-section .availabilityinfo,
+#course-addsection .btn-add-content,
+#page-report-outline-user .section,
+.qbank_managecategories-categorylist,
+.qbank_managecategories-item.draghandle > .container {
+    border-radius: var(--rl-radius-lg);
+}
+
+.course-section .summarytext img,
+.activity-item .activity-altcontent img {
+    border-radius: var(--rl-radius);
+}
+
+/* --------------------------------------------------------------------------
+   6. Shared components
+   -------------------------------------------------------------------------- */
+.rl-container {
+    width: 100%;
+    max-width: calc(var(--rl-container) + 2 * var(--rl-gutter));
+    margin-inline: auto;
+    padding-inline: var(--rl-gutter);
+}
+
+.rl-section {
+    padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+/* Section heading: centred title and a short line under it. */
+.rl-head {
+    max-width: 46rem;
+    margin: 0 auto clamp(2rem, 4vw, 3rem);
+    text-align: center;
+}
+
+.rl-head--split {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    max-width: none;
+    text-align: left;
+}
+
+.rl-head--start {
+    margin-inline: 0;
+    text-align: left;
+}
+
+.rl-head__title,
+.rl-head__title p,
+.rl-head__title h2 {
+    margin: 0;
+    font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--rl-ink);
+    text-wrap: balance;
+}
+
+.rl-head__lead,
+.rl-head__lead p {
+    margin: 0.75rem 0 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--rl-muted);
+}
+
+.rl-link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--rl-ink);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.rl-link-arrow::after {
+    content: "\2192";
+    transition: transform var(--rl-speed) var(--rl-ease);
+}
+
+.rl-link-arrow:hover {
+    color: var(--rl-accent-text);
+    text-decoration: none;
+}
+
+.rl-link-arrow:hover::after {
+    transform: translateX(4px);
+}
+
+.rl-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.rl-grid--faculty {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.rl-grid--faculty > .rl-person {
+    flex: 0 1 calc((100% - 4.5rem) / 4);
+    min-width: 14rem;
+}
+
+/* A white surface with a thin border: the base of every UI panel. */
+.rl-ui {
+    position: relative;
+    background-color: var(--rl-surface);
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    box-shadow: var(--rl-shadow);
+    color: inherit;
+}
+
+.rl-chip {
+    --rl-tone: var(--rl-accent);
+    align-self: flex-start;
+    display: inline-block;
+    padding: 0.1875rem 0.5rem;
+    border-radius: var(--rl-radius-sm);
+    background-color: color-mix(in srgb, var(--rl-tone) 11%, var(--rl-mix-base));
+    color: color-mix(in srgb, var(--rl-tone) 80%, var(--rl-mix-ink));
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.rl-avatar {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background-color: var(--rl-tint-2);
+    color: var(--rl-accent-text);
+    font-size: 0.6875rem;
+    font-weight: 700;
+}
+
+.rl-avatar--xs {
+    width: 1.375rem;
+    height: 1.375rem;
+    font-size: 0.5625rem;
+}
+
+.rl-dot {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
+}
+
+/* A calendar date block. */
+.rl-date {
+    display: inline-flex;
+    flex: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: var(--rl-radius);
+    background-color: var(--rl-tint);
+    color: var(--rl-accent-text);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.rl-date strong {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--rl-ink);
+}
+
+.rl-stretched::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+/* Tinted panel with contour lines. */
+.rl-contours {
+    background-color: var(--rl-tint);
+    background-image: var(--rl-contours);
+    background-size: 600px 300px;
+    background-position: center;
+}
+
+/* Colour tones: each subject keeps its colour everywhere. */
+.rl-tone--primary,
+.rl-stat--primary {
+    --rl-tone: var(--rl-primary);
+}
+.rl-tone--amber,
+.rl-stat--amber {
+    --rl-tone: #d97706;
+}
+.rl-tone--emerald,
+.rl-stat--emerald {
+    --rl-tone: #059669;
+}
+.rl-tone--sky,
+.rl-stat--sky {
+    --rl-tone: #0284c7;
+}
+.rl-tone--violet {
+    --rl-tone: #7c3aed;
+}
+.rl-tone--pink {
+    --rl-tone: #db2777;
+}
+
+/* Course covers: the uploaded image, or a pattern in the subject's colour
+   (varied per course) with the course monogram as a small badge. */
+.rl-cover__img,
+.rl-cover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rl-cover {
+    --rl-c: var(--rl-tone, var(--rl-accent));
+    --rl-c-line: color-mix(in srgb, var(--rl-c) 28%, transparent);
+    position: relative;
+    overflow: hidden;
+    background-color: color-mix(in srgb, var(--rl-c) 10%, var(--rl-mix-base));
+}
+
+.rl-cover::before {
+    content: "";
+    position: absolute;
+    right: -18%;
+    bottom: -38%;
+    width: 72%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: linear-gradient(140deg, color-mix(in srgb, var(--rl-c) 55%, var(--rl-mix-base)), var(--rl-c));
+    opacity: 0.9;
+}
+
+.rl-cover--rings {
+    background-image: repeating-radial-gradient(circle at 80% 85%, transparent 0 22px, var(--rl-c-line) 22px 23.5px);
+}
+
+.rl-cover--grid {
+    background-image:
+        linear-gradient(var(--rl-c-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rl-c-line) 1px, transparent 1px);
+    background-size: 26px 26px;
+}
+
+.rl-cover--grid::before {
+    right: auto;
+    left: 52%;
+    bottom: 18%;
+    width: 34%;
+    border-radius: var(--rl-radius-lg);
+    transform: rotate(12deg);
+}
+
+.rl-cover--arcs {
+    background-image: repeating-radial-gradient(circle at 0% 0%, transparent 0 30px, var(--rl-c-line) 30px 31.5px);
+}
+
+.rl-cover--arcs::before {
+    right: 8%;
+    bottom: -60%;
+    width: 60%;
+    border-radius: 50% 50% 0 0;
+}
+
+.rl-cover--stripes {
+    background-image: repeating-linear-gradient(135deg, transparent 0 16px, var(--rl-c-line) 16px 17.5px);
+}
+
+.rl-cover--stripes::before {
+    right: 10%;
+    bottom: 14%;
+    width: 38%;
+}
+
+.rl-cover--dots {
+    background-image: radial-gradient(var(--rl-c-line) 1.5px, transparent 2px);
+    background-size: 16px 16px;
+}
+
+.rl-cover--dots::before {
+    right: -10%;
+    bottom: -10%;
+    width: 58%;
+    border-radius: 40% 60% 55% 45%;
+}
+
+.rl-cover__mono {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    display: grid;
+    place-items: center;
+    min-width: 2.25rem;
+    height: 2.25rem;
+    padding-inline: 0.375rem;
+    border-radius: var(--rl-radius);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+    color: color-mix(in srgb, var(--rl-c) 85%, var(--rl-mix-ink));
+    font-family: var(--rl-font);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   7. Site home
+   -------------------------------------------------------------------------- */
+.roshnilite-frontpage #page.roshnilite-home {
+    margin-top: var(--rl-navbar-height);
+    overflow-x: hidden;
+    background-color: var(--rl-surface);
+    color: var(--rl-ink);
+}
+
+/* Bootstrap 5 (Moodle 5.x) underlines links; the designed components and
+   the navbar keep clean links. */
+.roshnilite-home .rl-main a,
+.roshnilite-home .rl-hero a,
+.roshnilite-home .rl-foot a,
+.rl-dash a,
+.navbar.fixed-top a {
+    text-decoration: none;
+}
+
+/* Hero: the copy and search on the left, a preview of the courses on the right. */
+.rl-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: clamp(3rem, 7vw, 5.5rem) clamp(3rem, 6vw, 5rem);
+    background-color: var(--rl-surface);
+}
+
+.rl-hero .carousel-item {
+    transition-duration: 0.7s;
+}
+
+.rl-hero .carousel-inner {
+    overflow: visible;
+}
+
+.rl-hero__grid {
+    display: grid;
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 992px) {
+    .rl-hero__grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    }
+}
+
+.rl-hero__copy {
+    max-width: 36rem;
+}
+
+/* Slide text is admin-entered HTML: the headline is light, and the words
+   in <em> or <strong> are bold, so it reads as two weights. */
+.rl-hero__copy h1,
+.rl-hero__copy h2 {
+    margin: 0;
+    font-size: clamp(2.375rem, 1.6rem + 2.6vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    color: var(--rl-ink);
+    text-wrap: balance;
+}
+
+/* A heading before the headline is its kicker. */
+.rl-hero__copy h2:has(+ h1),
+.rl-hero__copy h3:has(+ h1) {
+    margin: 0 0 1rem;
+    color: var(--rl-accent-text);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+.rl-hero__copy h1 em,
+.rl-hero__copy h1 strong,
+.rl-hero__copy h2 em,
+.rl-hero__copy h2 strong {
+    font-style: normal;
+    font-weight: 700;
+}
+
+.rl-hero__copy p {
+    max-width: 32rem;
+    margin: 1.25rem 0 0;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--rl-muted);
+}
+
+.rl-hero__more {
+    margin-top: 1.25rem;
+}
+
+/* The announcement pill above the headline. */
+.rl-announce {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+    padding: 0.25rem 0.875rem 0.25rem 0.25rem;
+    border: 1px solid var(--rl-line);
+    border-radius: 999px;
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow);
+    color: var(--rl-ink);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.rl-announce:hover {
+    border-color: color-mix(in srgb, var(--rl-accent) 35%, var(--rl-line));
+    color: var(--rl-ink);
+}
+
+.rl-announce__tag {
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    background-color: var(--rl-tint);
+    color: var(--rl-accent-text);
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+.rl-announce__text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rl-announce__arrow {
+    font-size: 0.6875rem;
+    color: var(--rl-muted);
+    transition: transform var(--rl-speed) var(--rl-ease);
+}
+
+.rl-announce:hover .rl-announce__arrow {
+    transform: translateX(2px);
+}
+
+/* Course search */
+.rl-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 32rem;
+    margin-top: 2rem;
+    padding: 0.375rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow);
+    transition: border-color var(--rl-speed) var(--rl-ease), box-shadow var(--rl-speed) var(--rl-ease);
+}
+
+.rl-search:focus-within {
+    border-color: color-mix(in srgb, var(--rl-accent) 50%, var(--rl-line));
+    box-shadow: 0 0 0 4px var(--rl-tint-2), var(--rl-shadow);
+}
+
+.rl-search__icon {
+    position: absolute;
+    left: 1.125rem;
+    color: var(--rl-muted);
+    pointer-events: none;
+}
+
+.rl-search__input {
+    flex: 1;
+    min-width: 0;
+    height: 2.75rem;
+    padding: 0 0.75rem 0 2.5rem;
+    border: 0;
+    background: transparent;
+    color: var(--rl-ink);
+    font-size: 1rem;
+}
+
+.rl-search__input:focus {
+    outline: 0;
+}
+
+.rl-search__input::placeholder {
+    color: var(--rl-muted);
+}
+
+.rl-search__button.btn {
+    height: 2.75rem;
+    padding-inline: 1.25rem;
+    border-radius: var(--rl-radius);
+    box-shadow: var(--rl-glow);
+}
+
+/* Who teaches here. */
+.rl-proof {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--rl-ink-2);
+}
+
+.rl-proof__avatars {
+    display: inline-flex;
+}
+
+/* The site's numbers, each after a thin divider. */
+.rl-proof__stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--rl-muted);
+}
+
+.rl-proof__stat::before {
+    content: "";
+    width: 1px;
+    height: 1rem;
+    margin-right: 0.5rem;
+    background-color: var(--rl-line);
+}
+
+.rl-proof > .rl-proof__stat:first-child::before {
+    display: none;
+}
+
+@media (max-width: 575.98px) {
+    .rl-proof__stat::before {
+        display: none;
+    }
+}
+
+.rl-proof__stat strong {
+    color: var(--rl-ink);
+    font-weight: 600;
+}
+
+.rl-proof__avatars .rl-avatar {
+    width: 2rem;
+    height: 2rem;
+    margin-left: -0.5rem;
+    border: 2px solid var(--rl-surface);
+    font-size: 0.6875rem;
+}
+
+.rl-proof__avatars .rl-avatar:first-child {
+    margin-left: 0;
+}
+
+.rl-proof__avatars .rl-avatar:nth-child(2) {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+.rl-proof__avatars .rl-avatar:nth-child(3) {
+    background-color: #d1fae5;
+    color: #047857;
+}
+
+.rl-proof__avatars .rl-avatar:nth-child(4) {
+    background-color: #ede9fe;
+    color: #6d28d9;
+}
+
+.rl-hero__indicators {
+    position: static;
+    justify-content: flex-start;
+    margin: 2.5rem auto 0;
+    padding-inline: var(--rl-gutter);
+}
+
+.rl-hero__indicators [data-bs-target],
+.rl-hero__indicators [data-target] {
+    width: 1.5rem;
+    height: 0.25rem;
+    border: 0;
+    border-radius: 999px;
+    background-color: var(--rl-ink);
+    opacity: 0.18;
+}
+
+.rl-hero__indicators .active {
+    width: 2.5rem;
+    background-color: var(--rl-accent);
+    opacity: 1;
+}
+
+/* The visual: an uploaded image, or a preview of the site's courses. */
+.rl-hero__visual {
+    position: relative;
+    min-width: 0;
+}
+
+.rl-hero__photo {
+    overflow: hidden;
+    border-radius: var(--rl-radius-xl);
+    box-shadow: var(--rl-shadow-lg);
+}
+
+.rl-hero__photo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.rl-preview {
+    position: relative;
+    isolation: isolate;
+    padding: 1rem 0 3.5rem;
+}
+
+/* A soft wash of the accent behind the preview. */
+.rl-preview::before {
+    content: "";
+    position: absolute;
+    inset: -12% -20% -8% 0;
+    z-index: -1;
+    background:
+        radial-gradient(closest-side, var(--rl-tint-2), transparent),
+        radial-gradient(closest-side at 80% 70%, #e0ecff, transparent);
+    opacity: 0.9;
+}
+
+.rl-preview__table {
+    max-width: 34rem;
+    margin-left: auto;
+    padding: 1.25rem 1.25rem 0.75rem;
+}
+
+.rl-ui__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.rl-ui__title {
+    margin: 0;
+    font-size: 1.0625rem;
+    font-weight: 600;
+}
+
+.rl-ui__link {
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.rl-ui__link:hover {
+    color: var(--rl-ink);
+}
+
+.rl-ui__label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--rl-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.rl-ptable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.25rem;
+    font-size: 0.875rem;
+}
+
+.rl-ptable th {
+    padding: 0.25rem 0.625rem;
+    color: var(--rl-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+.rl-preview .rl-ptable th,
+.rl-preview .rl-ptable td {
+    border: 0;
+    background: transparent;
+}
+
+.rl-preview .rl-ptable td {
+    padding: 0.5rem 0.625rem;
+    vertical-align: middle;
+}
+
+.rl-preview .rl-ptable td:first-child {
+    border-radius: var(--rl-radius) 0 0 var(--rl-radius);
+}
+
+.rl-preview .rl-ptable td:last-child {
+    border-radius: 0 var(--rl-radius) var(--rl-radius) 0;
+}
+
+/* One row is lifted off the list, as if picked up. */
+.rl-preview .rl-ptable__row--lift td {
+    background-color: var(--rl-surface);
+}
+
+.rl-ptable__row--lift {
+    border-radius: var(--rl-radius);
+    box-shadow: 0 0 0 1px var(--rl-line), var(--rl-shadow);
+    transform: scale(1.04);
+}
+
+/* Room under the list for the card floating over its corner. */
+@media (min-width: 576px) {
+    .rl-preview:has(.rl-preview__event, .rl-preview__course) .rl-preview__table {
+        padding-bottom: 4.5rem;
+    }
+}
+
+.rl-ptable__course {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-width: 0;
+    color: var(--rl-ink);
+    font-weight: 500;
+}
+
+.rl-ptable__course:hover {
+    color: var(--rl-accent-text);
+}
+
+.rl-ptable__thumb {
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    overflow: hidden;
+    border-radius: var(--rl-radius-sm);
+}
+
+.rl-ptable__thumb .rl-cover__mono {
+    display: none;
+}
+
+.rl-ptable__name {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.rl-ptable__price {
+    color: var(--rl-ink);
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.rl-ptable th.rl-ptable__price {
+    text-align: right;
+}
+
+/* Cards floating over the preview: the next event, or the featured course. */
+.rl-preview__event,
+.rl-preview__course {
     position: absolute;
     bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: grid;
+    gap: 0.625rem;
+    width: min(19rem, 80%);
+    padding: 1rem;
+    box-shadow: var(--rl-shadow-lg);
+    color: var(--rl-ink);
+}
+
+.rl-preview__event:hover,
+.rl-preview__course:hover {
+    color: var(--rl-ink);
+    transform: translateY(-2px);
+}
+
+.rl-preview__event {
+    transition: transform var(--rl-speed) var(--rl-ease);
+}
+
+.rl-preview__event-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.rl-preview__event-name,
+.rl-preview__course-name {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.rl-preview__event-when,
+.rl-preview__course-teacher {
+    display: block;
+    margin-top: 0.125rem;
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+}
+
+.rl-preview__course {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    transition: transform var(--rl-speed) var(--rl-ease);
+}
+
+.rl-preview__course-cover {
+    width: 3.5rem;
+    height: 3.5rem;
+    overflow: hidden;
+    border-radius: var(--rl-radius);
+}
+
+.rl-preview__course-cover .rl-cover__mono {
+    display: none;
+}
+
+@media (max-width: 575.98px) {
+    .rl-preview {
+        padding-bottom: 0;
+    }
+
+    .rl-preview__event,
+    .rl-preview__course {
+        position: relative;
+        width: auto;
+        margin-top: 1rem;
+    }
+
+    .rl-ptable__subject {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    .rl-preview__event,
+    .rl-preview__course {
+        left: -1.5rem;
+    }
+}
+
+/* Catalogue: subject tabs as a segmented control, then the subject's cards. */
+.rl-catalogue {
+    background-color: var(--rl-canvas);
+}
+
+.rl-tabs-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.25rem;
+}
+
+.rl-tabs.nav {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 0.25rem;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 0.3125rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+    scrollbar-width: none;
+}
+
+.rl-tab {
+    flex: none;
+    padding: 0.5rem 1rem;
+    border: 0;
+    border-radius: var(--rl-radius);
+    background: transparent;
+    color: var(--rl-muted);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background-color var(--rl-speed) var(--rl-ease), color var(--rl-speed) var(--rl-ease);
+}
+
+.rl-tab:hover {
+    color: var(--rl-ink);
+}
+
+.rl-tab.active {
+    background-color: var(--rl-inverse);
+    color: var(--rl-on-inverse);
+}
+
+/* Few courses sit centred rather than leaving empty columns. */
+.rl-grid--cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.rl-grid--cards > .rl-mcard {
+    flex: 0 1 calc((100% - 4.5rem) / 4);
+    min-width: 15rem;
+}
+
+.rl-mcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+    transition: transform 0.3s var(--rl-ease), box-shadow 0.3s var(--rl-ease);
+}
+
+.rl-mcard:hover,
+.rl-mcard:focus-within {
+    box-shadow: var(--rl-shadow);
+    transform: translateY(-3px);
+}
+
+.rl-mcard__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.rl-mcard__media > .rl-cover,
+.rl-mcard__media > .rl-cover__img {
+    transition: transform 0.5s var(--rl-ease);
+}
+
+.rl-mcard:hover .rl-mcard__media > .rl-cover,
+.rl-mcard:hover .rl-mcard__media > .rl-cover__img {
+    transform: scale(1.04);
+}
+
+.rl-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.1875rem 0.5rem;
+    border-radius: var(--rl-radius-sm);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+    color: var(--rl-accent-text);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* The summary covers the cover image on hover, where there is a pointer. */
+.rl-mcard__peek {
+    display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .rl-mcard__peek {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: flex-end;
+        margin: 0;
+        padding: 1rem 1.125rem;
+        background: linear-gradient(to top, rgba(15, 17, 21, 0.92), rgba(15, 17, 21, 0.55));
+        color: #fff;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        opacity: 0;
+        transition: opacity 0.3s var(--rl-ease);
+    }
+
+    .rl-mcard:hover .rl-mcard__peek,
+    .rl-mcard:focus-within .rl-mcard__peek {
+        opacity: 1;
+    }
+}
+
+.rl-mcard__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 1.125rem 1.125rem;
+}
+
+.rl-mcard__title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+}
+
+.rl-mcard__title a {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: var(--rl-ink);
+}
+
+.rl-mcard__teacher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    color: var(--rl-muted);
+    font-size: 0.875rem;
+}
+
+.rl-mcard__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--rl-line-2);
+}
+
+.rl-mcard__foot:empty {
+    display: none;
+}
+
+.rl-mcard__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+}
+
+.rl-mcard__price {
+    margin-left: auto;
+    color: var(--rl-ink);
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+.rl-subject {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.25rem;
+    text-align: center;
+}
+
+.rl-subject__text {
+    max-width: 40rem;
+    margin: 0;
+    color: var(--rl-muted);
+}
+
+/* On phones the course cards become a swipeable row. */
+@media (max-width: 575.98px) {
+    .rl-grid--swipe {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        margin-inline: calc(-1 * var(--rl-gutter));
+        padding: 0.25rem var(--rl-gutter) 1rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: var(--rl-gutter);
+        scrollbar-width: none;
+    }
+
+    .rl-grid--swipe > .rl-mcard {
+        flex: 0 0 80%;
+        min-width: 0;
+        scroll-snap-align: start;
+    }
+
+    .rl-tabs-wrap {
+        justify-content: flex-start;
+    }
+}
+
+/* Moodle's own course list gives way when the catalogue already shows every course. */
+.rl-sitecontent--catalogued #frontpage-available-course-list,
+.rl-sitecontent--catalogued #frontpage-course-list {
+    display: none;
+}
+
+/* What the site offers: an intro panel beside the feature cards, in one frame. */
+.rl-showcase {
+    display: grid;
+    gap: 1.25rem;
+    padding: clamp(1rem, 2vw, 1.5rem);
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-xl);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-lg);
+    grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 992px) {
+    .rl-showcase {
+        grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    }
+}
+
+.rl-showcase__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    padding: clamp(2rem, 4vw, 3rem);
+    border-radius: var(--rl-radius-lg);
+}
+
+.rl-showcase__intro .rl-btn {
+    margin-top: 1.75rem;
+}
+
+.rl-values {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+}
+
+.rl-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    color: inherit;
+    text-align: center;
+    transition: box-shadow 0.3s var(--rl-ease), border-color 0.3s var(--rl-ease);
+}
+
+.rl-feature:hover,
+.rl-feature:focus {
+    border-color: transparent;
+    box-shadow: var(--rl-shadow);
+    color: inherit;
+}
+
+.rl-feature__icon {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    margin-bottom: 0.75rem;
+    border-radius: 50%;
+    background-color: var(--rl-tint);
+    color: var(--rl-accent);
+    font-size: 1.125rem;
+}
+
+.rl-feature__icon img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+}
+
+.rl-feature__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--rl-ink);
+}
+
+.rl-feature__text,
+.rl-feature__text p {
+    margin: 0;
+    color: var(--rl-muted);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+}
+
+/* How it works: step cards, each with a small picture of the site. */
+.rl-steps {
+    display: grid;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.rl-step {
+    padding: 1rem 1rem 1.75rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+}
+
+.rl-step:nth-child(2) {
+    box-shadow: var(--rl-shadow);
+}
+
+.rl-step__art {
+    display: grid;
+    place-items: center;
+    height: 11.5rem;
+    overflow: hidden;
+    border-radius: var(--rl-radius);
+    background-color: var(--rl-canvas);
+}
+
+.rl-step__art .rl-ui {
+    width: 82%;
+    min-width: 0;
+    overflow: hidden;
+    box-shadow: var(--rl-shadow);
+}
+
+@media (max-width: 575.98px) {
+    .rl-feature {
+        padding: 1.5rem 1.25rem;
+    }
+}
+
+.rl-step__badge,
+.rl-step__title,
+.rl-step__text {
+    margin-inline: 0.5rem;
+}
+
+.rl-step__badge {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--rl-radius-sm);
+    background-color: var(--rl-tint);
+    color: var(--rl-accent-text);
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+.rl-step:nth-child(2) .rl-step__badge {
+    background-color: var(--rl-accent);
+    color: #fff;
+}
+
+.rl-step__title {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--rl-ink);
+}
+
+.rl-step__text {
+    margin-bottom: 0;
+    color: var(--rl-muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+/* Step pictures */
+.rl-art-find {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    font-size: 0.75rem;
+}
+
+.rl-art-find__search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+    padding: 0.4375rem 0.625rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-sm);
+    color: var(--rl-muted);
+}
+
+.rl-art-caret {
+    width: 1px;
+    height: 0.875rem;
+    background-color: var(--rl-accent);
+    animation: rl-blink 1.1s steps(2, start) infinite;
+}
+
+@keyframes rl-blink {
+    to {
+        visibility: hidden;
+    }
+}
+
+.rl-art-find__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.4375rem 0.5rem;
+    border-radius: var(--rl-radius-sm);
+    color: var(--rl-ink-2);
+}
+
+.rl-art-find__row:nth-child(3) {
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow);
+}
+
+.rl-art-find__row:nth-child(n + 5) {
+    display: none;
+}
+
+.rl-art-find__name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rl-art-find .rl-chip {
+    font-size: 0.625rem;
+}
+
+.rl-art-learn {
+    display: grid;
+    gap: 0.5rem;
+    padding: 0.875rem;
+}
+
+.rl-art-learn__row {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+.rl-art-learn__row .fa {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 1.375rem;
+    height: 1.375rem;
+    border-radius: 50%;
+    background-color: var(--rl-canvas-2);
+    color: var(--rl-muted);
+    font-size: 0.5625rem;
+}
+
+.rl-art-learn__row--done .fa {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.rl-art-learn__row--now .fa {
+    background-color: var(--rl-accent);
+    color: #fff;
+}
+
+.rl-art-bar {
+    width: var(--w);
+    height: 0.5rem;
+    border-radius: 999px;
+    background-color: var(--rl-canvas-2);
+}
+
+.rl-art-learn__row--now .rl-art-bar {
+    background-color: var(--rl-tint-2);
+}
+
+.rl-art-track {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.125rem;
+}
+
+.rl-art-track__ring {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 4.25rem;
+    height: 4.25rem;
+    border-radius: 50%;
+    background: conic-gradient(var(--rl-accent) 0 72%, var(--rl-canvas-2) 0);
+}
+
+.rl-art-track__ring .fa {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    background-color: var(--rl-surface);
+    color: var(--rl-accent);
+}
+
+.rl-art-track__bars {
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 4.25rem;
+}
+
+.rl-art-track__bars span {
+    width: 0.625rem;
+    height: var(--h);
+    border-radius: 999px 999px 2px 2px;
+    background-color: var(--rl-tint-2);
+}
+
+.rl-art-track__bars span:last-child {
+    background-color: var(--rl-accent);
+}
+
+/* Upcoming events */
+.rl-events {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.rl-event {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem 1rem 1rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+    transition: box-shadow 0.3s var(--rl-ease);
+}
+
+.rl-event:hover,
+.rl-event:focus-within {
+    box-shadow: var(--rl-shadow);
+}
+
+.rl-event__body {
+    display: grid;
+    flex: 1;
+    gap: 0.25rem;
+    min-width: 0;
+}
+
+.rl-event__name {
+    color: var(--rl-ink);
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.rl-event__name:hover {
+    color: var(--rl-accent-text);
+}
+
+.rl-event__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+}
+
+.rl-event__go {
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+    transition: transform var(--rl-speed) var(--rl-ease), color var(--rl-speed) var(--rl-ease);
+}
+
+.rl-event:hover .rl-event__go {
+    color: var(--rl-ink);
+    transform: translateX(3px);
+}
+
+/* Faculty */
+.rl-person {
+    overflow: hidden;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+}
+
+.rl-person__photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background-color: var(--rl-canvas);
+}
+
+.rl-person__initials {
+    display: grid;
+    place-items: center;
+    background-color: var(--rl-tint);
+    background-image: var(--rl-contours);
+    color: var(--rl-accent-text);
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
+.rl-person__body {
+    padding: 1.25rem;
+}
+
+.rl-person__name {
+    margin: 0 0 0.375rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+}
+
+.rl-person__bio,
+.rl-person__bio p {
+    margin: 0;
+    color: var(--rl-muted);
+    font-size: 0.875rem;
+    line-height: 1.55;
+}
+
+.rl-person .rl-socials {
+    margin-top: 1rem;
+}
+
+/* Social links */
+.rl-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.rl-socials a {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius);
+    background-color: var(--rl-surface);
+    color: var(--rl-ink-2);
+    font-size: 0.875rem;
+}
+
+.rl-socials a:hover,
+.rl-socials a:focus {
+    border-color: var(--rl-accent);
+    color: var(--rl-accent);
+}
+
+/* What learners say */
+.rl-testimonials-section {
+    background-color: var(--rl-canvas);
+}
+
+.rl-quotes {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.rl-quote {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 1.75rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+}
+
+.rl-quote__text {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.rl-quote__text::before {
+    content: "\201C";
+    display: block;
+    height: 1.75rem;
+    color: var(--rl-accent);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.rl-quote__text p {
+    margin: 0;
+    color: var(--rl-ink-2);
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+.rl-quote__who {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.rl-quote__who .rl-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.8125rem;
+}
+
+.rl-quote__name {
+    display: block;
+    color: var(--rl-ink);
+    font-weight: 600;
+}
+
+.rl-quote__role {
+    display: block;
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+}
+
+/* Questions and answers */
+.rl-faq-layout {
+    display: grid;
+    gap: 2rem 4rem;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 992px) {
+    .rl-faq-layout {
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+        align-items: start;
+    }
+}
+
+.rl-faq {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.rl-faq__item {
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    transition: box-shadow 0.3s var(--rl-ease);
+}
+
+.rl-faq__item[open] {
+    box-shadow: var(--rl-shadow);
+}
+
+.rl-faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.125rem 1.25rem;
+    color: var(--rl-ink);
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+}
+
+.rl-faq__question::-webkit-details-marker {
+    display: none;
+}
+
+.rl-faq__question::after {
+    content: "+";
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background-color: var(--rl-canvas);
+    color: var(--rl-ink-2);
+    font-size: 1.125rem;
+    font-weight: 500;
+    transition: transform var(--rl-speed) var(--rl-ease), background-color var(--rl-speed) var(--rl-ease);
+}
+
+.rl-faq__item[open] .rl-faq__question::after {
+    background-color: var(--rl-accent);
+    color: #fff;
+    transform: rotate(45deg);
+}
+
+.rl-faq__answer {
+    padding: 0 1.25rem 1.25rem;
+    color: var(--rl-muted);
+    line-height: 1.6;
+}
+
+.rl-faq__answer p:last-child {
+    margin-bottom: 0;
+}
+
+/* Closing call to action: a tinted panel with contour lines. */
+.rl-cta-section {
+    padding-top: 0;
+}
+
+.rl-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 3rem;
+    padding: clamp(2.5rem, 5vw, 4rem);
+    border-radius: var(--rl-radius-xl);
+}
+
+.rl-cta__copy {
+    flex: 1 1 22rem;
+}
+
+.rl-cta__title {
+    margin: 0;
+    font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--rl-ink);
+}
+
+.rl-cta__text {
+    margin: 0.75rem 0 0;
+    color: var(--rl-ink-2);
+}
+
+.rl-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Site home footer.
+   A black band in both colour modes. It re-points the colour tokens for
+   everything inside it, so text, links, social buttons and dividers read
+   light on black without per-rule overrides.
+
+   Layout: the brand block (name, summary, numbers, search, socials) on the
+   left carries the weight; the link columns sit together on the right and
+   only take the width they need. A faint glow of the brand colour keeps the
+   black warm rather than flat.
+   -------------------------------------------------------------------------- */
+.rl-foot {
+    --rl-ink: #f3f4f6;
+    --rl-ink-2: #c9ccd2;
+    --rl-muted: #9aa0a9;
+    --rl-line: rgba(255, 255, 255, 0.12);
+    --rl-line-2: rgba(255, 255, 255, 0.08);
+    --rl-surface: rgba(255, 255, 255, 0.06);
+    --rl-accent-text: color-mix(in srgb, var(--rl-accent) 62%, #fff);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color-scheme: dark;
+    padding-block: 3rem 1.5rem;
+    background-color: var(--rl-foot-bg);
+    color: var(--rl-ink-2);
+}
+
+.rl-foot::before {
+    content: "";
+    position: absolute;
+    top: -14rem;
+    left: -10rem;
+    z-index: -1;
+    width: 32rem;
+    height: 32rem;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--rl-accent) 22%, transparent), transparent);
+    pointer-events: none;
+}
+
+.rl-foot a:focus-visible,
+.rl-foot button:focus-visible {
+    outline: 2px solid var(--rl-accent-text);
+    outline-offset: 3px;
+    border-radius: var(--rl-radius-sm);
+    box-shadow: none;
+}
+
+.rl-foot__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 2rem 3.5rem;
+}
+
+.rl-foot__brand {
+    flex: 1 1 18rem;
+    max-width: 26rem;
+    margin-right: auto;
+}
+
+.rl-foot__col {
+    flex: 0 1 auto;
+    min-width: 8.5rem;
+    max-width: 16rem;
+}
+
+/* Brand */
+.rl-foot__name {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin: 0 0 0.75rem;
+    color: var(--rl-ink);
+    font-family: var(--rl-font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.rl-foot__mark {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--rl-radius);
+    background: linear-gradient(140deg, var(--rl-accent), var(--rl-accent-strong));
+    box-shadow: var(--rl-glow);
+    color: #fff;
+    font-size: 0.9375rem;
+    line-height: 1;
+}
+
+.rl-foot__summary {
+    margin: 0 0 1rem;
+    color: var(--rl-muted);
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.rl-foot__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem 1.25rem;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    list-style: none;
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+}
+
+.rl-foot__stats strong {
+    margin-right: 0.125rem;
+    color: var(--rl-ink);
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+/* Course search */
+.rl-foot__search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 1.25rem;
+    padding: 0.25rem 0.25rem 0.25rem 0.875rem;
+    border: 1px solid var(--rl-line);
+    border-radius: 999px;
+    background-color: var(--rl-surface);
+    transition: border-color var(--rl-speed) var(--rl-ease), background-color var(--rl-speed) var(--rl-ease);
+}
+
+.rl-foot__search:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.rl-foot__search:focus-within {
+    border-color: color-mix(in srgb, var(--rl-accent) 70%, transparent);
+    background-color: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--rl-accent) 25%, transparent);
+}
+
+.rl-foot__search-icon {
+    flex: none;
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+}
+
+.rl-foot__search-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0.375rem 0;
+    border: 0;
+    background: transparent;
+    color: var(--rl-ink);
+    font-size: 0.875rem;
+}
+
+.rl-foot__search-input:focus {
+    outline: 0;
+}
+
+.rl-foot__search-input::placeholder {
+    color: var(--rl-muted);
+}
+
+.rl-foot__search-button.btn {
+    flex: none;
+    padding: 0.375rem 0.875rem;
+    border-radius: 999px;
+    font-size: 0.8125rem;
+}
+
+/* Link columns */
+.rl-foot__heading {
+    margin: 0 0 0.75rem;
+    color: var(--rl-ink);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.rl-foot__links,
+.rl-contact {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.rl-foot__links a {
+    color: var(--rl-muted);
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color var(--rl-speed) var(--rl-ease);
+}
+
+.rl-foot__links a:hover {
+    color: var(--rl-ink);
+}
+
+.rl-foot__links .rl-foot__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--rl-accent-text);
+    font-weight: 600;
+}
+
+.rl-foot__links .rl-foot__more .fa {
+    font-size: 0.6875rem;
+    transition: transform var(--rl-speed) var(--rl-ease);
+}
+
+.rl-foot__links .rl-foot__more:hover .fa {
+    transform: translateX(2px);
+}
+
+.rl-contact__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: var(--rl-muted);
+    font-size: 0.875rem;
+    line-height: 1.45;
+}
+
+.rl-contact__icon {
+    flex: none;
+    width: 1rem;
+    color: var(--rl-accent-text);
+    text-align: center;
+}
+
+.rl-contact__text p {
     margin: 0;
 }
-  #page-wrapper {
-      height: auto;}
-  #page-footer .validators {
-      display: none;
-  }
-  #page-footer .logininfo{margin: 1.25rem 0 0.625rem;}
-  .homeWrap{ margin-top: -3.125rem }
-  .contact-items-wrap {
-      width: 100%;
-      clear: both;
-      text-align: center;
-      padding:2.5rem 0 0;
-  }
-  .about-item a .text_to_html {
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: #464646;
-      font-family: [[setting:headingfont]];
-  }
-  #region-main{ border:0; }
-  #adminsettings .form-control[size]{ width: 100%; }
-  .region-main .form-inline .form-group {
-      display: inline-block !important;
-      /*boost*/
-      max-width: 100%;
-  }
-  .btn-outline-secondary.dropdown-toggle:focus {
-      -webkit-box-shadow:none;
-      box-shadow:none;
-  }
-  #page-header .p-2{padding: 1.25rem !important;}
-  /*boost*/
-  #page-header .col-12.pt-3.pb-3{padding: 1.25rem 0 !important;}
-  /*boost*/
-  .navbar .popover-region-container {
-      top: 2.3rem;
-  }
-  
-  .activity-navigation #next-activity-link {
-      white-space: nowrap;
-  }
-  .block_navigation .block_tree .tree_item.branch, .block_settings .block_tree .tree_item.branch{
-      padding: 0 5%!important;
-  }
-  .block_navigation .block_tree .tree_item.branch:hover, .block_settings .block_tree .tree_item.branch:hover, p.tree_item.hasicon.tree_item.leaf:hover, p.tree_item.hasicon.active_tree_node.tree_item.leaf:hover{
-   background-color: #e84e3d14;
-  }
-  p.tree_item.active_tree_node.tree_item.branch, p.tree_item.hasicon.active_tree_node.tree_item.leaf {
-      background: #e84e3d14;
-  }
-  p.tree_item.active_tree_node.tree_item.branch a, p.tree_item.hasicon.active_tree_node.tree_item.leaf a {
-      /* color: #373a3c !important; */
-  }
-  .block_settings .block_tree .tree_item.branch {
-      margin-left: 0;
-      padding-left: .75rem;
-  }
-  .block_settings .block_tree .tree_item.branch span{
-      color: [[setting:brandcolor]];
-  }
-  .dropdown-menu.dropdown-menu-right.show {
-      right: -1.063rem !important;
-      left: inherit !important;
-      transform: translate3d(0, 1.25rem, 0rem) !important;
-      /*for dropdown*/
-  }
-  
-  .nav-pills .nav-link.active{
-      background-color: #e84c3d;
-  }
-  span.site-name.d-none.d-md-inline img {
-      max-width: 100%;
-      max-height: 3.125rem;
-  }
-  .form-control:focus {
-      color: #495057;
-      background-color: #fff;
-      border-color:#ced4da;
-      outline: 0;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-  }
-  .btn{padding: .375rem .55rem;}
-  .btn-primary:focus, .btn-primary.focus{
-      -webkit-box-shadow: none;
-      box-shadow: none;
-  }
-  .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus {
-      -webkit-box-shadow:none;
-      box-shadow:none;
-  }
-  div#category-listing {
-      display: contents !important;
-  }
-  .btn-primary.disabled, .btn-primary:disabled {
-      color: #fff;
-      background-color: #e84c3d;
-      border-color: #e84c3d;
-  }
-  table#emoticonsetting, #logstoreplugins, #courseenrolmentplugins, #plugins-control-panel {
-      width: 100%;
-      display: block !important;
-      overflow-x: auto;
-  }
-  .custom-select:focus, .form-select:focus {
-      border-color:#ced4da;
-      outline: 0;
-      -webkit-box-shadow:none;
-      box-shadow:none;
-  }
-  
-  input#id_query {
-      margin-top: 0.875;
-  }
-  .card-body.p-3 {
-      background: #e74c3c05;
-      border: 0.06rem solid rgb(231 120 105 / 9%);
-      border-radius: 0.25rem;
-      margin: 1rem 0 0;
-  }
-  .contentWrap{
-      border-top: 0.06rem solid #000;
-      margin-top: 0.5rem;
-  }
-  @media (min-width: 1200px){
-  .contentWrap{
-      display: flex;
-      max-width: initial;
-      margin: 0.5rem auto 0;
-      width: 100%;
-      border-top: 0.06rem solid #000;
-  }
-  .columnleft{
-      flex: 0 0 23% !important;
-      max-width: 23% !important;
-  }
-  .columnright{
-      flex: 0 0 20% !important;
-      max-width: 20% !important;
-  }
-  .page-content.blocks-pre.blocks-post .region-main{
-      flex: 0 0 57%;
-      max-width: 57%;
-      padding: 0;
-  }
-  .page-content.blocks-pre .region-main, #region-main-box.region-main{
-      flex: 0 0 57% !important;
-      max-width: 57% !important;
-      padding: 2.5rem 1rem;
-  }
-  #page-content.blocks-pre .region-main {
-      flex: 0 0 80% !important;
-      max-width: 77% !important;
-      padding: 1rem;
-      border: 0;
-  }
-  #page-content.blocks-pre.blocks-post .region-main {
-      flex: 0 0 59% !important;
-      max-width: 56% !important;
-      padding: 0;
-      border-right: 0.06rem solid #e74c3c;
-  }
-  .bx-controls-direction {
-      position: relative;
-      top: -19.375rem;
-  }
-  span.site-name.d-none.d-md-inline img {
-          max-width: 7.813rem;
-      max-height: 4.375rem;
-      object-fit: contain;
-  }
-  .categories-item{width:25%;}
-  #coursesearch{ margin-bottom:1.25rem;}
-  #home-slide h3{
-      font-size: 1.375rem !important;
-  }
-  #home-slide h1{
-      font-size: 2.375rem !important;
-  }
-  #home-slide h2{
-      font-size: 1.875rem !important;
-  }
-  }
-  @media (max-width:768px){
-      .container-fluid {
-          padding-right: 0.938rem;
-          padding-left: 0.938rem;
-      }
-  .h-large, .stay-connected .socialheading {
-      font-size: 1.375rem;
-      line-height: 2.063rem;
-  }
-  .about h3 {
-      font-size: 1rem;
-    }
-  .socialheading:before{ left: -1.25rem; }
-  .socialheading:after{ right: -1.25rem; }
-  .about-item{ max-width: 100%; width: auto; margin:0 0.938rem 0.938rem; }
-  h3.header-b{ display: none; }
-  .top-slide-content{ display: none; }
-  .categories-item{ width: 50%; }
-  span.site-name.d-none.d-md-inline{ display: inline-block !important; }
-  .navbar-bootswatch .navbar-brand {
-      margin: 0.625rem 0rem; 
-      width: 5.625rem;
-  }
-  .blocks-pre:before{ width: auto; }
-  .columnleft .card-title:before{ display: none; }
-  .region-main {
-      border-right: 0;
-  }
-  .columnleft {
-      border-right: 0;
-  }
-  .columnright .card-title:before{ display: none; }
-  .adminsearchform.form-inline .form-group{
-   margin-bottom: 0;
-  }
-  .card-body {
-      border-top: 0.06rem solid #ebe9e9;
-  }
-  .dropdown-item{
-      white-space: normal;
-      width: 18.75rem;
-  }
-  .mb-3{ margin-bottom: 0 !important; }
-  .region-main {
-      border-right: 0;
-      overflow-x: scroll;
-  }
-  .btn{padding: .375rem .30rem;}
-  h2, .h2, .path-calendar .maincalendar .calendar-controls .current {
-      font-size: 1rem;
-  }
-  .path-calendar .maincalendar .calendarmonth td {
-      height: auto;
-  }
-  span.arrow_text {
-      float: none;
-      text-align: left;
-  }
-  .page-content {
-      width: 100%;
-      margin: 0 auto;
-  }
-  .fixed-top .d-none {
-  }
-  .navbar-expand .navbar-nav {
-      flex-direction: row;
-      float: right;
-  }
-  .blocks-pre:before, .blocks-pre:after{
-      display: none;
-  }
-  .pagination-sm .page-link{ padding: .25rem .25rem;}
-  .row{
-      display:block !important;
-  }
-  .homeWrap {
-      margin-top: -3.125rem;
-  }
-  .maincalendar .btn.btn-secondary{ margin: 0.625rem 0; }
-  .dashboard-card-deck.fixed-width-cards .dashboard-card {
-      width: 100%;
-      margin-top: 0.625rem;
-  }
-  .block_myoverview .dashboard-card-deck .dashboard-card, .block_recentlyaccesseditems .dashboard-card-deck .dashboard-card {
-      width: 100%;
-  }
-  
-  .navbar .popover-region .popover-region-container{ margin: 0 1.25rem; }
-  .popover-region-toggle::after{ bottom: -0.563rem; }
-  .popover-region-toggle::before{ bottom: -0.563rem; }
-  .av-courses .bx-prev{ top: 40%; }
-  .av-courses .bx-next{ top: 40%; }
-  .categories .categories-item{    width: 100%;
-      margin: 0.625rem 0;}
-  .instructor-block-left{ width: 100%; }
-  .instructor-block-right{ width: 100%; }
-  .top-insturctors-section .bx-viewport{ height: auto; }
-  .instructor-block-left img {
-      width: 100%;
-      height: 6.25rem;
-      margin-bottom: 1.25rem;
-  }
-  #page-wrapper #page{ overflow: hidden; }
-  .usermenu{ padding:  0.125rem 0.375rem;}
-  }
-  .courses .coursebox.even {
-      background-color: rgba(0,0,0,.05);
-      padding: 0.625rem;
-      margin-bottom: 0.625rem;
-  }
-  .no-gutters>.col, .no-gutters>[class*=col-], .g-0>.col, .g-0>[class*=col-] {
-      padding-right: 0;
-      padding-left: 0;
-  }
-  .no-space{
-      padding: 0;
-  }
-  .carousel-inner {
-    /* max-width: 1320px; */
-    margin: auto;
+
+.rl-contact__text a {
+    color: inherit;
 }
-  
-  .carousel-inner img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    #carouselPlus .col-md-3{
-      padding: 0;
-      border:0.06rem solid red;
-    }
-    .nospace .col-lg-3{
-      padding: 0;
-      /*border: 1px solid red;*/
-    }
-    .container-fluid.nospace{
-      padding: 0;
-    }
-     #home-slide{
-   height:100vh;
-   width:100%;
-   }
-   #home-slide img{
-    height: 100vh;
-    min-width: 100%;
-   }
-  #home-slide .carousel-caption{
-    bottom: 25%;
-  }
-  .no-padding{
-    padding: 0;
-  }
-  #home-slide h3{
-      margin-top: 3.125rem;
-      margin-bottom: 3.125rem;
-      position: relative;
-      margin: 3.125rem auto;
-      max-width: 48.125rem;
-      
-  }
-  #home-slide h3:before {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 2rem;
-      height: 0.313rem;
-      left:0;
-      top: -0.625rem;
-      background: url([[pix:theme|img/line-left-dark]]) no-repeat center;
-  }
-  #home-slide h3:after {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 2rem;
-      height: 0.313rem;
-      right:0;
-      bottom: -0.813rem;
-      background: url([[pix:theme|img/line-right-dark]]) no-repeat center;
-  }
-  .header-small{
-      margin-top: 3.125rem;
-      margin-bottom: 3.125rem;
-      position: relative;
-      margin: 1.563rem auto 3.125rem;
-      max-width: 48.125rem;
-      font-size: 1.375rem;
-      font-family: [[setting:bodyfont]];
-  }
-  .header-small:before {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 2rem;
-      height: 0.313rem;
-      left:0;
-      top: -0.625rem;
-      background: url([[pix:theme|img/line-left-light]])no-repeat center;
-      
-  }
-  .header-small:after {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 2rem;
-      height: 0.313rem;
-      right:0;
-      bottom: -0.813rem;
-      background: url([[pix:theme|img/line-right-light]]) no-repeat center;
-  }
-  .homeSlide-maintext{
-    font-size: 1.625rem;
-    line-height: 2rem;
-  }
-  .homeSlide-smalltext{
-        font-size: 3.25rem;
-      line-height: 3.938rem;
-  }
-  #home-slide .carousel-item:before {
-      position: absolute;
-      left: 0;
-      top: 0;
-      content: "";
-      background: rgba(0,0,0,.6);
-      width: 100%;
-      height: 100%;
-  }
-  #home-slide .carousel-indicators li{ 
-    height: 0.625rem; 
-    width: 0.625rem; 
-}
-  #home-slide .carousel-indicators{ bottom: 3.125rem; }
-  .btn-theme {
-      background-color: [[setting:brandcolor]];
-      color: #fff;
-      padding: 0.938rem 1.563rem;
-      text-decoration: none;
-      text-align: center;
-      text-transform: uppercase;
-      font-size: 0.938rem;
-      font-weight: 400;
-      margin-top: 1.25rem;
-      display: inline-block;
-  }
-  .btn-theme:hover{
-    background: [[setting:maincolor]];
-    text-decoration: none;
-    color: #fff;
-  }
-  .heading-large {
-      font-size: 3.25rem;
-      line-height: 3.938rem;
-      text-transform: uppercase;
-      padding-top:4.375rem;
-      font-family: [[setting:headingfont]];
-  }
-  /*==============describe usp==================*/
-  
-  /*==============course==============*/
-  .course-grid{
-    position: relative;
-    height: 21.875rem;
-    width: 25%;
-  }
-  .course-grid:hover .mask {
-      background: rgba(0,0,0,.64);
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-  }
-  .course-grid:hover .av-course-item-cont {
-      display: block;
-      position: absolute;
-      bottom: 0.625rem;
-      background: [[setting:brandcolor]];
-      width: 100%;
-      padding: 0.625rem 1.25rem;
-      z-index: 999;
-      color: #fff;
-      /*static*/
-  }
-  .course-section .row{
-     margin: 0;
-  }
-  /**/
-  .course-section .col-3{
-    padding: 0;
-  }
-  .course-section .carousel-inner img{
-    height: 21.875rem;
-    object-fit: cover;
-  }
-  .container-fluid.text-center.course-section{
-    padding: 0;
-    position: relative;
-    clear:both;
-  }
-  .instructor-block {
-      background: #f9f7f7;
-      padding: 1.25rem;
-      margin: 0 0.625rem;
-  }
-  .instructor-block-left {
-      width: 40%;
-      float: left;
-  }
-  .instructor-block-right {
-      width: 50%;
-      float: right;
-  }
-  .instructor-block-left img {
-      width: 13.75rem;
-      height: 17.188rem;
-      object-fit: cover;
-  }
-  .instroctor-name {
-      font-size: 1.25rem;
-      color: #333;
-      font-weight: 500;
-      text-align: left;
-  }
-  .instructor-desc {
-      color: #6d727c;
-      font-size: 0.875rem;
-      margin-top: 1.25rem;
-      text-align: left;
-  }
-  .instructor-desc p {
-      display: -webkit-box;
-      max-width: 12.5rem;
-      -webkit-line-clamp: 6;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-  }
-  .social-network {
-      padding: 0;
-  }
-  ul.social-network.social-circle li {
-      list-style: none;
-      float: left;
-      margin-right: 0.625rem;
-      margin-top: 0.625rem;
-      border: 0.06rem solid [[setting:brandcolor]];
-      padding: 0.313rem 0.625rem;
-  }
-  :focus{
-      outline: none;
-      box-shadow: 0;
-  }
-  /*==============course==============*/
-  .item-inner .title {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 0;
-      font-weight: 500;
-      text-align: left;
-  }
-  .categories-item .desc {
-      display: -webkit-box;
-      max-width: 12.5rem;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: left;
-      font-family: [[setting:bodyfont]];
-  }
-  .categories .categories-item {
-      position: relative;
-      float: left;
-      text-align: left;
-      width: 95%;
-      margin: 0.625rem;
-  }
-  .item-inner {
-      padding: 0.938rem;
-      border: 0.06rem solid #ecebeb;
-      min-height: 6.25rem;
-      word-break: break-all;
-      margin: 0 1.25rem;
-      background: #f9f7f7;
-  }
-  
-  .align-items-center {
-      align-items: center !important;
-  }
-  .media {
-      display: flex;
-      align-items: flex-start;
-  }
-  .item-inner .icon-holder {
-      width: 3.125rem;
-      height: 3.125rem;
-      background: url([[pix:theme|img/categoryImg]]) no-repeat center;
-      float: left;
-      margin-right: 0.938rem;
-  }
-  .media-body {
-      flex: 1;
-  }
-  
-  /*footer*/
-  .contact-items-wrap {
-      width: 100%;
-      clear: both;
-      text-align: center;
-  }
-  .contact-item i {
-      height: 3.125rem;
-      overflow: hidden;
-      display: block;
-      margin: 0 0 0.5rem;
-      font-size: 2.125rem;
-  }
-  .socialheading {
-      font-size: 2.125rem;
-      margin: 0 1.563rem;
-      position: relative;
-      display: inline-block;
-      font-family: [[setting:headingfont]];
-  }
-  .social-links {
-      padding: 3.438rem 0 3.438rem;
-  }
-  .stay-connected a {
-      display: inline-block;
-      margin: 0 0.25rem 0.625rem;
-  }
-  .stay-connected i {
-      color: #fff;
-      /*static*/
-      background: [[setting:brandcolor]];
-      border-radius: 50%;
-      display: inline-block;
-      width: 2.813rem;
-      height: 2.813rem;
-      font-size: 1.563rem;
-      padding: 0.625rem 0 0;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      overflow: hidden;
-  }
-  
-  #page-footer .logininfo {
-      margin: 1.25rem 0 0.625rem;
-  }
-  #page-footer .logininfo a {
-      font-weight: 700;
-      padding: 0 0.313rem;
-  }
-  .sitelink img {
-      width: 7rem;
-  }
-  .stay-connected {
-      text-align: center;
-      padding: 3.75rem 0 0;
-  }
-  
-  .socialheading:before {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 2rem;
-      height: 0.313rem;
-      left: -3.438rem;
-      top: -0.625rem;
-      background: url([[pix:theme|img/line-left-light]]) no-repeat center;
-  }
-  .socialheading:after {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 2rem;
-      height: 0.313rem;
-      right: -3.438rem;
-      bottom: -0.813rem;
-      background: url([[pix:theme|img/line-right-light]]) no-repeat center;
-  }
-  .mobile-app {
-      text-align: center;
-      display: block;
-      margin-top: 0.313rem;
-      margin-bottom: 3.125rem;
-  }
-  .carousel-control-prev-icon {
-      background-image: url([[pix:theme|img/button-previous]]);
-      text-align: left;
-      position: absolute;
-      left: -0.813rem;
-      width: 0.813rem;
-      height: 1.563rem;
-      top: 50%;
-  }
-  .carousel-control-next-icon {
-      background-image: url([[pix:theme|img/button-next]]);
-      text-align: left;
-      position: absolute;
-      right: -1.75rem;
-      width: 0.813rem;
-      height: 1.563rem;
-      top: 50%;
-  }
-  .course-section .carousel-control-next-icon {
-      right: 0.75rem;
-      top: 0.5rem;
-  }
-  .course-section .carousel-control-prev-icon {
-      left: 0.75rem;
-      top: 0.5rem;
-  }
-  #categoryCarousel .carousel-control-next-icon{ right: -0.813rem; top: 32%;}
-  #categoryCarousel .carousel-control-prev-icon { left: -0.813rem; top: 32%;}
-  
-  .round-arrow {
-      padding: 1.25rem;
-      background: #fff;
-      border-radius: 50%;
-      position: absolute;
-      left: 1.563rem;
-      top: 65%;
-  }
-  .round-arrow-next{
-      padding: 1.25rem;
-      background: #fff;
-      border-radius: 50%;
-      position: absolute;
-      right: 1.563rem;
-      top: 65%;
-  }
-  .carousel-control-prev, .carousel-control-next{ width: auto; }
-  .social-network a{ color: [[setting:brandcolor]];}
-  
-  .carousel-inner .carousel-item.active,
-  .carousel-inner .carousel-item-next,
-  .carousel-inner .carousel-item-prev {
+
+/* Bottom row */
+.rl-foot__bottom {
     display: flex;
-  }
-  hr.mb-5.pb-3{
-      display: none;
-  }
-  .course-section .heading-large, .top-faculti .heading-large{
-      padding: 4.375rem 0 4.375rem;
-  }
-  .divider {
-      border-top: 0.06rem solid [[setting:maincolor]];
-      margin-top: 3.125rem;
-  }
-  @media (min-width:600px) and ( max-width:979px ){
-  .heading-large{
-     font-size: 2.375rem;
-  }
-  .about-items .col-md-3.col-sm-2.col-xs-12 {
-     padding: 0 0.5rem;
-     flex: 0 0 41%;
-     max-width: 41%;
-     margin: 0.625rem;
-         display: inline-block;
-  }
-  .header-small{
-     max-width: 40.625rem;
-  }
-  .course-grid{
-     min-width: 50%;
-  }
-  .categories-item.item {
-     min-width: 50%;
-  }
-  .instructor-block-left img{
-     height: auto;
-  }
-  ul.social-network.social-circle li{
-         margin-right: 0.313rem;
-      width: 2.188rem;
-  }
-  .instructor-block-right{
-     padding: 0.938rem 0.625rem;
-  }
-  section.container.describe-usp {
-      overflow: hidden;
-  }
-  .instructor-block-left img{width:6.25rem;}
-  .instructor-block-right{width:60%;}
-  .carousel-control-next-icon{right:0;}
-  }
-  
-  @media only screen and (max-width: 600px) {
-  .homeSlide-smalltext, .heading-large {
-     font-size: 1.375rem;
-     line-height: 1.875rem;
-  
-  }
-  img.img-polaroid {
-      width: 100%;
-  }
-  .well {
-      border: 0.06rem solid #e8e6e6;
-      border-radius: 0;
-      margin-bottom: 1.875rem;
-      padding: 1.25rem;
-  }
-  #home-slide .carousel-caption {
-     bottom: 20%;
-  }
-  .header-b{
-  font-size: 0.938rem;
-  }
-  .header-small{
-  font-size: 1.063rem;
-  margin-bottom: 1.25rem;
-     max-width: 20rem;
-  }
-  .carousel-control-next-icon{
-  right: -0.625rem;
-  }
-  .carousel-control-prev-icon{
-  left: 0;
-  }
-  .instructor-block-right, .instructor-block-left  {
-     width: 100%;
-  }
-  .instroctor-name{
-  margin: 1.25rem 0 0;
-  }
-  .categories-item.item{
-     width: 18.75rem;
-  }
-  .course-grid{
-     min-width: 100%;
-  }
-  .categories-item.item{
-     min-width: 100%;
-  }
-  .about-item{
-     margin: 0 1.875rem 0.625rem;
-  }
-  .about-items .col-md-3.col-sm-2.col-xs-12{
-     padding: 0;
-  }
-  .row.about-items{
-     margin:0;
-  }
-  .our-category {
-     padding: 0 1.25rem;
-  }
-  .container.text-center.top-faculti {
-     padding: 0 1.25rem;
-  }
-  .instructor-block{
-     min-width: 100%;
-  }
-  .socialheading{
-     font-size: 1.375rem;
-  }
-  .contact-item i{
-     font-size: 1.5rem;
-     height: 1.5rem;
-  }
-  .contact-item{
-     height: auto;
-     padding: 1.563rem 0 0;
-  }
-  .stay-connected i{
-     width: 2.5rem;
-     height: 2.5rem;
-     font-size: 1.125rem;
-     padding: 0.688rem 0 0;
-  }
-  .divider{ display:none;}
-  div#categoryCarousel {
-  margin: 3.125rem 0 0;
-  }
-  .loginnavbar input[type="text"], .loginnavbar input[type="password"]{
-      width: 100%;
-      margin-bottom: 0.625rem;
-  }
-  #home-slide h1{
-      font-size: 1.5rem;
-  }
-  #home-slide h3{
-      font-size: 1rem;
-      line-height: 1.375rem;
-  }
-  ul.navbar-nav.d-none.d-md-flex {
-      display: none !IMPORTANT;
-  }
-  }
-  
-  
-  .loginnavbar {
-      background: rgba(0, 0, 0, .58);
-      padding: 0.938rem 0;
-      position: absolute;
-      text-align: right;
-      top: 3.188rem;
-      width: 100%;
-      z-index: 1;
-  }
-  .loginnavbar input {
-      border-radius: 0;
-      margin: 0;
-  }
-  
-  .loginnavbar input[type="text"], 
-  .loginnavbar input[type="password"] {
-      background: none;
-      color: #bfbfbf;
-      padding: 0.313rem;
-          border: 0.06rem solid #616060;
-  }
-  
-  .loginnavbar input[type="submit"] {
-      padding: 0.375rem 0.938rem;
-      box-shadow: none !important;
-      margin: 0 !important;
-      color:#FFF;
-  }
-  input[type="submit"]:hover{
-      background: [[setting:maincolor]];
-  }
-  #page-login-forgot_password .columnleft,#page-login-forgot_password .columnright,
-  #page-login-logout .columnleft, #page-login-logout .columnright
-  {
-   display: none;
-  }
-  #page-login-forgot_password div#region-main-box{
-      margin: 1.875rem auto 6.25rem;
-      border: 0.06rem solid [[setting:maincolor]];
-  }
-  #page-login-logout div#region-main-box{
-      margin: 1.875rem auto 6.25rem; 
-      border: 0;
-  }
-  #page-login-forgot_password #region-main{
-      overflow: hidden;
-  }
-  #page-login-forgot_password .mform fieldset{
-      margin-left: 0;
-  }
-  #page-login-forgot_password .mform fieldset:last-child{ border-bottom: 0; }
-  #region-main-box.region-main{
-      padding: 0 1.25rem !important;
-  }
-  #page-login-index .card {
-      border: 0.06rem solid [[setting:maincolor]];
-      border-radius: 0;
-      margin-bottom: 6.25rem;
-  }
-  #page-login-index .forgetpass p a{
-      font-size: 0.688rem;
-  }
-  #guestlogin .btn{
-      background-color:[[setting:maincolor]];
-      color: #fff;
-  }
-  #region-main {
-      overflow-x: inherit;}
-  .columnright .block_myprofile .myprofileitem.fullname{
-      font-size: 1rem;
-  }
-  .columnright .block_myprofile .myprofileitem span{
-      font-size: 0.75rem;
-  }
-  .navbar {
-      min-height: 3.125rem !important;
-      max-height: 4.375rem;
-      padding-top: 0;
-      padding-bottom: 0;
-  }
-  /*div{ border:1px solid red; }*/
-  input[type="text"], input[type="url"], textarea, input[type="submit"], input.srch-fld, select, input[type="file"]{
-      font-family: [[setting:bodyfont]];
-      font-size: [[setting:fontsize]]px ;
-  }
-  h1, h2, h3, h4, h5, h6, p, a{
-      font-family: [[setting:bodyfont]] !important;
-      font-size: [[setting:fontsize]]px !important;
-  } 
-  .btn{
-      font-family: [[setting:bodyfont]];
-      font-size: [[setting:fontsize]]px ;
-  }
-  .custom-select, .form-select{
-      font-family: [[setting:bodyfont]];
-      font-size: [[setting:fontsize]]px ;
-          max-width: 100%;
-  }
-  body{
-      font-family: [[setting:bodyfont]];
-      font-size: [[setting:fontsize]]px ;
-  }
-  div#topofscroll {
-    max-width: 100% !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    margin-top: 2.25rem;
+    padding-top: 1.125rem;
+    border-top: 1px solid var(--rl-line-2);
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
 }
-  .moodle-dialogue-base .closebutton::after{
-      font-family: [[setting:bodyfont]];
-      font-size: [[setting:fontsize]]px ;
-  }
-  /* new css added here */
-  li.nav-item {
-      display: flex;
-  }
-  #page-admin-plugins #plugins-control-panel .version .versionnumber,
-   #page-admin-plugins #plugins-control-panel .notes .requiredby, 
-   #page-admin-plugins #plugins-control-panel .pluginname .componentname {
+
+.rl-foot__bottom p {
+    margin: 0;
+}
+
+.rl-foot__totop {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--rl-muted);
+    text-decoration: none;
+}
+
+.rl-foot__totop:hover {
+    color: var(--rl-ink);
+}
+
+.rl-foot__totop .fa {
+    font-size: 0.6875rem;
+    transition: transform var(--rl-speed) var(--rl-ease);
+}
+
+.rl-foot__totop:hover .fa {
+    transform: translateY(-2px);
+}
+
+/* Phones: link columns side by side, with tap targets at a comfortable size. */
+@media (max-width: 575.98px) {
+    .rl-foot {
+        padding-top: 2.5rem;
+    }
+
+    .rl-foot__inner {
+        gap: 2rem 1.5rem;
+    }
+
+    .rl-foot__brand {
+        flex-basis: 100%;
+        max-width: none;
+    }
+
+    .rl-foot__col {
+        flex: 1 1 8.5rem;
+    }
+
+    .rl-foot__links,
+    .rl-contact {
+        gap: 0;
+    }
+
+    .rl-foot__links a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.5rem;
+    }
+
+    .rl-contact__item {
+        padding-block: 0.5rem;
+    }
+
+    .rl-foot__bottom {
+        margin-top: 1.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rl-foot__links .rl-foot__more .fa,
+    .rl-foot__totop .fa {
+        transition: none;
+    }
+}
+
+
+/* Moodle's standard site home content (when shown): Available courses, the
+   course and category lists, news. Core markup, styled as an editorial index. */
+.rl-sitecontent {
+    max-width: none;
+    padding-top: 0;
+    background-color: transparent;
+}
+
+#page .rl-sitecontent #region-main,
+#page .rl-sitecontent #region-main-box {
+    border: 0;
+    background-color: transparent;
+}
+
+.rl-sitecontent [role="main"] > br {
+    display: none;
+}
+
+.rl-sitecontent #frontpage-available-course-list,
+.rl-sitecontent #frontpage-course-list,
+.rl-sitecontent #frontpage-category-names,
+.rl-sitecontent #frontpage-category-combo,
+.rl-sitecontent #site-news-forum {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    padding: clamp(1.75rem, 4vw, 3.5rem);
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-xl);
+    background: var(--rl-canvas);
+}
+
+.rl-sitecontent h2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+    font-family: var(--rl-font-display);
+    font-size: clamp(1.625rem, 1.2rem + 1.3vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--rl-ink);
+}
+
+/* The course index: numbered rows, the title large, everything clickable. */
+.rl-sitecontent .courses {
+    counter-reset: rl-course;
+    display: grid;
+}
+
+#page .rl-sitecontent .coursebox {
+    counter-increment: rl-course;
+    position: relative;
+    display: grid;
+    align-items: center;
+    column-gap: clamp(1rem, 3vw, 2.5rem);
+    row-gap: 0.5rem;
+    margin: 0;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(0.75rem, 2vw, 1.5rem);
+    border: 0;
+    border-top: 1px solid var(--rl-line);
+    border-radius: 0;
+    background: transparent;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+        "num info go"
+        "num content go";
+    transition: background-color 0.3s var(--rl-ease), border-radius 0.3s var(--rl-ease);
+}
+
+#page .rl-sitecontent .coursebox:last-child {
+    border-bottom: 1px solid var(--rl-line);
+}
+
+#page .rl-sitecontent .coursebox::before {
+    content: counter(rl-course, decimal-leading-zero);
+    grid-area: num;
+    align-self: start;
+    min-width: 2.5ch;
+    padding-top: 0.25rem;
+    font-family: var(--rl-font-display);
+    font-size: 1.125rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: color-mix(in srgb, var(--rl-ink) 30%, transparent);
+    transition: color 0.3s var(--rl-ease);
+}
+
+#page .rl-sitecontent .coursebox::after {
+    content: "\2192";
+    grid-area: go;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid var(--rl-line);
+    border-radius: 50%;
+    background-color: var(--rl-surface);
+    color: var(--rl-ink);
+    font-size: 1.125rem;
+    transition:
+        background-color 0.3s var(--rl-ease),
+        color 0.3s var(--rl-ease),
+        border-color 0.3s var(--rl-ease),
+        transform 0.3s var(--rl-ease);
+}
+
+#page .rl-sitecontent .coursebox .info {
+    grid-area: info;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+}
+
+#page .rl-sitecontent .coursebox .content {
+    grid-area: content;
+}
+
+#page .rl-sitecontent .coursebox .coursename {
+    margin: 0;
+    font-family: var(--rl-font-display);
+    font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+#page .rl-sitecontent .coursebox .coursename a {
+    color: var(--rl-ink);
+    text-decoration: none;
+    background: linear-gradient(var(--rl-sun), var(--rl-sun)) 0 92% / 0 0.12em no-repeat;
+    transition: background-size 0.4s var(--rl-ease);
+}
+
+#page .rl-sitecontent .coursebox .coursename a:hover,
+#page .rl-sitecontent .coursebox .coursename a:focus {
+    text-decoration: none;
+}
+
+/* The whole row opens the course; the teacher links stay usable above it. */
+#page .rl-sitecontent .coursebox .coursename a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+#page .rl-sitecontent .coursebox .summary,
+#page .rl-sitecontent .coursebox .summary p {
+    margin: 0;
+    max-width: 44rem;
     font-size: 1rem;
-    color: #868e96;
+    line-height: 1.6;
+    color: var(--rl-muted);
 }
-.navbar.fixed-top {
+
+#page .rl-sitecontent .coursebox .teachers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.875rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+#page .rl-sitecontent .coursebox .teachers li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem 0.25rem 0.375rem;
+    border: 1px solid var(--rl-line);
+    border-radius: 999px;
+    background-color: var(--rl-surface);
+    font-size: 0.8125rem;
+    color: var(--rl-muted);
+}
+
+#page .rl-sitecontent .coursebox .teachers li::before {
+    content: "\f19d";
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rl-sun-soft), var(--rl-primary-tint-2));
+    color: var(--rl-primary-text);
+    font-family: "Font Awesome 6 Free", "FontAwesome";
+    font-size: 0.625rem;
+    font-weight: 900;
+}
+
+#page .rl-sitecontent .coursebox .teachers .fw-bold,
+#page .rl-sitecontent .coursebox .teachers .font-weight-bold {
+    font-weight: 500 !important; /* stylelint-disable-line declaration-no-important */
+}
+
+#page .rl-sitecontent .coursebox .teachers a {
+    position: relative;
+    z-index: 2;
+    color: var(--rl-ink);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#page .rl-sitecontent .coursebox .teachers a:hover {
+    color: var(--rl-primary-text);
+}
+
+/* An uploaded course image shows as a rounded thumbnail. */
+#page .rl-sitecontent .coursebox .content > .d-flex {
+    gap: 1.5rem;
+}
+
+#page .rl-sitecontent .coursebox .courseimage img {
+    width: 9rem;
+    height: 6rem;
+    border-radius: var(--rl-radius);
+    object-fit: cover;
+}
+
+#page .rl-sitecontent .coursebox .enrolmenticons {
+    display: inline-flex;
+    gap: 0.25rem;
+    color: var(--rl-muted);
+}
+
+#page .rl-sitecontent .coursebox:hover,
+#page .rl-sitecontent .coursebox:focus-within {
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow);
+}
+
+#page .rl-sitecontent .coursebox:hover + .coursebox,
+#page .rl-sitecontent .coursebox:focus-within + .coursebox {
+    border-top-color: transparent;
+}
+
+#page .rl-sitecontent .coursebox:hover::before,
+#page .rl-sitecontent .coursebox:focus-within::before {
+    color: var(--rl-primary);
+}
+
+#page .rl-sitecontent .coursebox:hover .coursename a,
+#page .rl-sitecontent .coursebox:focus-within .coursename a {
+    background-size: 100% 0.12em;
+}
+
+#page .rl-sitecontent .coursebox:hover::after,
+#page .rl-sitecontent .coursebox:focus-within::after {
+    border-color: var(--rl-primary);
+    background-color: var(--rl-primary);
+    color: #fff;
+    transform: rotate(-45deg);
+}
+
+@media (max-width: 575.98px) {
+    #page .rl-sitecontent .coursebox {
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-areas:
+            "num info"
+            "num content";
+    }
+
+    #page .rl-sitecontent .coursebox::after {
+        display: none;
+    }
+
+    #page .rl-sitecontent .coursebox .courseimage {
+        display: none;
+    }
+}
+
+/* "View all courses" and paging links under the lists. */
+.rl-sitecontent .paging-morelink,
+.rl-sitecontent .paging {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.rl-sitecontent .paging-morelink a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--rl-radius-sm);
+    background-color: var(--rl-inverse);
+    color: var(--rl-on-inverse);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.rl-sitecontent .paging-morelink a::after {
+    content: "\2192";
+}
+
+.rl-sitecontent .paging-morelink a:hover {
+    background-color: var(--rl-primary);
+    color: #fff;
+}
+
+/* Category lists and news keep core's structure in the same cards. */
+.rl-sitecontent .course_category_tree .category > .info,
+.rl-sitecontent .forumpost {
+    border-radius: var(--rl-radius);
+}
+
+.rl-sitecontent .forumpost {
+    border-color: var(--rl-line);
+    background-color: var(--rl-surface);
+}
+
+
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
+/* Numbers count up when they come into view (pure CSS; static where motion is reduced). */
+@property --rl-n {
+    syntax: "<integer>";
+    inherits: false;
+    initial-value: 0;
+}
+
+@property --rl-pa {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
+}
+
+.rl-count {
+    --rl-n: var(--rl-to);
+    counter-reset: rl-n var(--rl-n);
+}
+
+.rl-count::after {
+    content: counter(rl-n);
+    /* Repeated on purpose: browsers without alt text in content keep the line above. */
+    content: counter(rl-n) / ""; /* stylelint-disable-line declaration-block-no-duplicate-properties */
+}
+
+.rl-count__value {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.rl-ring {
+    --rl-pa: var(--rl-p);
+    background: conic-gradient(var(--rl-accent) calc(var(--rl-pa) * 1%), var(--rl-canvas-2) 0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .rl-count {
+        animation: rl-count 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    .rl-ring {
+        animation: rl-ring 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    }
+}
+
+@keyframes rl-count {
+    from {
+        --rl-n: 0;
+    }
+}
+
+@keyframes rl-ring {
+    from {
+        --rl-pa: 0;
+    }
+}
+
+/* Gentle reveal as cards scroll into view, where the browser supports it. */
+@supports (animation-timeline: view()) {
+    .rl-main .rl-mcard,
+    .rl-main .rl-feature,
+    .rl-main .rl-step,
+    .rl-main .rl-event,
+    .rl-main .rl-quote,
+    .rl-main .rl-person {
+        animation: rl-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 30%;
+    }
+
+    @keyframes rl-reveal {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    }
+}
+
+/* --------------------------------------------------------------------------
+   8. Dashboard header
+   -------------------------------------------------------------------------- */
+#page-my-index .page-header-headings,
+#page-my-index #page-header h1 {
+    display: none;
+}
+
+/* The richer dashboard gets more room than Boost's narrow reading width. */
+.pagelayout-mydashboard div#topofscroll {
+    /* stylelint-disable-next-line declaration-no-important */
+    max-width: min(100%, calc(var(--rl-container) + 2 * var(--rl-gutter))) !important;
+}
+
+/* Moodle 5.3+ floats the block drawer beside an 830px content column. The
+   Dashboard and course listings are wider than that, so their drawer and its
+   toggle sit at the right edge instead, in the space Moodle already keeps
+   free for the drawer, rather than over the content. */
+body.pagelayout-mydashboard:has(.mds-nav-pill) .drawer.drawer-right,
+body.pagelayout-mydashboard:has(.mds-nav-pill) .drawer.drawer-right.show,
+body.pagelayout-coursecategory:has(.mds-nav-pill) .drawer.drawer-right,
+body.pagelayout-coursecategory:has(.mds-nav-pill) .drawer.drawer-right.show {
+    right: 1rem !important; /* stylelint-disable-line declaration-no-important */
+    left: auto !important; /* stylelint-disable-line declaration-no-important */
+}
+
+body.pagelayout-mydashboard .drawer.drawer-right,
+body.pagelayout-mycourses .drawer.drawer-right {
+    background-color: var(--rl-canvas);
+}
+
+body.pagelayout-mydashboard:has(.mds-nav-pill) .drawer-toggles .drawer-right-toggle,
+body.pagelayout-coursecategory:has(.mds-nav-pill) .drawer-toggles .drawer-right-toggle {
+    right: 1rem !important; /* stylelint-disable-line declaration-no-important */
+    left: auto !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.rl-dash {
+    display: grid;
+    gap: 1.5rem;
+    margin: 0 0 2rem;
+    color: var(--rl-ink);
+}
+
+/* Lines up with the blocks below, which Moodle insets by 15px from 768px. */
+@media (min-width: 768px) {
+    .rl-dash {
+        margin-inline: 15px;
+    }
+}
+
+/* Moodle 5.3+ floats the block drawer toggle over the top of the content. */
+body:has(.mds-nav-pill) .rl-dash {
+    margin-top: 3rem;
+}
+
+.rl-dash__sky {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    gap: 1.75rem;
+    overflow: hidden;
+    padding: clamp(1.5rem, 3.5vw, 2.25rem);
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-xl);
+    background:
+        radial-gradient(40rem 18rem at 100% 0%, var(--rl-tint-2), transparent 70%),
+        var(--rl-surface);
+    box-shadow: var(--rl-shadow);
+}
+
+.rl-dash__sky::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 45%;
+    z-index: -1;
+    background-image: var(--rl-contours);
+    background-size: 600px 300px;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 60%);
+    mask-image: linear-gradient(to right, transparent, #000 60%);
+    opacity: 0.9;
+}
+
+.rl-dash__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem 1.5rem;
+}
+
+.rl-dash__avatar {
+    width: 4rem;
+    height: 4rem;
+    border: 3px solid var(--rl-surface);
+    border-radius: 50%;
+    box-shadow: var(--rl-shadow);
+    object-fit: cover;
+}
+
+.rl-dash__hello {
+    flex: 1 1 16rem;
+    min-width: 0;
+}
+
+.rl-dash__date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.25rem;
+    color: var(--rl-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.rl-dash__date .fa {
+    color: var(--rl-accent);
+}
+
+.rl-dash__greeting {
+    margin: 0;
+    font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--rl-ink);
+}
+
+.rl-dash__sub {
+    margin: 0.375rem 0 0;
+    color: var(--rl-muted);
+}
+
+.rl-dash__stats {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10.5rem), 1fr));
+}
+
+.rl-stat {
+    --rl-tone: var(--rl-accent);
+    display: grid;
+    align-items: center;
+    column-gap: 0.875rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+}
+
+.rl-stat__icon {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--rl-radius);
+    background-color: color-mix(in srgb, var(--rl-tone) 11%, var(--rl-mix-base));
+    color: var(--rl-tone);
+    grid-row: span 2;
+}
+
+.rl-stat__value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.rl-stat__label {
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+}
+
+.rl-dash__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 992px) {
+    .rl-dash__grid {
+        grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+    }
+}
+
+.rl-panel {
+    padding: 1.5rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-xl);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+}
+
+.rl-dash__heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.rl-dash__heading h3 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.rl-dash__heading .rl-link-arrow {
+    font-size: 0.875rem;
+}
+
+.rl-resume {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    grid-template-columns: minmax(0, 1fr);
+    transition: box-shadow 0.3s var(--rl-ease), transform 0.3s var(--rl-ease);
+}
+
+.rl-resume:hover,
+.rl-resume:focus-within {
+    box-shadow: var(--rl-shadow);
+    transform: translateY(-2px);
+}
+
+@media (min-width: 576px) {
+    .rl-resume {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+}
+
+.rl-resume__media {
+    min-height: 11rem;
+    overflow: hidden;
+}
+
+.rl-resume__media > * {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--rl-ease);
+}
+
+.rl-resume:hover .rl-resume__media > * {
+    transform: scale(1.04);
+}
+
+.rl-resume__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding: 1.5rem;
+}
+
+.rl-resume__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+}
+
+.rl-resume__title a {
+    color: var(--rl-ink);
+}
+
+.rl-resume__summary {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    color: var(--rl-muted);
+    font-size: 0.9375rem;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.rl-resume__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+}
+
+.rl-resume__btn {
+    position: relative;
+    z-index: 0;
+    box-shadow: var(--rl-glow);
+}
+
+/* Progress ring */
+.rl-ring {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+}
+
+.rl-ring > span {
+    display: grid;
+    place-items: center;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    border-radius: 50%;
+    background-color: var(--rl-surface);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.rl-empty {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.25rem;
+    padding: 1.5rem;
+    border: 1px dashed var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+}
+
+.rl-empty > div {
+    flex: 1 1 14rem;
+}
+
+.rl-empty__icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--rl-tint);
+    color: var(--rl-accent);
+    font-size: 1.25rem;
+}
+
+.rl-empty__title {
+    margin: 0 0 0.25rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+}
+
+.rl-empty__text {
+    margin: 0;
+    color: var(--rl-muted);
+}
+
+/* Shortcuts */
+.rl-shortcuts {
+    display: grid;
+    gap: 0.625rem;
+}
+
+.rl-shortcut {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+    color: var(--rl-ink);
+    font-weight: 500;
+    transition: box-shadow 0.3s var(--rl-ease), transform 0.3s var(--rl-ease);
+}
+
+.rl-shortcut:hover,
+.rl-shortcut:focus {
+    box-shadow: var(--rl-shadow);
+    color: var(--rl-ink);
+    transform: translateX(2px);
+}
+
+.rl-shortcut .fa {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--rl-radius);
+    background-color: var(--rl-tint);
+    color: var(--rl-accent);
+}
+
+.rl-shortcut::after {
+    content: "\2192";
+    margin-left: auto;
+    color: var(--rl-muted);
+}
+
+/* --------------------------------------------------------------------------
+   9. Login page - Boost's login layout (classic on 4.5, split screen on 5.3+).
+   -------------------------------------------------------------------------- */
+.pagelayout-login #page-wrapper {
+    min-height: 100vh;
+    background:
+        radial-gradient(50rem 30rem at 100% 0%, var(--rl-tint-2), transparent 60%),
+        var(--rl-canvas);
+}
+
+/* Moodle 4.5 - 5.2: the classic centred card. */
+.pagelayout-login .login-wrapper .login-container {
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-xl);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-lg);
+}
+
+.pagelayout-login .login-container h1,
+.pagelayout-login .login-container h2 {
+    font-weight: 600;
+}
+
+/* Moodle 5.3+: the split screen. The left panel is a tinted panel with
+   contour lines in place of Boost's default photo, which Boost sets with
+   this same selector. */
+body.pagelayout-login #page .login-layout-left {
+    position: sticky;
+    isolation: isolate;
+    overflow: hidden;
+    align-items: flex-start;
+    padding-top: 18vh;
+    background-color: var(--rl-tint);
+    background-image: var(--rl-contours);
+    background-size: 600px 300px;
+    color: var(--rl-ink);
+}
+
+/* Boost labels its default photo as AI generated; that photo is not shown. */
+body.pagelayout-login #page .login-layout-left::after {
+    content: none;
+}
+
+.pagelayout-login .login-layout-left-content.rl-loginpanel {
+    max-width: 30rem;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--rl-ink);
+    text-align: left;
+}
+
+.rl-loginpanel__title {
+    margin: 0 0 1rem;
+    font-size: clamp(1.875rem, 1.3rem + 1.6vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--rl-ink);
+    text-wrap: balance;
+}
+
+.rl-loginpanel__text {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--rl-ink-2);
+}
+
+.rl-loginpanel__custom {
+    padding: 1.5rem;
+    border-radius: var(--rl-radius-lg);
+    background-color: color-mix(in srgb, var(--rl-surface) 75%, transparent);
+}
+
+.pagelayout-login .login-layout-right {
+    background-color: var(--rl-surface);
+}
+
+/* --------------------------------------------------------------------------
+   10. Layout details
+   -------------------------------------------------------------------------- */
+/* The course listing pages use the site home's width, centred. */
+.pagelayout-coursecategory div#topofscroll {
+    max-width: calc(var(--rl-container) + 2 * var(--rl-gutter)) !important; /* stylelint-disable-line declaration-no-important */
+    margin-inline: auto;
+}
+
+/* Page headings wrap between words on small screens, never inside one. */
+@media (max-width: 575.98px) {
+    #page-header h1,
+    .page-header-headings h1 {
+        font-size: 1.5rem;
+        word-break: normal;
+        overflow-wrap: break-word;
+    }
+}
+
+/* Upgrade, install and "new settings" pages (the maintenance layout, which
+   has no navbar): the page as a centred white card. */
+.pagelayout-maintenance #page-wrapper {
+    min-height: 100vh;
+    background:
+        radial-gradient(50rem 24rem at 100% 0%, var(--rl-tint), transparent 60%),
+        var(--rl-canvas);
+}
+
+.pagelayout-maintenance #page {
+    max-width: 56rem;
+    margin-block: clamp(2rem, 6vh, 4rem);
+    padding: clamp(1.5rem, 4vw, 2.5rem) !important; /* stylelint-disable-line declaration-no-important */
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-xl);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-lg);
+}
+
+.pagelayout-maintenance #page-content,
+.pagelayout-maintenance #page-content #region-main {
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.pagelayout-maintenance #page > .row:first-child > .page-header-headings {
+    padding-top: 0 !important; /* stylelint-disable-line declaration-no-important */
+    background: transparent;
+}
+
+.pagelayout-maintenance #page .row {
+    background: transparent;
+}
+
+.pagelayout-maintenance #page .page-header-headings h1 {
+    margin: 0;
+    font-family: var(--rl-font);
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+}
+
+.pagelayout-maintenance #region-main h2,
+.pagelayout-maintenance #region-main h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.pagelayout-maintenance #region-main .generalbox {
+    color: var(--rl-muted);
+}
+
+/* The slim site footer on inner pages. It has the same width and place on
+   every page: the site's container, as on the site home, centred. */
+.rl-sitefoot {
+    margin-top: 2rem;
+    /* The bottom padding keeps the links clear of Moodle's floating help button. */
+    padding: 0 var(--rl-gutter) 4.75rem;
+    font-family: var(--rl-font);
+}
+
+@media (min-width: 768px) {
+    .rl-sitefoot__inner {
+        /* Capped by the viewport too, as Moodle pads some layouts' pages less. */
+        max-width: min(var(--rl-container), calc(100vw - 7.25rem - 2 * var(--rl-gutter)));
+        margin-inline: auto;
+    }
+}
+
+/* Pages with a sticky save bar keep the end of the page clear of it. */
+.hasstickyfooter #page-footer {
+    padding-bottom: var(--sticky-footer-total-height, 4rem);
+}
+
+.rl-sitefoot__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rl-line);
+}
+
+.rl-sitefoot__copy {
+    margin: 0 auto 0 0;
+    color: var(--rl-muted);
+    font-size: 0.875rem;
+    line-height: 2rem;
+}
+
+.rl-sitefoot__nav {
     display: flex;
     align-items: center;
 }
-.custom-switch .custom-control-label::before {
-    top: 0.15rem;
+
+.rl-sitefoot__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
-.custom-switch .custom-control-label::after {
-    top: calc(-0.3875rem + 0.625rem);
-   }
-@media only screen and (min-width: 769px) {
-    .dropdown-menu.show {
-        left: -22%!important;
-        transform: translate(-50%, 35%) !important;
+
+.rl-sitefoot__links a {
+    color: var(--rl-ink-2);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.rl-sitefoot__links a:hover {
+    color: var(--rl-accent-text);
+}
+
+.rl-sitefoot__social {
+    margin: 0;
+}
+
+.rl-sitefoot__social a {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* On small screens the footer lines up with the page content. */
+@media (max-width: 767.98px) {
+    .rl-sitefoot {
+        padding-inline: 0.5rem;
     }
-    ul#select-menu63ca7d8ae4cda108-listbox {
-       
+}
+
+/* On phones the copyright, links and socials stack, left aligned. */
+@media (max-width: 575.98px) {
+    .rl-sitefoot__inner {
+        flex-direction: column;
+        align-items: flex-start;
     }
-    .tertiary-navigation.full-width-bottom-border {
-        margin-left: -0.5rem;
-        margin-right: -0.5rem;
-        width: 100%;
-    }
-    .tertiary-navigation .navitem, .tertiary-navigation .navitem-divider{
-        margin-bottom: 0.5rem;
-    }
-    .dropdown.select-menu .dropdown-menu.show{
-        transform: translate3d(0, 1.5rem, 0) !important;
-    }
-    .pagelayout-login #region-main {
-        width: 25%;
-        margin: auto;
-    }
-    .pagelayout-login #page{
-        background: none;
-    }
-     .d-print-block {
-        display: block !important;
-    }
-    .tertiary-navigation .row{
+
+    .rl-sitefoot__copy {
         margin: 0;
     }
-  }
-
-.editmode-switch-form label{
-  color: #f9f8fb !important;
 }
 
-.custom-control-input:checked~.custom-control-label::before {
-    color: #fdedec;
-    border-color: #fdedec;
-    background-color: #fdedec;
+/* Moodle's developer debugging output (only on sites with debugging on)
+   takes the site footer's width on every page, instead of the content
+   column's, which is full width on admin pages. */
+#page.drawers #page-footer.footer-popover {
+    width: auto;
+    max-width: none;
+    margin-inline: 0;
+    background-color: transparent !important; /* stylelint-disable-line declaration-no-important */
 }
 
-.custom-switch .custom-control-input:checked~.custom-control-label::after {
-    background-color: #e74c3c;
-    transform: translateX(0.75rem);
+#page-footer .footer-content-debugging {
+    width: auto;
+    max-width: min(var(--rl-container), calc(100vw - 7.25rem - 2 * var(--rl-gutter)));
+    margin: 0 auto 2rem;
+    border-radius: var(--rl-radius-lg);
+    font-size: 0.875rem;
 }
 
-.custom-switch .custom-control-label::after {
-    top: calc(-0.3875rem + 0.635rem);
+#page-footer .footer-content-debugging .footer-dark-inner {
+    max-width: none;
+    padding: 0.75rem 1rem;
 }
+
+@media (min-width: 768px) {
+    #page.drawers #page-footer.footer-popover {
+        padding-inline: var(--rl-gutter);
+    }
+}
+
+@media (max-width: 767.98px) {
+    #page-footer .footer-content-debugging {
+        max-width: none;
+        margin-inline: 0.5rem;
+    }
+}
+
+/* Site home: Moodle's page footer sits right under the black footer band,
+   so it continues the band (core's bg-white is !important, hence the same
+   here) and the debugging output reads as a quiet row under a divider,
+   not a separate grey panel. */
+.roshnilite-frontpage #page-footer {
+    --rl-ink: #f3f4f6;
+    --rl-muted: #9aa0a9;
+    --rl-line-2: rgba(255, 255, 255, 0.08);
+    color-scheme: dark;
+    background-color: var(--rl-foot-bg) !important; /* stylelint-disable-line declaration-no-important */
+    color: var(--rl-muted);
+}
+
+.roshnilite-frontpage #page-footer .footer-content-debugging {
+    width: 100%;
+    max-width: calc(var(--rl-container) + 2 * var(--rl-gutter));
+    margin: 0 auto;
+    padding-inline: var(--rl-gutter);
+    border-radius: 0;
+    background-color: transparent !important; /* stylelint-disable-line declaration-no-important */
+    color: var(--rl-muted) !important; /* stylelint-disable-line declaration-no-important */
+    font-size: 0.8125rem;
+}
+
+.roshnilite-frontpage #page-footer .footer-content-debugging .footer-dark-inner {
+    padding: 1rem 0 1.5rem;
+    border-top: 1px solid var(--rl-line-2);
+}
+
+/* Moodle prints the box even when there is no debugging output; an empty
+   one would leave a stray divider under the footer. */
+.roshnilite-frontpage #page-footer .footer-content-debugging:not(:has(.footer-dark-inner *)) {
+    display: none;
+}
+
+.roshnilite-frontpage #page-footer .footer-content-debugging a {
+    color: var(--rl-ink);
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.3);
+    text-underline-offset: 0.2em;
+}
+
+.roshnilite-frontpage #page-footer .footer-content-debugging a:hover {
+    text-decoration-color: currentcolor;
+}
+
+/* --------------------------------------------------------------------------
+   10b. Forms - Moodle's settings forms (course settings, activities, admin).
+   Core markup throughout; only the look changes.
+   -------------------------------------------------------------------------- */
+/* Fields are white on the grey page, so they stand out from it. The border
+   keeps Moodle's 3:1 contrast. */
+.mform .form-control:not([readonly]):not(:disabled),
+.mform .form-select:not(:disabled),
+.mform .custom-select:not(:disabled) {
+    background-color: var(--rl-surface);
+}
+
+.mform .form-control,
+.mform .form-select,
+.mform .custom-select {
+    min-height: 2.5rem;
+    border-radius: var(--rl-radius);
+}
+
+/* Section headings: a quiet chevron and a heading sized for a form, with
+   the heading text lined up with the field labels below it (core indents
+   the labels 2.5rem). */
+.mform fieldset.collapsible {
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--rl-line);
+}
+
+.mform fieldset.collapsible > legend {
+    margin-bottom: 0;
+}
+
+.mform .ftoggler {
+    min-height: 3rem;
+}
+
+.mform .ftoggler h3 {
+    color: var(--rl-ink);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.mform .ftoggler .btn-icon.icons-collapse-expand {
+    width: 1.5rem;
+    height: 1.5rem;
+    /* With the 1.5rem button, the heading starts where the labels do. */
+    margin-right: 0.25rem !important; /* stylelint-disable-line declaration-no-important */
+    border: 0;
+    border-radius: var(--rl-radius);
+    background-color: transparent;
+    color: var(--rl-muted);
+}
+
+.mform .ftoggler:hover .btn-icon.icons-collapse-expand {
+    background-color: var(--rl-tint);
+    color: var(--rl-accent-strong);
+}
+
+.mform fieldset.collapsible .fcontainer {
+    padding-bottom: 1rem;
+}
+
+.mform .collapsible-actions {
+    margin-bottom: 0.25rem;
+}
+
+.mform .collapsible-actions .btn-link,
+.mform .collapsible-actions a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+/* Labels, with the required and help icons kept in one column at the
+   label's edge and lined up with its first line. */
+.mform .col-form-label {
+    color: var(--rl-ink-2);
+}
+
+.mform .col-form-label .form-label-addon {
+    align-self: flex-start;
+    white-space: nowrap;
+}
+
+/* Autocomplete (course category, tags): the chosen items are soft chips.
+   Core rings the active chip at all times, which reads as an error; the ring
+   now shows only while the list has keyboard focus. */
+.form-autocomplete-selection [role="option"].badge {
+    border: 1px solid var(--rl-tint-2);
+    border-radius: var(--rl-radius);
+    background-color: var(--rl-tint) !important; /* stylelint-disable-line declaration-no-important */
+    color: var(--rl-accent-text) !important; /* stylelint-disable-line declaration-no-important */
+    font-weight: 500;
+}
+
+.form-autocomplete-selection [data-active-selection="true"] {
+    box-shadow: none;
+}
+
+.form-autocomplete-selection:focus [data-active-selection="true"],
+.form-autocomplete-selection.focus [data-active-selection="true"] {
+    box-shadow: 0 0 0 3px var(--rl-tint-2);
+}
+
+.form-autocomplete-downarrow {
+    color: var(--rl-muted);
+    font-size: 0.6875rem;
+    line-height: 2rem;
+}
+
+/* File picker and drop zone. */
+.mform .filemanager,
+.mform .filepicker-filelist {
+    border-radius: var(--rl-radius-lg);
+}
+
+.mform .filemanager-container,
+.mform .filepicker-container {
+    border-color: var(--rl-line) !important; /* stylelint-disable-line declaration-no-important */
+    border-radius: var(--rl-radius);
+    background-color: var(--rl-surface);
+}
+
+.mform .fp-navbar,
+.mform .filemanager .fp-navbar {
+    border-color: var(--rl-line) !important; /* stylelint-disable-line declaration-no-important */
+    border-radius: var(--rl-radius-lg) var(--rl-radius-lg) 0 0;
+    background-color: var(--rl-surface);
+}
+
+.mform .dndupload-message {
+    color: var(--rl-muted);
+}
+
+/* The editor sits in the same frame as the other fields. */
+.mform .tox.tox-tinymce {
+    border-color: var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+}
+
+/* The save bar: a light bar with a soft shadow, instead of a hard line. */
+.stickyfooter.bg-white {
+    border-top-color: var(--rl-line) !important; /* stylelint-disable-line declaration-no-important */
+    /* stylelint-disable-next-line declaration-no-important */
+    background-color: color-mix(in srgb, var(--rl-surface) 92%, transparent) !important;
+    box-shadow: 0 -4px 16px rgba(16, 24, 40, 0.06);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+/* Moodle 5.3+ floats the course index as a panel: it is a white card like
+   the blocks, instead of a grey box. */
+body:has(.mds-nav-pill) .drawer.drawer-left {
+    border: 1px solid var(--rl-line);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+}
+
+/* --------------------------------------------------------------------------
+   11. Course listings - All courses, a category, and course search.
+   Moodle's own markup, laid out as the site home's cards.
+   -------------------------------------------------------------------------- */
+.path-course-index #region-main .generalbox.info {
+    max-width: 48rem;
+    padding-top: 0 !important; /* stylelint-disable-line declaration-no-important */
+    color: var(--rl-muted);
+    font-size: 1.0625rem;
+}
+
+/* Subjects: a grid of cards, each opening its category page. */
+.path-course-index .course_category_tree .collapsible-actions,
+#page-course-search .course_category_tree .collapsible-actions {
+    display: none;
+}
+
+.path-course-index .course_category_tree .subcategories {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+}
+
+.path-course-index .course_category_tree .subcategories > .category {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    margin: 0;
+    padding: 1.125rem 1.25rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+    transition: box-shadow 0.3s var(--rl-ease), transform 0.3s var(--rl-ease);
+}
+
+.path-course-index .course_category_tree .subcategories > .category:hover,
+.path-course-index .course_category_tree .subcategories > .category:focus-within {
+    box-shadow: var(--rl-shadow);
+    transform: translateY(-2px);
+}
+
+.path-course-index .course_category_tree .subcategories > .category::before {
+    content: "\f02d";
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--rl-radius);
+    background-color: color-mix(in srgb, var(--rl-tone) 11%, var(--rl-mix-base));
+    color: var(--rl-tone);
+    font-family: "Font Awesome 6 Free", "FontAwesome";
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 1) {
+    --rl-tone: var(--rl-primary);
+}
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 2) {
+    --rl-tone: #d97706;
+}
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 3) {
+    --rl-tone: #059669;
+}
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 4) {
+    --rl-tone: #0284c7;
+}
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 5) {
+    --rl-tone: #7c3aed;
+}
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 6) {
+    --rl-tone: #db2777;
+}
+
+.path-course-index .course_category_tree .subcategories > .category > .info {
+    flex: 1;
+    min-width: 0;
+    padding-right: 1.5rem;
+}
+
+.path-course-index .course_category_tree .subcategories > .category > .content {
+    display: none;
+}
+
+.path-course-index .course_category_tree .category > .info > .categoryname {
+    margin: 0;
+    padding: 0 !important; /* stylelint-disable-line declaration-no-important */
+    background-image: none !important; /* stylelint-disable-line declaration-no-important */
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.path-course-index .course_category_tree .category > .info > .categoryname::before {
+    display: none;
+}
+
+.path-course-index .course_category_tree .category > .info > .categoryname a {
+    color: var(--rl-ink);
+    text-decoration: none;
+}
+
+.path-course-index .course_category_tree .category > .info > .categoryname a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.path-course-index .course_category_tree .numberofcourse {
+    color: var(--rl-muted);
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
+.path-course-index .course_category_tree .subcategories > .category > .info::after {
+    content: "\2192";
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    color: var(--rl-muted);
+    transform: translateY(-50%);
+}
+
+/* Courses: a grid of cards. */
+.path-course-index #region-main .courses,
+#page-course-search #region-main .courses {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+}
+
+.path-course-index #region-main .coursebox,
+#page-course-search #region-main .coursebox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 1.25rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-sm);
+    transition: box-shadow 0.3s var(--rl-ease), transform 0.3s var(--rl-ease);
+}
+
+.path-course-index #region-main .coursebox:hover,
+.path-course-index #region-main .coursebox:focus-within,
+#page-course-search #region-main .coursebox:hover,
+#page-course-search #region-main .coursebox:focus-within {
+    box-shadow: var(--rl-shadow);
+    transform: translateY(-2px);
+}
+
+.path-course-index #region-main .coursebox > .info,
+#page-course-search #region-main .coursebox > .info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.path-course-index #region-main .coursebox .coursename,
+#page-course-search #region-main .coursebox .coursename {
+    margin: 0;
+    padding: 0;
+    background: none;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.path-course-index #region-main .coursebox .coursename a,
+#page-course-search #region-main .coursebox .coursename a {
+    color: var(--rl-ink);
+    text-decoration: none;
+}
+
+/* The whole card opens the course; teacher and category links stay usable. */
+.path-course-index #region-main .coursebox .coursename a::after,
+#page-course-search #region-main .coursebox .coursename a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.path-course-index #region-main .coursebox .teachers a,
+.path-course-index #region-main .coursebox .coursecat a,
+#page-course-search #region-main .coursebox .teachers a,
+#page-course-search #region-main .coursebox .coursecat a {
+    position: relative;
+    z-index: 2;
+    color: var(--rl-ink-2);
+}
+
+.path-course-index #region-main .coursebox .highlight,
+#page-course-search #region-main .coursebox .highlight {
+    padding: 0;
+    border-radius: 2px;
+    background-color: var(--rl-tint-2);
+    color: inherit;
+}
+
+.path-course-index #region-main .coursebox .moreinfo:empty,
+#page-course-search #region-main .coursebox .moreinfo:empty {
+    display: none;
+}
+
+.path-course-index #region-main .coursebox .enrolmenticons,
+#page-course-search #region-main .coursebox .enrolmenticons {
+    flex: none;
+    opacity: 0.7;
+}
+
+.path-course-index #region-main .coursebox > .content,
+#page-course-search #region-main .coursebox > .content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-top: 0.5rem;
+}
+
+/* A course image, when there is one, sits above the text. */
+.path-course-index #region-main .coursebox > .content > .d-flex,
+#page-course-search #region-main .coursebox > .content > .d-flex {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+}
+
+.path-course-index #region-main .coursebox .courseimage img,
+#page-course-search #region-main .coursebox .courseimage img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--rl-radius);
+    object-fit: cover;
+}
+
+.path-course-index #region-main .coursebox .summary,
+#page-course-search #region-main .coursebox .summary {
+    margin: 0;
+    padding: 0;
+    color: var(--rl-muted);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+}
+
+.path-course-index #region-main .coursebox .summary .no-overflow,
+#page-course-search #region-main .coursebox .summary .no-overflow {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.path-course-index #region-main .coursebox .summary p,
+#page-course-search #region-main .coursebox .summary p {
+    margin: 0;
+}
+
+.path-course-index #region-main .coursebox .teachers,
+#page-course-search #region-main .coursebox .teachers {
+    margin: 0.875rem 0 0;
+    padding: 0.75rem 0 0;
+    border-top: 1px solid var(--rl-line-2);
+    list-style: none;
+}
+
+.path-course-index #region-main .coursebox .teachers,
+.path-course-index #region-main .coursebox .coursecat,
+#page-course-search #region-main .coursebox .teachers,
+#page-course-search #region-main .coursebox .coursecat {
+    color: var(--rl-muted);
+    font-size: 0.8125rem;
+}
+
+.path-course-index #region-main .coursebox .teachers .fw-bold,
+.path-course-index #region-main .coursebox .coursecat .fw-bold,
+#page-course-search #region-main .coursebox .teachers .fw-bold,
+#page-course-search #region-main .coursebox .coursecat .fw-bold {
+    font-weight: 500 !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.path-course-index #region-main .coursebox .coursecat,
+#page-course-search #region-main .coursebox .coursecat {
+    margin: 0.25rem 0 0;
+    padding: 0;
+}
+
+.path-course-index #region-main .coursebox .teachers li {
+    margin: 0;
+}
+
+#page-course-search #region-main h2 {
+    margin: 1.5rem 0 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.path-course-index #region-main .paging,
+#page-course-search #region-main .paging {
+    margin-top: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important; /* stylelint-disable-line declaration-no-important */
+        transition: none !important; /* stylelint-disable-line declaration-no-important */
+    }
+
+    .rl-mcard:hover,
+    .rl-resume:hover,
+    .rl-shortcut:hover,
+    .dashboard-card:hover,
+    .rl-mcard:hover .rl-mcard__media > *,
+    .rl-resume:hover .rl-resume__media > * {
+        transform: none;
+    }
+}
+
+/* Raw CSS from the theme settings - last, so it can override anything above. */
+/* [[setting:customcss]] */

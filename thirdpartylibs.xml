@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<libraries>
+  <library>
+    <location>fonts</location>
+    <name>Figtree</name>
+    <description>Variable sans-serif typeface used on the site home, Dashboard and login page.</description>
+    <version>5.3.0</version>
+    <license>OFL</license>
+    <licenseversion>1.1</licenseversion>
+    <repository>https://github.com/erikdkennedy/figtree</repository>
+    <copyrights>
+      <copyright>2022 The Figtree Project Authors</copyright>
+    </copyrights>
+  </library>
+</libraries>

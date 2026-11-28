@@ -1,0 +1,84 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/frontpage/hero
+
+    The site home hero: an announcement of the newest course, the slide text
+    (or the site name and summary), a course search and who teaches here, next
+    to a preview of the site's courses (or the slide image). Carousel data
+    attributes are given in Bootstrap 4 (Moodle 4.5) and 5 (Moodle 5.x) form.
+
+    Example context (json):
+    {
+        "hero": {"title": "Mount Orange School", "summary": "Learn anything.", "coursesurl": "#",
+                 "image": null, "defaultimage": "http://example.com/hero.jpg"},
+        "slider": null,
+        "search": {"action": "#"},
+        "announcement": {"name": "Astronomy", "url": "#"},
+        "teachers": {"label": "Learn from 3 teachers", "avatars": [{"name": "Mei Chen", "initials": "MC"}]},
+        "preview": null
+    }
+}}
+<section class="rl-hero">
+    {{#slider}}
+        <div id="home-slide" class="carousel slide carousel-fade rl-hero__carousel" data-ride="carousel" data-bs-ride="carousel"
+            data-interval="9000" data-bs-interval="9000">
+            <div class="carousel-inner">
+                {{#slides}}
+                    <div class="carousel-item {{#active}}active{{/active}}">
+                        <div class="rl-container rl-hero__grid">
+                            <div class="rl-hero__copy">
+                                {{> theme_roshnilite/frontpage/hero_announcement }}
+                                {{{text}}}
+                                {{> theme_roshnilite/frontpage/hero_search }}
+                                {{#buttontext}}
+                                    <a href="{{url}}" class="rl-link-arrow rl-hero__more">{{buttontext}}</a>
+                                {{/buttontext}}
+                                {{> theme_roshnilite/frontpage/hero_proof }}
+                            </div>
+                            {{> theme_roshnilite/frontpage/hero_visual }}
+                        </div>
+                    </div>
+                {{/slides}}
+            </div>
+            {{#multiple}}
+                <div class="rl-container rl-hero__indicators carousel-indicators">
+                    {{#slides}}
+                        <button type="button" data-target="#home-slide" data-bs-target="#home-slide"
+                            data-slide-to="{{index}}" data-bs-slide-to="{{index}}"
+                            {{#active}}class="active" aria-current="true"{{/active}}
+                            aria-label="{{#str}}slide, theme_roshnilite, {{number}}{{/str}}"></button>
+                    {{/slides}}
+                </div>
+            {{/multiple}}
+        </div>
+    {{/slider}}
+    {{^slider}}
+        {{#hero}}
+            <div class="rl-container rl-hero__grid">
+                <div class="rl-hero__copy">
+                    {{> theme_roshnilite/frontpage/hero_announcement }}
+                    <h1>{{title}}</h1>
+                    {{#summary}}<p>{{summary}}</p>{{/summary}}
+                    {{> theme_roshnilite/frontpage/hero_search }}
+                    {{> theme_roshnilite/frontpage/hero_proof }}
+                </div>
+                {{> theme_roshnilite/frontpage/hero_visual }}
+            </div>
+        {{/hero}}
+    {{/slider}}
+</section>

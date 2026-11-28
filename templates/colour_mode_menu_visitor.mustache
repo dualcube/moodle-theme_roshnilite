@@ -1,0 +1,97 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_roshnilite/colour_mode_menu_visitor
+
+    The light / dark colour mode menu for visitors who are not logged in
+    (Moodle 5.3+). Same markup as core's theme_boost/colour_mode_menu, so it
+    looks the same; the script only applies the mode and stores it in the
+    cookie core reads for logged-out pages, since a visitor has no user
+    preferences to save it in.
+
+    Context variables required for this template:
+    * cookiename - The name of the cookie core reads the mode from.
+    * cookieattributes - The attributes the cookie is stored with.
+    * currenticon - The Font Awesome class of the current mode's icon.
+    * currenttogglelabel - The accessible name of the toggle for the current mode.
+    * modes - The modes: mode, label, icon, togglelabel, isactive.
+
+    Example context (json):
+    {
+        "cookiename": "theme_boost_colourmode",
+        "cookieattributes": "; Max-Age=31536000; Path=/; SameSite=Lax",
+        "currenticon": "fa-sun",
+        "currenttogglelabel": "Colour mode: Light",
+        "modes": [
+            {"mode": "light", "label": "Light", "icon": "fa-sun", "togglelabel": "Colour mode: Light", "isactive": true},
+            {"mode": "dark", "label": "Dark", "icon": "fa-moon", "togglelabel": "Colour mode: Dark", "isactive": false},
+            {"mode": "auto", "label": "System", "icon": "fa-circle-half-stroke", "togglelabel": "Colour mode: System",
+             "isactive": false}
+        ]
+    }
+}}
+<div class="colourmodemenu" data-region="colourmode-menu" data-cookiename="{{cookiename}}" data-cookieattributes="{{cookieattributes}}">
+    <div class="dropdown show">
+        <button type="button" id="colourmode-menu-toggle" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true"
+                aria-controls="colourmode-action-menu" class="btn dropdown-toggle">
+            <i class="icon fa {{currenticon}} fa-fw m-0" aria-hidden="true" data-region="colourmode-current-icon"></i>
+            <span class="visually-hidden sr-only" data-region="colourmode-current-label">{{currenttogglelabel}}</span>
+        </button>
+        <div role="menu" aria-labelledby="colourmode-menu-toggle" id="colourmode-action-menu" class="dropdown-menu dropdown-menu-end">
+            {{#modes}}
+                <button type="button" class="dropdown-item{{#isactive}} active{{/isactive}}" role="menuitemradio" data-action="set-colourmode"
+                        data-colourmode="{{mode}}" data-icon="{{icon}}" data-togglelabel="{{togglelabel}}"
+                        aria-checked="{{#isactive}}true{{/isactive}}{{^isactive}}false{{/isactive}}">
+                    <i class="icon fa {{icon}} fa-fw me-2" aria-hidden="true"></i>
+                    {{label}}
+                </button>
+            {{/modes}}
+        </div>
+    </div>
+</div>
+{{#js}}
+(function() {
+    var menu = document.querySelector('[data-region="colourmode-menu"][data-cookiename]');
+    if (!menu) {
+        return;
+    }
+    var root = document.documentElement;
+    var dark = window.matchMedia('(prefers-color-scheme: dark)');
+    menu.addEventListener('click', function(e) {
+        var option = e.target.closest('[data-action="set-colourmode"]');
+        if (!option) {
+            return;
+        }
+        e.preventDefault();
+        var mode = option.dataset.colourmode;
+        root.setAttribute('data-colourmode', mode);
+        var resolved = mode;
+        if (mode === 'auto') {
+            resolved = dark.matches ? 'dark' : 'light';
+        }
+        root.setAttribute('data-bs-theme', resolved);
+        document.cookie = menu.dataset.cookiename + '=' + mode + menu.dataset.cookieattributes;
+        menu.querySelectorAll('[data-action="set-colourmode"]').forEach(function(item) {
+            var active = item === option;
+            item.classList.toggle('active', active);
+            item.setAttribute('aria-checked', active ? 'true' : 'false');
+        });
+        menu.querySelector('[data-region="colourmode-current-icon"]').className = 'icon fa ' + option.dataset.icon + ' fa-fw m-0';
+        menu.querySelector('[data-region="colourmode-current-label"]').textContent = option.dataset.togglelabel;
+    });
+})();
+{{/js}}

@@ -25,78 +25,94 @@
 
 // This line protects the file from being accessed by a URL directly.
 defined('MOODLE_INTERNAL') || die();
-global $CFG;
 
 $THEME->name = 'roshnilite';
-
-$THEME->sheets = ['styles'];
-
-$THEME->editor_sheets = [];
 $THEME->parents = ['boost'];
-$THEME->haseditswitch = true;
+$THEME->sheets = ['styles'];
+$THEME->editor_sheets = [];
 $THEME->enable_dock = false;
-$THEME->extrascsscallback = 'theme_roshnilite_get_extra_scss';
-$THEME->prescsscallback = 'theme_roshnilite_get_pre_scss';
-$THEME->precompiledcsscallback = 'theme_roshnilite_get_precompiled_css';
 $THEME->yuicssmodules = [];
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
-$THEME->csspostprocess = 'theme_roshnilite_process_css';
+$THEME->requiredblocks = '';
+$THEME->addblockposition = BLOCK_ADDBLOCK_POSITION_FLATNAV;
+$THEME->iconsystem = \core\output\icon_system::FONTAWESOME;
+$THEME->haseditswitch = true;
+$THEME->usescourseindex = true;
+// By default, all Moodle themes do not need their titles displayed.
+$THEME->activityheaderconfig = [
+    'notitle' => true,
+];
+
 $THEME->scss = function ($theme) {
     return theme_roshnilite_get_main_scss_content($theme);
 };
+$THEME->prescsscallback = 'theme_roshnilite_get_pre_scss';
+$THEME->extrascsscallback = 'theme_roshnilite_get_extra_scss';
+$THEME->precompiledcsscallback = 'theme_roshnilite_get_precompiled_css';
+$THEME->csspostprocess = 'theme_roshnilite_process_css';
+
+// Every layout that does not name a file shipped by this theme is resolved from
+// the parent theme (Boost). That keeps the primary, secondary and course index
+// navigation exactly as each supported Moodle release (4.5 LTS - 5.3 LTS) ships it.
 $THEME->layouts = [
-    // Most backwards compatible layout without the blocks - this is the layout used by default.
+    // Most backwards compatible layout without the blocks.
     'base' => [
-        'file' => 'columns.php',
+        'file' => 'drawers.php',
         'regions' => [],
     ],
-    // Standard layout with blocks, this is recommended for most pages with general information.
+    // Standard layout with blocks.
     'standard' => [
-        'file' => 'columns.php',
-        'regions' => ['side-pre', 'side-post'],
+        'file' => 'drawers.php',
+        'regions' => ['side-pre'],
         'defaultregion' => 'side-pre',
     ],
     // Main course page.
     'course' => [
-        'file' => 'columns.php',
-        'regions' => ['side-pre', 'side-post'],
+        'file' => 'drawers.php',
+        'regions' => ['side-pre'],
         'defaultregion' => 'side-pre',
         'options' => ['langmenu' => true],
     ],
     'coursecategory' => [
-        'file' => 'columns.php',
+        'file' => 'drawers.php',
         'regions' => ['side-pre'],
         'defaultregion' => 'side-pre',
     ],
     // Part of course, typical for modules - default page layout if $cm specified in require_login().
     'incourse' => [
-        'file' => 'columns.php',
+        'file' => 'drawers.php',
         'regions' => ['side-pre'],
         'defaultregion' => 'side-pre',
     ],
     // The site home page.
     'frontpage' => [
         'file' => 'frontpage.php',
-        'regions' => ['side-pre', 'side-post'],
-        'defaultregion' => 'side-pre',
-        'options' => ['nofullheader' => true, 'nonavbar' => true],
+        'regions' => [],
+        'options' => ['nonavbar' => true],
     ],
     // Server administration scripts.
     'admin' => [
-        'file' => 'columns.php',
+        'file' => 'drawers.php',
         'regions' => ['side-pre'],
         'defaultregion' => 'side-pre',
     ],
+    // My courses page.
+    'mycourses' => [
+        'file' => 'drawers.php',
+        'regions' => ['side-pre'],
+        'defaultregion' => 'side-pre',
+        'options' => ['nonavbar' => true],
+    ],
     // My dashboard page.
     'mydashboard' => [
-        'file' => 'columns.php',
-        'regions' => ['side-pre', 'side-post'],
+        'file' => 'drawers.php',
+        'regions' => ['side-pre'],
         'defaultregion' => 'side-pre',
-        'options' => ['nonavbar' => true, 'footer' => true, 'langmenu' => true, 'nocontextheader' => true],
+        'options' => ['nonavbar' => true, 'langmenu' => true],
     ],
     // My public page.
     'mypublic' => [
-        'file' => 'columns.php',
+        'file' => 'drawers.php',
         'regions' => ['side-pre'],
         'defaultregion' => 'side-pre',
     ],
@@ -105,17 +121,31 @@ $THEME->layouts = [
         'regions' => [],
         'options' => ['langmenu' => true],
     ],
-    // Pages that appear in pop-up windows - no navigation, no blocks, no header.
+    // Pages that appear in pop-up windows - no navigation, no blocks, no header and bare activity header.
     'popup' => [
-        'file' => 'contentonly.php',
+        'file' => 'columns1.php',
         'regions' => [],
-        'options' => ['nofooter' => true, 'nonavbar' => true],
+        'options' => [
+            'nofooter' => true,
+            'nonavbar' => true,
+            'activityheader' => [
+                'notitle' => true,
+                'nocompletion' => true,
+                'nodescription' => true,
+            ],
+        ],
     ],
     // No blocks and minimal footer - used for legacy frame layouts only!
     'frametop' => [
-        'file' => 'contentonly.php',
+        'file' => 'columns1.php',
         'regions' => [],
-        'options' => ['nofooter' => true, 'nocoursefooter' => true],
+        'options' => [
+            'nofooter' => true,
+            'nocoursefooter' => true,
+            'activityheader' => [
+                'nocompletion' => true,
+            ],
+        ],
     ],
     // Embeded pages, like iframe/object embeded in moodleform - it needs as much space as possible.
     'embedded' => [
@@ -124,25 +154,24 @@ $THEME->layouts = [
     ],
     // Used during upgrade and install, and for the 'This site is undergoing maintenance' message.
     // This must not have any blocks, links, or API calls that would lead to database or cache interaction.
-    // Please be extremely careful if you are modifying this layout.
     'maintenance' => [
         'file' => 'maintenance.php',
         'regions' => [],
     ],
     // Should display the content and basic headers only.
     'print' => [
-        'file' => 'contentonly.php',
+        'file' => 'columns1.php',
         'regions' => [],
-        'options' => ['nofooter' => true, 'nonavbar' => false],
+        'options' => ['nofooter' => true, 'nonavbar' => false, 'noactivityheader' => true],
     ],
     // The pagelayout used when a redirection is occuring.
     'redirect' => [
-        'file' => 'frontpage.php',
+        'file' => 'embedded.php',
         'regions' => [],
     ],
     // The pagelayout used for reports.
     'report' => [
-        'file' => 'columns.php',
+        'file' => 'drawers.php',
         'regions' => ['side-pre'],
         'defaultregion' => 'side-pre',
     ],
