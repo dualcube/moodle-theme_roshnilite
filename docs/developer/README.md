@@ -129,8 +129,11 @@ npm run check:html     # renders live pages and flags empty src/href, unquoted a
 
 `npm run check:html` needs Chrome and `puppeteer-core` (`npm install`). It's a
 quick local stand-in for CI's Mustache validator, not a replacement.
-`package.json` also has a `build:amd` script, but `docker/build-amd.sh` isn't
-in the repo and the theme currently ships no AMD modules.
+
+The theme ships no AMD modules (there's no `amd/` folder). Its only JavaScript
+is the inline script in `colour_mode_menu_visitor.mustache`. If you add a
+module, put it in `amd/src/` and build it with Moodle's Grunt from the root of
+a Moodle checkout.
 
 ## 4. How the site home renders
 

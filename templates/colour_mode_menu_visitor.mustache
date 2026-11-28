@@ -79,7 +79,11 @@
         e.preventDefault();
         var mode = option.dataset.colourmode;
         root.setAttribute('data-colourmode', mode);
-        root.setAttribute('data-bs-theme', mode === 'auto' ? (dark.matches ? 'dark' : 'light') : mode);
+        var resolved = mode;
+        if (mode === 'auto') {
+            resolved = dark.matches ? 'dark' : 'light';
+        }
+        root.setAttribute('data-bs-theme', resolved);
         document.cookie = menu.dataset.cookiename + '=' + mode + menu.dataset.cookieattributes;
         menu.querySelectorAll('[data-action="set-colourmode"]').forEach(function(item) {
             var active = item === option;
