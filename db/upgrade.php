@@ -1,3 +1,4 @@
+
 <?php
 // This file is part of Moodle - http://moodle.org/
 //
@@ -6,7 +7,7 @@
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Moodle is distributed in the hope that it will be useful,
+// This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
@@ -29,28 +30,14 @@
  * @return bool
  */
 function xmldb_theme_roshnilite_upgrade($oldversion) {
-    if ($oldversion < 2026112600) {
+    if ($oldversion < 2026112800) {
+        // Update placeholder homepage content and clear sample contact details.
         theme_roshnilite_replace_placeholder_copy();
-        upgrade_plugin_savepoint(true, 2026112600, 'theme', 'roshnilite');
-    }
-
-    if ($oldversion < 2026112601) {
-        // The categories heading now introduces the course catalogue.
-        theme_roshnilite_replace_placeholder_copy();
-        upgrade_plugin_savepoint(true, 2026112601, 'theme', 'roshnilite');
-    }
-
-    if ($oldversion < 2026112602) {
-        // The fourth site home feature is now "Community": events have their own section.
-        theme_roshnilite_replace_placeholder_copy();
-        upgrade_plugin_savepoint(true, 2026112602, 'theme', 'roshnilite');
-    }
-    if ($oldversion < 2026112700) {
-        // Contact details and links that are still the theme's samples are cleared,
-        // so a site never shows the theme author's address as its own.
         theme_roshnilite_clear_sample_contacts();
-        upgrade_plugin_savepoint(true, 2026112700, 'theme', 'roshnilite');
+
+        upgrade_plugin_savepoint(true, 2026112800, 'theme', 'roshnilite');
     }
+
     return true;
 }
 
@@ -67,6 +54,7 @@ function theme_roshnilite_clear_sample_contacts(): void {
         'email' => 'admin@dualcube.com',
         'phone' => '+91 33 64578322',
     ];
+
     foreach ($samples as $setting => $sample) {
         $current = get_config('theme_roshnilite', $setting);
         if ($current !== false && trim(html_entity_decode(strip_tags((string) $current))) === $sample) {
@@ -76,11 +64,13 @@ function theme_roshnilite_clear_sample_contacts(): void {
 
     $links = ['sliderurl1', 'sliderurl2', 'sliderurl3', 'sliderurl4', 'sliderurl5',
         'socialicon1', 'socialicon2', 'socialicon3', 'socialicon4'];
+
     foreach (['facultyfburl', 'facultytwitterurl', 'facultygoogleurl', 'facultylnkdnurl'] as $network) {
         for ($i = 1; $i <= 12; $i++) {
             $links[] = $network . $i;
         }
     }
+
     foreach ($links as $setting) {
         if (get_config('theme_roshnilite', $setting) === 'javascript:void(0);') {
             set_config($setting, '', 'theme_roshnilite');
@@ -138,8 +128,10 @@ function theme_roshnilite_replace_placeholder_copy(): void {
         if ($current === false) {
             continue;
         }
+
         // Rich text settings may have been saved wrapped in a paragraph.
         $plain = trim(html_entity_decode(strip_tags((string) $current), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+
         if (in_array($plain, $oldvalues, true)) {
             set_config($setting, get_string($stringid, 'theme_roshnilite'), 'theme_roshnilite');
         }
