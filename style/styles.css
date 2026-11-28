@@ -6,7 +6,9 @@
    the site's own content in place of decoration.
 
    Loaded after Boost's compiled SCSS on Moodle 4.5 LTS - 5.3 LTS.
-   [[setting:...]] and [[font:...]] placeholders are filled in by Moodle.
+   The font files are [[font:...]] references, which Moodle resolves. The
+   theme settings (colours, fonts, custom CSS) are written in at the two
+   [[setting:...]] comment markers by theme_roshnilite_process_css().
    Everything theme-specific uses the rl- prefix, so it never collides with
    Moodle or Bootstrap class names.
    ========================================================================== */
@@ -17,8 +19,26 @@
     font-weight: 300 900;
     font-display: swap;
     src: url([[font:theme|figtree-latin.woff2]]) format("woff2");
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-        U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    unicode-range:
+        U+0000-00FF,
+        U+0131,
+        U+0152-0153,
+        U+02BB-02BC,
+        U+02C6,
+        U+02DA,
+        U+02DC,
+        U+0304,
+        U+0308,
+        U+0329,
+        U+2000-206F,
+        U+20AC,
+        U+2122,
+        U+2191,
+        U+2193,
+        U+2212,
+        U+2215,
+        U+FEFF,
+        U+FFFD;
 }
 
 @font-face {
@@ -27,8 +47,21 @@
     font-weight: 300 900;
     font-display: swap;
     src: url([[font:theme|figtree-latin-ext.woff2]]) format("woff2");
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F,
-        U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    unicode-range:
+        U+0100-02BA,
+        U+02BD-02C5,
+        U+02C7-02CC,
+        U+02CE-02D7,
+        U+02DD-02FF,
+        U+1D00-1DBF,
+        U+1E00-1E9F,
+        U+1EF2-1EFF,
+        U+2020,
+        U+20A0-20AB,
+        U+20AD-20C0,
+        U+2113,
+        U+2C60-2C7F,
+        U+A720-A7FF;
 }
 
 /* --------------------------------------------------------------------------
@@ -38,8 +71,9 @@
     --rl-font: "Roshni Figtree", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --rl-font-display: var(--rl-font);
 
-    --rl-primary: [[setting:maincolor]];
-    --rl-accent: [[setting:brandcolor]];
+    /* Defaults; the theme settings override them (see the settings marker below). */
+    --rl-primary: #e74c3c;
+    --rl-accent: #e74c3c;
     --rl-primary-strong: color-mix(in srgb, var(--rl-primary) 82%, #000);
     --rl-accent-strong: color-mix(in srgb, var(--rl-accent) 82%, #000);
     --rl-primary-tint: color-mix(in srgb, var(--rl-primary) 8%, #fff);
@@ -102,7 +136,7 @@
     --rl-navbar-height: 60px;
 
     /* Contour lines for tinted panels. */
-    --rl-contours: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300' fill='none' stroke='%23fff' stroke-opacity='.7' stroke-width='1.5'%3E%3Cpath d='M-20 60c80-40 160 30 240 0s150-70 240-30 120 50 160 20'/%3E%3Cpath d='M-20 100c80-40 160 30 240 0s150-70 240-30 120 50 160 20'/%3E%3Cpath d='M-20 140c90-30 150 40 250 10s140-60 230-20 120 40 160 10'/%3E%3Cpath d='M-20 180c90-30 150 40 250 10s140-60 230-20 120 40 160 10'/%3E%3Cpath d='M-20 220c100-50 170 20 260-5s130-50 220-15 110 45 160 15'/%3E%3Cpath d='M-20 260c100-50 170 20 260-5s130-50 220-15 110 45 160 15'/%3E%3Cpath d='M-20 300c100-50 170 20 260-5s130-50 220-15 110 45 160 15'/%3E%3C/svg%3E");
+    --rl-contours: url([[pix:theme|contours]]);
 }
 
 /* Moodle 5.3+ Design System: its interactive "primary" is a fixed Moodle
@@ -158,7 +192,123 @@
     --rl-glow: 0 8px 20px -6px color-mix(in srgb, var(--rl-accent) 40%, transparent);
 
     /* The same contour lines, faint enough not to glare on a dark tint. */
-    --rl-contours: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300' fill='none' stroke='%23fff' stroke-opacity='.07' stroke-width='1.5'%3E%3Cpath d='M-20 60c80-40 160 30 240 0s150-70 240-30 120 50 160 20'/%3E%3Cpath d='M-20 100c80-40 160 30 240 0s150-70 240-30 120 50 160 20'/%3E%3Cpath d='M-20 140c90-30 150 40 250 10s140-60 230-20 120 40 160 10'/%3E%3Cpath d='M-20 180c90-30 150 40 250 10s140-60 230-20 120 40 160 10'/%3E%3Cpath d='M-20 220c100-50 170 20 260-5s130-50 220-15 110 45 160 15'/%3E%3Cpath d='M-20 260c100-50 170 20 260-5s130-50 220-15 110 45 160 15'/%3E%3Cpath d='M-20 300c100-50 170 20 260-5s130-50 220-15 110 45 160 15'/%3E%3C/svg%3E");
+    --rl-contours: url([[pix:theme|contours-dark]]);
+}
+
+/* Colour mode menu (Moodle 5.3+, core's and the visitor version): a round
+   icon button like the navbar's other controls, and a compact menu. The
+   sun and moon are drawn from pix/mode-*.svg, because Font Awesome's sun
+   reads as a settings cog at this size. The toggle shows the moon in light
+   mode and the sun in dark mode; screen readers keep core's label. */
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: transparent;
+    color: var(--rl-ink-2);
+    transition:
+        background-color var(--rl-speed) var(--rl-ease),
+        color var(--rl-speed) var(--rl-ease);
+}
+
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn::after,
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn .icon,
+.colourmodemenu .dropdown-item[data-colourmode="light"] .icon,
+.colourmodemenu .dropdown-item[data-colourmode="dark"] .icon {
+    display: none;
+}
+
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn::before,
+.colourmodemenu .dropdown-item[data-colourmode="light"]::before,
+.colourmodemenu .dropdown-item[data-colourmode="dark"]::before {
+    content: "";
+    flex: none;
+    width: 1.125rem;
+    height: 1.125rem;
+    background-color: currentcolor;
+    -webkit-mask: url([[pix:theme|mode-moon]]) center / contain no-repeat;
+    mask: url([[pix:theme|mode-moon]]) center / contain no-repeat;
+}
+
+[data-bs-theme="dark"] .navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn::before,
+.colourmodemenu .dropdown-item[data-colourmode="light"]::before {
+    -webkit-mask-image: url([[pix:theme|mode-sun]]);
+    mask-image: url([[pix:theme|mode-sun]]);
+}
+
+.colourmodemenu .dropdown-item[data-colourmode="light"]::before,
+.colourmodemenu .dropdown-item[data-colourmode="dark"]::before {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    color: var(--rl-muted);
+}
+
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn:hover,
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn[aria-expanded="true"] {
+    background-color: var(--rl-canvas-2);
+    color: var(--rl-ink);
+}
+
+.navbar.fixed-top .colourmodemenu .dropdown .dropdown-toggle.btn:focus-visible {
+    outline: 2px solid var(--rl-accent);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
+.colourmodemenu .dropdown-menu {
+    min-width: 10rem;
+    margin-top: 0.5rem;
+    padding: 0.375rem;
+    border: 1px solid var(--rl-line);
+    border-radius: var(--rl-radius-lg);
+    background-color: var(--rl-surface);
+    box-shadow: var(--rl-shadow-lg);
+}
+
+.colourmodemenu .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.625rem;
+    border-radius: var(--rl-radius);
+    color: var(--rl-ink-2);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.colourmodemenu .dropdown-item .icon {
+    color: var(--rl-muted);
+}
+
+.colourmodemenu .dropdown-item:hover,
+.colourmodemenu .dropdown-item:focus {
+    background-color: var(--rl-canvas-2);
+    color: var(--rl-ink);
+}
+
+.colourmodemenu .dropdown-item.active,
+.colourmodemenu .dropdown-item.active:hover {
+    background-color: var(--rl-tint);
+    color: var(--rl-accent-text);
+}
+
+.colourmodemenu .dropdown-item.active .icon,
+.colourmodemenu .dropdown-item.active::before {
+    color: inherit;
+}
+
+/* A check mark on the chosen mode. */
+.colourmodemenu .dropdown-item.active::after {
+    content: "\f00c";
+    margin-left: auto;
+    padding-left: 0.75rem;
+    font-family: "Font Awesome 6 Free";
+    font-size: 0.75rem;
+    font-weight: 900;
 }
 
 /* The bundled logo is dark lettering on transparency; flip it for dark mode.
@@ -195,7 +345,8 @@
         radial-gradient(closest-side at 80% 70%, #1e2a44, transparent);
 }
 
-[[setting:fontrules]]
+/* Theme settings: colour tokens and font rules, filled in by Moodle. */
+/* [[setting:settingsrules]] */
 
 /* --------------------------------------------------------------------------
    2. Base
@@ -210,7 +361,14 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
+h1,
+h2,
+h3,
+h4,
+.h1,
+.h2,
+.h3,
+.h4 {
     letter-spacing: -0.015em;
 }
 
@@ -245,7 +403,8 @@ a,
 .form-control,
 .custom-select,
 .form-select {
-    transition: color var(--rl-speed) var(--rl-ease),
+    transition:
+        color var(--rl-speed) var(--rl-ease),
         background-color var(--rl-speed) var(--rl-ease),
         border-color var(--rl-speed) var(--rl-ease),
         box-shadow var(--rl-speed) var(--rl-ease);
@@ -436,7 +595,7 @@ input[type="button"].btn-secondary {
    4. Navbar - Boost's navbar on a light, blurred surface.
    -------------------------------------------------------------------------- */
 .navbar.fixed-top {
-    background-color: var(--rl-glass) !important;
+    background-color: var(--rl-glass) !important; /* stylelint-disable-line declaration-no-important */
     -webkit-backdrop-filter: saturate(180%) blur(14px);
     backdrop-filter: saturate(180%) blur(14px);
     border-bottom: 1px solid var(--rl-line);
@@ -554,7 +713,7 @@ input[type="button"].btn-secondary {
     position: relative;
     padding: 0.75rem 0.875rem;
     border-radius: 0;
-    background-color: transparent !important;
+    background-color: transparent !important; /* stylelint-disable-line declaration-no-important */
     color: var(--rl-muted);
 }
 
@@ -658,7 +817,7 @@ input[type="button"].btn-secondary {
 .pagination .page-link {
     margin-inline: 0.125rem;
     border-color: var(--rl-line);
-    border-radius: var(--rl-radius-sm) !important;
+    border-radius: var(--rl-radius-sm) !important; /* stylelint-disable-line declaration-no-important */
     color: var(--rl-ink-2);
 }
 
@@ -1032,12 +1191,28 @@ table th a:hover {
 }
 
 /* Colour tones: each subject keeps its colour everywhere. */
-.rl-tone--primary, .rl-stat--primary { --rl-tone: var(--rl-primary); }
-.rl-tone--amber, .rl-stat--amber { --rl-tone: #d97706; }
-.rl-tone--emerald, .rl-stat--emerald { --rl-tone: #059669; }
-.rl-tone--sky, .rl-stat--sky { --rl-tone: #0284c7; }
-.rl-tone--violet { --rl-tone: #7c3aed; }
-.rl-tone--pink { --rl-tone: #db2777; }
+.rl-tone--primary,
+.rl-stat--primary {
+    --rl-tone: var(--rl-primary);
+}
+.rl-tone--amber,
+.rl-stat--amber {
+    --rl-tone: #d97706;
+}
+.rl-tone--emerald,
+.rl-stat--emerald {
+    --rl-tone: #059669;
+}
+.rl-tone--sky,
+.rl-stat--sky {
+    --rl-tone: #0284c7;
+}
+.rl-tone--violet {
+    --rl-tone: #7c3aed;
+}
+.rl-tone--pink {
+    --rl-tone: #db2777;
+}
 
 /* Course covers: the uploaded image, or a pattern in the subject's colour
    (varied per course) with the course monogram as a small badge. */
@@ -2953,8 +3128,7 @@ table th a:hover {
     padding: clamp(1.75rem, 4vw, 3.5rem);
     border: 1px solid var(--rl-line);
     border-radius: var(--rl-radius-xl);
-    background:
-        var(--rl-canvas);
+    background: var(--rl-canvas);
 }
 
 .rl-sitecontent h2 {
@@ -3027,8 +3201,11 @@ table th a:hover {
     background-color: var(--rl-surface);
     color: var(--rl-ink);
     font-size: 1.125rem;
-    transition: background-color 0.3s var(--rl-ease), color 0.3s var(--rl-ease),
-        border-color 0.3s var(--rl-ease), transform 0.3s var(--rl-ease);
+    transition:
+        background-color 0.3s var(--rl-ease),
+        color 0.3s var(--rl-ease),
+        border-color 0.3s var(--rl-ease),
+        transform 0.3s var(--rl-ease);
 }
 
 #page .rl-sitecontent .coursebox .info {
@@ -3118,7 +3295,7 @@ table th a:hover {
 
 #page .rl-sitecontent .coursebox .teachers .fw-bold,
 #page .rl-sitecontent .coursebox .teachers .font-weight-bold {
-    font-weight: 500 !important;
+    font-weight: 500 !important; /* stylelint-disable-line declaration-no-important */
 }
 
 #page .rl-sitecontent .coursebox .teachers a {
@@ -3261,7 +3438,8 @@ table th a:hover {
 
 .rl-count::after {
     content: counter(rl-n);
-    content: counter(rl-n) / "";
+    /* Repeated on purpose: browsers without alt text in content keep the line above. */
+    content: counter(rl-n) / ""; /* stylelint-disable-line declaration-block-no-duplicate-properties */
 }
 
 .rl-count__value {
@@ -3331,6 +3509,7 @@ table th a:hover {
 
 /* The richer dashboard gets more room than Boost's narrow reading width. */
 .pagelayout-mydashboard div#topofscroll {
+    /* stylelint-disable-next-line declaration-no-important */
     max-width: min(100%, calc(var(--rl-container) + 2 * var(--rl-gutter))) !important;
 }
 
@@ -3342,8 +3521,8 @@ body.pagelayout-mydashboard:has(.mds-nav-pill) .drawer.drawer-right,
 body.pagelayout-mydashboard:has(.mds-nav-pill) .drawer.drawer-right.show,
 body.pagelayout-coursecategory:has(.mds-nav-pill) .drawer.drawer-right,
 body.pagelayout-coursecategory:has(.mds-nav-pill) .drawer.drawer-right.show {
-    right: 1rem !important;
-    left: auto !important;
+    right: 1rem !important; /* stylelint-disable-line declaration-no-important */
+    left: auto !important; /* stylelint-disable-line declaration-no-important */
 }
 
 body.pagelayout-mydashboard .drawer.drawer-right,
@@ -3353,8 +3532,8 @@ body.pagelayout-mycourses .drawer.drawer-right {
 
 body.pagelayout-mydashboard:has(.mds-nav-pill) .drawer-toggles .drawer-right-toggle,
 body.pagelayout-coursecategory:has(.mds-nav-pill) .drawer-toggles .drawer-right-toggle {
-    right: 1rem !important;
-    left: auto !important;
+    right: 1rem !important; /* stylelint-disable-line declaration-no-important */
+    left: auto !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .rl-dash {
@@ -3803,7 +3982,7 @@ body.pagelayout-login #page .login-layout-left::after {
    -------------------------------------------------------------------------- */
 /* The course listing pages use the site home's width, centred. */
 .pagelayout-coursecategory div#topofscroll {
-    max-width: calc(var(--rl-container) + 2 * var(--rl-gutter)) !important;
+    max-width: calc(var(--rl-container) + 2 * var(--rl-gutter)) !important; /* stylelint-disable-line declaration-no-important */
     margin-inline: auto;
 }
 
@@ -3829,7 +4008,7 @@ body.pagelayout-login #page .login-layout-left::after {
 .pagelayout-maintenance #page {
     max-width: 56rem;
     margin-block: clamp(2rem, 6vh, 4rem);
-    padding: clamp(1.5rem, 4vw, 2.5rem) !important;
+    padding: clamp(1.5rem, 4vw, 2.5rem) !important; /* stylelint-disable-line declaration-no-important */
     border: 1px solid var(--rl-line);
     border-radius: var(--rl-radius-xl);
     background-color: var(--rl-surface);
@@ -3846,7 +4025,7 @@ body.pagelayout-login #page .login-layout-left::after {
 }
 
 .pagelayout-maintenance #page > .row:first-child > .page-header-headings {
-    padding-top: 0 !important;
+    padding-top: 0 !important; /* stylelint-disable-line declaration-no-important */
     background: transparent;
 }
 
@@ -3970,7 +4149,7 @@ body.pagelayout-login #page .login-layout-left::after {
     width: auto;
     max-width: none;
     margin-inline: 0;
-    background-color: transparent !important;
+    background-color: transparent !important; /* stylelint-disable-line declaration-no-important */
 }
 
 #page-footer .footer-content-debugging {
@@ -4008,7 +4187,7 @@ body.pagelayout-login #page .login-layout-left::after {
     --rl-muted: #9aa0a9;
     --rl-line-2: rgba(255, 255, 255, 0.08);
     color-scheme: dark;
-    background-color: var(--rl-foot-bg) !important;
+    background-color: var(--rl-foot-bg) !important; /* stylelint-disable-line declaration-no-important */
     color: var(--rl-muted);
 }
 
@@ -4018,8 +4197,8 @@ body.pagelayout-login #page .login-layout-left::after {
     margin: 0 auto;
     padding-inline: var(--rl-gutter);
     border-radius: 0;
-    background-color: transparent !important;
-    color: var(--rl-muted) !important;
+    background-color: transparent !important; /* stylelint-disable-line declaration-no-important */
+    color: var(--rl-muted) !important; /* stylelint-disable-line declaration-no-important */
     font-size: 0.8125rem;
 }
 
@@ -4091,7 +4270,7 @@ body.pagelayout-login #page .login-layout-left::after {
     width: 1.5rem;
     height: 1.5rem;
     /* With the 1.5rem button, the heading starts where the labels do. */
-    margin-right: 0.25rem !important;
+    margin-right: 0.25rem !important; /* stylelint-disable-line declaration-no-important */
     border: 0;
     border-radius: var(--rl-radius);
     background-color: transparent;
@@ -4135,8 +4314,8 @@ body.pagelayout-login #page .login-layout-left::after {
 .form-autocomplete-selection [role="option"].badge {
     border: 1px solid var(--rl-tint-2);
     border-radius: var(--rl-radius);
-    background-color: var(--rl-tint) !important;
-    color: var(--rl-accent-strong) !important;
+    background-color: var(--rl-tint) !important; /* stylelint-disable-line declaration-no-important */
+    color: var(--rl-accent-text) !important; /* stylelint-disable-line declaration-no-important */
     font-weight: 500;
 }
 
@@ -4163,14 +4342,14 @@ body.pagelayout-login #page .login-layout-left::after {
 
 .mform .filemanager-container,
 .mform .filepicker-container {
-    border-color: var(--rl-line) !important;
+    border-color: var(--rl-line) !important; /* stylelint-disable-line declaration-no-important */
     border-radius: var(--rl-radius);
     background-color: var(--rl-surface);
 }
 
 .mform .fp-navbar,
 .mform .filemanager .fp-navbar {
-    border-color: var(--rl-line) !important;
+    border-color: var(--rl-line) !important; /* stylelint-disable-line declaration-no-important */
     border-radius: var(--rl-radius-lg) var(--rl-radius-lg) 0 0;
     background-color: var(--rl-surface);
 }
@@ -4187,7 +4366,8 @@ body.pagelayout-login #page .login-layout-left::after {
 
 /* The save bar: a light bar with a soft shadow, instead of a hard line. */
 .stickyfooter.bg-white {
-    border-top-color: var(--rl-line) !important;
+    border-top-color: var(--rl-line) !important; /* stylelint-disable-line declaration-no-important */
+    /* stylelint-disable-next-line declaration-no-important */
     background-color: color-mix(in srgb, var(--rl-surface) 92%, transparent) !important;
     box-shadow: 0 -4px 16px rgba(16, 24, 40, 0.06);
     -webkit-backdrop-filter: blur(8px);
@@ -4208,7 +4388,7 @@ body:has(.mds-nav-pill) .drawer.drawer-left {
    -------------------------------------------------------------------------- */
 .path-course-index #region-main .generalbox.info {
     max-width: 48rem;
-    padding-top: 0 !important;
+    padding-top: 0 !important; /* stylelint-disable-line declaration-no-important */
     color: var(--rl-muted);
     font-size: 1.0625rem;
 }
@@ -4261,12 +4441,24 @@ body:has(.mds-nav-pill) .drawer.drawer-left {
     font-weight: 900;
 }
 
-.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 1) { --rl-tone: var(--rl-primary); }
-.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 2) { --rl-tone: #d97706; }
-.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 3) { --rl-tone: #059669; }
-.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 4) { --rl-tone: #0284c7; }
-.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 5) { --rl-tone: #7c3aed; }
-.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 6) { --rl-tone: #db2777; }
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 1) {
+    --rl-tone: var(--rl-primary);
+}
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 2) {
+    --rl-tone: #d97706;
+}
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 3) {
+    --rl-tone: #059669;
+}
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 4) {
+    --rl-tone: #0284c7;
+}
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 5) {
+    --rl-tone: #7c3aed;
+}
+.path-course-index .course_category_tree .subcategories > .category:nth-child(6n + 6) {
+    --rl-tone: #db2777;
+}
 
 .path-course-index .course_category_tree .subcategories > .category > .info {
     flex: 1;
@@ -4280,8 +4472,8 @@ body:has(.mds-nav-pill) .drawer.drawer-left {
 
 .path-course-index .course_category_tree .category > .info > .categoryname {
     margin: 0;
-    padding: 0 !important;
-    background-image: none !important;
+    padding: 0 !important; /* stylelint-disable-line declaration-no-important */
+    background-image: none !important; /* stylelint-disable-line declaration-no-important */
     font-size: 1.0625rem;
     font-weight: 600;
     line-height: 1.35;
@@ -4475,7 +4667,7 @@ body:has(.mds-nav-pill) .drawer.drawer-left {
 .path-course-index #region-main .coursebox .coursecat .fw-bold,
 #page-course-search #region-main .coursebox .teachers .fw-bold,
 #page-course-search #region-main .coursebox .coursecat .fw-bold {
-    font-weight: 500 !important;
+    font-weight: 500 !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .path-course-index #region-main .coursebox .coursecat,
@@ -4507,8 +4699,8 @@ body:has(.mds-nav-pill) .drawer.drawer-left {
     *,
     *::before,
     *::after {
-        animation: none !important;
-        transition-duration: 0.01ms !important;
+        animation: none !important; /* stylelint-disable-line declaration-no-important */
+        transition: none !important; /* stylelint-disable-line declaration-no-important */
     }
 
     .rl-mcard:hover,
@@ -4522,4 +4714,4 @@ body:has(.mds-nav-pill) .drawer.drawer-left {
 }
 
 /* Raw CSS from the theme settings - last, so it can override anything above. */
-[[setting:customcss]]
+/* [[setting:customcss]] */

@@ -24,6 +24,7 @@ namespace theme_roshnilite;
  * @copyright  DualCube (https://dualcube.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     ::theme_roshnilite_process_css
+ * @covers     ::theme_roshnilite_get_settings_css
  * @covers     ::theme_roshnilite_get_extra_scss
  * @covers     ::theme_roshnilite_get_font_css
  */
@@ -41,32 +42,45 @@ final class lib_test extends \advanced_testcase {
     }
 
     /**
-     * Unset settings are replaced with valid defaults, never left empty.
+     * The settings marker gets the colour tokens; the custom CSS marker is
+     * removed when no custom CSS is set.
      */
     public function test_process_css_defaults(): void {
         $this->resetAfterTest();
         $theme = \theme_config::load('roshnilite');
 
-        $css = theme_roshnilite_process_css(
-            'a{color:[[setting:maincolor]]}b{color:[[setting:brandcolor]]}c{font-size:[[setting:fontsize]]px}[[setting:customcss]]',
-            $theme
-        );
+        $css = theme_roshnilite_process_css('a{}/* [[setting:settingsrules]] *//* [[setting:customcss]] */', $theme);
 
-        $this->assertSame('a{color:#e74c3c}b{color:#e74c3c}c{font-size:15px}', $css);
+        $this->assertSame("a{}:root { --rl-primary: #e74c3c; --rl-accent: #e74c3c; }\n", $css);
     }
 
     /**
-     * Configured settings are written into the CSS.
+     * Configured settings are written in; the accent follows the main colour
+     * when no brand colour is set.
      */
     public function test_process_css_settings(): void {
         $this->resetAfterTest();
         set_config('maincolor', '#123456', 'theme_roshnilite');
+        set_config('brandcolor', '', 'theme_roshnilite');
         set_config('customcss', '.x{}', 'theme_roshnilite');
         $theme = \theme_config::load('roshnilite');
 
-        $css = theme_roshnilite_process_css('a{color:[[setting:maincolor]]}[[setting:customcss]]', $theme);
+        $css = theme_roshnilite_process_css('/* [[setting:settingsrules]] */a{}/* [[setting:customcss]] */', $theme);
 
-        $this->assertSame('a{color:#123456}.x{}', $css);
+        $this->assertSame(":root { --rl-primary: #123456; --rl-accent: #123456; }\na{}.x{}", $css);
+    }
+
+    /**
+     * A colour that is not a hex value is left out, so the stylesheet's
+     * default stays and the CSS cannot be broken by a bad setting.
+     */
+    public function test_settings_css_ignores_invalid_colours(): void {
+        $this->resetAfterTest();
+        set_config('maincolor', 'red; } body { display: none', 'theme_roshnilite');
+        set_config('brandcolor', '#abcdef', 'theme_roshnilite');
+        $theme = \theme_config::load('roshnilite');
+
+        $this->assertSame(":root { --rl-accent: #abcdef; }\n", theme_roshnilite_get_settings_css($theme));
     }
 
     /**

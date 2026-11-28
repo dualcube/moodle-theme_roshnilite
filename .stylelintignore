@@ -1,0 +1,4 @@
+# Compiled Boost CSS, used only as the precompiled fallback
+# (theme_roshnilite_get_precompiled_css). Generated, not hand written, so it
+# is not linted - the same as core's theme/boost/style/moodle.css.
+style/moodle.css

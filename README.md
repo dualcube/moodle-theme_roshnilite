@@ -4,6 +4,11 @@
 
 This Moodle theme is a 100% responsive, feature-heavy Moodle theme. It is compatible with Moodle 4.5 LTS through Moodle 5.3 LTS. It provides customizable sections on the front page which the user may customize through a backend setting panel, and can add/update/delete content.
 
+## Documentation
+
+- [Site administrator guide](docs/user/README.md): setting up and editing the site home, every setting, dark mode.
+- [Developer guide](docs/developer/README.md): architecture, local environment, extending the theme.
+
 ## Compatibility
 
 | Moodle | Bootstrap | Status |

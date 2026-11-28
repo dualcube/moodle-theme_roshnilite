@@ -111,6 +111,56 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * The light / dark colour mode menu in the navbar (Moodle 5.3+).
+     *
+     * Logged-in users get core's menu, which saves their choice as a user
+     * preference. Core shows nothing to visitors who are not logged in, so
+     * they get the same menu from this theme instead: it applies the mode at
+     * once and keeps it in the cookie core already reads for logged-out pages,
+     * without core's preference request, which needs a login.
+     *
+     * Empty on releases without colour modes, or when a site has not turned
+     * them on (Boost theme settings, Experimental tab).
+     *
+     * @return string HTML
+     */
+    public function colour_mode_menu(): string {
+        $modeclass = '\theme_boost\colour_mode';
+        if (!class_exists($modeclass)) {
+            return '';
+        }
+        $menu = parent::colour_mode_menu();
+        if ($menu !== '' || !$modeclass::is_enabled() || !$modeclass::is_boost_theme()) {
+            return $menu;
+        }
+
+        $icons = ['light' => 'fa-sun', 'dark' => 'fa-moon', 'auto' => 'fa-circle-half-stroke'];
+        $current = $modeclass::get_current_mode();
+        $modes = [];
+        foreach ($modeclass::get_modes() as $mode) {
+            $label = get_string('colourmode:' . $mode, 'theme_boost');
+            $modes[] = [
+                'mode' => $mode,
+                'label' => $label,
+                'icon' => $icons[$mode] ?? 'fa-circle-half-stroke',
+                'togglelabel' => get_string('colourmodeselected', 'theme_boost', $label),
+                'isactive' => $mode === $current,
+            ];
+        }
+        return $this->render_from_template('theme_roshnilite/colour_mode_menu_visitor', [
+            'cookiename' => $modeclass::PREFERENCE,
+            'cookieattributes' => $modeclass::get_cookie_attributes(),
+            'currenticon' => $icons[$current] ?? 'fa-sun',
+            'currenttogglelabel' => get_string(
+                'colourmodeselected',
+                'theme_boost',
+                get_string('colourmode:' . $current, 'theme_boost')
+            ),
+            'modes' => $modes,
+        ]);
+    }
+
+    /**
      * The favicon, from the theme setting when one is uploaded.
      *
      * @return url

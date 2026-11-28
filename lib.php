@@ -122,95 +122,49 @@ function theme_roshnilite_get_main_scss_content($theme) {
 }
 
 /**
- * Parses CSS before it is cached.
+ * Fills the theme settings into the CSS before it is cached.
  *
- * This function can make alterations and replace patterns within the CSS.
+ * style/styles.css is plain, valid CSS with default values. Two comment
+ * markers in it are replaced here: one with the rules built from the
+ * settings (colours and fonts), placed after the default tokens so it
+ * overrides them, and one at the very end with the admin's custom CSS.
  *
- * @param string $css The CSS
+ * @param string $css The CSS.
  * @param theme_config $theme The theme config object.
- * @return string The parsed CSS The parsed CSS.
+ * @return string The CSS with the settings filled in.
  */
 function theme_roshnilite_process_css($css, $theme) {
-    $settings = $theme->settings;
+    return str_replace(
+        ['/* [[setting:settingsrules]] */', '/* [[setting:customcss]] */'],
+        [theme_roshnilite_get_settings_css($theme), (string) ($theme->settings->customcss ?? '')],
+        $css
+    );
+}
 
-    $css = str_replace('[[setting:fontrules]]', theme_roshnilite_get_font_css($theme), $css);
-
-    $css = theme_roshnilite_set_customcss($css, $settings->customcss ?? null);
-    $css = theme_roshnilite_set_maincolor($css, $settings->maincolor ?? null);
+/**
+ * The CSS built from the theme settings: the main and brand colour tokens,
+ * and the font rules. Colours that are not hex values are ignored, so a bad
+ * value can never break the stylesheet; the defaults in styles.css stay.
+ *
+ * @param theme_config $theme
+ * @return string
+ */
+function theme_roshnilite_get_settings_css($theme) {
+    $hex = '/^#[0-9a-f]{3,8}$/i';
+    $main = trim((string) ($theme->settings->maincolor ?? ''));
     // The accent follows the main colour unless a separate brand colour is set.
-    $css = theme_roshnilite_set_brandcolor($css, ($settings->brandcolor ?? '') ?: ($settings->maincolor ?? null));
-    $css = theme_roshnilite_set_fontsize($css, $settings->fontsize ?? null);
-    return $css;
-}
+    $brand = trim((string) ($theme->settings->brandcolor ?? '')) ?: $main;
 
-/**
- * Adds any custom font size to the CSS before it is cached.
- *
- * @param string $css The original CSS.
- * @param string $themefontsize The custom font size to add.
- * @return string The CSS which now contains our custom font size.
- */
-function theme_roshnilite_set_fontsize($css, $themefontsize) {
-    $tag = '[[setting:fontsize]]';
-    $replacement = $themefontsize;
-    if (empty($replacement)) {
-        $replacement = '15';
+    $tokens = '';
+    if (preg_match($hex, $main)) {
+        $tokens .= '--rl-primary: ' . $main . '; ';
     }
-    $css = str_replace($tag, $replacement, $css);
-    return $css;
-}
-
-/**
- * Adds any custom CSS to the CSS before it is cached.
- *
- * @param string $css The original CSS.
- * @param string $customcss The custom CSS to add.
- * @return string The CSS which now contains our custom CSS.
- */
-function theme_roshnilite_set_customcss($css, $customcss) {
-    $tag = '[[setting:customcss]]';
-    $replacement = $customcss;
-    if (empty($replacement)) {
-        $replacement = '';
+    if (preg_match($hex, $brand)) {
+        $tokens .= '--rl-accent: ' . $brand . '; ';
     }
+    $css = $tokens === '' ? '' : ':root { ' . $tokens . "}\n";
 
-    $css = str_replace($tag, $replacement, $css);
-
-    return $css;
-}
-
-/**
- * Adds any custom color to the CSS before it is cached.
- *
- * @param string $css The original CSS.
- * @param string $themecolor The custom CSS to add.
- * @return string The CSS which now contains our custom CSS.
- */
-function theme_roshnilite_set_maincolor($css, $themecolor) {
-    $tag = '[[setting:maincolor]]';
-    $replacement = $themecolor;
-    if (empty($replacement)) {
-        $replacement = '#e74c3c';
-    }
-    $css = str_replace($tag, $replacement, $css);
-    return $css;
-}
-
-/**
- * Adds any custom color to the CSS before it is cached.
- *
- * @param string $css The original CSS.
- * @param string $themecolor The custom CSS to add.
- * @return string The CSS which now contains our custom CSS.
- */
-function theme_roshnilite_set_brandcolor($css, $themecolor) {
-    $tag = '[[setting:brandcolor]]';
-    $replacement = $themecolor;
-    if (empty($replacement)) {
-        $replacement = '#e74c3c';
-    }
-    $css = str_replace($tag, $replacement, $css);
-    return $css;
+    return $css . theme_roshnilite_get_font_css($theme);
 }
 
 /**
